@@ -1,27 +1,27 @@
 [
     {
-        "description": "Understand the history and evolution of the Java programming language",
-        "priority": 8,
+        "description": "Investigate the history and evolution of the Java programming language",
+        "priority": 5,
         "type": "research"
     },
     {
-        "description": "Identify key features and principles of Java, such as object-oriented programming and platform independence",
-        "priority": 9,
-        "type": "research"
-    },
-    {
-        "description": "Explore popular applications and industries using Java, including Android app development, web development, and enterprise software",
+        "description": "Gather information on the design goals, features, and philosophy of Java",
         "priority": 7,
         "type": "research"
     },
     {
-        "description": "Document major libraries and frameworks used in Java development, such as Spring, Hibernate, and Apache Commons",
+        "description": "Identify key aspects of Java, including memory management, security, and platform independence",
+        "priority": 8,
+        "type": "research"
+    },
+    {
+        "description": "Research popular use cases, industries, and applications that utilize Java",
         "priority": 6,
         "type": "research"
     },
     {
-        "description": "Research the Java ecosystem, including the Java Community Process (JCP), Java Development Kit (JDK), and Java Virtual Machine (JVM)",
-        "priority": 5,
+        "description": "Explore the most popular libraries, frameworks, and tools used in Java development",
+        "priority": 8,
         "type": "research"
     }
 ]
