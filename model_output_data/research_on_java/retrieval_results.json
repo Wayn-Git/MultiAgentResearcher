@@ -1,0 +1,28 @@
+[
+    {
+        "source": "https://example.com/java-overview",
+        "title": "Libraries for Java",
+        "summary": "There is no specific information in the given search results.",
+        "key_points": []
+    },
+    {
+        "source": "https://example.com/java-features",
+        "title": "Popular Java Frameworks",
+        "summary": "There is no specific information in the given search results.",
+        "key_points": []
+    },
+    {
+        "source": "https://example.com/java-tools",
+        "title": "Most popular Java Development Tools",
+        "summary": "Eclipse, NetBeans, and IntelliJ IDEA are popular Integrated Development Environments (IDEs) for Java development. Maven and Gradle are popular build tools. Java Development Kit (JDK) is a collection of tools for developing, testing, and running Java applications. JUnit is a unit testing framework for Java. ",
+        "key_points": [
+            "Eclipse",
+            "NetBeans",
+            "IntelliJ IDEA",
+            "Maven",
+            "Gradle",
+            "Java Development Kit (JDK)",
+            "JUnit"
+        ]
+    }
+]
