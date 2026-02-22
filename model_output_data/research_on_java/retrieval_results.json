@@ -1,28 +1,56 @@
 [
     {
-        "source": "https://example.com/java-overview",
-        "title": "Libraries for Java",
-        "summary": "There is no specific information in the given search results.",
-        "key_points": []
-    },
-    {
-        "source": "https://example.com/java-features",
-        "title": "Popular Java Frameworks",
-        "summary": "There is no specific information in the given search results.",
-        "key_points": []
-    },
-    {
-        "source": "https://example.com/java-tools",
-        "title": "Most popular Java Development Tools",
-        "summary": "Eclipse, NetBeans, and IntelliJ IDEA are popular Integrated Development Environments (IDEs) for Java development. Maven and Gradle are popular build tools. Java Development Kit (JDK) is a collection of tools for developing, testing, and running Java applications. JUnit is a unit testing framework for Java. ",
+        "source": "https://medium.com/thefreshwrites/exploring-the-most-common-java-libraries-frameworks-6c7ae547d23c",
+        "title": "Exploring The Most Common Java Libraries & Frameworks",
+        "summary": "A list of popular Java libraries and frameworks.",
         "key_points": [
-            "Eclipse",
+            "Spring Framework",
+            "Hibernate",
+            "Apache Maven",
+            "Guava",
+            "JUnit",
+            "Apache Commons"
+        ]
+    },
+    {
+        "source": "https://www.diffblue.com/resources/most-popular-libraries-used-by-java-developers/",
+        "title": "Most popular libraries used by Java developers 2025 - Diffblue",
+        "summary": "A list of popular Java libraries, enhancing productivity and simplifying complex tasks for developers.",
+        "key_points": [
+            "Spring Framework",
+            "Hibernate",
+            "Apache Commons"
+        ]
+    },
+    {
+        "source": "https://scand.com/company/blog/top-open-source-java-frameworks-and-tools/",
+        "title": "Most Popular Open Source Java Frameworks and Tools - SCAND",
+        "summary": "A list of open-source Java frameworks and tools, including NetBeans.",
+        "key_points": [
+            "Spring",
             "NetBeans",
-            "IntelliJ IDEA",
-            "Maven",
-            "Gradle",
-            "Java Development Kit (JDK)",
-            "JUnit"
+            "Eclipse"
+        ]
+    },
+    {
+        "source": "https://www.drcsystems.com/blogs/popular-java-frameworks-for-web-development/",
+        "title": "Popular Java Frameworks for Web Development in 2025",
+        "summary": "A list of popular Java frameworks for web development, including Spring and Vaadin.",
+        "key_points": [
+            "Spring",
+            "JSF",
+            "Vaadin"
+        ]
+    },
+    {
+        "source": "https://finitestate.io/blog/top-10-java-libraries",
+        "title": "10 Java Libraries Every Developer Should Know About",
+        "summary": "A list of essential Java libraries, including Apache Commons and Jackson.",
+        "key_points": [
+            "Apache Commons",
+            "Jackson",
+            "JUnit",
+            "Guava"
         ]
     }
 ]
