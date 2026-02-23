@@ -1,56 +1,47 @@
 [
     {
         "source": "https://medium.com/thefreshwrites/exploring-the-most-common-java-libraries-frameworks-6c7ae547d23c",
-        "title": "Exploring The Most Common Java Libraries & Frameworks",
-        "summary": "A list of popular Java libraries and frameworks.",
+        "title": "The Spring Framework",
+        "summary": "The most popular Java framework for building enterprise-level applications.",
         "key_points": [
-            "Spring Framework",
-            "Hibernate",
-            "Apache Maven",
-            "Guava",
-            "JUnit",
-            "Apache Commons"
+            "maps Java objects to database tables",
+            "builds enterprise-level applications"
         ]
     },
     {
         "source": "https://www.diffblue.com/resources/most-popular-libraries-used-by-java-developers/",
-        "title": "Most popular libraries used by Java developers 2025 - Diffblue",
-        "summary": "A list of popular Java libraries, enhancing productivity and simplifying complex tasks for developers.",
+        "title": "Popular libraries used by Java developers",
+        "summary": "Essential libraries in the Java ecosystem.",
         "key_points": [
-            "Spring Framework",
-            "Hibernate",
-            "Apache Commons"
+            "enhance productivity",
+            "simplify complex tasks"
         ]
     },
     {
-        "source": "https://scand.com/company/blog/top-open-source-java-frameworks-and-tools/",
-        "title": "Most Popular Open Source Java Frameworks and Tools - SCAND",
-        "summary": "A list of open-source Java frameworks and tools, including NetBeans.",
+        "source": "https://rollbar.com/blog/most-popular-java-web-frameworks/",
+        "title": "Most Popular Java Web Frameworks",
+        "summary": "Complete programming model built on and with Java.",
         "key_points": [
-            "Spring",
-            "NetBeans",
-            "Eclipse"
-        ]
-    },
-    {
-        "source": "https://www.drcsystems.com/blogs/popular-java-frameworks-for-web-development/",
-        "title": "Popular Java Frameworks for Web Development in 2025",
-        "summary": "A list of popular Java frameworks for web development, including Spring and Vaadin.",
-        "key_points": [
-            "Spring",
-            "JSF",
-            "Vaadin"
+            "Spring Boot",
+            "modern Java features",
+            "excellent developer experience"
         ]
     },
     {
         "source": "https://finitestate.io/blog/top-10-java-libraries",
-        "title": "10 Java Libraries Every Developer Should Know About",
-        "summary": "A list of essential Java libraries, including Apache Commons and Jackson.",
+        "title": "Top 10 Java Libraries Every Developer Should Know About",
+        "summary": "General-purpose Java library with reusable components.",
         "key_points": [
             "Apache Commons",
-            "Jackson",
-            "JUnit",
-            "Guava"
+            "JSON parsing library - Jackson"
+        ]
+    },
+    {
+        "source": "https://www.browserstack.com/guide/java-frameworks",
+        "title": "Top 15 Java Frameworks for Modern Application Development",
+        "summary": "Robust frameworks for simplifying development process.",
+        "key_points": [
+            "list of top 15 Java frameworks"
         ]
     }
 ]
