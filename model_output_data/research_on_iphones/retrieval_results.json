@@ -1,0 +1,50 @@
+{
+    "Research the environmental and social implications of iPhone production and usage (e.g., e-waste, supply chains, labor practices)": [
+        {
+            "source": "https://medium.com/@abubakarrajput342/environmental-impact-of-the-iphone-sustainability-and-e-waste-challenges-ea16ae8ba078",
+            "title": "Environmental Impact of the iPhone: Sustainability and E-waste Challenges",
+            "summary": "The energy consumed during the production, transportation, and use of iPhones contributes to greenhouse gas emissions and climate change.",
+            "key_points": [
+                "greenhouse gas emissions",
+                "climate change"
+            ]
+        },
+        {
+            "source": "https://www.scribd.com/document/638012858/04-Activity-1-EMS",
+            "title": "iPhone Environmental Impact Analysis",
+            "summary": "This document analyzes the environmental impacts of the life cycle of an iPhone, from obtaining raw materials to disposal.",
+            "key_points": [
+                "life cycle assessment",
+                "raw materials",
+                "disposal"
+            ]
+        },
+        {
+            "source": "https://www.ethicalconsumer.org/technology/global-supply-chain-mobile-phone",
+            "title": "The global supply chain of a mobile phone | Ethical Consumer",
+            "summary": "Smartphones are made of several minerals, and their supply chain involves various stages.",
+            "key_points": [
+                "minerals",
+                "supply chain stages"
+            ]
+        },
+        {
+            "source": "https://www.sciencedirect.com/science/article/pii/S2773167722000115",
+            "title": "Disentangling the worldwide web of e-waste and climate change co ...",
+            "summary": "Electronics waste disproportionately affects low-income communities and marginalized ecosystems.",
+            "key_points": [
+                "e-waste impact",
+                "low-income communities"
+            ]
+        },
+        {
+            "source": "https://www.spglobal.com/market-intelligence/en/news-insights/research/sustainability-iphone-apple-watch-supply-chain",
+            "title": "The greening of the iPhone supply chain",
+            "summary": "Apple is reducing carbon emissions in its supply chain.",
+            "key_points": [
+                "carbon emissions reduction",
+                "supply chain sustainability"
+            ]
+        }
+    ]
+}

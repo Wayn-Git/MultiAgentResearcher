@@ -1,0 +1,28 @@
+{
+    "global_gaps": [],
+    "cross_task_weaknesses": [
+        "Labor practices and human rights issues"
+    ],
+    "coverage_assessment": {
+        "breadth": "Medium to High",
+        "depth": "Medium",
+        "balance": "Environmental and social implications are covered, but labor and political impacts are underrepresented"
+    },
+    "suggested_new_tasks": [
+        {
+            "description": "Examine the effects of iPhone ownership on individuals and communities in low-income and marginalized ecosystems",
+            "priority": 4,
+            "type": "research"
+        },
+        {
+            "description": "Investigate the specific labor practices and human rights issues in iPhone supply chains",
+            "priority": 5,
+            "type": "research"
+        },
+        {
+            "description": "Evaluate the political and economic impacts of iPhone production and usage on countries and regions",
+            "priority": 3,
+            "type": "research"
+        }
+    ]
+}

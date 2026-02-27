@@ -1,0 +1,27 @@
+[
+    {
+        "description": "Conduct a literature review on the history of iPhone development, from the first iPhone in 2007 to the latest models",
+        "priority": 6,
+        "type": "research"
+    },
+    {
+        "description": "Identify and analyze key iPhone features and technologies (e.g., Touch ID, Face ID, camera advancements)",
+        "priority": 7,
+        "type": "research"
+    },
+    {
+        "description": "Study market trends and sales data of iPhone models to understand consumer preferences and market share ",
+        "priority": 5,
+        "type": "research"
+    },
+    {
+        "description": "Explore the impact of iPhones on mobile software development, including apps, games, and services",
+        "priority": 8,
+        "type": "research"
+    },
+    {
+        "description": "Research the environmental and social implications of iPhone production and usage (e.g., e-waste, supply chains, labor practices)",
+        "priority": 4,
+        "type": "research"
+    }
+]
