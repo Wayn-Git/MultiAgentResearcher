@@ -1,0 +1,274 @@
+{
+    "Gather an overview of what Java is and its historical significance": [
+        {
+            "source": "Roman Glushach - Medium",
+            "title": "The Evolution of Java: A Historical Perspective",
+            "summary": "Java is a general-purpose, object-oriented, platform-independent, and high-performance language that can run on any device that supports a Java virtual machine (JVM).",
+            "key_points": [
+                "Developed by James Gosling and a team of engineers at Sun Microsystems in 1991 as part of the 'Green' project.",
+                "Initially designed for consumer electronic devices, such as smart TVs, set-top boxes, and handheld controllers.",
+                "The goal was to create a language that was simple, robust, portable, and secure."
+            ]
+        },
+        {
+            "source": "Unstop - Blog",
+            "title": "History Of Java | Complete Timeline + Infographic & ...",
+            "summary": "Java was created by James Gosling and his team at Sun Microsystems in 1991. It was originally developed for interactive television and embedded systems under the Green Project but later repurposed for web and enterprise applications.",
+            "key_points": [
+                "The original name of Java was 'Oak', inspired by an oak tree outside the office of the development team.",
+                "The name was later changed to Java in 1995 because Oak had already been trademarked by a company called Oak Technology.",
+                "Java is known for its platform independence and robust ecosystem."
+            ]
+        },
+        {
+            "source": "Wikipedia",
+            "title": "Java (programming language) - Wikipedia",
+            "summary": "Java is a high-level, general-purpose, memory-safe, object-oriented programming language that provides write once, run anywhere (WORA) functionality.",
+            "key_points": [
+                "The syntax of Java is similar to C and C++, but has fewer low-level facilities.",
+                "Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM).",
+                "Java was first publicly released in 1996 as Java 1.0."
+            ]
+        },
+        {
+            "source": "GeeksforGeeks",
+            "title": "The Complete History of Java Programming Language",
+            "summary": "Java was developed by James Gosling and his team at Sun Microsystems in the early 1990s as a platform independent language for embedded devices.",
+            "key_points": [
+                "The team initially explored C++ but found it to be too heavy and too closely tied to platform dependencies.",
+                "The Java Class Library expanded from a few hundred classes to thousands over the years.",
+                "Java has undergone continual revision via the Java Community Process (JCP) since its first public release in 1996."
+            ]
+        },
+        {
+            "source": "PVS-Studio",
+            "title": "History of Java: evolution, legal battles with Microsoft, Mars ...",
+            "summary": "Java's history spans from its inception to conquering the Red Planet, with essential tools every Java developer relies on.",
+            "key_points": [
+                "The Java programming language project was launched in 1991 at Sun Microsystems by engineers James Gosling, Mike Sheridan, and Patrick Naughton.",
+                "The primary goal was to create a universal language capable of running on diverse electronic devices.",
+                "Java was used for software development at NASA's Jet Propulsion Laboratory (JPL) for commanding and controlling the Mars Sojourner rover in 1995."
+            ]
+        }
+    ],
+    "Identify key features of the Java programming language and its ecosystem": [
+        {
+            "source": "https://www.almabetter.com/bytes/articles/features-of-java",
+            "title": "Key Features of Java Programming Language",
+            "summary": "Java is a popular programming language with numerous features, including simplicity, readability, strong memory management, and automatic garbage collection.",
+            "key_points": [
+                "Simplicity and readability contribute to its widespread adoption",
+                "Strong memory management, automatic garbage collection, and built-in security features",
+                "Extensive standard library and rich ecosystem of frameworks, libraries, and tools",
+                "Platform independence",
+                "Multithreading support for efficient, responsive, and concurrent applications"
+            ]
+        },
+        {
+            "source": "http://ngl.70.s1.nabble.com/The-Java-Ecosystem-td7577912.html",
+            "title": "The Java Ecosystem",
+            "summary": "Java is a comprehensive ecosystem with various libraries and frameworks, including Spring, Hibernate, and Apache Struts.",
+            "key_points": [
+                "Platform independence",
+                "Object-Oriented Programming (OOP) principles",
+                "Java Development Kit (JDK) and Java Runtime Environment (JRE)",
+                "Massive collection of libraries and frameworks",
+                "Enables developers to target multiple operating systems with a single codebase"
+            ]
+        },
+        {
+            "source": "https://www.oracle.com/java/technologies/introduction-to-java.html",
+            "title": "The Java Language Environment",
+            "summary": "Java is designed to be portable, interpreted, high-performance, and simple, with a focus on object-oriented programming and distributed systems.",
+            "key_points": [
+                "Portable and interpreted language",
+                "High-performance and simple",
+                "Object-oriented from the ground up",
+                "Designed for distributed systems",
+                "HotJava Browser for secure dynamic downloads and executions"
+            ]
+        },
+        {
+            "source": "https://www.tutorialspoint.com/java/java-features.htm",
+            "title": "Java - Features",
+            "summary": "Java has numerous features, including object-oriented, platform-independent, simple, secure, architecture-neutral, portable, robust, multithreaded, interpreted, high-performance, distributed, and dynamic.",
+            "key_points": [
+                "Object Oriented",
+                "Platform Independent",
+                "Simple",
+                "Secure",
+                "Architecture-neutral",
+                "Portable",
+                "Robust",
+                "Multithreaded",
+                "Interpreted",
+                "High Performance",
+                "Distributed",
+                "Dynamic"
+            ]
+        },
+        {
+            "source": "https://vinncorp.com/exploring-java-ecosystem-essential-tools-and-libraries-for-developers/",
+            "title": "Exploring Java Ecosystem: Essential Tools and Libraries ...",
+            "summary": "Java has a vast and active community, leading to numerous development tools, hosting platforms, and integrations that enhance development workflow.",
+            "key_points": [
+                "Vast and active community",
+                "Numerous development tools",
+                "Hosting platforms (like GitHub, GitLab, and Bitbucket)",
+                "Integrations that enhance development workflow"
+            ]
+        }
+    ],
+    "Research popular Java libraries and frameworks (e.g. Spring, Hibernate)": [
+        {
+            "source": "https://medium.com/thefreshwrites/exploring-the-most-common-java-libraries-frameworks-6c7ae547d23c",
+            "title": "Spring Framework",
+            "summary": "a comprehensive ecosystem for building enterprise-level applications",
+            "key_points": [
+                "Spring MVC: A module for building robust and flexible web applications",
+                "Spring Security: A robust security framework to secure Java applications",
+                "Spring Data: Simplifies data access with a consistent and easy-to-use API",
+                "Spring Boot: Enables rapid application development with auto-configuration and convention-over-configuration features"
+            ]
+        },
+        {
+            "source": "https://www.ksolves.com/blog/java/java-frameworks-for-modern-web-application-development",
+            "title": "Grails",
+            "summary": "an open-source, full-stack web application framework that leverages the Groovy programming language",
+            "key_points": [
+                "rapid development with the convention over configuration paradigm",
+                "seamless integration with Java technologies like Spring and Hibernate",
+                "robust foundation for building scalable web applications"
+            ]
+        },
+        {
+            "source": "https://mediusware.com/blog/the-top-10-most-popular-java-frameworks",
+            "title": "Spring Framework",
+            "summary": "a leading Java framework for building modern, scalable software systems",
+            "key_points": [
+                "strengths: robust, flexible, and widely adopted",
+                "limits: complex, steep learning curve",
+                "best use cases: enterprise-level applications, complex systems"
+            ]
+        },
+        {
+            "source": "https://vaadin.com/blog/most-popular-java-frameworks-2026",
+            "title": "Spring Boot",
+            "summary": "the most popular Java framework in 2026, with the largest ecosystem and best documentation",
+            "key_points": [
+                "largest ecosystem, best documentation, mature cloud-native tooling, and biggest community",
+                "default choice for most new Java web projects"
+            ]
+        },
+        {
+            "source": "https://rollbar.com/blog/most-popular-java-web-frameworks/",
+            "title": "Quarkus",
+            "summary": "a cloud-native Java framework offering seamless integration with Kubernetes and live coding",
+            "key_points": [
+                "seamless integration with Kubernetes and reactive programming",
+                "excellent developer experience with extensions for popular Java libraries and frameworks"
+            ]
+        }
+    ],
+    "Examine uses of Java in various industries (e.g. Android app development, enterprise software)": [
+        {
+            "source": "https://vaadin.com/blog/java-for-enterprise-applications",
+            "title": "4 Benefits of Java for Enterprise Application Development",
+            "summary": "Java has been a popular choice for enterprise software development since the early 1990s.",
+            "key_points": [
+                "Java is used in enterprise applications across all tiers, including web front end, business logic, and integration layers.",
+                "Java is used in many areas across large organizations, including microservices and high-performance systems."
+            ]
+        },
+        {
+            "source": "https://www.fusion-institute.com/understanding-the-importance-of-java-in-software-development",
+            "title": "Understanding the Importance of Java in Software Development",
+            "summary": "Java is used in various industries, including Android app development, enterprise software, and embedded systems.",
+            "key_points": [
+                "Java is used for most Android applications, enterprise-level backend systems, and cloud-based services.",
+                "Java is used in embedded devices and IoT platforms via Java ME or Micro Edition."
+            ]
+        },
+        {
+            "source": "https://www.coursera.org/articles/what-is-java-used-for",
+            "title": "What Is Java Used For?",
+            "summary": "Java is used by many companies, including social media, tech, and e-commerce.",
+            "key_points": [
+                "Java is used by companies like Airbnb, Pinterest, Uber, Spotify, and Amazon.",
+                "Java is used for back-end/server-side development, application and data processing, and software development, including Android apps."
+            ]
+        },
+        {
+            "source": "https://www.geeksforgeeks.org/blogs/top-applications-of-java-in-real-world/",
+            "title": "Top 20 Java Applications in Real World [2025]",
+            "summary": "Java is used in various industries, including enterprise systems, web applications, and emerging technologies like blockchain and IoT.",
+            "key_points": [
+                "Java is widely adopted in enterprise systems, web applications, and emerging technologies.",
+                "Java offers versatile career opportunities in mobile app development, big data, game development, AI/ML, or cloud computing."
+            ]
+        },
+        {
+            "source": "https://developers.redhat.com/topics/enterprise-java",
+            "title": "Enterprise Java",
+            "summary": "Enterprise Java is used to build applications utilizing microservices, distributed computing, web services, and high-performance applications.",
+            "key_points": [
+                "Enterprise Java is used across government, telecom, banking information systems, accounting, and e-commerce.",
+                "Enterprise Java includes tools like EJB, JMS, JPA, JTA, and JSF."
+            ]
+        }
+    ],
+    "Investigate Java's platform independence and virtual machine concept": [],
+    "Investigate the latest trends and best practices in using Java for cloud-native and serverless applications.": [
+        {
+            "source": "https://dev.to/satyam_gupta_0d1ff2152dcc/cloud-native-java-a-developers-guide-to-modern-scalable-apps-39lj",
+            "title": "Cloud-Native Java: A Developer's Guide to Modern, Scalable Apps",
+            "summary": "Designing stateless services, externalizing configuration, and adopting microservices architecture are crucial best practices for building robust cloud-native Java apps.",
+            "key_points": [
+                "Adopting microservices architecture",
+                "Designing stateless services",
+                "Externalizing all configuration"
+            ]
+        },
+        {
+            "source": "https://www.linkedin.com/pulse/modern-java-development-trends-tools-future-ecosystem-bruno-haick-ffk3f",
+            "title": "Modern Java Development: Trends, Tools, and the Future ... - LinkedIn",
+            "summary": "GraalVM's native image support improves startup time and memory consumption, while Spring Boot 3 introduces support for Jakarta EE 10.",
+            "key_points": [
+                "GraalVM's native image support",
+                "Spring Boot 3 and Jakarta EE 10"
+            ]
+        },
+        {
+            "source": "https://www.refontelearning.com/blog/cloud-development-and-best-practices-in-2026",
+            "title": "Cloud Development and Best Practices in 2026 - Refonte Learning",
+            "summary": "Modern best practices include serverless microservices, event-driven architectures, zero-trust security, and service meshes.",
+            "key_points": [
+                "Serverless microservices",
+                "Event-driven architectures",
+                "Zero-trust security",
+                "Service meshes"
+            ]
+        },
+        {
+            "source": "https://www.manektech.com/blog/java-development-trends",
+            "title": "Future of Java Technology: Java Development Trends to Watch Out ...",
+            "summary": "Micronaut and Quarkus are examples of lightweight and performance-oriented frameworks for building microservices and cloud-native applications.",
+            "key_points": [
+                "Micronaut",
+                "Quarkus",
+                "SaaS & PaaS",
+                "Native Image Compilation with GraalVM"
+            ]
+        },
+        {
+            "source": "https://www.oracle.com/a/ocom/docs/java/vdc-java-for-secure-cloud-based-apps-brief.pdf",
+            "title": "[PDF] Java: Modernizing Development for Secure, Cloud-based Application",
+            "summary": "Java is the leading choice for professional development organizations for cloud development and helps organizations efficiently develop cloud-native applications.",
+            "key_points": [
+                "Java as a leading choice for cloud development",
+                "Java's presence in the cloud ecosystem"
+            ]
+        }
+    ],
+    "Create a case study on the use of Java in a real-world blockchain or AI/ML project.": []
+}

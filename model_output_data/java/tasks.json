@@ -1,27 +1,42 @@
 [
     {
-        "description": "Understand the definition, history, and evolution of Java programming language",
+        "description": "Gather an overview of what Java is and its historical significance",
+        "priority": 9,
+        "type": "research"
+    },
+    {
+        "description": "Identify key features of the Java programming language and its ecosystem",
         "priority": 8,
         "type": "research"
     },
     {
-        "description": "Examine the core features, syntax, and semantics of Java, including object-oriented programming (OOP) principles",
+        "description": "Research popular Java libraries and frameworks (e.g. Spring, Hibernate)",
         "priority": 7,
         "type": "research"
     },
     {
-        "description": "Identify popular Java applications, frameworks, and libraries, such as Spring, Hibernate, and Android Studio",
+        "description": "Examine uses of Java in various industries (e.g. Android app development, enterprise software)",
         "priority": 6,
         "type": "research"
     },
     {
-        "description": "Explore the Java ecosystem, including the Java Virtual Machine (JVM), Java Runtime Environment (JRE), and Java Development Kit (JDK)",
+        "description": "Investigate Java's platform independence and virtual machine concept",
         "priority": 5,
         "type": "research"
     },
     {
-        "description": "Investigate the current trends, developments, and challenges in the Java community, including version updates and performance enhancements",
+        "description": "Investigate the latest trends and best practices in using Java for cloud-native and serverless applications.",
         "priority": 4,
+        "type": "research"
+    },
+    {
+        "description": "Create a case study on the use of Java in a real-world blockchain or AI/ML project.",
+        "priority": 4,
+        "type": "research"
+    },
+    {
+        "description": "Develop a Java-based microservices architecture for event-driven and zero-trust cloud development",
+        "priority": 5,
         "type": "research"
     }
 ]
