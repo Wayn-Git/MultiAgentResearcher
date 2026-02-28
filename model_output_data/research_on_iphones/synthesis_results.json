@@ -1,22 +1,96 @@
 {
-    "Research the environmental and social implications of iPhone production and usage (e.g., e-waste, supply chains, labor practices)": {
-        "task": "Research the environmental and social implications of iPhone production and usage (e.g., e-waste, supply chains, labor practices)",
-        "synthesized_summary": "The production and usage of iPhones have significant environmental and social implications, including greenhouse gas emissions, e-waste challenges, and sustainability concerns in the supply chain. However, Apple is making efforts to reduce its carbon footprint through various initiatives.",
+    "Survey major components and features of iPhone history, models, and variants": {
+        "task": "Survey major components and features of iPhone history, models, and variants",
+        "synthesized_summary": "The iPhone has undergone significant evolution since its release in 2007. Early models featured 2-megapixel cameras and 16 GB of storage. Over time, iPhones introduced improved cameras, larger storage, and advanced features like Apple Pay, dual cameras, and higher-resolution displays. Designwise, iPhones have transitioned from flat glass panels to color-infused glass backs, with varying screen sizes and notch screen cutouts.",
         "core_concepts": [
-            "greenhouse gas emissions",
-            "e-waste",
-            "supply chain sustainability",
-            "minerals",
-            "disposal"
+            "iPhone history",
+            "models",
+            "variants"
         ],
         "strongly_supported_points": [
-            "The energy consumed during iPhone production, transportation, and use contributes to greenhouse gas emissions and climate change.",
-            "e-waste disproportionately affects low-income communities and marginalized ecosystems.",
-            "Apple is reducing carbon emissions in its supply chain through various initiatives.",
-            "The supply chain of a mobile phone involves stages that include obtaining raw materials."
+            "The first iPhone was released in 2007 with 16 GB storage and a 2-megapixel camera.",
+            "iPhones have undergone significant camera upgrades, including dual cameras and higher-resolution sensors.",
+            "Apple Pay was introduced in the iPhone 6.",
+            "iPhones have featured a range of design elements, including flat glass panels, color-infused glass backs, and varying screen sizes.",
+            "The notch screen cutout has been a distinctive feature of recent iPhone models."
         ],
         "weak_or_missing_areas": [
-            "More research is needed to understand the labor practices and human rights issues in iPhone supply chains."
+            "Comparison of different iPhone variants' performance",
+            "Timeline of all iPhone releases with specific years"
+        ]
+    },
+    "Identify key market trends, technological advancements, and sales data of iPhones": {
+        "task": "Identify key market trends, technological advancements, and sales data of iPhones",
+        "synthesized_summary": "The iPhone market has seen steady growth in sales and revenue, with Apple's total revenue increasing to $416 billion in 2025 and iPhone sales accounting for 50% of the total revenue. The number of iPhones sold has reached 247 million in 2025, with an active iPhone user base of 1.5 billion worldwide. However, there is limited information on specific technological advancements, except for the Average Selling Price (ASP) of an iPhone being $691 in 2015 and $705 in 2017.",
+        "core_concepts": [
+            "iPhone market trends",
+            "sales data",
+            "technological advancements"
+        ],
+        "strongly_supported_points": [
+            "iPhone sales have consistently accounted for around 50% of Apple's total revenue since 2021",
+            "The number of iPhones sold has exceeded 200 million in 2021 and 2025",
+            "Apple's revenue has seen steady growth, reaching $416 billion in 2025"
+        ],
+        "weak_or_missing_areas": [
+            "Lack of specific information on recent technological advancements",
+            "Insufficient data on iPhone market share and competition"
+        ]
+    },
+    "Analyze the impact of iPhones on mobile technology industry, app ecosystem, and user behavior": {
+        "task": "Analyze the impact of iPhones on mobile technology industry, app ecosystem, and user behavior",
+        "synthesized_summary": "The iPhone revolutionized mobile technology and communication, changing consumer behavior and industry landscapes. It introduced innovative design, a touchscreen interface, and a robust app ecosystem, leading to the creation of mobile-first businesses and multi-billion-dollar industries.",
+        "core_concepts": [
+            "Innovative design and user interface",
+            "App ecosystem and mobile-first businesses",
+            "Transformed consumer behavior and industry landscapes"
+        ],
+        "strongly_supported_points": [
+            "iPhone's capacitive touchscreen revolutionized user interface design",
+            "App Store created a platform for developers to showcase innovative ideas",
+            "iPhone encouraged a mobile-first mindset and transformed industries like gaming, finance, and social networking",
+            "iPhone became the most popular smartphone worldwide and set new standards for mobile design"
+        ],
+        "weak_or_missing_areas": []
+    },
+    "Examine the user interface, operating system, and software updates of iPhone models": {
+        "task": "Examine the user interface, operating system, and software updates of iPhone models",
+        "synthesized_summary": "The iPhone models operate on iOS, an Apple-designed operating system, with the latest version being iOS 26.2.1. iOS has seen several updates over the years, including the introduction of touch and gesture interface with iOS 11, and significant shifts in mobile experience with iOS 13. iPhone models' software updates are available on Apple's official website. Regular updates ensure the operating system stays fresh, secure, and packed with features.",
+        "core_concepts": [
+            "iPhone models operating system",
+            "iOS updates",
+            "software updates",
+            "iPhone user interface"
+        ],
+        "strongly_supported_points": [
+            "iOS 26.2.1 is the latest operating system for supported iPhone models",
+            "iPhone models' software updates available on Apple's official website",
+            "Regular updates ensure iOS stays fresh, secure, and packed with exciting new features"
+        ],
+        "weak_or_missing_areas": [
+            "There is limited information on the timeline of iOS updates",
+            "No clear information on the annual release cycle of new iOS versions"
+        ]
+    },
+    "Investigate the role of iPhones in e-commerce, online services, and digital payments": {
+        "task": "Investigate the role of iPhones in e-commerce, online services, and digital payments",
+        "synthesized_summary": "iPhones play a significant role in e-commerce, digital payments, and online services through features such as Tap to Pay, Apple Pay, and secure authentication. This facilitates a seamless and secure payment experience for users, with a growing adoption rate in various markets.",
+        "core_concepts": [
+            "Tap to Pay on iPhone",
+            "Apple Pay",
+            "Security and authentication",
+            "Digital payments",
+            "E-commerce"
+        ],
+        "strongly_supported_points": [
+            "iPhones support contactless payments through Tap to Pay on iPhone and Apple Pay",
+            "Tap to Pay on iPhone does not require additional hardware or payment terminals",
+            "Apple Pay is supported on various Apple devices",
+            "Digital payments revenue worldwide is expected to reach $12.06 trillion by 2027"
+        ],
+        "weak_or_missing_areas": [
+            "Limited to Apple users only, excluding Android users",
+            "Adoption in certain markets may be hindered due to restrictions or regulatory issues"
         ]
     }
 }

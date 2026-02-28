@@ -1,49 +1,263 @@
 {
-    "Research the environmental and social implications of iPhone production and usage (e.g., e-waste, supply chains, labor practices)": [
+    "Survey major components and features of iPhone history, models, and variants": [
         {
-            "source": "https://medium.com/@abubakarrajput342/environmental-impact-of-the-iphone-sustainability-and-e-waste-challenges-ea16ae8ba078",
-            "title": "Environmental Impact of the iPhone: Sustainability and E-waste Challenges",
-            "summary": "The energy consumed during the production, transportation, and use of iPhones contributes to greenhouse gas emissions and climate change.",
+            "source": "https://www.britannica.com/topic/list-of-iPhone-models",
+            "title": "List of iPhone models | Features & Evolution | Britannica",
+            "summary": "The first iPhone allowed 16 gigabytes (GB) of storage and had a 2-megapixel camera.",
             "key_points": [
-                "greenhouse gas emissions",
-                "climate change"
+                "The first iPhone was released in 2007.",
+                "The first iPhone allowed 16 GB of storage and had a 2-megapixel camera.",
+                "The first iPhone also allowed users to browse the Internet on the go."
             ]
         },
         {
-            "source": "https://www.scribd.com/document/638012858/04-Activity-1-EMS",
-            "title": "iPhone Environmental Impact Analysis",
-            "summary": "This document analyzes the environmental impacts of the life cycle of an iPhone, from obtaining raw materials to disposal.",
+            "source": "https://www.iphonelife.com/content/evolution-iphone-every-model-2007-2016",
+            "title": "The History of Every iPhone Model from 2007\u20132025",
+            "summary": "The iPhone 7 Plus proved to be more popular than previous Plus models due to its new dual camera, which made a significantly improved zoom feature possible, and Portrait mode, a software update that let iPhone 7 Plus users take impressive photos using Depth of Field.",
             "key_points": [
-                "life cycle assessment",
-                "raw materials",
-                "disposal"
+                "The iPhone 7 Plus had a dual camera with improved zoom and Portrait mode.",
+                "The iPhone 7 Plus shipped without a headphone jack.",
+                "The iPhone 15 and 15 Plus added a new feature: color-infused glass backs."
             ]
         },
         {
-            "source": "https://www.ethicalconsumer.org/technology/global-supply-chain-mobile-phone",
-            "title": "The global supply chain of a mobile phone | Ethical Consumer",
-            "summary": "Smartphones are made of several minerals, and their supply chain involves various stages.",
+            "source": "https://en.wikipedia.org/wiki/IPhone",
+            "title": "iPhone - Wikipedia",
+            "summary": "The iPhone 14 Pro and 14 Pro Max introduced a higher-resolution 48-megapixel main camera, the first increase in megapixel count since the iPhone 6s.",
             "key_points": [
-                "minerals",
-                "supply chain stages"
+                "The iPhone 13 introduced larger camera sensors, larger batteries, and a narrower notch screen cutout.",
+                "The iPhone 14 Pro and Pro Max introduced a higher-resolution 48-megapixel main camera.",
+                "The iPhone 14 Plus introduced the large 6.7-inch screen size, first seen on the iPhone 12 Pro Max."
             ]
         },
         {
-            "source": "https://www.sciencedirect.com/science/article/pii/S2773167722000115",
-            "title": "Disentangling the worldwide web of e-waste and climate change co ...",
-            "summary": "Electronics waste disproportionately affects low-income communities and marginalized ecosystems.",
+            "source": "https://www.ign.com/articles/all-iphone-release-dates-in-order",
+            "title": "Every iPhone Generation: A Full History of Release Dates - IGN",
+            "summary": "The iPhone 6 introduced Apple Pay and multiple models, including the iPhone 6 Plus with a larger 5.5-inch screen.",
             "key_points": [
-                "e-waste impact",
-                "low-income communities"
+                "The iPhone 6 introduced Apple Pay and multiple models.",
+                "The iPhone 6 Plus had a larger 5.5-inch screen.",
+                "The iPhone SE (2016) brought back the body style of the iPhone 5S and packed it with new, updated features."
             ]
         },
         {
-            "source": "https://www.spglobal.com/market-intelligence/en/news-insights/research/sustainability-iphone-apple-watch-supply-chain",
-            "title": "The greening of the iPhone supply chain",
-            "summary": "Apple is reducing carbon emissions in its supply chain.",
+            "source": "https://medium.com/design-bootcamp/the-evolution-of-iphone-design-a-journey-through-the-generations-7bb5912c1cf8",
+            "title": "The Evolution of iPhone Design - Bootcamp",
+            "summary": "The iPhone 4 introduced the Retina display and a sleek design with flat glass panels.",
             "key_points": [
-                "carbon emissions reduction",
-                "supply chain sustainability"
+                "The iPhone 4 introduced the Retina display.",
+                "The iPhone 4 had a sleek design with flat glass panels.",
+                "The iPhone (2007) featured a 3.5-inch touchscreen and a single button, introducing Apple's minimalist design approach."
+            ]
+        }
+    ],
+    "Identify key market trends, technological advancements, and sales data of iPhones": [
+        {
+            "source": "https://www.demandsage.com/iphone-user-statistics/",
+            "title": "iPhone Users & Sales Statistics 2026 (By Year & Country)",
+            "summary": "iPhone sales data from 2020 to 2024",
+            "key_points": [
+                "Total Apple Revenue (in billions): $391.04 (2024), $383.29 (2023), $394.33 (2022), $365.82 (2021), $274.52 (2020)",
+                "iPhone Revenue (in billions): $201.1 (2024), $200.58 (2023), $205.49 (2022), $191.97 (2021), $137.78 (2020)",
+                "iPhone's Share of Total Revenue: 51.4% (2024), 52.3% (2023), 52.1% (2022), 52.5% (2021), 50.2% (2020)",
+                "Number of iPhones Sold in the U.S.: 124.7 million (2022), 116.3 million (2021), 113.5 million (2020), 105.2 million (2019), 101.9 million (2018)"
+            ]
+        },
+        {
+            "source": "https://www.crossrivertherapy.com/research/apple-statistics",
+            "title": "Apple by the Numbers: Revealing the Key Statistics",
+            "summary": "Apple and iPhone statistics",
+            "key_points": [
+                "Global smartphone users using iPhones: 25% (April 2021)",
+                "iPhone's revenue contribution to Apple: 46.9% (2021)",
+                "Number of iPhones sold globally: 217.72 million (2021)",
+                "Average Selling Price (ASP) of an iPhone: $691 (2015), $705 (2017)"
+            ]
+        },
+        {
+            "source": "https://www.businessofapps.com/data/apple-statistics/",
+            "title": "Apple Statistics (2026) - Business of Apps",
+            "summary": "Apple and iPhone statistics",
+            "key_points": [
+                "Total revenue: $416 billion (2025)",
+                "iPhone sales: 50% of Apple's total revenue (2025)",
+                "Number of iPhones sold: 247 million (2025)",
+                "Active iPhone units worldwide: 1.5 billion"
+            ]
+        },
+        {
+            "source": "https://finance.yahoo.com/news/apples-iphone-sales-surge-quarterly-215728671.html",
+            "title": "Apple's iPhone sales surge to new quarterly high despite early ...",
+            "summary": "Apple's iPhone sales",
+            "key_points": [
+                "Global sales of iPhones: 20% market share (2025)",
+                "Total revenue: $143.8 billion (Q1 2026)",
+                "iPhone's revenue: $85.3 billion (Q1 2026)"
+            ]
+        },
+        {
+            "source": "https://www.cnbc.com/2026/01/31/analysts-apples-staggering-iphone-sales-are-from-pent-up-demand.html",
+            "title": "Analysts: Apple's 'staggering' iPhone sales are from 'pent-up demand'",
+            "summary": "Analysis of Apple's iPhone sales",
+            "key_points": [
+                "Total revenue: $143.76 billion (Q1 2026)",
+                "iPhone's revenue: $85.3 billion (Q1 2026)",
+                "Customer enthusiasm for iPhone: 'extraordinary' in Q1 2026"
+            ]
+        }
+    ],
+    "Analyze the impact of iPhones on mobile technology industry, app ecosystem, and user behavior": [
+        {
+            "source": "https://medium.com/@abubakarrajput342/the-impact-of-the-iphone-on-mobile-technology-and-communication-100eae3bca0e",
+            "title": "The Impact of the iPhone on Mobile Technology and Communication",
+            "summary": "The iPhone revolutionized mobile technology and communication with its innovative design, touchscreen interface, and app ecosystem.",
+            "key_points": [
+                "iPhone's capacitive touchscreen revolutionized user interface design",
+                "App Store created a platform for developers to showcase innovative ideas",
+                "iPhone changed consumer behavior and encouraged a mobile-first mindset"
+            ]
+        },
+        {
+            "source": "https://www.jobaaj.com/blog/iphone-case-study-how-apple-revolutionized-mobile-technology",
+            "title": "iPhone Case Study: How Apple Revolutionized Mobile Technology",
+            "summary": "The iPhone sparked the smartphone revolution, changed consumer behavior, and transformed industries like gaming, finance, and social networking.",
+            "key_points": [
+                "iPhone became the most popular smartphone worldwide",
+                "App Store created a new ecosystem for developers",
+                "iPhone set new standards for mobile design"
+            ]
+        },
+        {
+            "source": "https://www.inspiredfounders.com/apple-iphone-innovation-changed-the-world/",
+            "title": "How iPhone Innovation Changed the World - Inspired Founders",
+            "summary": "The iPhone created whole new businesses, transformed how businesses operated, and changed how consumers engaged with brands.",
+            "key_points": [
+                "iPhone convergence led to the creation of mobile-first businesses",
+                "iPhone innovation brought about the birth of a mobile-first economy",
+                "Mobile-first businesses created multi-billion-dollar industries"
+            ]
+        },
+        {
+            "source": "https://www.bhanuprathap.com/provocative-reflection-of-the-apple-ecosystem-being-a-user-and-a-designer",
+            "title": "Provocative Reflection of the Apple Ecosystem being a User and a Designer",
+            "summary": "The iPhone experience is designed to induce happiness, with a focus on aesthetics and user experience.",
+            "key_points": [
+                "iPhone is the first touchpoint for users entering the Apple ecosystem",
+                "Apple created an Aesthetic interaction that makes the user feel the device is supreme",
+                "Users associate iPhones with good status and exhibit behavior based on social proof"
+            ]
+        },
+        {
+            "source": "https://business.fullerton.edu/news/story/the-iphone-turns-10-a-look-at-how-apple-changed-the-world",
+            "title": "The iPhone Turns 10: A Look at How Apple Changed the World",
+            "summary": "The iPhone brought new life to the smartphone industry, transformed the way people interact with technology, and paved the way for a biometric future.",
+            "key_points": [
+                "iPhone brought new life to the smartphone industry",
+                "App Store opened up a new field for businesses and organizations",
+                "Touchscreen technology became the norm with the iPhone"
+            ]
+        }
+    ],
+    "Examine the user interface, operating system, and software updates of iPhone models": [
+        {
+            "source": "https://en.wikipedia.org/wiki/List_of_iPhone_models",
+            "title": "iPhone Models Operating Information",
+            "summary": "iPhone models software update and operating system.",
+            "key_points": [
+                "iOS 26.2.1 is the latest operating system for supported iPhone models",
+                "iPhone 17 and above models run on iOS 26.0 or higher",
+                "iPhone models' software updates available on Apple's official website"
+            ]
+        },
+        {
+            "source": "https://www.macworld.com/article/1659017/ios-versions-list.html",
+            "title": "iOS Version History",
+            "summary": "iOS version list from iPhone OS to iOS 26.2.1.",
+            "key_points": [
+                "Apple maintains its annual September release cycle for new iOS versions",
+                "iOS 11 introduced touch and gesture interface",
+                "iOS 12 introduced Screen Time, Memoji, Group FaceTime, and Siri Shortcuts",
+                "iOS 13 introduced another major shift in mobile experience"
+            ]
+        },
+        {
+            "source": "https://en.wikipedia.org/wiki/IOS_version_history",
+            "title": "iOS Version History",
+            "summary": "Historical overview of iOS version updates.",
+            "key_points": [
+                "First iPhone OS 1.1.4 was released on February 26, 2008",
+                "iPhone OS 2 was released alongside the iPhone 3G on July 11, 2008",
+                "iOS introduced the App Store, a digital storefront for apps"
+            ]
+        },
+        {
+            "source": "https://www.theknowledgeacademy.com/blog/what-is-ios/",
+            "title": "What is iOS?",
+            "summary": "Overview of iOS and its features.",
+            "key_points": [
+                "iOS is the operating system designed by Apple for iPhone, iPad, and iPod Touch",
+                "Regular updates ensure iOS stays fresh, secure, and packed with exciting new features"
+            ]
+        },
+        {
+            "source": "https://support.apple.com/en-us/100100",
+            "title": "Apple Security Releases",
+            "summary": "Apple security updates and releases.",
+            "key_points": [
+                "iOS 16.7.8 and iPadOS 16.7.8 security release on May 13, 2024",
+                "iOS 15.8.4 and iPadOS 15.8.4 security release on March 31, 2025"
+            ]
+        }
+    ],
+    "Investigate the role of iPhones in e-commerce, online services, and digital payments": [
+        {
+            "source": "Apple, https://www.apple.com/business/tap-to-pay-on-iphone/",
+            "title": "Tap to Pay on iPhone",
+            "summary": "Tap to Pay on iPhone is a top payment acceptance solution for merchants that allows them to accept in-person contactless payments in stores or on the go using their iPhone.",
+            "key_points": [
+                "Available in over a dozen markets worldwide",
+                "Merchants can enable Tap to Pay on iPhone in the SumUp app in minutes",
+                "Supports chip-enabled cards and Android devices without additional hardware or payment terminals"
+            ]
+        },
+        {
+            "source": "Consumer Finance, https://www.consumerfinance.gov/data-research/research-reports/big-techs-role-in-contactless-payments-analysis-of-mobile-device-operating-systems-and-tap-to-pay-practices/full-report/",
+            "title": "Big Tech's Role in Contactless Payments",
+            "summary": "Apple has introduced Tap to Pay on iPhone, a service that allows merchants to use their iPhones' NFC technology to accept contactless payments without additional hardware or payment terminals.",
+            "key_points": [
+                "Apple Empowers Businesses to Accept Contactless Payments Through Tap to Pay on iPhone",
+                "Tap to Pay on iPhone uses the built-in features of iPhone",
+                "Estimated revenue stream from transaction fees charged to card issuers is $1.9 billion in 2022"
+            ]
+        },
+        {
+            "source": "CentralPay, https://www.centralpay.com/en/blog/apple-pay-the-impact-of-native-authentication-on-e-commerce-performance/",
+            "title": "Apple Pay: the advantages for e-commerce",
+            "summary": "Apple Pay is a mobile payment solution that allows users to make online purchases without entering their bank details.",
+            "key_points": [
+                "Strategic display at checkout increases chances of user choosing Apple Pay",
+                "Mobile-first optimization makes using Apple Pay easier and reduces friction",
+                "Adoption limited to Apple users only"
+            ]
+        },
+        {
+            "source": "9to5Mac, https://9to5mac.com/2026/02/26/apple-pay-set-for-biggest-ever-expansion-likely-to-boost-iphone-sales/",
+            "title": "Apple Pay Set for Biggest Ever Expansion",
+            "summary": "Apple is in talks with ICICI Bank, HDFC Bank, and Axis Bank to introduce Apple Pay in India around the middle of 2026.",
+            "key_points": [
+                "India has over 750 million smartphone users on cheap mobile data",
+                "New rules allow biometric authentication for digital payments",
+                "Expected to boost demand for iPhones in India"
+            ]
+        },
+        {
+            "source": "Elogic.co, https://elogic.co/blog/checkout-with-apple-pay-for-ecommerce-websites-how-to-capture-more-orders-from-mobile-devices/",
+            "title": "Apple Pay for Ecommerce Websites: Benefits & Integration Tips",
+            "summary": "Apple Pay is a mobile payment solution that enables owners of Apple devices to make payments on the web and within apps.",
+            "key_points": [
+                "Supported on iPhone, Apple Watch, iPad, and Mac",
+                "Supported on most major credit and debit cards",
+                "Worldwide mobile payment revenue expected to reach $12.06 trillion by 2027"
             ]
         }
     ]

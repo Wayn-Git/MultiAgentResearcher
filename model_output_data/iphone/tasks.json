@@ -1,0 +1,57 @@
+[
+    {
+        "description": "Gather high-level information about Apple's iPhone: its history, features, and impact on the smartphone market",
+        "priority": 8,
+        "type": "research"
+    },
+    {
+        "description": "Conduct a technical analysis of iPhone hardware and software architecture",
+        "priority": 9,
+        "type": "research"
+    },
+    {
+        "description": "Identify key iPhone models and their notable features, sales performance, and market reception",
+        "priority": 7,
+        "type": "research"
+    },
+    {
+        "description": "Explore the ecosystem surrounding the iPhone, including iOS, Apps, and services integration",
+        "priority": 6,
+        "type": "research"
+    },
+    {
+        "description": "Analyze iPhone's impact on modern society, including cultural, social, economic, and environmental aspects",
+        "priority": 5,
+        "type": "research"
+    },
+    {
+        "description": "Investigate the impact of iPhone's augmented reality (AR) features on modern society, including cultural, social, and environmental aspects",
+        "priority": 5,
+        "type": "research"
+    },
+    {
+        "description": "Analyze the economic impact of the iPhone on local communities, including job creation, economic growth, and industry development",
+        "priority": 5,
+        "type": "research"
+    },
+    {
+        "description": "Compare the iPhone's market share and sales performance in different regions, including the European Union, Asia, and Latin America",
+        "priority": 5,
+        "type": "research"
+    },
+    {
+        "description": "Investigate the impact of the iPhone on mental health, including the effect of screen time, social media, and anxiety.",
+        "priority": 3,
+        "type": "research"
+    },
+    {
+        "description": "Analyze the environmental impact of the iPhone supply chain, including material extraction, manufacturing, and e-waste generation.",
+        "priority": 4,
+        "type": "research"
+    },
+    {
+        "description": "Develop a comprehensive model of the iPhone's economic impact on local communities, including job creation, economic growth, and industry development.",
+        "priority": 5,
+        "type": "research"
+    }
+]

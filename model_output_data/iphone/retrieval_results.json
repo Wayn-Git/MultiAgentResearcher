@@ -1,0 +1,499 @@
+{
+    "Gather high-level information about Apple's iPhone: its history, features, and impact on the smartphone market": [
+        {
+            "source": "https://vocal.media/viva/smartphones-i-phone-the-evolution-and-impact-of-apple-s-flagship-device",
+            "title": "Smartphones iPhone: The Evolution and Impact of Apple's Flagship Device",
+            "summary": "The first iPhone was introduced on January 9, 2007, revolutionizing the mobile phone market with its touchscreen display, combining a phone, an iPod, and an internet communication device.",
+            "key_points": [
+                "Introduction on January 9, 2007",
+                "Combination of phone, iPod, and internet communication device",
+                "Touchscreen display, eliminating physical keyboards"
+            ]
+        },
+        {
+            "source": "https://www.ebsco.com/research-starters/communication-and-mass-media/iphone",
+            "title": "iPhone | Communication and Mass Media | Research Starters",
+            "summary": "The iPhone transformed consumer expectations, disrupted the wireless industry, and opened up mobile application development with features like the App Store and Siri.",
+            "key_points": [
+                "Transformed consumer expectations",
+                "Disrupted wireless industry",
+                "Opened up mobile application development with App Store and Siri"
+            ]
+        },
+        {
+            "source": "https://www.ign.com/articles/all-iphone-release-dates-in-order",
+            "title": "Every iPhone Generation: A Full History of Release Dates - IGN",
+            "summary": "The first iPhone was released on June 29, 2007, followed by subsequent models with notable features such as 3D touch, Siri, and improved cameras.",
+            "key_points": [
+                "Release on June 29, 2007",
+                "Notable features such as 3D touch, Siri, and improved cameras"
+            ]
+        },
+        {
+            "source": "https://en.wikipedia.org/wiki/IPhone",
+            "title": "iPhone - Wikipedia",
+            "summary": "The iPhone was first developed in 2004, and its sales grew year-over-year since its introduction until Q2 FY2016, making Apple the largest mobile phone vendor in the world by revenue.",
+            "key_points": [
+                "Development began in 2004",
+                "Continuous sales growth until Q2 FY2016",
+                "Apple became largest mobile phone vendor by revenue"
+            ]
+        },
+        {
+            "source": "https://www.bankmycell.com/blog/iphone-evolution-timeline-chart",
+            "title": "iPhone Timeline: iOS & iPhone Evolution 2007-2026 - BankMyCell",
+            "summary": "Recent iPhone features include improved audio recording, auto-mixed Apple Music, and the use of Liquid Glass Design for the system UI.",
+            "key_points": [
+                "Improved audio recording",
+                "AutoMixed Apple Music",
+                "Liquid Glass Design"
+            ]
+        }
+    ],
+    "Conduct a technical analysis of iPhone hardware and software architecture": [
+        {
+            "source": "https://trymirai.com/blog/iphone-hardware",
+            "title": "Part 3: iPhone Hardware and How It Powers On-Device AI",
+            "summary": "iPhone hardware architecture, including the neural engine and systolic array compute units",
+            "key_points": [
+                "The neural engine performs scalar, vector, and matrix operations on integers and floats",
+                "SIMD-groups collectively load 8x8 matrix fragments from threadgroup memory",
+                "Matrix multiplication is executed on systolic array compute units"
+            ]
+        },
+        {
+            "source": "https://en.wikipedia.org/wiki/IPhone_hardware",
+            "title": "iPhone Hardware",
+            "summary": "iPhone hardware components, including the processor, RAM, and battery",
+            "key_points": [
+                "The iPhone uses a 32-bit processor",
+                "The iPhone has a minimal hardware user interface with a Home button",
+                "The iPhone does not have optical stabilization for the camera"
+            ]
+        },
+        {
+            "source": "https://ocw.mit.edu/courses/6-007-electromagnetic-energy-from-motors-to-lasers-spring-2011/48b225dddd93d7d01c33ffef70282320_MIT6_007S11_lec01.pdf",
+            "title": "iPhone Components",
+            "summary": "iPhone technical specifications, including the operating system, processor, and memory",
+            "key_points": [
+                "The iPhone uses a 32-bit processor",
+                "The iPhone has 4GB or 8GB of memory",
+                "The iPhone uses a Rechargeable lithium-ion battery"
+            ]
+        },
+        {
+            "source": "https://www.geeksforgeeks.org/operating-systems/architecture-of-ios-operating-system/",
+            "title": "Architecture of IOS Operating System",
+            "summary": "iOS operating system architecture, including the layer-based structure and frameworks",
+            "key_points": [
+                "The iOS operating system has a layered architecture",
+                "The layers communicate with each other indirectly",
+                "The Core OS layer provides basic services to applications"
+            ]
+        }
+    ],
+    "Identify key iPhone models and their notable features, sales performance, and market reception": [
+        {
+            "source": "https://www.demandsage.com/iphone-user-statistics/",
+            "title": "iPhone 16 and 16 Pro Max adoption rates",
+            "summary": "iPhone 16 Pro Max has the highest adoption rates with 3.6%, followed by iPhone 16 with 3.2%",
+            "key_points": [
+                "iPhone 16: 3.2%",
+                "iPhone 16 Pro Max: 3.6%"
+            ]
+        },
+        {
+            "source": "https://telemetrydeck.com/survey/apple/iPhone/models/",
+            "title": "iPhone models market share in 2026",
+            "summary": "iPhone 13 is the most used model with a 15.24% share, followed by iPhone 15 and iPhone 16 Pro with over 10% share",
+            "key_points": [
+                "iPhone 13: 15.24%",
+                "iPhone 15: 11.84%",
+                "iPhone 16 Pro: 11.56%"
+            ]
+        },
+        {
+            "source": "https://www.voronoiapp.com/technology/The-iPhone-Models-Boosting-Apples-Market-Share-6058",
+            "title": "iPhone models boosting Apple's market share",
+            "summary": "iPhone 6 and 6S, iPhone 12, and iPhone 4 and 4S have contributed to Apple's market share",
+            "key_points": [
+                "iPhone 6 and 6S",
+                "iPhone 12",
+                "iPhone 4 and 4S"
+            ]
+        },
+        {
+            "source": "https://www.cnbc.com/2025/11/26/apple-iphone-shipments-to-beat-samsung-for-the-first-time-in-14-years.html",
+            "title": "Sales of iPhone 17 series",
+            "summary": "Sales of iPhone 17 series are 12% higher in the U.S. and 18% higher in China compared to its predecessor",
+            "key_points": [
+                "iPhone 17 series: 12% higher in the U.S.",
+                "iPhone 17 series: 18% higher in China"
+            ]
+        },
+        {
+            "source": "https://www.consumerreports.org/electronics-computers/cell-phones/which-iphone-should-you-buy-a7028071026/",
+            "title": "iPhone options listed by size and price",
+            "summary": "iPhone options listed by size and price, including iPhone 17 Pro Max, 16e, and other models",
+            "key_points": [
+                "iPhone 17 Pro Max",
+                "iPhone 16e"
+            ]
+        }
+    ],
+    "Explore the ecosystem surrounding the iPhone, including iOS, Apps, and services integration": [
+        {
+            "source": "https://www.hubifi.com/blog/native-apple-integration-guide",
+            "title": "Apple Ecosystem Integration Guide: Benefits, Tips & Value | HubiFi",
+            "summary": "Apple's tight control over hardware and software enables synergy, seamless user experience, and customer loyalty. Key features include Handoff, Continuity, and unique device capabilities.",
+            "key_points": [
+                "Handoff allows task continuation between devices",
+                "Continuity enables inter-device collaboration",
+                "Apple ID is the access point for all Apple services and products"
+            ]
+        },
+        {
+            "source": "https://explore.st-aug.edu/exp/what-is-ios-on-iphone-a-straightforward-guide-to-apples-mobile-ecosystem",
+            "title": "What Is iOS on iPhone? A Straightforward Guide to Apple's Mobile ...",
+            "summary": "iOS is a sophisticated ecosystem that delivers seamless performance, robust security, and unparalleled integration. It is designed exclusively for iPhone models and other Apple devices.",
+            "key_points": [
+                "iOS is a tightly integrated platform defining user experience",
+                "Seamless performance and Unix-based security foundation",
+                "iOS is the lifeblood of the iPhone and a bridge between hardware and software"
+            ]
+        },
+        {
+            "source": "https://medium.com/@productbrief/apples-ecosystem-mastery-how-integrated-product-management-built-a-3-trillion-tech-empire-d49d17d02903",
+            "title": "Apple's Ecosystem Mastery: How Integrated Product Management ...",
+            "summary": "Apple's ecosystem mastery is built on five core strategies: closed-loop ecosystems, hardware-software synergy, service layer as glue, data-driven decisions, and customer-centric design.",
+            "key_points": [
+                "Closed-loop ecosystems lock in users with seamless integration",
+                "Hardware-software synergy enables tailored features and on-device AI",
+                "Service layer as glue provides cohesive and accessible user experience"
+            ]
+        },
+        {
+            "source": "https://www.apple.com/newsroom/pdfs/2024-US-Apple-Ecosystem-Report.pdf",
+            "title": "[PDF] The Apple Ecosystem in the US",
+            "summary": "Apple supports developers with over 250,000 APIs, frameworks, and services, including HealthKit, Metal API, Core ML, and Translate API, enabling integration of app functionality and content with system services.",
+            "key_points": [
+                "250,000+ APIs for developers",
+                "HealthKit for user health data",
+                "App Intents framework for app functionality integration"
+            ]
+        },
+        {
+            "source": "https://chimpare.com/blog/ios-app-development-operates-within-apples-ecosystem/",
+            "title": "How iOS App Development Operates Within Apple's Ecosystem?",
+            "summary": "iOS app development happens within a system with design guidelines, performance standards, and security expectations, built on the Apple developer environment with a focus on user confidence and safety.",
+            "key_points": [
+                "iOS app development is part of Apple's developer ecosystem",
+                "Strict App Store rules and encryption support user safety",
+                "Expert iOS app development services for consumer-facing applications"
+            ]
+        }
+    ],
+    "Analyze iPhone's impact on modern society, including cultural, social, economic, and environmental aspects": [
+        {
+            "source": "Forbes",
+            "title": "10 Years With The iPhone: How Apple Changed Modern Society",
+            "summary": "The iPhone has triggered a societal shift, making people always connected to work, friends, and others.",
+            "key_points": [
+                "The iPhone has become a constant companion, replacing traditional gaming systems and providing access to music and knowledge",
+                "It helps people find and build communities",
+                "The iPhone has changed the way people interact, share experiences, and stay connected with loved ones"
+            ]
+        },
+        {
+            "source": "AJHSSR",
+            "title": "[PDF] Analyzing The Socio-Economic Impacts of iPhone Trade between India and USA",
+            "summary": "The iPhone has cultural and social consequences in India, shaping consumption and social norms.",
+            "key_points": [
+                "The iPhone is a symbol of American culture and technological expertise",
+                "iPhone ownership raises status and affects social stratification",
+                "It influences people to prefer brand value over utility and emphasizes social status through material possessions"
+            ]
+        },
+        {
+            "source": "Medium",
+            "title": "The Impact of the iPhone on Modern Technology and Society",
+            "summary": "The iPhone has changed communication, social interaction, and the smartphone era.",
+            "key_points": [
+                "Messaging apps, social media, and video calls have replaced traditional phone calls and text messages",
+                "The iPhone was the first device to combine multiple functions like internet browsing, music, and photography in one device",
+                "The iPhone's success contributed to the rise of the gig economy and created industries like ride-hailing and home-sharing"
+            ]
+        },
+        {
+            "source": "CNBC",
+            "title": "How Apple's iPhone transformed tech and changed the world",
+            "summary": "The iPhone has created new industries and changed the world.",
+            "key_points": [
+                "The iPhone has created billions of dollars in new industries, including ride-hailing and home-sharing",
+                "It has rearranged existing industries and impacted almost every facet of our lives",
+                "The iPhone has become essential to modern life"
+            ]
+        },
+        {
+            "source": "Population Matters",
+            "title": "[PDF] Apple, consumption, and the future of the planet",
+            "summary": "The iPhone's production contributes to environmental issues.",
+            "key_points": [
+                "IPhones and smartphones are composed of materials extracted from the Earth, contributing to loss of biodiversity, habitats, and food",
+                "Their production results in air pollution, contamination of water and soil, and noise pollution"
+            ]
+        }
+    ],
+    "Investigate the impact of iPhone's augmented reality (AR) features on modern society, including cultural, social, and environmental aspects": [
+        {
+            "source": "https://theconversation.com/why-augmented-reality-is-triggering-cultural-conflict-and-religious-controversy-77976",
+            "title": "Why Augmented Reality is Triggering Cultural Conflict and Religious Controversy",
+            "summary": "Augmented reality (AR) is triggering cultural conflict and religious controversy due to its ability to alter environments, which can be perceived as an invasion of personal space, and its potential to perpetuate cultural appropriation.",
+            "key_points": [
+                "AR allows people to edit their environments virtually, raising concerns about personal space and cultural appropriation",
+                "AR can perpetuate cultural conflict and religious controversy by bypassing traditional forms of cultural appropriation",
+                "AR has a potential to alter environments, creating a meeting of creators' intent and players' freedom"
+            ]
+        },
+        {
+            "source": "https://link.springer.com/article/10.1007/s10639-025-13737-9",
+            "title": "The Impact of Augmented Reality-Assisted Structured Learning on Environmental Awareness",
+            "summary": "Augmented reality-assisted structured learning can enhance environmental awareness by improving children's engagement with nature and promoting pro-environmentalism initiatives.",
+            "key_points": [
+                "AR technology can enhance environmental literacy, intrinsic motivation, and cognitive load of high school students",
+                "Environmental education courses with AR digital picture books can increase environmental attitudes and behaviors of children from different cultures",
+                "AR can effectively teach waste sorting and is age-appropriate and engaging"
+            ]
+        }
+    ],
+    "Analyze the economic impact of the iPhone on local communities, including job creation, economic growth, and industry development": [
+        {
+            "source": "https://www.apple.com/job-creation/",
+            "title": "Job Creation - Apple",
+            "summary": "Apple supports hundreds of thousands of U.S. jobs, directly and indirectly, through suppliers and manufacturers.",
+            "key_points": [
+                "450,000 Jobs through our U.S.-based suppliers",
+                "112,600 Manufacturing jobs",
+                "92,900 Other industries jobs",
+                "Two million U.S. jobs and counting"
+            ]
+        },
+        {
+            "source": "https://www.apple.com/newsroom/2025/02/apple-will-spend-more-than-500-billion-usd-in-the-us-over-the-next-four-years/",
+            "title": "Apple will spend more than $500 billion in the U.S. over the next four years",
+            "summary": "Apple has committed to spending more than $500 billion in the U.S. over the next four years, creating a wide range of innovative manufacturing processes and materials for Apple products.",
+            "key_points": [
+                "$500 billion commitment to U.S. investments over four years",
+                "Supports over 2.9 million jobs across the country",
+                "Apple remains one of the largest U.S. taxpayers, having paid over $75 billion in U.S. taxes in the past five years"
+            ]
+        },
+        {
+            "source": "https://www.investopedia.com/articles/investing/022316/economics-iphone-aapl.asp",
+            "title": "The Economics of the iPhone - Investopedia",
+            "summary": "The iPhone has contributed to Apple's expanding services business and wearables sector, generating significant revenue for the company.",
+            "key_points": [
+                "Services revenue $96.1 billion, up 13% from 2023",
+                "Wearables and accessories sales totaled $37.0 billion in 2024, down 7% from the previous years"
+            ]
+        }
+    ],
+    "Compare the iPhone's market share and sales performance in different regions, including the European Union, Asia, and Latin America": [
+        {
+            "source": "https://www.statista.com/statistics/1421532/apple-iphone-sales-by-region/",
+            "title": "Apple iPhone sales 2015-2023, by region",
+            "summary": "iPhone sales by region from 2015 to 2023",
+            "key_points": [
+                "U.S. iPhone users as a share of smartphone users (2014-2022)",
+                "Market share of smartphone manufacturers in the United Kingdom (2019)",
+                "Latin America: price of an iPhone XS in selected countries (2019)",
+                "Mobile vendor market share in Kenya (2018-2021, by month)",
+                "Mobile vendor market share in DRC (2018-2022, by month)"
+            ]
+        },
+        {
+            "source": "https://www.accio.com/business/iphone-sales-trend-by-region",
+            "title": "2025 iPhone Sales Trends by Region",
+            "summary": "Regional disparities in iPhone sales trends (2025)",
+            "key_points": [
+                "Strong performance in the Americas and Europe",
+                "Declining trend in Greater China",
+                "Growing demand in emerging markets like India and Latin America"
+            ]
+        },
+        {
+            "source": "https://macdailynews.com/2026/01/12/apple-iphone-leads-global-smartphone-market-with-20-share-counterpoint/",
+            "title": "Apple iPhone leads global smartphone market with 20% share",
+            "summary": "Apple's market share and sales performance in 2025",
+            "key_points": [
+                "Apple leads the global smartphone market with a 20% share (2025)",
+                "Strong performance in Japan, India, and Southeast Asia"
+            ]
+        },
+        {
+            "source": "https://www.accio.com/business/apple-market-share-by-country-trend",
+            "title": "Apple Market Share Trends by Country: 2025 Global Insights",
+            "summary": "Apple market share trends by country (2025)",
+            "key_points": [
+                "Apple's largest market share is in the Americas (40% of total net sales)",
+                "Europe and Greater China are significant markets for Apple",
+                "US iPhone market share: 58.91%",
+                "Japan iPhone market share: 61.44%"
+            ]
+        },
+        {
+            "source": "https://gs.statcounter.com/os-market-share/mobile/iPhone",
+            "title": "Mobile Operating System Market Share IPhone",
+            "summary": "Global iPhone market share",
+            "key_points": [
+                "iPhone market share by country (varies by country)"
+            ]
+        }
+    ],
+    "Investigate the impact of the iPhone on mental health, including the effect of screen time, social media, and anxiety.": [
+        {
+            "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11846175/",
+            "title": "Smartphone screen time reduction improves mental health",
+            "summary": "Study highlights mental health improvements through smartphone use reduction.",
+            "key_points": [
+                "Mental health improvements through smartphone use reduction",
+                "Challenges in managing smartphone use",
+                "Complex and potentially bi-directional interactions between screen time, social media use, and mental health"
+            ]
+        },
+        {
+            "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11385738/",
+            "title": "Associations of screen time with symptoms of stress, anxiety, and depression",
+            "summary": "Study observes associations between screen time and mental health symptoms.",
+            "key_points": [
+                "Increased risk of anxiety symptoms with increased screen time",
+                "Exposure to cyberbullying and unattainable beauty ideals on social media contributing to depressive feelings",
+                "Frequent and excessive exposure to screen time leading to anxiety symptoms"
+            ]
+        },
+        {
+            "source": "https://www.cdc.gov/pcd/issues/2025/24_0537.htm",
+            "title": "Associations Between Screen Time Use and Health Outcomes Among US High School Students",
+            "summary": "Study examines associations between screen time and health outcomes among US high school students.",
+            "key_points": [
+                "Higher likelihood of anxiety and depression symptoms with high levels of daily screen time",
+                "Potential for screen time to lead to social isolation and fear of missing out",
+                "Association between screen time and social isolation and loneliness"
+            ]
+        },
+        {
+            "source": "https://www.stpetersburg.usf.edu/news/2025/results-from-usf-study-on-kids-digital-media-use-reveal-benefits-of-smartphones.aspx",
+            "title": "USF study reveals how smartphones may benefit kids, risks of excessive digital media use",
+            "summary": "Study examines benefits and risks of smartphones for kids.",
+            "key_points": [
+                "Kids with smartphones fared better than those without in terms of wellbeing",
+                "Posting publicly to social media associated with multiple harms",
+                "Even small amounts of cyberbullying linked to adverse outcomes"
+            ]
+        },
+        {
+            "source": "https://www.columbiapsychiatry.org/research/research-areas/child-and-adolescent-psychiatry/sultan-lab-mental-health-informatics/research-areas/smartphones-social-media-and-their-impact-mental-health",
+            "title": "Smartphones, Social Media, and Their Impact on Mental Health",
+            "summary": "The Sultan Lab recommends establishing \"sundown times\" for smartphone use to reduce exposure to potential harms.",
+            "key_points": [
+                "Establishing \"sundown times\" to reduce exposure to screen time harms",
+                "Reducing exposure to sleep disruption, anxiety, and depressive symptoms",
+                "Encouraging teens to put away smartphones in the evening"
+            ]
+        }
+    ],
+    "Analyze the environmental impact of the iPhone supply chain, including material extraction, manufacturing, and e-waste generation.": [
+        {
+            "source": "https://www.compareandrecycle.co.uk/blog/are-iphones-bad-for-the-environment",
+            "title": "Are iPhones Bad for the Environment?",
+            "summary": "The iPhone's manufacturing process has the greatest environmental footprint, contributing 79% of total carbon emissions, while product use accounts for 29%.",
+            "key_points": [
+                "79% of Apple's total carbon emissions come from manufacturing",
+                "29% of Apple's total carbon emissions come from product use",
+                "Manufacturing involves mining raw materials, processing components, and assembling devices, consuming energy and generating emissions",
+                "Extracting rare earth elements, shipping, and final assembly are complex processes with a significant environmental toll"
+            ]
+        },
+        {
+            "source": "https://populationmatters.org/wp-content/uploads/2023/03/iCon-Report-Population-Matters-2023.pdf",
+            "title": "Apple, consumption, and the future of the planet",
+            "summary": "Apple's e-waste recycling programs do not report on the number of iPhones not recycled or the amount of material recovered, leaving a gap in transparency.",
+            "key_points": [
+                "Apple's robots can recycle 1.2 million iPhones per year, but the exact number of iPhones not recycled is not reported",
+                "E-waste recycling in lower-income countries is often manual, with workers collecting, dismantling, and burning or melting e-waste",
+                "A single iPhone can represent hundreds of thousands of miles of journeys, from raw material extraction to assembly"
+            ]
+        },
+        {
+            "source": "https://www.getorchard.com/blogs/news/environmental-impact-of-the-iphone?srsltid=AfmBOopUOA-ZuXDIximLymRC9gNIJY-YUB1LYtL55Zj_31W1NR4fRuDn",
+            "title": "Environmental Impact of the iPhone",
+            "summary": "Only 20% of e-waste in North America is properly recycled, with the rest ending up in unknown destinations, leaching toxic materials into the environment.",
+            "key_points": [
+                "Only 20% of e-waste in North America is properly recycled",
+                "E-waste is the fastest-growing type of waste, with 53.6 billion kilograms generated in 2019",
+                "E-waste contains toxic materials like rare earth elements that leach out into the environment as they decay"
+            ]
+        },
+        {
+            "source": "https://www.apple.com/environment/pdf/products/iphone/iPhone_16_and_iPhone_16_Plus_PER_Sept2024.pdf",
+            "title": "Product Environmental Report",
+            "summary": "Apple's iPhone 16 and iPhone 16 Plus have reduced waste and emissions through supplier partnerships and sustainable manufacturing practices.",
+            "key_points": [
+                "Apple has reduced waste and emissions through supplier partnerships and sustainable manufacturing practices",
+                "100% of packaging is fiber-based, with 64% or more recycled content",
+                "Over 30% of manufacturing electricity is sourced from supplier low-carbon energy projects"
+            ]
+        }
+    ],
+    "Develop a comprehensive model of the iPhone's economic impact on local communities, including job creation, economic growth, and industry development.": [
+        {
+            "source": "https://aithor.com/essay-examples/iphone-production-and-its-impact-on-community-essay",
+            "title": "iPhone Production and Its Impact on Community",
+            "summary": "The production of iPhones has had a significant impact on local communities, creating thousands of jobs and contributing to economic growth.",
+            "key_points": [
+                "Creation of thousands of jobs in manufacturing, logistics, and support services",
+                "Employment opportunities for local residents, contributing to economic growth of communities",
+                "Wages of employees need to be fair and satisfactory to minimize income disparities"
+            ]
+        },
+        {
+            "source": "https://www.ajhssr.com/wp-content/uploads/2024/11/U24811175186.pdf",
+            "title": "[PDF] Analyzing The Socio-Economic Impacts of iPhone Trade between ...",
+            "summary": "The iPhone trade has a significant impact on employment, including high-tech employment, supply chain management, and retail and after-sales services.",
+            "key_points": [
+                "Job creation in design, engineering, and software development fields",
+                "Employment generated through Apple stores and after-sales service centers",
+                "Job creation and displacement in India due to competition with imported goods"
+            ]
+        },
+        {
+            "source": "https://ivypanda.com/essays/iphone-production-and-its-impact-on-community/",
+            "title": "iPhone Production and Its Impact on Community",
+            "summary": "The production of iPhones has a significant impact on local communities, creating a large infrastructure and economic opportunities.",
+            "key_points": [
+                "Creation of a large infrastructure, both commercial and residential",
+                "Economic impact is far-reaching, attracting local residents and Chinese populations",
+                "Working conditions and wages of employees need to be fair and satisfactory"
+            ]
+        },
+        {
+            "source": "https://www.investopedia.com/articles/investing/022316/economics-iphone-aapl.asp",
+            "title": "The Economics of the iPhone",
+            "summary": "The iPhone has a significant impact on the economy, with an estimated 1.38 billion people owning an iPhone in 2025.",
+            "key_points": [
+                "Market share of about 23% globally, and 59% in the U.S.",
+                "Components of an iPhone cost from $400 to $700 per unit depending on the model"
+            ]
+        },
+        {
+            "source": "https://angeloueconomics.com/economic-impact-of-apple-angeloueconomics/",
+            "title": "Economic Impact of Apple",
+            "summary": "Apple has created a significant number of jobs across the United States and around the world.",
+            "key_points": [
+                "2,000,000 jobs created across all 50 states",
+                "80,000 direct job employment in the United States",
+                "450,000 jobs created through the company's U.S.-based suppliers"
+            ]
+        }
+    ]
+}

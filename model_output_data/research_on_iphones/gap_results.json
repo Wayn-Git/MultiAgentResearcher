@@ -1,27 +1,44 @@
 {
-    "global_gaps": [],
+    "global_gaps": [
+        "In-depth analysis of iPhone market share and competition"
+    ],
     "cross_task_weaknesses": [
-        "Labor practices and human rights issues"
+        {
+            "area": "technological advancements",
+            "tasks": [
+                "Survey major components and features of iPhone history, models, and variants",
+                "Identify key market trends, technological advancements, and sales data of iPhones"
+            ]
+        },
+        {
+            "area": "iOS updates and release cycle",
+            "tasks": [
+                "Survey major components and features of iPhone history, models, and variants",
+                "Examine the user interface, operating system, and software updates of iPhone models"
+            ]
+        },
+        {
+            "area": "comparison of different iPhone variants' performance",
+            "tasks": [
+                "Survey major components and features of iPhone history, models, and variants",
+                "Examine the user interface, operating system, and software updates of iPhone models"
+            ]
+        }
     ],
     "coverage_assessment": {
-        "breadth": "Medium to High",
-        "depth": "Medium",
-        "balance": "Environmental and social implications are covered, but labor and political impacts are underrepresented"
+        "breadth": "Medium-to-High",
+        "depth": "Low",
+        "balance": "Unbalanced"
     },
     "suggested_new_tasks": [
         {
-            "description": "Examine the effects of iPhone ownership on individuals and communities in low-income and marginalized ecosystems",
-            "priority": 4,
-            "type": "research"
-        },
-        {
-            "description": "Investigate the specific labor practices and human rights issues in iPhone supply chains",
+            "description": "Conduct a comprehensive analysis of iPhone market share and competition to identify key trends, strengths, and weaknesses.",
             "priority": 5,
             "type": "research"
         },
         {
-            "description": "Evaluate the political and economic impacts of iPhone production and usage on countries and regions",
-            "priority": 3,
+            "description": "Investigate the current state and future directions of AI integration in iPhones, including machine learning, natural language processing, and computer vision.",
+            "priority": 4.8,
             "type": "research"
         }
     ]

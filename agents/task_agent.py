@@ -1,21 +1,27 @@
 from groq import Groq
 from dotenv import load_dotenv
 import os
-import pprint
 import json
 import re
-
-from utils import extract_json
 
 load_dotenv()
 
 groq_api_key = os.getenv("GROQ_API_KEY")
+client = Groq(api_key=groq_api_key)
 
-task_agent = Groq()
+def generate_tasks(user_input, research_context):
 
-BASE_PATH = os.path.join(os.path.dirname(__file__), "model_output_data")
+    task_data_path = "model_output_data/"
 
-def task_agent(user_input, research_context):
+    lower_user_input = user_input.lower()
+    cleaned_text = re.sub(r'[^a-zA-Z0-9\s]+', '', lower_user_input)
+    folder_name_for_query = re.sub(r"\s+", "_", cleaned_text)
+
+    complete_data_path_query = os.path.join(task_data_path, folder_name_for_query)
+
+    if not os.path.exists(complete_data_path_query):
+        os.makedirs(complete_data_path_query, exist_ok=True)
+
     system_prompt = f"""
 You are creating an initial research plan for the topic: "{user_input}"
 Initial Query: "{user_input}"
@@ -39,14 +45,32 @@ Example for "Impacts of Generative AI on Scientific Research":
 </answer>
 CRITICAL: Wrap JSON in <answer>tags.
 Output ONLY valid JSON.
-
-
 """
-    completion = task_agent.chat.completions.create(
-        model='llama-3.1-8b-instant',
-        message=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_input}
-        
-        ]
+
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_input}
+    ]
+
+    completion = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=messages,
+        stream=False
     )
+
+    assistant_output = completion.choices[0].message.content
+
+    start = assistant_output.find("<answer>") + len("<answer>")
+    end = assistant_output.find("</answer>")
+
+    json_text = assistant_output[start:end].strip()
+    tasks = json.loads(json_text)
+
+    tasks_file_path = os.path.join(complete_data_path_query, "tasks.json")
+
+    with open(tasks_file_path, "w") as f:
+        json.dump(tasks, f, indent=4)
+
+    print("Saved to:", tasks_file_path)
+
+    return tasks_file_path
