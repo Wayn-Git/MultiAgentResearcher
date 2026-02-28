@@ -1,0 +1,188 @@
+{
+    "Define what LLMS stands for and gather information on the technology type, its common applications, and any relevant acronyms or synonyms": [
+        {
+            "source": "https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-are-large-language-models-llms",
+            "title": "What are large language models (LLMs)? - Microsoft Azure",
+            "summary": "Definition for LLM.",
+            "key_points": [
+                "LLM stands for Large Language Model",
+                "LLMs are a subset of AI that focuses on processing and generating natural language text",
+                "Common applications of LLMs include customer service chatbots, customer sentiment analysis, translation services, and more"
+            ]
+        },
+        {
+            "source": "https://www.oracle.com/artificial-intelligence/large-language-model/",
+            "title": "What Are Large Language Models? - Oracle",
+            "summary": "Information on LLMs, including applications and uses.",
+            "key_points": [
+                "LLMs learn to predict the next word, or sequence of words, based on context",
+                "Popular business applications of LLMs include customer service chatbots, customer sentiment analysis, and translation services",
+                "LLMs can even mimic the writing style of a particular author or genre"
+            ]
+        },
+        {
+            "source": "https://www.techtarget.com/whatis/definition/large-language-model-LLM",
+            "title": "What are Large Language Models (LLMs)? - TechTarget",
+            "summary": "General information on LLMs, including their roots and how they work.",
+            "key_points": [
+                "The first AI language models trace their roots to the earliest days of AI",
+                "LLMs are trained on data and use various techniques to infer relationships before generating new content",
+                "Language models are commonly used in natural language processing (NLP) applications"
+            ]
+        },
+        {
+            "source": "https://slator.com/resources/here-are-the-top-10-acronyms-in-ai-translation/",
+            "title": "Here Are the Top 10 Acronyms in AI Translation - Slator",
+            "summary": "List of essential AI-related acronyms in the language services industry.",
+            "key_points": [
+                "LLMs are a type of AI language model",
+                "LLMs are reshaping the language services industry",
+                "Industry terminology and acronyms are evolving as fast as the industry itself"
+            ]
+        }
+    ],
+    "Investigate popular websites, platforms, or marketplaces that offer free LLMS resources, including online libraries, repositories, and communities": [
+        {
+            "source": "https://lmschef.com/free-lms/",
+            "title": "Schoology Learning",
+            "summary": "Integration with 200+ tools, student information systems (SIS), and education platforms, with access to a community of educators and millions of resources for different student ages and knowledge levels.",
+            "key_points": [
+                "Integration with 200+ tools",
+                "Student information systems (SIS)",
+                "Education platforms",
+                "Community of educators",
+                "Millions of resources"
+            ]
+        },
+        {
+            "source": "https://alison.com/lms",
+            "title": "Alison's Free LMS",
+            "summary": "Free for an unlimited number of users, with 5,000+ courses accessible, no software fees, content fees, or implementation fees.",
+            "key_points": [
+                "Free for unlimited users",
+                "5,000+ courses",
+                "No software fees",
+                "No content fees",
+                "No implementation fees"
+            ]
+        },
+        {
+            "source": "https://openelms.com/",
+            "title": "Open eLMS",
+            "summary": "FREE comprehensive Learning Management System (LMS) with unlimited users, eLearning credits, external courses, smart classroom events, and more.",
+            "key_points": [
+                "Free for unlimited users",
+                "Unlimited eLearning credits",
+                "External courses (max 3 per month)",
+                "Smart classroom events (max 3 per month)",
+                "Branding"
+            ]
+        },
+        {
+            "source": "https://training.safetyculture.com/blog/15-free-learning-management-systems/",
+            "title": "Sakai",
+            "summary": "Free LMS with responsive design, basic features like banner alerts, notifications, and intelligent feedback.",
+            "key_points": [
+                "Free",
+                "Responsive design",
+                "Basic features",
+                "Banner alerts",
+                "Notifications",
+                "Intelligent feedback"
+            ]
+        },
+        {
+            "source": "https://training.safetyculture.com/blog/15-free-learning-management-systems/",
+            "title": "ATutor",
+            "summary": "Free and open-source LMS for education, with development tools for administrators, instructors, and learners.",
+            "key_points": [
+                "Free and open-source",
+                "Development tools",
+                "Administrators",
+                "Instructors",
+                "Learners"
+            ]
+        }
+    ],
+    "Identify key features, limitations, and licensing terms associated with freely available LLMS across different sources, including open-source options, freemium models, and public domain materials": [
+        {
+            "source": "https://medium.com/@zilliz_learn/the-landscape-of-open-source-licensing-in-ai-a-primer-on-llms-and-vector-databases-5effbccbccd5",
+            "title": "The Landscape of Open Source Licensing in AI: A Primer on LLMs",
+            "summary": "Open-source LLMs have seen a dramatic increase in availability and adoption, offering unrestricted access and utilization for any purpose, modification, and distribution.",
+            "key_points": [
+                "Open-source LLMs are freely accessible to all",
+                "Unrestricted access and utilization for any purpose, modification, and distribution",
+                "Non-Commercial Licenses restrict the use of the software for commercial purposes"
+            ]
+        },
+        {
+            "source": "https://llmmodels.org/blog/open-source-llm-licensing-types-benefits-risks/",
+            "title": "Open-Source LLM Licensing: Types, Benefits, Risks",
+            "summary": "This article explains the different types of open-source licenses, including Permissive, Copyleft, and Public-Domain-Equivalent licenses.",
+            "key_points": [
+                "Permissive licenses offer flexibility and simplicity",
+                "Copyleft licenses ensure that derivative works are distributed under the same license",
+                "Public-Domain-Equivalent licenses provide maximum freedom but may lack community support"
+            ]
+        },
+        {
+            "source": "https://www.compozer.com/post/lms",
+            "title": "Learning Management System: Features, Benefits, Types & Top",
+            "summary": "This article lists various LMS platforms, including Blackboard Learn, Canvas LMS, Google Classroom, and Moodle, which is an open-source Learning Management System.",
+            "key_points": [
+                "Moodle is the most widely used open-source Learning Management System in the world",
+                "Moodle is free, highly flexible, and supported by a massive global community"
+            ]
+        },
+        {
+            "source": "https://calearninglab.org/wp-content/uploads/2024/03/OER-Guide-1.0-Final_1.pdf",
+            "title": "[PDF] Open Educational Resources (OER) Guide for Learning Lab",
+            "summary": "This guide explains the different types of software licenses, including proprietary and open-source licenses, and Creative Commons licenses.",
+            "key_points": [
+                "Proprietary licenses may restrict how an LLM can be used",
+                "Open-source licenses, such as the GNU license and the Apache license, are commonly used"
+            ]
+        },
+        {
+            "source": "https://www.ibm.com/think/topics/open-source-llms",
+            "title": "What are Open Source Large Language Models?",
+            "summary": "Open-source LLMs are free and available for anyone to access, use for any purpose, modify and distribute.",
+            "key_points": [
+                "Open-source LLMs are free and accessible to the public",
+                "Developers and researchers are free to use, improve or otherwise modify the model"
+            ]
+        }
+    ],
+    "Explore the relationship between LLMS and cognitive psychology, including potential applications in education and therapy.": [
+        {
+            "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12106154/",
+            "title": "Using large language models to facilitate academic work in cognitive and behavioral psychology",
+            "summary": "LLMs can replicate classic economic, psycholinguistic, and social psychology experiments, demonstrating similarities with human cognition and behavior.",
+            "key_points": [
+                "LLMs can perform complex cognitive tasks more quickly and reliably than humans",
+                "LLMs can replicate classic economic, psycholinguistic, and social psychology experiments",
+                "LLMs have potential applications in behavioral experiments and cognitive therapy"
+            ]
+        },
+        {
+            "source": "https://www.nature.com/articles/s41746-025-01611-4",
+            "title": "A scoping review of large language models for generative tasks in therapy, education, and psychology",
+            "summary": "LLMs have been integrated into treatments for conditions like ADHD, and have potential applications in cognitive restructuring and positive psychology interventions.",
+            "key_points": [
+                "LLMs can be used in simulated therapy scenarios and immersive therapy experiences using virtual reality",
+                "LLMs can facilitate cognitive restructuring and positive psychology interventions",
+                "LLMs can be used to personalize recommendations and reduce negative thoughts and emotional intensity"
+            ]
+        },
+        {
+            "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10987499/",
+            "title": "Large language models could change the future of behavioral healthcare",
+            "summary": "LLMs have the potential to transform behavioral healthcare, and can be used for quasi-therapeutic purposes.",
+            "key_points": [
+                "LLMs can read, summarize, and generate text, making them useful in various fields",
+                "LLMs can be used as conversational agents, generating essays and stories, and diagnosing illness",
+                "LLMs have the potential to transform behavioral healthcare"
+            ]
+        }
+    ]
+}

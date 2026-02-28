@@ -1,37 +1,27 @@
 [
     {
-        "description": "Investigate Python's origins, history, and evolution as a programming language",
-        "priority": 8,
-        "type": "research"
-    },
-    {
-        "description": "Explore key features, syntax, and benefits of using Python for various applications",
-        "priority": 7,
-        "type": "research"
-    },
-    {
-        "description": "Identify popular Python libraries and frameworks (e.g., NumPy, Pandas, Django) for data analysis, machine learning, and web development",
-        "priority": 9,
-        "type": "research"
-    },
-    {
-        "description": "Research common use cases and industries that heavily utilize Python, such as data science, artificial intelligence, and automation",
+        "description": "Investigate the origins and history of the Python programming language",
         "priority": 6,
         "type": "research"
     },
     {
-        "description": "Conduct a comprehensive assessment of Python's impact on various domains, including web development, data analysis, machine learning, and scientific computing, with a focus on industry adoption and success stories",
+        "description": "Study the core features and syntax of Python, including data types and control structures",
+        "priority": 7,
+        "type": "research"
+    },
+    {
+        "description": "Explore popular libraries and frameworks used in Python development, such as NumPy and Django",
+        "priority": 8,
+        "type": "research"
+    },
+    {
+        "description": "Identify key applications and industries where Python is widely used",
         "priority": 5,
         "type": "research"
     },
     {
-        "description": "Examine the current state and future prospects of Python libraries and frameworks, including NumPy, Pandas, Scikit-learn, TensorFlow, Keras, Flask, Django, Matplotlib, Plotly, Altair, Bokeh, and Requests",
-        "priority": 4,
-        "type": "research"
-    },
-    {
-        "description": "Investigate the role of Python in emerging technologies, such as IoT, Blockchain, and Artificial General Intelligence",
-        "priority": 3,
+        "description": "Analyze the role of Python in various fields, including data science, machine learning, and web development",
+        "priority": 5,
         "type": "research"
     }
 ]

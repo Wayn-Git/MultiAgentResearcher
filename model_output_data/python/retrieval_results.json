@@ -1,386 +1,259 @@
 {
-    "Investigate Python's origins, history, and evolution as a programming language": [
+    "Investigate the origins and history of the Python programming language": [
         {
             "source": "https://en.wikipedia.org/wiki/Python_(programming_language)",
-            "title": "Python (programming language)",
+            "title": "Python (programming language) - Wikipedia",
             "summary": "Python was conceived in the late 1980s by Guido van Rossum at Centrum Wiskunde & Informatica (CWI) in the Netherlands.",
             "key_points": [
-                "Conceived by Guido van Rossum in the late 1980s",
-                "Designed as a successor to ABC programming language",
+                "Conceived in the late 1980s by Guido van Rossum",
+                "Started as a successor to the ABC programming language",
                 "Released in 1991 as Python 0.9.0"
             ]
         },
         {
-            "source": "https://studentwork.prattsi.org/infovis/labs/history-of-python-programming-language/",
-            "title": "History of Python Programming Language - Student Work",
-            "summary": "Python is a programming language that has continually increased in popularity and use since its conception in the late 1980s.",
+            "source": "https://dev.to/souvikdcoder/the-origins-of-python-a-journey-through-its-history-and-evolution-24m2",
+            "title": "The Origins of Python: A Journey Through Its History and Evolution",
+            "summary": "Python was created by Guido van Rossum, a Dutch programmer who started the project in December 1989 as a hobby.",
             "key_points": [
-                "Became open source shortly after conception",
-                "Guido van Rossum still maintains a central role in deciding the language's direction",
-                "Large and comprehensive standard library"
-            ]
-        },
-        {
-            "source": "https://ospo.gwu.edu/python-wasnt-built-day-origin-story-worth-knowing",
-            "title": "Python Wasn't Built in a Day: An Origin Story Worth Knowing",
-            "summary": "Python was derived from its predecessor, a project called ABC, and was inspired by the frustration with the economic reality of the 1980s.",
-            "key_points": [
-                "Derived from ABC project",
-                "Inspired by frustration with 1980s economic realities",
-                "Designed to be computationally efficient rather than human-friendly"
+                "Created by Guido van Rossum in December 1989",
+                "Inspirated by the ABC programming language",
+                "Named after the British comedy group Monty Python"
             ]
         },
         {
             "source": "https://inference-review.com/article/the-origins-of-python",
             "title": "The Origins of Python | Lambert Meertens - Inference",
-            "summary": "The programming language taught at the Istanbul workshop in 2019 was Python, a programming language designed by Guido van Rossum.",
+            "summary": "Python was designed by Guido van Rossum and has become wildly popular since an inconspicuous public release in 1991.",
             "key_points": [
-                "Teaching Python to artists and non-scientists identified issues with programming languages",
-                "Key features include consistency, absence of unnecessary restrictions, and economy of tools",
-                "Continued evolution has maintained Python's core features"
+                "Designed by Guido van Rossum",
+                "Publicly released in 1991"
             ]
         },
         {
-            "source": "https://codefinity.com/blog/The-Evolution-of-Python",
-            "title": "The Evolution of Python - Codefinity",
-            "summary": "Python emerged as a response to the shortcomings of the ABC language, providing an intuitive way to interact with systems.",
+            "source": "https://www.tutorialspoint.com/python/python_history.htm",
+            "title": "History of Python Programming Language - TutorialsPoint",
+            "summary": "Python was developed by Guido van Rossum in the late 1980s and early nineties at the National Research Institute for Mathematics and Computer Science in the Netherlands.",
             "key_points": [
-                "Conceived by Guido van Rossum in the late 1980s",
-                "Fostered a community-driven development ethos",
-                "Continues to evolve while maintaining its core principles"
+                "Developed by Guido van Rossum in the late 1980s",
+                "Derived from many other languages including ABC, Modula-3, C, and SmallTalk"
+            ]
+        },
+        {
+            "source": "https://ospo.gwu.edu/python-wasnt-built-day-origin-story-worth-knowing",
+            "title": "Python Wasn't Built in a Day: An Origin Story Worth Knowing",
+            "summary": "Python was derived from its predecessor, a project called ABC, and was designed to be human-friendly rather than computationally efficient.",
+            "key_points": [
+                "Derived from the ABC project",
+                "Designed to be human-friendly and not computationally efficient"
             ]
         }
     ],
-    "Explore key features, syntax, and benefits of using Python for various applications": [
+    "Study the core features and syntax of Python, including data types and control structures": [
         {
-            "source": "https://unstop.com/blog/features-of-python",
-            "title": "Key Features and Applications of Python",
-            "summary": "Python is a versatile and widely used programming language that offers various features and applications.",
+            "source": "https://www.kdnuggets.com/python-basics-syntax-data-types-and-control-structures",
+            "title": "Python Basics: Syntax, Data Types, and Control Structures",
+            "summary": "This tutorial covers the basics of Python, including syntax, data types, and control structures.",
             "key_points": [
-                "Easy to learn and use",
-                "Extensive libraries and frameworks",
-                "Versatile: Supports multiple programming paradigms and applications",
-                "Cross-platform: Works seamlessly across Windows, macOS, and Linux",
-                "Great for rapid prototyping"
+                "Python is an interpreted language.",
+                "Data types in Python include integers, floats, and strings.",
+                "You can perform arithmetic operations on numeric data types.",
+                "Boolean values are used for true or false conditions."
             ]
         },
         {
-            "source": "https://www.aezion.com/blogs/introduction-to-python-programming/",
-            "title": "Introduction to Python Programming and its Key Features",
-            "summary": "Python is a flexible language that supports scalable software development and engineering.",
+            "source": "https://realpython.com/tutorials/python/",
+            "title": "Core Python Language Tutorials",
+            "summary": "Mastering the Python programming language involves learning its syntax, data types, control structures, functions, and object-oriented features.",
             "key_points": [
-                "Quick Development: Simple syntax enables rapid feature development",
-                "Enriched Ecosystem: Thousands of third-party libraries available",
-                "Scalability: Applications can scale effortlessly",
-                "Seamless Integration: Can be connected to various programming languages"
+                "Python's clear syntax and powerful built-ins let you focus on solving problems rather than managing complexity.",
+                "Understand Python's data model, work with modules and packages, and handle errors with exceptions.",
+                "Apply core language skills to any Python domain, from web development and data science to automation and scripting."
             ]
         },
         {
-            "source": "https://www.domo.com/glossary/what-is-python",
-            "title": "What Is Python? Uses, Benefits, and Why It's the Future of Programming",
-            "summary": "Python is a powerful and flexible language that offers various benefits and applications.",
+            "source": "https://www.codecademy.com/article/learn-python-python-syntax",
+            "title": "Python Syntax Guide for Beginners | Codecademy",
+            "summary": "This article explores the core concepts of Python syntax, including variables, operators, comments, and taking user input.",
             "key_points": [
-                "Readability: Clear and easily understandable syntax",
-                "Flexibility: Allows developers to create various algorithms and data models",
-                "Scalability: Can be used in various fields or to solve different problems"
+                "Python offers a variety of data types, including integers, floats, and strings.",
+                "You can perform arithmetic operations on numeric data types.",
+                "Operators in Python include arithmetic, comparison, logical, assignment, bitwise, and membership operators."
             ]
         },
         {
-            "source": "https://www.geeksforgeeks.org/python/python-features/",
-            "title": "Python Features",
-            "summary": "Python is a beginner-friendly language that offers various features and applications.",
+            "source": "https://www.geeksforgeeks.org/python/python-data-types/",
+            "title": "Python Data Types - GeeksforGeeks",
+            "summary": "This article covers the data types in Python, including numeric, sequence types, mapping types, boolean, set types, and binary types.",
             "key_points": [
-                "Easy to learn and use",
-                "Extensive libraries and frameworks",
-                "Versatile: Supports multiple programming paradigms and applications",
-                "Cross-platform: Works seamlessly across Windows, macOS, and Linux",
-                "Great for rapid prototyping"
+                "Data types in Python are a way to classify data items.",
+                "The following are standard or built-in data types in Python: int, float, complex, string, list, tuple, dict, bool, set, frozenset, bytes, bytearray, memoryview."
             ]
         },
         {
-            "source": "https://evrone.com/blog/what-python-used",
-            "title": "What Can Python Programming Language Be Used For?",
-            "summary": "Python is a widely used language that offers various benefits and applications.",
+            "source": "https://www.geeksforgeeks.org/python/python-programming-language-tutorial/",
+            "title": "Python Tutorial - GeeksforGeeks",
+            "summary": "This tutorial covers the basics of Python programming, including installing Python, writing the first program, understanding comments and working with variables, keywords, and operators.",
             "key_points": [
-                "Dynamic typing",
-                "Simple and intuitive syntax",
-                "Extensive libraries and frameworks (e.g. NumPy, Pandas, Matplotlib)",
-                "Versatile: Supports multiple programming paradigms and applications"
+                "Python is a high-level language, used in data science, automation, AI, web development, and more.",
+                "A clean syntax makes it beginner-friendly.",
+                "Understand Python's data model, work with modules and packages, and handle errors with exceptions."
             ]
         }
     ],
-    "Identify popular Python libraries and frameworks (e.g., NumPy, Pandas, Django) for data analysis, machine learning, and web development": [
+    "Explore popular libraries and frameworks used in Python development, such as NumPy and Django": [
         {
-            "source": "https://www.anaconda.com/topics/python-frameworks",
-            "title": "Anaconda Python Frameworks",
-            "summary": "Anaconda Python Frameworks for Data Science, AI, & Web Development",
+            "source": "https://opencv.org/blog/top-python-libraries/",
+            "title": "Top Python Libraries and Frameworks",
+            "summary": "This article discusses popular Python libraries and frameworks for different tasks, including image and video processing (OpenCV), deep learning (Keras), web development (Django, Flask), and more.",
             "key_points": [
-                "Scikit-learn for machine learning",
-                "PyTorch for deep learning"
+                "NumPy: for numerical computing and scientific tasks",
+                "Django: a full-stack web framework for building large-scale applications",
+                "Flask: a lightweight web framework for small to medium web apps",
+                "OpenCV: for image and video processing, facial recognition, and object detection"
+            ]
+        },
+        {
+            "source": "https://codeeasy.io/blog/a-brief-overview-of-essential-python-libraries-and-frameworks-to-use-for-beginners",
+            "title": "A Brief Overview of Essential Python Libraries and Frameworks",
+            "summary": "This article provides a brief overview of essential Python libraries and frameworks for beginners, including NumPy, Django, and Flask.",
+            "key_points": [
+                "Django: provides features such as ORM, admin interface, and security",
+                "NumPy: for numerical computations, providing support for arrays and matrices"
+            ]
+        },
+        {
+            "source": "https://www.geeksforgeeks.org/python/libraries-in-python/",
+            "title": "Libraries in Python",
+            "summary": "This article discusses the basic concept of libraries in Python, including NumPy, Pandas, and Django.",
+            "key_points": [
+                "NumPy: core library for numerical and scientific computing",
+                "Pandas: data analysis and manipulation library",
+                "Django: full-stack web framework for building large-scale applications"
             ]
         },
         {
             "source": "https://www.mygreatlearning.com/blog/open-source-python-libraries/",
             "title": "Top 30 Python Libraries To Know in 2026",
-            "summary": "List of top Python libraries for various use cases",
+            "summary": "This article lists top Python libraries for various tasks, including web development, data analysis, machine learning, and more.",
             "key_points": [
-                "NumPy for scientific computing",
-                "Pandas for data analysis",
-                "Matplotlib for data visualization",
-                "Scikit-learn for machine learning",
-                "TensorFlow for machine learning/AI",
-                "Flask for web development",
-                "Django for web development"
-            ]
-        },
-        {
-            "source": "https://www.geeksforgeeks.org/python/python-libraries-for-data-science/",
-            "title": "Top 25 Python Libraries for Data Science in 2025",
-            "summary": "List of top Python libraries for data science",
-            "key_points": [
-                "Plotly for interactive visualization",
-                "Scikit-learn for machine learning",
-                "XGBoost for tabular data/predictive modeling",
-                "LightGBM for large datasets/structured data",
-                "Flask for web development",
-                "Django for web development"
-            ]
-        },
-        {
-            "source": "https://www.datacamp.com/blog/top-python-libraries-for-data-science",
-            "title": "Top 31 Python Libraries for Data Science in 2026",
-            "summary": "List of staple Python libraries for data science",
-            "key_points": [
-                "NumPy for scientific computing",
-                "Pandas for data manipulation",
-                "Matplotlib for data visualization",
-                "Scikit-learn for machine learning",
-                "TensorFlow for deep learning"
+                "NumPy: for scientific computing",
+                "Django: for web development",
+                "Flask: for web development"
             ]
         }
     ],
-    "Research common use cases and industries that heavily utilize Python, such as data science, artificial intelligence, and automation": [
+    "Identify key applications and industries where Python is widely used": [
         {
-            "source": "https://mobilunity.com/blog/python-use-cases/",
-            "title": "Top 11 Python Use Cases and Applications in the Real World",
-            "summary": "Real-life Python use cases in AI/ML, data science, automation, and more",
+            "source": "https://www.nobledesktop.com/learn/python/industries-and-professions",
+            "title": "Industries and Professions Using Python",
+            "summary": "Industries where Python is widely used",
             "key_points": [
-                "Netflix uses Python for AI and machine learning workflows",
-                "Python is used for data analysis, machine learning, and backend development at Google",
-                "Microsoft integrates Python into their development ecosystem",
-                "Amazon leverages Python for data processing infrastructure",
-                "Python is used in data engineering, analytics, AI, ML, and deep learning",
-                "Python is used in data processing, analysis, AI/ML model building, and manipulation for data scientists"
+                "Web Development",
+                "Game Development",
+                "Enterprise Applications",
+                "Scientific and Numeric Computing",
+                "Education",
+                "Business Applications",
+                "Language Development",
+                "Robotics",
+                "Automation"
             ]
         },
         {
-            "source": "https://www.3ritechnologies.com/top-companies-using-python-in-2026/",
-            "title": "10 Companies Using Python in 2026 | Real Use Cases & Career ...",
-            "summary": "Real-world use cases of Python in data science, AI, automation, and more",
+            "source": "https://www.python.org/about/apps/",
+            "title": "Applications for Python",
+            "summary": "Python applications",
             "key_points": [
-                "Python is widely used to process structured and unstructured data across enterprises",
-                "Teams use Python to clean datasets, build predictive models, and generate insights",
-                "Python is used in intelligent business automation, research, simulation, and scientific analysis",
-                "Python is used in aerospace, healthcare, finance, and other industries"
-            ]
-        },
-        {
-            "source": "https://www.superprof.co.uk/blog/what-companies-use-python/",
-            "title": "What Companies Use Python? Top Industry Leaders Revealed",
-            "summary": "Real-world use cases of Python in tech, finance, entertainment, and more",
-            "key_points": [
-                "Google, Facebook, Netflix, Microsoft, Amazon, and Spotify use Python extensively",
-                "Python is used in data analysis, machine learning, backend development, and AI research",
-                "J.P. Morgan uses Python for risk analysis, financial modeling, and algorithmic trading"
-            ]
-        },
-        {
-            "source": "https://www.rishabhsoft.com/blog/python-use-cases",
-            "title": "Top 4 Use Cases of Python - Rishabh Software",
-            "summary": "Real-world use cases of Python in software development, data analytics, IoT development, and more",
-            "key_points": [
-                "Python is used in software development, data analytics, IoT development, and legacy app modernization",
-                "Python supports predictive analysis, risk assessment, sentiment analysis, and more",
-                "Python is used in inventory management, sales and marketing, smart cities, and other industries"
-            ]
-        },
-        {
-            "source": "https://www.anaconda.com/guides/python-for-data-science",
-            "title": "Python for Data Science: A Complete Guide - Anaconda",
-            "summary": "Real-world use cases of Python in data science, AI, ML, and deep learning",
-            "key_points": [
-                "Python is used in data engineering, analytics, AI, ML, and deep learning",
-                "Python is used in data science for analysis, AI/ML model building, and data manipulation"
-            ]
-        }
-    ],
-    "Conduct a comprehensive assessment of Python's impact on various domains, including web development, data analysis, machine learning, and scientific computing, with a focus on industry adoption and success stories": [
-        {
-            "source": "https://www.globaltechcouncil.org/python/python-popularity-and-versatility/",
-            "title": "Python Impact Assessment",
-            "summary": "This assessment evaluates Python's impact on various domains, including web development, data analysis, machine learning, and scientific computing, with a focus on industry adoption and success stories.",
-            "key_points": [
-                "Python's vast community support contributes to a rich ecosystem of libraries, frameworks, and tools.",
-                "Wide range of applications in various fields, including web development, data analysis, machine learning, automation, and more.",
-                "Ease of learning and use, making it accessible for beginners and experts.",
-                "Python is used in various industries, including finance, healthcare, and e-commerce.",
-                "High-performance capabilities, making it a dominant force in technology since its inception in 1991."
-            ]
-        },
-        {
-            "source": "https://www.python.org/about/success/",
-            "title": "Python Success Stories",
-            "summary": "Success stories of Python in various industries, including web development, data analysis, machine learning, and scientific computing, with a focus on industry adoption and success stories.",
-            "key_points": [
-                "AstraZeneca uses Python for collaborative drug discovery.",
-                "Botonomy uses Python to create ProjectPipe.com for web-based project management.",
-                "Python is used in various industries, including finance, healthcare, and e-commerce.",
-                "Example of Netflix, which utilizes Python extensively for recommendation algorithms and data-driven insights."
-            ]
-        },
-        {
-            "source": "https://itcgroup.io/our-blogs/python-software-development-the-unstoppable-rise/",
-            "title": "Python Software Development",
-            "summary": "The rise of Python in software development, with a focus on its versatility and ecosystem.",
-            "key_points": [
-                "Python's vast ecosystem of libraries and frameworks is unmatched.",
-                "Examples of Netflix, which utilizes Python extensively for recommendation algorithms and data-driven insights.",
-                "Python has maintained its position as one of the top programming languages for several years."
-            ]
-        },
-        {
-            "source": "https://python.plainenglish.io/case-studies-successful-projects-developed-using-python-a1cfd38e683c",
-            "title": "Case Studies: Successful Projects Developed Using Python",
-            "summary": "Case studies of successful projects developed using Python, with a focus on industry adoption and success stories.",
-            "key_points": [
-                "Ease of learning and use, making it accessible for beginners and experts.",
-                "Wide range of libraries available in the Python Package Index (PyPI).",
-                "Examples of companies like IBM and financial institutions leveraging Python for data analysis and machine learning projects."
+                "Scientific and Numeric Computing: SciPy, Pandas, IPython",
+                "Education: Python is a superb language for teaching programming",
+                "Business Applications: ERP and e-commerce systems: Odoo, Tryton",
+                "Build Control: SCons, Buildbot, Apache Gump",
+                "Bug Tracking and Project Management: Roundup, Trac"
             ]
         },
         {
             "source": "https://www.geeksforgeeks.org/top-10-python-applications-in-real-world/",
             "title": "Top 10 Python Applications in Real World",
-            "summary": "The top 10 real-world applications of Python, with a focus on industry adoption and success stories.",
+            "summary": "Real-world applications of Python",
             "key_points": [
-                "Python has been at the forefront of machine learning, data science, and artificial intelligence innovation.",
-                "Examples of applications in web development, data analysis, and machine learning."
+                "Game Development: Pirates of the Caribbean, Bridge Commander, Battlefield 2",
+                "Audio and Visual Applications: Netflix, Spotify, YouTube",
+                "CAD Applications: Blender, FreeCAD, open cascade",
+                "Machine Learning and Robotics: Google, YouTube"
+            ]
+        },
+        {
+            "source": "https://tripleten.com/blog/posts/top-companies-using-python-today",
+            "title": "Top 10 Companies Using Python Today",
+            "summary": "Companies using Python",
+            "key_points": [
+                "Nvidia: AI, Science, Engineering, Data Analytics, Deep Learning",
+                "Amazon",
+                "Google: Machine Learning and Robotics",
+                "Spotify: Back-end Services, Data Analysis",
+                "Industrial Light and Magic: Special Effects"
+            ]
+        },
+        {
+            "source": "https://sophilabs.com/blog/20-python-applications-in-real-world",
+            "title": "20 Python Applications in Real-World",
+            "summary": "Real-world applications of Python",
+            "key_points": [
+                "Language Development: Boo, Swift, CoffeeScript, Cobra, OCaml",
+                "Robotics: Raspberry Pi, Hobbyists, Professionals",
+                "Automation: Repetitive tasks, Simple personal processes"
             ]
         }
     ],
-    "Examine the current state and future prospects of Python libraries and frameworks, including NumPy, Pandas, Scikit-learn, TensorFlow, Keras, Flask, Django, Matplotlib, Plotly, Altair, Bokeh, and Requests": [
+    "Analyze the role of Python in various fields, including data science, machine learning, and web development": [
         {
-            "source": "https://levelup.gitconnected.com/most-popular-python-libraries-and-frameworks-2025-591ec3b2eb92",
-            "title": "Most Popular Python Libraries and Frameworks 2025",
-            "summary": "The Python ecosystem is constantly evolving, with new libraries being introduced and existing ones updated to cover various aspects of modern development.",
+            "source": "https://www.lucentinnovation.com/resources/it-insights/key-insights-python-for-web-development",
+            "title": "An In-Depth Guide to Python's Role in Web Development",
+            "summary": "Python is a popular choice for web development due to its strong support network, adaptability, and ease of use.",
             "key_points": [
-                "NumPy",
-                "Scikit-learn",
-                "TensorFlow",
-                "Keras",
-                "Flask",
-                "Django",
-                "Matplotlib",
-                "Plotly",
-                "Altair",
-                "Bokeh",
-                "Requests"
+                "Python is a powerful force in web development",
+                "Python integrates well with AWS, Google Cloud, and Microsoft Azure",
+                "Python modules and SDKs can make web applications more capable"
             ]
         },
         {
-            "source": "https://www.test-king.com/blog/python-in-2025-11-trends-shaping-the-future-of-development/",
-            "title": "Python in 2025: 11 Trends Shaping the Future of Development",
-            "summary": "Python's simplicity and powerful libraries make it a preferred language for data scientists, and it will continue to play a crucial role in developing applications in various fields.",
+            "source": "https://www.coursera.org/articles/what-is-python-used-for-a-beginners-guide-to-using-python",
+            "title": "What Is Python Used For? A Beginner's Guide | Coursera",
+            "summary": "Python is used for data analysis and machine learning, web development, data visualization, and software testing.",
             "key_points": [
-                "Pandas",
-                "NumPy",
-                "Scikit-learn",
-                "TensorFlow"
+                "Python is a staple in data science",
+                "Python has a number of libraries for data analysis and machine learning",
+                "Python is a general-purpose language"
             ]
         },
         {
-            "source": "https://lset.uk/blog/unveiling-the-future-of-python-exploring-the-latest-trends-and-innovations-in-2023-and-beyond/",
-            "title": "Unveiling the Future of Python: Exploring the Latest Trends",
-            "summary": "Python will continue to thrive and evolve in various areas, including artificial intelligence, data science, blockchain, and the Internet of Things.",
+            "source": "https://www.datacamp.com/blog/what-is-python-used-for",
+            "title": "What is Python Used For? 8 Real-Life Python Uses - DataCamp",
+            "summary": "Python is extensively applied in data science, data analysis, machine learning, data engineering, web development, software development, and other fields.",
             "key_points": [
-                "AI",
-                "data science",
-                "blockchain",
-                "IoT"
+                "Python is easy to learn and write",
+                "Python provides an extensive standard library and many additional modules",
+                "Python is a high-level language"
             ]
         },
         {
-            "source": "https://www.lucentinnovation.com/resources/it-insights/top-python-libraries",
-            "title": "Best Python Libraries for Data Science in 2025",
-            "summary": "This article highlights the top Python libraries for data science, including Seaborn, Plotly, Altair, Scikit-learn, and NumPy.",
+            "source": "https://www.dasca.org/world-of-data-science/article/best-python-web-frameworks-for-data-scientists-a-comprehensive-overview",
+            "title": "Best Python Web Frameworks for Data Scientists",
+            "summary": "Python web frameworks integrate with data analysis and machine learning libraries to create web applications for data scientists.",
             "key_points": [
-                "Seaborn",
-                "Plotly",
-                "Altair",
-                "Scikit-learn",
-                "NumPy",
-                "Dask"
+                "Python web frameworks extend the power of data analysis and machine learning to the web",
+                "Frameworks like Scikit-learn, TensorFlow, and Pandas are used for data analysis and machine learning",
+                "Frameworks handle tasks like managing user requests and scaling apps"
             ]
         },
         {
-            "source": "https://blog.jetbrains.com/pycharm/2025/08/the-state-of-python-2025/",
-            "title": "The State of Python 2025: Trends and Survey Insights",
-            "summary": "The survey shows a distribution across the latest and older versions of the Python runtime, and many developers and data scientists are running on older versions of Python.",
+            "source": "https://indatalabs.com/blog/why-python-is-used-in-data-science",
+            "title": "Why Python Is Used In Data Science",
+            "summary": "Python provides a multitude of benefits for data scientists of all experience levels and ages, including simplicity, a vast community, and ease of use.",
             "key_points": [
-                "Python version usage",
-                "PyCharm"
-            ]
-        }
-    ],
-    "Investigate the role of Python in emerging technologies, such as IoT, Blockchain, and Artificial General Intelligence": [
-        {
-            "source": "https://lset.uk/blog/unveiling-the-future-of-python-exploring-the-latest-trends-and-innovations-in-2023-and-beyond/",
-            "title": "Unveiling the Future of Python: Exploring the Latest Trends",
-            "summary": "Python is likely to witness advancements in areas such as artificial intelligence (AI) and data science, with a crucial role in emerging technologies like blockchain and IoT.",
-            "key_points": [
-                "Advancements in AI and data science",
-                "Critical role in blockchain and IoT",
-                "Growing need for AI-driven solutions and data analysis"
-            ]
-        },
-        {
-            "source": "https://www.cogniteq.com/blog/how-python-powers-artificial-intelligence-tools-libraries-and-use-cases",
-            "title": "How Python Powers Artificial Intelligence: Tools, Libraries, and Use Cases",
-            "summary": "Python plays a crucial role in AI development due to its simplicity, versatility, and robust ecosystem.",
-            "key_points": [
-                "Python's key language for AI development",
-                "Ecosystem growth: new tools for emerging fields like quantum machine learning and edge AI",
-                "Democratization of AI: making AI development more accessible"
-            ]
-        },
-        {
-            "source": "https://www.nevinainfotech.com/blog/python-and-blockchain-technology",
-            "title": "Python and Blockchain: Transforming Modern Industries",
-            "summary": "Python is an ideal programming language for blockchain development due to its simplicity and large library of features.",
-            "key_points": [
-                "Python as a simple and ideal language for blockchain development",
-                "Large library of features for easy and quick blockchain app creation",
-                "Role of Python in disrupting industries with Python-based blockchain solutions"
-            ]
-        },
-        {
-            "source": "https://www.acte.in/creating-a-simple-blockchain-with-python",
-            "title": "Blockchain Development in Python: A Complete Guide",
-            "summary": "Python provides an accessible and powerful platform for blockchain development, ideal for beginners and rapid prototyping.",
-            "key_points": [
-                "Python as a platform for blockchain development",
-                "Accessible and powerful for beginners and rapid prototyping",
-                "Role of Python in blockchain education and prototyping"
-            ]
-        },
-        {
-            "source": "https://waverleysoftware.com/blog/python-for-ai-and-ml/",
-            "title": "Why Use Python for AI and Machine Learning - Waverley",
-            "summary": "Python is a better choice compared to other programming languages due to its growing popularity, integration with emerging technologies, and advantages in web development and automation.",
-            "key_points": [
-                "Growing popularity of Python",
-                "Integration with emerging technologies",
-                "Advantages in web development and automation"
+                "Python has simplistic syntax",
+                "Python provides a multitude of benefits for data scientists",
+                "Python is the future of data science"
             ]
         }
     ]

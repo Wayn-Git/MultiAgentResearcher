@@ -1,0 +1,27 @@
+[
+    {
+        "description": "Define LLMS and establish a clear research focus (e.g., Learning Management Systems, eLearning software, free solutions)",
+        "priority": 8,
+        "type": "research"
+    },
+    {
+        "description": "Identify key search terms and platforms to scour for free LLMS solutions (e.g., GitHub, OpenEdX, Moodle, Google search)",
+        "priority": 7,
+        "type": "research"
+    },
+    {
+        "description": "Research popular free LLMS options, including their features, user reviews, and system requirements",
+        "priority": 6,
+        "type": "research"
+    },
+    {
+        "description": "Investigate the open-source and proprietary aspects of free LLMS solutions, including their licensing agreements and community support",
+        "priority": 5,
+        "type": "research"
+    },
+    {
+        "description": "Document the pros and cons, advantages, and disadvantages of free LLMS solutions, as well as their potential scalability and customization capabilities",
+        "priority": 4,
+        "type": "research"
+    }
+]

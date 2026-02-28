@@ -1,0 +1,238 @@
+{
+    "Survey publicly available large language models to identify free LLM options": [
+        {
+            "source": "https://github.com/cheahjs/free-llm-api-resources",
+            "title": "Free LLM API Resources",
+            "summary": "A list of free LLM inference resources accessible via API",
+            "key_points": [
+                "BGE-Multilingual-Gemma2",
+                "Llama 3.1 8B",
+                "Llama 3.3 70B",
+                "Mistral Nemo 2407",
+                "Pixtral 12B",
+                "Whisper Large v3"
+            ]
+        },
+        {
+            "source": "https://github.com/eugeneyan/open-llms",
+            "title": "A list of open LLMs available for commercial use.",
+            "summary": "Open-source large language models available for commercial use",
+            "key_points": [
+                "UL2 20B",
+                "BLOOM 176B",
+                "Cerebras-GPT",
+                "Cerebras-GPT-1.3B",
+                "Fugaku-LLM-13B",
+                "Falcon 2 11B"
+            ]
+        }
+    ],
+    "Investigate notable use cases and applications of free LLMs across industries and topics": [
+        {
+            "source": "https://orq.ai/blog/llm-use-cases",
+            "title": "Cross-Industry Applications of LLMs",
+            "summary": "LLMs have found applications across a wide range of industries, revolutionizing operations, enhancing efficiency, and improving overall user experiences.",
+            "key_points": [
+                "Healthcare: clinical diagnostics",
+                "Finance: predictive analytics",
+                "Education: virtual assistants"
+            ]
+        },
+        {
+            "source": "https://www.acceldata.io/blog/top-llm-use-cases-transforming-industries",
+            "title": "Key LLM Use Cases",
+            "summary": "LLMs are transforming industries by enabling businesses to automate processes, enhance customer experiences, and improve decision-making.",
+            "key_points": [
+                "Chatbots: customer engagement",
+                "Clinical diagnostics: disease diagnosis and treatment",
+                "Document automation: saving 300+ hours annually per employee"
+            ]
+        },
+        {
+            "source": "https://www.assemblyai.com/blog/llm-use-cases",
+            "title": "7 LLM use cases and applications",
+            "summary": "LLMs are being used across various industries for tasks such as text summarization, document automation, and customer support automation.",
+            "key_points": [
+                "Document automation: saving 300+ hours annually per employee",
+                "Customer support automation: improving resolution rates by 40-60%",
+                "Clinical documentation: healthcare industry"
+            ]
+        },
+        {
+            "source": "https://www.evidentlyai.com/blog/llm-applications",
+            "title": "55 real-world LLM applications and use cases",
+            "summary": "Top companies such as Zillow, Leboncoin, and Mercado Libre are using LLMs for tasks such as content moderation, search relevance, and technical query answering.",
+            "key_points": [
+                "Content moderation: Yelp, threat detection",
+                "Search relevance: Leboncoin, ad sorting",
+                "Technical query answering: Mercado Libre, internal tool development"
+            ]
+        },
+        {
+            "source": "https://www.v7labs.com/blog/best-llm-applications",
+            "title": "11 Best Applications of Large Language Models (LLMs)",
+            "summary": "LLMs are being used in various industries for tasks such as complex invoice processing, regulatory filing automation, and healthcare documentation.",
+            "key_points": [
+                "Complex invoice processing: insurance industry",
+                "Regulatory filing automation: finance industry",
+                "Healthcare documentation: clinical record analysis"
+            ]
+        }
+    ],
+    "Assess the quality and functionality of free LLMs compared to commercial models": [
+        {
+            "source": "https://context-clue.com/blog/open-source-vs-commercial-llms/",
+            "title": "Open Source vs. Commercial LLMs: Which for Your Enterprise Needs?",
+            "summary": "Comparison between open-source and commercial LLMs in terms of transparency, customization, cost efficiency, security, compliance, operational stability, accessibility, and scalability.",
+            "key_points": [
+                "Open-source LLMs maximize transparency, customization, and cost efficiency",
+                "Commercial LLMs prioritize controlled access, reliability, and regulatory alignment at higher cost and lower flexibility",
+                "Open-source LLMs favor self-hosted or hybrid deployments with custom fine-tuning and integration layers",
+                "Commercial LLMs are typically accessed via APIs, offering managed infrastructure, SLAs, and constrained extensibility"
+            ]
+        },
+        {
+            "source": "https://arxiv.org/html/2406.13713v2",
+            "title": "Comparison of Open-Source and Proprietary LLMs for NLP Tasks",
+            "summary": "Comparison of open-source and proprietary LLMs in terms of performance, scalability, and capabilities for NLP tasks such as coding, problem-solving, semantic understanding, and precision.",
+            "key_points": [
+                "Mistral models outperform Phi-2 and Llama families in areas such as semantic understanding and precision",
+                "Mistral models achieve results comparable to larger proprietary models like GPT-3.5 while requiring fewer computational and memory resources",
+                "Open-source models, such as Llama 2, can rival proprietary models like GPT-3.5 when fine-tuned",
+                "Proprietary models like GPT-4 dominate certain areas such as misinformation detection"
+            ]
+        },
+        {
+            "source": "https://coaxsoft.com/blog/llm-api-comparison",
+            "title": "LLM integration guide: Paid & free LLM API comparison",
+            "summary": "Comparison of LLM APIs in terms of processing power, capabilities, speed, and price, highlighting models such as LLaMA 2 and BLOOM.",
+            "key_points": [
+                "LLaMA 2 provides robust LLM as a service capability through various providers",
+                "LLaMA 2 is free for research and commercial use, making it one of the best LLM API options for startups",
+                "OpenAI allows 90 requests per minute on their free plan, while enterprise solutions offer much higher limits",
+                "Fine-tuning options vary across providers"
+            ]
+        },
+        {
+            "source": "https://www.nature.com/articles/s41746-024-01239-w",
+            "title": "Closing the gap between open source and commercial LLMs",
+            "summary": "Investigation into recently released open-source LLMs for medical evidence summarization and comparison with proprietary models.",
+            "key_points": [
+                "Open-source models fall behind in natural language understanding compared to closed-source ones",
+                "Fine-tuning can enhance performance of open-source LLMs",
+                "Proprietary LLMs introduce multiple risk factors, including a lack of transparency and vendor dependency"
+            ]
+        },
+        {
+            "source": "https://hatchworks.com/blog/gen-ai/open-source-vs-closed-llms-guide/",
+            "title": "Open-Source LLMs vs Closed: Unbiased Guide for Innovative ...",
+            "summary": "Comparison of open-source and closed LLMs in terms of quality, speed, and price, highlighting models such as GPT-4o, Gemini 1.5, ChatGPT, and Llama-3-70B.",
+            "key_points": [
+                "GPT-4o leads in quality but performs at mid level for speed",
+                "Gemini 1.5 is the fastest among the sampled models",
+                "Llama-3-70B is an open-source language model for coding that is 10x cheaper than ChatGPT-4",
+                "The choice between open-source and closed LLMs matters for cost and performance"
+            ]
+        }
+    ],
+    "Analyze the limitations and constraints of free LLMs, including data storage and usage caps": [
+        {
+            "source": "https://memgraph.com/blog/llm-limitations-query-enterprise-data",
+            "title": "LLM Limitations",
+            "summary": "Large language models (LLMs) have limitations in handling context and data storage, including token limits, data windows, and limitations in attention.",
+            "key_points": [
+                "LLMs can only handle a limited amount of text at a time due to the context window",
+                "The typical context window is around 8,000 tokens (6,000 words) for GPT-4",
+                "LLMs have a token limit, which means they can only see a part of the data in a single query",
+                "There is a cap to the amount of data that can be stored in the context window"
+            ]
+        },
+        {
+            "source": "https://hardikr68.medium.com/understanding-tokens-and-overcoming-their-limitations-in-llms-9bca12fcc936",
+            "title": "Understanding Tokens and Overcoming their Limitations in LLMs",
+            "summary": "LLMs have two types of limitations: conceptual and technological.",
+            "key_points": [
+                "Conceptual limitations include domain knowledge, language, data cutoff, etc.",
+                "Technological limitations include input or output token limits, memory limits, and trainable parameters",
+                "Technological limitations cannot be completely overcome without modifying the architecture of the LLMs"
+            ]
+        },
+        {
+            "source": "https://arxiv.org/html/2511.12869v1",
+            "title": "On the Fundamental Limits of LLMs at Scale",
+            "summary": "LLMs have intrinsic computational and statistical limits that cannot be overcome with present architectures, scales, or optimizations.",
+            "key_points": [
+                "Hallucination in LLMs is an intrinsic limit, not just an engineering artifact of insufficient data or suboptimal training",
+                "No enumerable class of models can correctly answer all computable queries",
+                "Certain problems lie beyond the reach of any algorithm"
+            ]
+        },
+        {
+            "source": "https://lobehub.com/blog/complete-guide-to-claude-ai-usage-limits",
+            "title": "Complete Guide to Claude AI Usage limits",
+            "summary": "Claude AI usage limits include restrictions on the number of sendable messages due to attachment size.",
+            "key_points": [
+                "Large attachments decrease the number of sendable messages in Claude AI"
+            ]
+        },
+        {
+            "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11751060/",
+            "title": "Current applications and challenges in large language models for healthcare",
+            "summary": "LLMs have limitations in medical use due to implicit knowledge, lack of clinical context, and limitations in medical image processing.",
+            "key_points": [
+                "LLMs are not optimized for medical use",
+                "Implicit knowledge and lack of clinical context limit LLM use in healthcare",
+                "Limitations in medical image processing/production and misunderstanding of medical information and terms are concerns"
+            ]
+        }
+    ],
+    "Examine the potential risks and concerns related to using free LLMs, such as data privacy and security": [
+        {
+            "source": "https://trustarc.com/resource/benefits-risks-large-language-models-llm-ai-privacy-compliance/",
+            "title": "The Benefits and Risks of Using Large Language Models (LLM) in ...",
+            "summary": "The use of LLMs raises concerns about data protection and security risks, including data privacy, model bias and discrimination, and security vulnerabilities.",
+            "key_points": [
+                "Data privacy: LLMs can collect and process large amounts of personal data.",
+                "Model bias and discrimination: LLMs can reflect biases in the output, leading to discriminatory decisions.",
+                "Security: LLMs are complex systems vulnerable to security risks."
+            ]
+        },
+        {
+            "source": "https://fairnow.ai/executives-guide-risks-of-llms/",
+            "title": "An Executive's Guide to the Risks of Large Language Models (LLMs)",
+            "summary": "The primary risks of using LLMs include hallucinations, bias, data privacy/leakage, toxicity, copyright infringement, and new security vulnerabilities.",
+            "key_points": [
+                "Hallucinations: LLMs can generate factually incorrect or fabricated content.",
+                "Bias: LLMs can reflect biases in the output.",
+                "Data privacy/leakage: LLMs can expose sensitive information."
+            ]
+        },
+        {
+            "source": "https://www.edpb.europa.eu/system/files/2025-04/ai-privacy-risks-and-mitigations-in-llms.pdf",
+            "title": "[PDF] AI Privacy Risks & Mitigations \u2013 Large Language Models (LLMs)",
+            "summary": "LLMs present unique risks that can impact user privacy and data protection, including data flow and security risks.",
+            "key_points": [
+                "Data flow: LLMs can process large amounts of personal data.",
+                "Security risks: LLMs can be vulnerable to security breaches and data poisoning."
+            ]
+        },
+        {
+            "source": "https://www.rubrik.com/insights/llm-security",
+            "title": "What is LLM Security? - Rubrik",
+            "summary": "LLMs can expose sensitive information and increase the chance of data leaks due to insecure data management and training sets.",
+            "key_points": [
+                "Sensitive data exposure: LLMs can expose internal or regulated information.",
+                "Data poisoning: LLMs can be corrupted or tampered with during training."
+            ]
+        },
+        {
+            "source": "https://www.exabeam.com/explainers/ai-cyber-security/llm-security-top-10-risks-and-7-security-best-practices/",
+            "title": "LLM Security: Top 10 Risks and 7 Security Best Practices - Exabeam",
+            "summary": "LLMs introduce several security risks, including biased or offensive content generation, data privacy breaches, and potential security threats from user interactions.",
+            "key_points": [
+                "Biased or offensive content: LLMs can generate biased or offensive content.",
+                "Data privacy breaches: LLMs can expose sensitive information."
+            ]
+        }
+    ]
+}

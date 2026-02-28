@@ -1,0 +1,27 @@
+[
+    {
+        "description": "Survey publicly available large language models to identify free LLM options",
+        "priority": 8,
+        "type": "research"
+    },
+    {
+        "description": "Investigate notable use cases and applications of free LLMs across industries and topics",
+        "priority": 7,
+        "type": "research"
+    },
+    {
+        "description": "Assess the quality and functionality of free LLMs compared to commercial models",
+        "priority": 6,
+        "type": "research"
+    },
+    {
+        "description": "Analyze the limitations and constraints of free LLMs, including data storage and usage caps",
+        "priority": 5,
+        "type": "research"
+    },
+    {
+        "description": "Examine the potential risks and concerns related to using free LLMs, such as data privacy and security",
+        "priority": 4,
+        "type": "research"
+    }
+]
