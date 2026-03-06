@@ -1,0 +1,144 @@
+{
+    "Define the mathematical and numerical representations of the concept '0' across various number systems": [
+        {
+            "source": "https://en.wikipedia.org/wiki/0",
+            "title": "0 - Wikipedia",
+            "summary": "In mathematics, zero has no distinct positive or negative representation, but it has two representations in computer hardware, signed zero and ones' complement binary integer representations.",
+            "key_points": [
+                "0 is the additive identity of integers, rational numbers, real numbers, and complex numbers.",
+                "Adding 0 to any number leaves that number unchanged.",
+                "In some computer hardware, zero has two distinct representations: signed zero and ones' complement binary integer representations."
+            ]
+        },
+        {
+            "source": "https://www.ebsco.com/research-starters/mathematics/zero",
+            "title": "Zero | Research Starters",
+            "summary": "Computers use two distinct zeroes: +1 (positive zero) and -0 (negative zero) in floating-point operations, but integer division by zero is usually handled differently.",
+            "key_points": [
+                "Most modern computer processors have two distinct zeroes in floating-point operations.",
+                "1/-0 yields negative infinity, while 1/+1 gives positive infinity.",
+                "Integer division by zero is usually handled differently from floating point."
+            ]
+        },
+        {
+            "source": "https://www.britannica.com/science/zero-mathematics",
+            "title": "Zero | Mathematical Properties, History, Early Placeholders, India ...",
+            "summary": "Zero is an even number, a placeholder in the positional number system, and the additive identity, meaning it leaves a value unchanged when added to it.",
+            "key_points": [
+                "Zero is an even number because it is divisible by two without a remainder.",
+                "Zero is a placeholder in the positional number system, allowing us to distinguish values such as 205 from 25.",
+                "Zero operates as the additive identity, meaning it leaves a value unchanged when added to it."
+            ]
+        }
+    ],
+    "Investigate the historical and cultural significance of the concept '0' in human civilization": [
+        {
+            "source": "https://www.diplomacy.edu/blog/journey-of-zero-evolution/",
+            "title": "Journey of Zero: Evolution: From Ancient India to Digital Era",
+            "summary": "The concept of zero functions as a number in its own right, a point of origin, and a cornerstone of modern mathematics, science, technology, and finance.",
+            "key_points": [
+                "Zero emerged independently in ancient civilizations like Babylon, China, and the Maya.",
+                "Zero achieved its full potential as a number in ancient India, integrated with philosophical concepts of emptiness and formalized by mathematicians like Brahmagupta.",
+                "The concept of zero was transmitted through the vibrant intellectual centers of the Islamic Golden Age via scholars such as Al-Khwarizmi."
+            ]
+        },
+        {
+            "source": "https://www.ox.ac.uk/news/2017-09-14-earliest-recorded-use-zero-centuries-older-first-thought",
+            "title": "Earliest recorded use of zero is centuries older than first thought",
+            "summary": "The earliest recorded example of the use of zero was previously believed to be a 9th century inscription of the symbol on the wall of a temple in Gwalior, Madhya Pradesh.",
+            "key_points": [
+                "The earliest recorded use of zero was in the Bakhshali manuscript, which is widely acknowledged as the oldest Indian mathematical text.",
+                "The symbol was used as a placeholder to represent orders of magnitude in the ancient Indian numbers system.",
+                "India was the place where the symbolic placeholder developed into a number in its own right, and the concept of the figure zero as it exists today, was born."
+            ]
+        },
+        {
+            "source": "https://www.thethinkacademy.com/blog/edubriefs-the-amazing-story-of-zero-from-concept-to-online-learning/",
+            "title": "The Amazing Story of Zero: From Concept to Online Learning",
+            "summary": "The concept of 'nothing' seems simple, yet its mathematical representation, zero, took civilizations centuries to fully grasp.",
+            "key_points": [
+                "The concept of 'nothing' is represented by zero, which took civilizations centuries to fully grasp.",
+                "Ancient cultures, like the Babylonians around 300 BCE, used symbols as placeholders in their numerical system.",
+                "India was the place where the symbolic placeholder developed into a number in its own right, and the concept of the figure zero as it exists today, was born."
+            ]
+        },
+        {
+            "source": "https://en.wikipedia.org/wiki/0",
+            "title": "0 - Wikipedia",
+            "summary": "The modern zero originated in ancient India before spreading to the Islamic world and Europe.",
+            "key_points": [
+                "Ptolemy, influenced by Hipparchus and the Babylonians, was using a symbol for zero in his work on mathematical astronomy called the _Syntaxis Mathematica_ around AD 150.",
+                "The Hellenistic zero was perhaps the earliest documented use of a numeral representing zero in the Old World.",
+                "The Maya civilization independently developed a place-value number system that included a symbol for zero by the 4th or 5th century ce."
+            ]
+        },
+        {
+            "source": "https://www.britannica.com/science/zero-mathematics",
+            "title": "Zero | Mathematical Properties, History, Early Placeholders, India ...",
+            "summary": "The concept of zero as both a symbol and idea is a relatively late development in human history.",
+            "key_points": [
+                "The modern zero--as a numeral with its own value and arithmetic rules--originated in ancient India before spreading to the Islamic world and Europe.",
+                "The Maya civilization in Central America independently developed a place-value number system that included a symbol for zero, likely by the 4th or 5th century ce.",
+                "This symbol helped mark when a number position had no value, similar to how zero is used in modern numerals."
+            ]
+        }
+    ],
+    "Analyze the mathematical properties and behaviors of numbers surrounding '0', including its interactions with addition, subtraction, and other arithmetic operations": [
+        {
+            "source": "https://www.meaningfulmathco.com/mm_math_terms/zero-property/",
+            "title": "Zero Property",
+            "summary": "The Zero Property is a mathematical rule stating that adding zero to a number leaves it unchanged (addition property of zero) and multiplying a number by zero gives a product of zero (multiplication property of zero).",
+            "key_points": [
+                "Adding zero to a number leaves it unchanged (addition property of zero)",
+                "Multiplying a number by zero gives a product of zero (multiplication property of zero)",
+                "When any number is multiplied by zero, the result is always zero: a \u00d7 0 = 0 and 0 \u00d7 a = 0",
+                "Zero is an identity for addition: n + 0 = n and 0 + n = n",
+                "Any number to the power of 0 is equal to 1",
+                "0 is neither positive nor negative",
+                "0 is neither prime nor composite",
+                "Division by zero is undefined or has no answer: a \u00f7 0 has no answer"
+            ]
+        },
+        {
+            "source": "https://pressbooks.oer.hawaii.edu/mathforelementaryteachers/chapter/properties-of-operations/",
+            "title": "Properties of Operations",
+            "summary": "",
+            "key_points": [
+                "For any whole numbers n, n + 0 = n and 0 + n = n",
+                "0 is an identity for addition",
+                "Since addition and subtraction are so closely linked, it's natural to wonder if subtraction has some of the same properties as addition"
+            ]
+        },
+        {
+            "source": "https://www.basic-mathematics.com/properties-of-zero.html",
+            "title": "Properties of zero",
+            "summary": "",
+            "key_points": [
+                "The two properties of zero are the addition property of zero and the multiplication property of zero",
+                "The addition property of zero is that a + 0 = a and 0 + a = a",
+                "The multiplication property of zero is that a \u00d7 0 = 0 and 0 \u00d7 a = 0",
+                "Division by zero is undefined or has no answer: a \u00f7 0 has no answer",
+                "The number 0 is called the additive identity.",
+                "Any number to the power of 0 is equal to 1"
+            ]
+        },
+        {
+            "source": "https://www.youtube.com/watch?v=2vMux8pTtCY",
+            "title": "Arithmetic Operations Involving Zero",
+            "summary": "",
+            "key_points": [
+                "Arithmetic operations involving zero will be discussed"
+            ]
+        },
+        {
+            "source": "https://www.khanacademy.org/math/grade-8-math-snc-aligned/x4383bdbca3d6abf7:real-numbers/x4383bdbca3d6abf7:properties-of-real-numbers/v/identity-property-of-0",
+            "title": "Identity property of 0",
+            "summary": "",
+            "key_points": [
+                "Adding zero to anything doesn't change the value: y + 0 = y",
+                "Multiplying zero by anything results in zero: 0 \u00d7 a = 0",
+                "When adding a negative number, it is equivalent to subtracting the number: 0 + a \u2212 a = a"
+            ]
+        }
+    ]
+}

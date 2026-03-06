@@ -1,0 +1,32 @@
+[
+    {
+        "description": "Identify the top 5 industries most affected by AI-driven job displacement from 2010 to 2022, including the number of jobs lost or created",
+        "priority": 9,
+        "type": "historical analysis",
+        "search_angle": "Historical context of job displacement"
+    },
+    {
+        "description": "Analyze the current state of AI adoption in the workforce, including the percentage of companies using AI, the types of AI technologies being used, and the primary purposes of AI implementation",
+        "priority": 8,
+        "type": "survey research",
+        "search_angle": "Current state of AI adoption"
+    },
+    {
+        "description": "Examine the technical requirements and skills needed for jobs created by AI, including data science, machine learning engineering, and AI ethics, and compare them to traditional job requirements",
+        "priority": 7,
+        "type": "technical analysis",
+        "search_angle": "Technical details of AI-driven job creation"
+    },
+    {
+        "description": "Investigate the challenges and limitations of implementing AI in the workforce, including bias in AI decision-making, job polarization, and the need for workforce retraining and upskilling",
+        "priority": 8,
+        "type": "challenge analysis",
+        "search_angle": "Challenges and limitations of AI implementation"
+    },
+    {
+        "description": "Forecast the potential impact of AI on job markets in the next 5-10 years, including the emergence of new job categories, changes in employment rates, and shifts in industry landscapes",
+        "priority": 9,
+        "type": "futures research",
+        "search_angle": "Future outlook of AI on job markets"
+    }
+]

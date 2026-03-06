@@ -6,11 +6,13 @@ import re
 
 load_dotenv()
 
-groq_api_key = os.getenv("GROQ_API_KEY")
-client = Groq(api_key=groq_api_key)
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+# Use a capable model for task planning
+TASK_MODEL = "llama-3.3-70b-versatile"
+
 
 def generate_tasks(user_input, research_context):
-
     task_data_path = "model_output_data/"
 
     lower_user_input = user_input.lower()
@@ -18,59 +20,64 @@ def generate_tasks(user_input, research_context):
     folder_name_for_query = re.sub(r"\s+", "_", cleaned_text)
 
     complete_data_path_query = os.path.join(task_data_path, folder_name_for_query)
+    os.makedirs(complete_data_path_query, exist_ok=True)
 
-    if not os.path.exists(complete_data_path_query):
-        os.makedirs(complete_data_path_query, exist_ok=True)
+    system_prompt = f"""You are an expert research strategist and planner.
 
-    system_prompt = f"""
-You are creating an initial research plan for the topic: "{user_input}"
-Initial Query: "{user_input}"
+You are given a research topic: "{user_input}"
 Research Context: {research_context if research_context else "Starting fresh research"}
-Decompose this query into 3–5 actionable research tasks. Return a JSON array with each task having:
-• "description": Clear, actionable task (string)
-• "priority": 1–10 (integer, higher = more important, default=5)
-• "type": "research" (always "research")
 
-STRICTLY CREATE ONLY 3-5 ACTIONABLE RESEARCH TASKS
+Your goal is to decompose this topic into 4-5 highly focused, non-overlapping research tasks that together provide thorough and comprehensive coverage of the topic.
 
-Focus on: understanding the topic, gathering information, identifying key aspects, and building foundational knowledge.
-Example for "Impacts of Generative AI on Scientific Research":
+REQUIREMENTS FOR EACH TASK:
+1. Be SPECIFIC — avoid vague tasks like "research X". Every task should be answerable with concrete evidence.
+2. Be DIVERSE — cover different angles: historical context, current state, key players, technical details, challenges, future outlook.
+3. Be INDEPENDENT — each task should produce standalone findings.
+4. Be ACTIONABLE — tasks should guide a focused web search query.
+
+PRIORITY SCALE:
+- 9-10: Critical foundational knowledge — must know first
+- 7-8: Core analytical depth — important for understanding
+- 5-6: Supporting context — helpful for completeness
+- 3-4: Optional depth — nice to have
+
+CRITICAL: Return ONLY valid JSON inside <answer> tags. No preamble, no explanation.
+
 <answer>
 [
-{{"description": "Survey major applications of generative AI in scientific discovery", "priority": 8, "type": "research"}},
-{{"description": "Identify key papers and institutions leading AI-assisted science research", "priority": 7, "type": "research"}},
-{{"description": "Examine methodological advances enabled by generative models in ...", "priority": 6, "type": "research"}},
-{{"description": "Assess challenges and ethical considerations of AI-generated scientific results", "priority": 5, "type": "research"}}
+  {{
+    "description": "Clear, specific, answerable research task",
+    "priority": 8,
+    "type": "research",
+    "search_angle": "What specific aspect of the topic this task targets"
+  }}
 ]
 </answer>
-CRITICAL: Wrap JSON in <answer>tags.
-Output ONLY valid JSON.
 """
 
     messages = [
         {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_input}
+        {"role": "user",   "content": f"Research topic: {user_input}"}
     ]
 
     completion = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
+        model=TASK_MODEL,
         messages=messages,
+        temperature=0.3,
         stream=False
     )
 
     assistant_output = completion.choices[0].message.content
 
     start = assistant_output.find("<answer>") + len("<answer>")
-    end = assistant_output.find("</answer>")
+    end   = assistant_output.find("</answer>")
 
     json_text = assistant_output[start:end].strip()
     tasks = json.loads(json_text)
 
     tasks_file_path = os.path.join(complete_data_path_query, "tasks.json")
-
-    with open(tasks_file_path, "w") as f:
+    with open(tasks_file_path, "w", encoding="utf-8") as f:
         json.dump(tasks, f, indent=4)
 
-    print("Saved to:", tasks_file_path)
-
+    print("Tasks saved to:", tasks_file_path)
     return tasks_file_path

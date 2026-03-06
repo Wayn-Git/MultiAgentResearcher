@@ -1,0 +1,363 @@
+{
+    "Identify and list all current FDA-approved CRISPR gene editing therapies for human diseases": [
+        {
+            "source": "www.fda.gov",
+            "title": "FDA Approves First Gene Therapies to Treat Patients with Sickle Cell Disease",
+            "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapies-treat-patients-sickle-cell-disease",
+            "summary": "The FDA has approved two milestone treatments, Casgevy and Lyfgenia, representing the first cell-based gene therapies for the treatment of sickle cell disease (SCD) in patients 12 years and older. Casgevy is the first FDA-approved therapy utilizing CRISPR/Cas9, a type of genome editing technology.",
+            "key_points": [
+                "Casgevy is approved for the treatment of sickle cell disease in patients 12 years of age and older with recurrent vaso-occlusive crises.",
+                "Casgevy is the first FDA-approved therapy utilizing CRISPR/Cas9, a type of genome editing technology.",
+                "Patients' hematopoietic (blood) stem cells are modified by genome editing using CRISPR/Cas9 technology.",
+                "The modified blood stem cells are transplanted back into the patient where they engraft (attach and multiply) within the bone marrow and increase the production of fetal hemoglobin (HbF)."
+            ],
+            "relevance_score": 0.999
+        },
+        {
+            "source": "www.nyscf.org",
+            "title": "World's First CRISPR-Based Gene Therapy Approved by FDA",
+            "url": "https://www.nyscf.org/resources/worlds-first-crispr-based-gene-therapy-approved-by-fda/",
+            "summary": "The FDA has approved the first CRISPR-based gene therapy for sickle cell disease, which employs CRISPR gene editing to edit genes in patients' hematopoietic stem cells. The therapy, exa-cel, is developed by Vertex Pharmaceuticals and CRISPR Therapeutics.",
+            "key_points": [
+                "The FDA has approved the first CRISPR-based gene therapy for sickle cell disease.",
+                "The therapy, exa-cel, employs CRISPR gene editing to edit genes in patients' hematopoietic stem cells.",
+                "Exa-cel is developed by Vertex Pharmaceuticals and CRISPR Therapeutics.",
+                "The therapy has been approved for the treatment of sickle cell disease in patients 12 years of age and older."
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "www.fiercebiotech.com",
+            "title": "FDA illuminates new approval pathway for bespoke gene therapies",
+            "url": "https://www.fiercebiotech.com/biotech/fda-illuminates-new-approval-pathway-bespoke-gene-therapies",
+            "summary": "The FDA has unveiled a new approval pathway for bespoke gene therapies, which will allow for the approval of custom CRISPR therapies. The pathway focuses on genome editing and RNA-based methods that target the underlying cause of a rare disease.",
+            "key_points": [
+                "The FDA has unveiled a new approval pathway for bespoke gene therapies.",
+                "The pathway focuses on genome editing and RNA-based methods that target the underlying cause of a rare disease.",
+                "The pathway will allow for the approval of custom CRISPR therapies.",
+                "The FDA will continue to gather data post-market to ensure safety."
+            ],
+            "relevance_score": 0.998
+        },
+        {
+            "source": "www.labiotech.eu",
+            "title": "Nine diseases that CRISPR technology could cure",
+            "url": "https://www.labiotech.eu/in-depth/crispr-technology-cure-disease/",
+            "summary": "CRISPR technology has shown promise in treating various diseases, including sickle cell disease, cystic fibrosis, and Huntington's disease. Researchers are working on developing CRISPR-based therapies for these diseases.",
+            "key_points": [
+                "CRISPR technology has shown promise in treating various diseases.",
+                "Sickle cell disease, cystic fibrosis, and Huntington's disease are among the diseases that CRISPR technology could cure.",
+                "Researchers are working on developing CRISPR-based therapies for these diseases.",
+                "Intellia's approach employs a knockout edit of the mutated KLKB1 gene to curb the excess production of the protein bradykinin."
+            ],
+            "relevance_score": 0.995
+        }
+    ],
+    "Analyze the technical differences and similarities between CRISPR-Cas9 and CRISPR-Cas12a gene editing systems": [
+        {
+            "source": "www.sciencedirect.com",
+            "title": "Comparison of CRISPR/Cas9 and Cas12a for gene editing in Chlamydomonas reinhardtii",
+            "url": "https://www.sciencedirect.com/science/article/pii/S2211926424004089",
+            "summary": "This study compares the efficiency and precision of CRISPR-Cas9 and Cas12a systems in gene editing in Chlamydomonas reinhardtii. The results show that Cas9 targets more sites than Cas12a, but Cas12a shows higher precision in single-strand templated DNA repair and gene editing.",
+            "key_points": [
+                "Cas9 targets 8-32 times more sites than Cas12a in promoter regions and coding sequences.",
+                "Cas12a shows higher precision in single-strand templated DNA repair and gene editing.",
+                "Cas9 and Cas12a RNPs with ssODN templates induce similar total editing levels.",
+                "Cas12a requires a T-rich PAM, while Cas9 recognizes a G-rich PAM."
+            ],
+            "relevance_score": 0.859
+        },
+        {
+            "source": "www.idtdna.com",
+            "title": "Alt-R CRISPR-Cas9 vs Cas12a systems | IDT",
+            "url": "https://www.idtdna.com/pages/technology/crispr/crispr-genome-editing/Alt-R-systems",
+            "summary": "This article compares the Alt-R CRISPR-Cas9 and Cas12a systems, highlighting their differences in PAM recognition and guide RNA requirements. Cas12a requires a T-rich PAM and a one-part gRNA, while Cas9 recognizes a G-rich PAM and uses a two-part guide RNA.",
+            "key_points": [
+                "Cas12a requires a T-rich PAM, while Cas9 recognizes a G-rich PAM.",
+                "Cas12a uses a one-part gRNA, while Cas9 uses a two-part guide RNA.",
+                "Cas12a is suitable for targeting AT-rich regions, while Cas9 is more efficient for targeting GC-rich regions.",
+                "Cas12a can recognize many TTTT PAM sites in addition to TTTV motifs."
+            ],
+            "relevance_score": 0.85
+        },
+        {
+            "source": "pmc.ncbi.nlm.nih.gov",
+            "title": "Activities and specificities of CRISPR/Cas9 and Cas12a nucleases in plant genome editing",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6320322/",
+            "summary": "This study compares the activities and specificities of CRISPR-Cas9 and Cas12a nucleases in plant genome editing. The results show that Cas12a has distinct features, including a T-rich PAM requirement and the ability to process multiple crRNAs from an array.",
+            "key_points": [
+                "Cas12a requires a T-rich PAM, while Cas9 recognizes a G-rich PAM.",
+                "Cas12a can process multiple crRNAs from an array, simplifying multiplex gene editing.",
+                "Cas12a has a higher efficiency than Cas9 for targeting AT-rich regions.",
+                "Cas12a induces double-stranded breaks with a 4-5 bp overhang."
+            ],
+            "relevance_score": 0.808
+        },
+        {
+            "source": "invivobiosystems.com",
+            "title": "Cas9 vs Cas12a: A Revolutionary Chapter in Genome Editing",
+            "url": "https://invivobiosystems.com/crispr/cas9-vs-cas12a/",
+            "summary": "This article compares the Cas9 and Cas12a systems, highlighting their differences in cutting mechanisms and multiplexing capabilities. Cas12a leaves staggered cuts with 5' overhangs, while Cas9 creates blunt double-stranded breaks.",
+            "key_points": [
+                "Cas12a leaves staggered cuts with 5' overhangs, while Cas9 creates blunt double-stranded breaks.",
+                "Cas12a has a higher multiplexing capability than Cas9.",
+                "Cas12a is more precise and can guide more predictable repair processes.",
+                "Cas9 targets more sites than Cas12a."
+            ],
+            "relevance_score": 0.884
+        },
+        {
+            "source": "pubmed.ncbi.nlm.nih.gov",
+            "title": "Comparison of Cas9 and Cas12a CRISPR editing methods to correct the W1282X-CFTR mutation",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/34103250/",
+            "summary": "This study compares the efficiency of Cas9 and Cas12a CRISPR editing methods in correcting the W1282X-CFTR mutation. The results show that Cas9 shows higher levels of correction than Cas12a.",
+            "key_points": [
+                "Cas9 shows higher levels of correction than Cas12a.",
+                "Cas9 and Cas12a RNPs with ssODN templates induce similar total editing levels.",
+                "Cas12a requires a T-rich PAM, while Cas9 recognizes a G-rich PAM.",
+                "Cas12a induces double-stranded breaks with a 4-5 bp overhang."
+            ],
+            "relevance_score": 0.836
+        },
+        {
+            "source": "www.nature.com",
+            "title": "Comparison of Cas12a and Cas9-mediated mutagenesis in tomato",
+            "url": "https://www.nature.com/articles/s41598-024-55088-4",
+            "summary": "This study compares the efficiency of Cas12a and Cas9-mediated mutagenesis in tomato. The results show that Cas12a shows editing at similar levels as Cas9, but with varying mutation rates depending on the target site.",
+            "key_points": [
+                "Cas12a shows editing at similar levels as Cas9.",
+                "Cas12a requires a T-rich PAM, while Cas9 recognizes a G-rich PAM.",
+                "Cas12a induces double-stranded breaks with a 4-5 bp overhang.",
+                "Cas12a is suitable for targeting AT-rich regions, while Cas9 is more efficient for targeting GC-rich regions."
+            ],
+            "relevance_score": 0.743
+        }
+    ],
+    "Map the intellectual property landscape of CRISPR gene editing, including key patent holders and licensing agreements": [
+        {
+            "source": "www.ige.ch",
+            "title": "CRISPR technology: Patent & License landscapes",
+            "url": "https://www.ige.ch/fileadmin/user_upload/recht/national/e/20231388_IPI_CRISPR_Patent_License_Landscape_revised_Final_16_02_24.pdf",
+            "summary": "This report provides an overview of the CRISPR patent and license landscape, focusing on genetically modified plants. It highlights key points such as the number of patent families covering CRISPR-related technology, priority filings in China and the USA, and licensing agreements.",
+            "key_points": [
+                "There are over 17,900 patent families covering CRISPR-related technology.",
+                "Over 14,900 have claims covering genome editing.",
+                "46% of CRISPR patents have priority filings in China, and nearly 40% have them in the USA.",
+                "Two groups, CVC and Broad, hold issued foundational CRISPR-Cas9 patents.",
+                "Broad's patent protection applies only to eukaryotes, is subject to multiple challenges, and has a reduced scope in Europe."
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "ccb.ff6.mwp.accessdomain.com",
+            "title": "The emerging patent landscape of CRISPR\u2013Cas gene editing",
+            "url": "https://ccb.ff6.mwp.accessdomain.com/P/Cases/CRISPR_Gene_Editing.pdf",
+            "summary": "This report provides an overview of the emerging patent landscape of CRISPR-Cas gene editing, highlighting key players and patent holders. It notes that commercial assignees have taken less ground in the early phases of the CRISPR-Cas patent landscape.",
+            "key_points": [
+                "The top ten patent holders in the CRISPR-Cas patent landscape are MIT, Harvard College, the Broad Institute, and others.",
+                "MIT is on top, followed by Harvard College and the Broad Institute.",
+                "The list of the top ten patent holders is based on a search of key words CRISPR and Cas9 in the patent database from Thomson Innovation.",
+                "The number of total inventions represents separate patent families where each family represents one unique invention."
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "www.synthego.com",
+            "title": "Why IP Strategy Matters in CRISPR-Based Therapies",
+            "url": "https://www.synthego.com/blog/the-current-state-of-ip-in-crispr-based-therapies/",
+            "summary": "This article highlights the importance of IP strategy in CRISPR-based therapies, noting that foundational patents are primarily owned by institutions like the University of California, Berkeley and the Broad Institute.",
+            "key_points": [
+                "Foundational patents are primarily owned by institutions like the University of California, Berkeley and the Broad Institute.",
+                "These institutions hold the rights to pivotal technologies like CRISPR-Cas9, shaping how licensing agreements are managed.",
+                "The dispute over which institute first discovered and developed technologies like CRISPR-Cas9 has prompted legal battles, influencing licensing terms globally."
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "www.ige.ch",
+            "title": "[PDF] CRISPR Technology 2025: Patent & License landscape on Plants",
+            "url": "https://www.ige.ch/fileadmin/user_upload/recht/national/e/IPI%20CRISPR%20IPLandscape%20Plants%202025.pdf",
+            "summary": "This report provides a comprehensive analysis of the patent and licensing landscape for CRISPR-based technologies applied to plants, with a particular focus on genome-edited crops and non-transgenic approaches.",
+            "key_points": [
+                "The landscape is still developing, with room for further innovation.",
+                "Many patents cover both transgenic and non-transgenic approaches, and boundaries are not always clearly defined.",
+                "European applicants include KWS Saat and Tropic Biosciences, but remain few.",
+                "Most EP filings come from US-based actors (e.g. Corteva, Pairwise, Broad)."
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "patentpc.com",
+            "title": "CRISPR and Gene Editing Patents: What Biotech Startups Must Know",
+            "url": "https://patentpc.com/blog/crispr-and-gene-editing-patents-what-biotech-startups-must-know",
+            "summary": "This article highlights the importance of understanding the CRISPR patent landscape for biotech startups, noting that securing patents is only one part of the equation.",
+            "key_points": [
+                "Startups need to consider how they will navigate licensing and collaboration opportunities with existing patent holders.",
+                "Securing licenses to use core CRISPR technology, especially CRISPR-Cas9, can involve significant costs but also opens up opportunities for collaboration.",
+                "A well-executed patent landscape analysis provides a clear picture of the existing patents in the CRISPR domain, identifying areas where there may be freedom to operate and areas where potential conflicts could arise."
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "www.wipo.int",
+            "title": "CRISPR-Cas: Navigating the Patent Landscape to Explore Boundless Applications",
+            "url": "https://www.wipo.int/en/web/global-health/w/news/2024/crispr-cas-navigating-the-patent-landscape-to-explore-boundless-applications",
+            "summary": "This article highlights the complex and competitive patent landscape of CRISPR-Cas technology, noting that a high-profile litigation between two major groups is central to the contour of the patent landscape.",
+            "key_points": [
+                "The University of California, Berkeley, the University of Vienna, and Dr. Emmanuelle Charpentier (collectively known as CVC) claim ownership of the fundamental inventions related to CRISPR-Cas9.",
+                "The Broad Institute, affiliated with Harvard and MIT, also claims ownership of the fundamental inventions related to CRISPR-Cas9.",
+                "Both groups claim ownership of the use of CRISPR-Cas9 in eukaryotic cells, which includes plants and animals."
+            ],
+            "relevance_score": 1.0
+        }
+    ],
+    "Summarize the historical development of CRISPR gene editing, from its discovery to current applications": [
+        {
+            "source": "www.broadinstitute.org",
+            "title": "CRISPR Timeline",
+            "url": "https://www.broadinstitute.org/what-broad/areas-focus/project-spotlight/crispr-timeline",
+            "summary": "This timeline presents a concise history of the seminal contributions and the scientists who pushed the CRISPR field forward, from the initial discovery to the first demonstrations of CRISPR-mediated genome editing.",
+            "key_points": [
+                "CRISPR-Cas microbial adaptive immune system discovery",
+                "1993-2005: Francisco Mojica, University of Alicante, Spain, and others made seminal contributions",
+                "2013: Mali et al. published RNA-guided human genome engineering via Cas9 in Science",
+                "2008: Marraffini and Sontheimer discovered CRISPR interference limits horizontal gene transfer in staphylococci"
+            ],
+            "relevance_score": 0.785
+        },
+        {
+            "source": "www.bioagilytix.com",
+            "title": "Origins of CRISPR: How it Came to Be",
+            "url": "https://www.bioagilytix.com/blog/origins-of-crispr-how-it-came-to-be/",
+            "summary": "This article presents a concise history of the discovery of CRISPR-Cas9 and its development into a genome editing tool, from the initial discovery to the first demonstrations of CRISPR-mediated genome editing.",
+            "key_points": [
+                "CRISPR-Cas9 was first used as a gene-editing tool in 2012",
+                "CRISPR sequences were initially discovered in the E. coli genome in 1987",
+                "CRISPR/Cas9 is a gene-editing technology that involves a guide RNA and Cas9 endonuclease",
+                "CRISPR gene editing has already changed the way scientists do research and could hold great power for treating human diseases"
+            ],
+            "relevance_score": 0.782
+        },
+        {
+            "source": "bitesizebio.com",
+            "title": "A Brief History of CRISPR-Cas9 Genome-Editing Tools",
+            "url": "https://bitesizebio.com/47927/history-crispr/",
+            "summary": "This article presents a brief history of the discovery of CRISPR-Cas9 and its development into a genome editing tool, from the initial discovery to the first demonstrations of CRISPR-mediated genome editing.",
+            "key_points": [
+                "CRISPR-Cas9 was first used as a gene-editing tool in 2012",
+                "CRISPR-Cas9 can remove or introduce new genes as well as silence or activate genes",
+                "CRISPR-Cas9 has been used to switch off genes that limit the production of lipids in microalgae",
+                "CRISPR-Cas9 may also be used to cure genetic disorders such as sickle-cell anemia and cystic fibrosis"
+            ],
+            "relevance_score": 0.758
+        },
+        {
+            "source": "pmc.ncbi.nlm.nih.gov",
+            "title": "CRISPR\u2013Cas9: A History of Its Discovery and Ethical ...",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9377665/",
+            "summary": "This review focuses on the history of the discovery of the CRISPR\u2013Cas9 system with some aspects of its current applications, including ethical concerns.",
+            "key_points": [
+                "CRISPR-Cas9 was first identified in E. coli in 1987",
+                "The role of CRISPR loci in the protection of prokaryotes from foreign genetic information was proposed in 2005",
+                "The first human clinical studies using CRISPR\u2013Cas9 commenced in October 2016",
+                "CRISPR\u2013Cas9 has been used to cure life-threatening diseases and modify human embryo cells"
+            ],
+            "relevance_score": 0.744
+        },
+        {
+            "source": "www.whatisbiotechnology.org",
+            "title": "CRISPR-Cas9 | Summary",
+            "url": "https://www.whatisbiotechnology.org/index.php/science/summary/crispr",
+            "summary": "This article presents a summary of the CRISPR-Cas9 method and its applications, including its development into a genome editing tool.",
+            "key_points": [
+                "CRISPR-Cas9 is a gene-editing technology that enables genetic engineering on an unprecedented scale at very low cost",
+                "CRISPR-Cas9 has been used to treat sickle cell disease and beta thalassemia",
+                "CRISPR-Cas9 has been used to edit immune cells to enhance their capacity to destroy cancer cells",
+                "CRISPR-Cas9 has been used to control genetic inheritance in mice"
+            ],
+            "relevance_score": 0.639
+        }
+    ],
+    "Evaluate the potential future applications of CRISPR gene editing in non-therapeutic areas, such as agriculture and biotechnology": [
+        {
+            "source": "www.frontiersin.org",
+            "title": "Emerging applications of gene editing technologies for the improvement of crop traits",
+            "url": "https://www.frontiersin.org/journals/genome-editing/articles/10.3389/fgeed.2025.1524767/full",
+            "summary": "This article discusses the emerging applications of gene editing technologies, including CRISPR/Cas9, for the improvement of crop traits. It highlights the potential of base editing to improve abiotic stress responses, and the development of drought-resistant crops using CRISPR/Cas9. The article also mentions the use of gene editing to introduce herbicide resistance and beneficial mutations in crops.",
+            "key_points": [
+                "CRISPR/Cas9 technology has been used to develop drought-resistant crops by manipulating gibberellin synthesis pathways.",
+                "Base editing has shown high efficiency and specificity in various crops, including rice and Arabidopsis.",
+                "Gene editing has been used to introduce herbicide resistance and beneficial mutations in crops.",
+                "CRISPR/Cas9 technology has the potential to improve abiotic stress responses in crops.",
+                "Gene editing can be used to develop crops with improved traits, such as yield, stress resistance, and nutritional content."
+            ],
+            "relevance_score": 0.774
+        },
+        {
+            "source": "www.sciencedirect.com",
+            "title": "The potential and innovative applications of CRISPR gene editing technology in enzyme gene development",
+            "url": "https://www.sciencedirect.com/science/article/pii/S0141022925002194",
+            "summary": "This article discusses the potential and innovative applications of CRISPR gene editing technology in enzyme gene development. It highlights the use of CRISPR gene editing technology for site-specific fusion of enzyme genes, cell surface display of endogenous enzymes, and knockin of super long DNA for simultaneous expression of multiple enzymes.",
+            "key_points": [
+                "CRISPR gene editing technology can be used for site-specific fusion of enzyme genes.",
+                "CRISPR gene editing technology can be used for cell surface display of endogenous enzymes.",
+                "CRISPR gene editing technology can be used for knockin of super long DNA for simultaneous expression of multiple enzymes.",
+                "CRISPR gene editing technology has the potential to maximize the value of enzyme development in the future."
+            ],
+            "relevance_score": 0.768
+        },
+        {
+            "source": "clear.ucdavis.edu",
+            "title": "What CRISPR can do for agriculture and livestock production",
+            "url": "https://clear.ucdavis.edu/explainers/what-crispr-can-do-agriculture-and-livestock-production",
+            "summary": "This article discusses the potential uses of CRISPR in agriculture and livestock production. It highlights the use of CRISPR to develop disease-resistant plants, improve drought tolerance, and boost crop yields without introducing foreign DNA. It also mentions the use of CRISPR to enhance animal welfare, increase productivity, and reduce the environmental impact of farming.",
+            "key_points": [
+                "CRISPR can be used to develop disease-resistant plants.",
+                "CRISPR can be used to improve drought tolerance in crops.",
+                "CRISPR can be used to boost crop yields without introducing foreign DNA.",
+                "CRISPR can be used to enhance animal welfare in livestock.",
+                "CRISPR can be used to reduce the environmental impact of farming."
+            ],
+            "relevance_score": 0.755
+        },
+        {
+            "source": "innovativegenomics.org",
+            "title": "CRISPR in Agriculture: 2024 in Review",
+            "url": "https://innovativegenomics.org/news/crispr-in-agriculture-2024/",
+            "summary": "This article discusses the current state of CRISPR in agriculture, highlighting recent advancements and prospects. It mentions the development of nutrient-enhanced tomatoes, pathogen-resistant fish and cereal crops, and potatoes that might make for healthier chips and fries.",
+            "key_points": [
+                "CRISPR has been used to develop nutrient-enhanced tomatoes.",
+                "CRISPR has been used to develop pathogen-resistant fish and cereal crops.",
+                "CRISPR has been used to develop potatoes that might make for healthier chips and fries.",
+                "CRISPR has the potential to improve crop yields and reduce the need for chemical pesticides."
+            ],
+            "relevance_score": 0.796
+        },
+        {
+            "source": "pmc.ncbi.nlm.nih.gov",
+            "title": "Application of CRISPR-Cas9 genome editing technology in agriculture and biotechnology",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10916045/",
+            "summary": "This article discusses the application of CRISPR-Cas9 genome editing technology in agriculture and biotechnology. It highlights the use of CRISPR-Cas9 to develop disease-resistant crops, improve crop yields, and enhance animal welfare.",
+            "key_points": [
+                "CRISPR-Cas9 has been used to develop disease-resistant crops.",
+                "CRISPR-Cas9 has been used to improve crop yields.",
+                "CRISPR-Cas9 has been used to enhance animal welfare.",
+                "CRISPR-Cas9 has the potential to improve crop traits and enhance animal productivity."
+            ],
+            "relevance_score": 0.789
+        },
+        {
+            "source": "www.nature.com",
+            "title": "Revolution of Biotechnology with CRISPR - Nature",
+            "url": "https://www.nature.com/articles/s12276-025-01452-x",
+            "summary": "This article discusses the potential of CRISPR-Cas9 in biomedical research, agriculture, and biotechnology. It highlights the use of CRISPR-Cas9 to develop disease-resistant crops and engineer microbial strains for industrial use.",
+            "key_points": [
+                "CRISPR-Cas9 has the potential to develop disease-resistant crops.",
+                "CRISPR-Cas9 has the potential to engineer microbial strains for industrial use.",
+                "CRISPR-Cas9 has the potential to improve crop traits and enhance animal productivity.",
+                "CRISPR-Cas9 has the potential to address ethical and safety concerns in biotechnology."
+            ],
+            "relevance_score": 0.746
+        }
+    ]
+}

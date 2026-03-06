@@ -1,3 +1,15 @@
+"""
+synthesis_agent.py — Evidence-Based Synthesis (v2)
+
+Improved over v1 with:
+  - Mechanism-level prompting (not just "what" but "how" and "why")
+  - Chain-of-density approach: builds up from facts to implications
+  - Stronger instructions against vague list-making
+  - Better structured output that the critic agent can work with
+
+The critic_agent.py then takes this output and runs a refinement pass.
+"""
+
 import os
 import json
 from groq import Groq
@@ -5,88 +17,134 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-groq_api_key = os.getenv("GROQ_API_KEY")
-client = Groq(api_key=groq_api_key)
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
+SYNTHESIS_MODEL = "llama-3.3-70b-versatile"
 
-def synthesize(retrieval_results_path):
+SYNTHESIS_SYSTEM_PROMPT = """You are a senior research analyst specialising in evidence-based synthesis.
 
-    synthesis_system_prompt = """ 
-You are a research synthesis agent.
+You will receive multiple web sources for a single research task. Your job is to produce a DEEP analytical synthesis — NOT a summary of individual sources, and NOT a bullet-point list of facts.
 
-You are given:
-1. A research task description.
-2. Structured retrieval results in JSON format.
+WHAT GOOD SYNTHESIS LOOKS LIKE:
+- It builds an ARGUMENT, not a list.
+- It explains MECHANISMS — not just that X happens, but HOW and WHY X happens.
+- It integrates multiple sources into a coherent picture, noting where they agree and where they conflict.
+- It names specific studies, institutions, figures, dates, and statistics — not vague generalities.
+- It is honest about what the evidence does NOT show.
+- A domain expert reading it would find it substantive, not shallow.
 
-Your job is to synthesize the retrieved evidence.
+WHAT BAD SYNTHESIS LOOKS LIKE (avoid all of this):
+- "X is an important factor in Y." (So what? Why? How much? Prove it.)
+- "Many studies show..." (Which studies? What did they find?)
+- "Experts agree that..." (Which experts? What specifically?)
+- "There are challenges in X." (What challenges? What causes them? What are the consequences?)
+- Lists of noun phrases with no analysis connecting them.
 
-Strict requirements:
+SYNTHESIS PROCESS — follow these steps mentally before writing:
+1. What is the SINGLE most important thing these sources collectively establish?
+2. What is the MECHANISM behind the main finding — the causal chain, the process, the reason?
+3. Where do sources DISAGREE — and what does that tension reveal about the topic?
+4. What QUANTITATIVE evidence exists (numbers, rates, timelines, magnitudes)?
+5. What EDGE CASES or EXCEPTIONS are documented?
+6. What do these sources collectively FAIL to address or explain?
 
-- Combine overlapping ideas across sources.
-- Identify recurring themes.
-- Do NOT summarize each source individually.
-- Do NOT invent new information.
-- Only use facts present in the retrieval data.
-- If evidence is weak or repetitive, state that clearly.
-- If retrieval results are empty, mark insufficient evidence.
+OUTPUT STANDARDS:
+- synthesized_summary: MINIMUM 5-6 sentences. Must include: the main finding + the mechanism + specific evidence + at least one counterpoint or limitation + the implication.
+- strongly_supported_points: Each point must be ONE COMPLETE SENTENCE containing: the finding + the evidence (named source, statistic, or study) + the implication. No vague noun phrases.
+- key_statistics_and_data: Be precise. "~40%" is better than "a large proportion". Named studies beat unnamed ones.
+- confidence_rationale: Be honest and specific — what makes you confident or uncertain?
 
-Return ONLY structured JSON inside <answer> tags.
-
-Output format:
+CRITICAL: Return ONLY valid JSON inside <answer> tags. No trailing commas. No text outside.
 
 <answer>
 {
-  "task": "{task_description}",
-  "synthesized_summary": "...",
-  "core_concepts": ["...", "..."],
-  "strongly_supported_points": ["...", "..."],
-  "weak_or_missing_areas": ["..."]
+  "task": "the task description verbatim",
+  "synthesized_summary": "5-6 sentence analytical synthesis: main finding + mechanism + specific evidence + counterpoint + implication",
+  "core_concepts": [
+    "Specific concept with a one-sentence explanation of its role"
+  ],
+  "strongly_supported_points": [
+    "Complete sentence: [Finding] — supported by [named evidence] — meaning [implication]"
+  ],
+  "conflicting_or_debated_points": [
+    "Source A argues X while Source B argues Y — this tension likely exists because [reason] — resolution: [which is more credible and why]"
+  ],
+  "key_statistics_and_data": [
+    "Specific number/percentage/date: what it measures, its value, and what it means for the topic"
+  ],
+  "causal_mechanisms": [
+    "X causes Y because [mechanism] — evidenced by [source/study/data]"
+  ],
+  "weak_or_missing_areas": [
+    "Specific gap in what these sources cover — why this gap matters"
+  ],
+  "confidence_level": "high | medium | low",
+  "confidence_rationale": "Source quality, agreement level, recency, and any bias concerns"
 }
-</answer>
+</answer>"""
 
-No explanation outside the <answer> block.
-Be analytical, concise, and structured.
-"""
 
-    with open(retrieval_results_path, "r") as f:
+def synthesize(retrieval_results_path: str) -> str:
+    """
+    Synthesize retrieval results per task.
+    Writes synthesis_results.json and returns its path.
+    """
+    with open(retrieval_results_path, "r", encoding="utf-8") as f:
         retrieval_data = json.load(f)
 
     synthesized_results = {}
 
     for task_description, task_sources in retrieval_data.items():
+        print(f"\n[synthesis] Processing: {task_description[:80]}...")
 
-        formatted_prompt = synthesis_system_prompt.replace(
-            "{task_description}", task_description
+        if not task_sources:
+            synthesized_results[task_description] = {
+                "task": task_description,
+                "synthesized_summary": "No sources were retrieved for this task.",
+                "core_concepts": [],
+                "strongly_supported_points": [],
+                "conflicting_or_debated_points": [],
+                "key_statistics_and_data": [],
+                "causal_mechanisms": [],
+                "weak_or_missing_areas": ["No sources available — task may need different search terms."],
+                "confidence_level": "low",
+                "confidence_rationale": "No retrieval results."
+            }
+            continue
+
+        user_content = (
+            f"Task: {task_description}\n\n"
+            f"Number of sources: {len(task_sources)}\n\n"
+            f"Sources:\n{json.dumps(task_sources, indent=2)}"
         )
 
-        messages = [
-            {"role": "system", "content": formatted_prompt},
-            {"role": "user", "content": json.dumps(task_sources, indent=2)}
-        ]
-
         completion = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
-            messages=messages,
+            model=SYNTHESIS_MODEL,
+            messages=[
+                {"role": "system", "content": SYNTHESIS_SYSTEM_PROMPT},
+                {"role": "user",   "content": user_content}
+            ],
+            temperature=0.4,
+            max_tokens=2500,
             stream=False
         )
 
         reply = completion.choices[0].message.content
-
         start = reply.find("<answer>") + len("<answer>")
-        end = reply.find("</answer>")
+        end   = reply.find("</answer>")
         json_text = reply[start:end].strip()
 
         try:
-            search_result = json.loads(json_text)
+            result = json.loads(json_text)
         except json.JSONDecodeError:
-            search_result = {"error": "parse_failed", "raw": json_text}
+            result = {"error": "parse_failed", "raw": json_text, "task": task_description}
 
-        synthesized_results[task_description] = search_result
+        synthesized_results[task_description] = result
+        print(f"  → Done. Confidence: {result.get('confidence_level', '?')}")
 
-    output_folder = os.path.dirname(retrieval_results_path)
-    output_path = os.path.join(output_folder, "synthesis_results.json")
-
-    with open(output_path, "w") as f:
+    output_path = os.path.join(os.path.dirname(retrieval_results_path), "synthesis_results.json")
+    with open(output_path, "w", encoding="utf-8") as f:
         json.dump(synthesized_results, f, indent=4)
 
+    print(f"\n[synthesis] Synthesis saved to: {output_path}")
     return output_path

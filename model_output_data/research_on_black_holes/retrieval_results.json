@@ -1,0 +1,137 @@
+{
+    "Define key types of black holes (stellar, supermassive, intermediate-mass) and their characteristics": [
+        {
+            "source": "West Texas A&M University",
+            "title": "Are there different types of black holes? - West Texas A&M University",
+            "summary": "Yes, there are different types of black holes, classified according to their mass.",
+            "key_points": [
+                "Stellar-mass black holes have masses ranging from 3 to 50 times the mass of the sun.",
+                "Supermassive black holes have a mass greater than about 50,000 times the mass of the sun."
+            ]
+        },
+        {
+            "source": "YouTube",
+            "title": "Black Holes Explained: Types, Formation, and Theories - YouTube",
+            "summary": "Black holes are classified into different types, including stellar-mass, intermediate-mass, supermassive, and primordial black holes.",
+            "key_points": [
+                "Intermediate-mass black holes can weigh between 100 to tens of thousands or even 100,000 times the mass of the sun.",
+                "Supermassive black holes typically weigh millions to billions times the mass of the sun."
+            ]
+        },
+        {
+            "source": "National Geographic",
+            "title": "Black Holes, Explained - National Geographic",
+            "summary": "There are four types of black holes: stellar, intermediate, supermassive, and miniature.",
+            "key_points": [
+                "Stellar-mass black holes are formed by stellar death and can have masses ranging from 10 to 20 times the mass of the sun.",
+                "Supermassive black holes can weigh millions to billions times the mass of the sun."
+            ]
+        },
+        {
+            "source": "NASA Science",
+            "title": "Types - NASA Science",
+            "summary": "Astronomers generally divide black holes into three categories according to their mass: stellar-mass, supermassive, and intermediate-mass.",
+            "key_points": [
+                "Intermediate-mass black holes are thought to weigh tens of thousands or even 100,000 times the mass of the sun.",
+                "Supermassive black holes can grow by feeding on smaller objects or merging with other supermassive black holes."
+            ]
+        }
+    ],
+    "Understand the theoretical frameworks and models that describe black hole formation and evolution": [
+        {
+            "source": "https://drpress.org/ojs/index.php/HSET/article/view/24120",
+            "title": "Exploring The Formation and Dynamics of Black Holes",
+            "summary": "This article provides a comprehensive overview of stellar evolution and the stages leading to the formation of black holes",
+            "key_points": [
+                "Schwarzschild, Kerr, and Kerr-Newman models",
+                "Formation mechanisms of stellar-mass black holes, intermediate-mass black holes, and massive black holes",
+                "Theoretical analysis and simulation to understand black hole dynamics"
+            ]
+        },
+        {
+            "source": "https://en.wikipedia.org/wiki/Black_hole",
+            "title": "Black hole - Wikipedia",
+            "summary": "Article discussing formation of black holes, their characteristics, and theoretical models of their origins",
+            "key_points": [
+                "Fluctuations of spacetime in the early universe may have formed primordial black holes",
+                "Fuzzball model, based on string theory, suggests black holes are made up of quantum microstates",
+                "Loop quantum gravity and alternative forms of general relativity"
+            ]
+        },
+        {
+            "source": "https://www.cfa.harvard.edu/research/topic/black-holes",
+            "title": "Black Holes | Center for Astrophysics - Harvard & Smithsonian",
+            "summary": "Article discussing research on black holes, including studying their behavior, dynamics, and theoretical models",
+            "key_points": [
+                "Black holes can be described by their mass and spin",
+                "Mass and spin determine the size of the event horizon",
+                "Theoretical models for the disks and jets of matter around black holes"
+            ]
+        },
+        {
+            "source": "https://www.ias.edu/ideas/2011/maldacena-black-holes-string-theory",
+            "title": "Black Holes and the Information Paradox in String Theory | Ideas",
+            "summary": "Article discussing string theory and its application to understanding black holes and spacetime",
+            "key_points": [
+                "Holographic principle describing spacetime as a quantum mechanical system",
+                "Entanglement entropy in the context of black holes",
+                "Hawking radiation and its relation to quantum mechanics and general relativity"
+            ]
+        },
+        {
+            "source": "https://science.nasa.gov/universe/black-holes/types/",
+            "title": "Types - NASA Science",
+            "summary": "Article discussing different types of black holes, including primordial black holes",
+            "key_points": [
+                "Primordial black holes may have formed in the first second after the Big Bang",
+                "Mass range of primordial black holes from 100,000 times less than a paperclip to 100,000 times more than the Sun"
+            ]
+        }
+    ],
+    "Summarize empirical evidence and observations related to black holes, including their detection methods and astronomical implications": [
+        {
+            "source": "Observational Evidence for Black Holes - CfA, Harvard",
+            "title": "Observational Evidence for Black Holes",
+            "summary": "Cyg A and Cyg X\u20131 are identified as black holes based on our current knowledge of their properties and the reasons for identifying them as such.",
+            "key_points": [
+                "Detection of black holes through their effects on nearby stars and hot gas spiraling into the black hole",
+                "Astronomical observations show that black holes do not have normal surfaces visible to distant observers"
+            ]
+        },
+        {
+            "source": "Black holes, explained - UChicago News - The University of Chicago",
+            "title": "Black holes, explained",
+            "summary": "Black holes can be detected through their gravitational ripples when they collide, observing the effects of their strong gravity on surrounding objects, and by looking for the stuff that's falling into them.",
+            "key_points": [
+                "Detection of black holes through gravitational waves",
+                "Observation of the effects of black holes on surrounding objects"
+            ]
+        },
+        {
+            "source": "Black Holes - NASA Science",
+            "title": "Black Holes",
+            "summary": "Black holes can be detected by their effects on their surroundings, including the presence of accretion disks and the creation of gravitational waves.",
+            "key_points": [
+                "Detection of black holes through accretion disks and gravitational waves"
+            ]
+        },
+        {
+            "source": "Black hole - Wikipedia",
+            "title": "Black hole",
+            "summary": "Astronomical observations have led to the detection of several black holes, including Cygnus X-1 and the supermassive black hole at the center of the Milky Way.",
+            "key_points": [
+                "Detection of black holes through astronomical observations",
+                "Presence of black holes can be inferred through their interaction with other matter and electromagnetic radiation"
+            ]
+        },
+        {
+            "source": "How do scientists detect Black Holes? - The Physics of the Universe",
+            "title": "How do scientists detect Black Holes?",
+            "summary": "Scientists detect black holes through their effects on nearby stars, X-rays emitted by hot gas, and gravitational waves produced by merging black holes.",
+            "key_points": [
+                "Detection of black holes through their effects on nearby stars",
+                "Detection of black holes through X-rays and gravitational waves"
+            ]
+        }
+    ]
+}
