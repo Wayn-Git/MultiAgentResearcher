@@ -1,0 +1,32 @@
+[
+    {
+        "description": "Investigate the current state of Quantum Chromodynamics (QCD) simulations on quantum computers, including recent breakthroughs and notable experiments",
+        "priority": 9,
+        "type": "research",
+        "search_angle": "Technical details of QCD on quantum computing"
+    },
+    {
+        "description": "Analyze the challenges of simulating QCD on quantum computers, including noise reduction, error correction, and scalability issues",
+        "priority": 8,
+        "type": "research",
+        "search_angle": "Challenges and limitations of QCD on quantum computing"
+    },
+    {
+        "description": "Examine the historical context of QCD and its evolution, including the development of lattice gauge theory and its connection to quantum computing",
+        "priority": 7,
+        "type": "research",
+        "search_angle": "Historical context of QCD and its relation to quantum computing"
+    },
+    {
+        "description": "Identify key players and research groups currently working on QCD simulations on quantum computers, including their approaches, methodologies, and achievements",
+        "priority": 6,
+        "type": "research",
+        "search_angle": "Key players and research groups in QCD on quantum computing"
+    },
+    {
+        "description": "Explore potential applications and future outlook of QCD simulations on quantum computers, including implications for particle physics, materials science, and quantum technology",
+        "priority": 5,
+        "type": "research",
+        "search_angle": "Future outlook and applications of QCD on quantum computing"
+    }
+]

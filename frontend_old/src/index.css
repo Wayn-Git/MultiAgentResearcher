@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=VT323&display=swap');
+
+@import "tailwindcss";
+
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-mono antialiased overflow-hidden;
+  }
+}
+
+@layer utilities {
+  .bg-dot-matrix {
+    background-image: radial-gradient(circle, #333 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  .glass-panel {
+    @apply bg-black/40 backdrop-blur-md border border-border;
+  }
+
+  .r {
+    /* For the researcher tag in App.jsx */
+  }
+}

@@ -1,1 +1,40 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@theme {
+    --color-background: #0a0a0a;
+    --color-foreground: #ffffff;
+    --color-muted: #262626;
+    --color-card: #111111;
+    --color-border: #404040;
+
+    --font-mono: 'Space Mono', monospace, 'JetBrains Mono', 'VT323';
+    --font-pixel: 'VT323', monospace;
+
+    --default-font-family: var(--font-mono);
+
+    --background-image-dot-pattern: radial-gradient(circle, #333 1px, transparent 1px);
+}
+
+@layer base {
+    body {
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+        font-family: var(--font-mono);
+        -webkit-font-smoothing: antialiased;
+        overflow: hidden;
+    }
+}
+
+@layer utilities {
+    .bg-dot-matrix {
+        background-image: var(--background-image-dot-pattern);
+        background-size: 16px 16px;
+    }
+
+    .glass-panel {
+        background-color: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--color-border);
+    }
+}
