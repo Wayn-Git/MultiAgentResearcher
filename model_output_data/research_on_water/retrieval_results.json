@@ -1,0 +1,388 @@
+{
+    "Identify the chemical and physical properties of water, including its molecular structure, density, and solubility": [
+        {
+            "source": "pubs.acs.org",
+            "title": "How Water's Properties Are Encoded in Its Molecular Structure and ...",
+            "url": "https://pubs.acs.org/doi/10.1021/acs.chemrev.7b00259",
+            "summary": "This article discusses the unique properties of water, including its high surface tension, melting point, and boiling point, which are due to its molecular structure and hydrogen bonding. It also mentions that water has density anomalies, such as ice floating on liquid water, and that its pT equilibrium phase boundary between the solid and liquid is negative.",
+            "key_points": [
+                "Water is more cohesive than materials made of molecules of equivalent size and shape.",
+                "Water molecules associate with each other relatively tightly, resulting in high values of surface tension, melting point, and boiling point.",
+                "Water has density anomalies, such as ice floating on liquid water.",
+                "The slope of water's pT equilibrium phase boundary between the solid and liquid is negative.",
+                "Water has relatively high values of surface tension, melting point, and boiling point due to hydrogen bonding."
+            ],
+            "relevance_score": 0.659
+        },
+        {
+            "source": "www.vedantu.com",
+            "title": "Water: Structure, Properties & Uses in Chemistry",
+            "url": "https://www.vedantu.com/chemistry/water",
+            "summary": "This article discusses the structure, properties, and uses of water in chemistry. It mentions that water is a polar inorganic compound with the chemical formula H2O, and that it has unique physical properties due to strong hydrogen bonding.",
+            "key_points": [
+                "Water has the chemical formula H2O, consisting of two hydrogen atoms covalently bonded to one oxygen atom.",
+                "Water is a polar inorganic compound with unique physical properties due to strong hydrogen bonding.",
+                "Water can be purified using methods such as distillation, filtration, and disinfection.",
+                "Ice floats on water because its density is lower than that of liquid water.",
+                "Water is essential for various purposes in daily life and chemistry, including drinking, cooking, and industrial applications."
+            ],
+            "relevance_score": 0.734
+        },
+        {
+            "source": "en.wikipedia.org",
+            "title": "Properties of water - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Properties_of_water",
+            "summary": "This article discusses the properties of water, including its chemical and physical properties. It mentions that water is a polar inorganic compound with the chemical formula H2O, and that it has unique physical properties due to strong hydrogen bonding.",
+            "key_points": [
+                "Water has the chemical formula H2O, consisting of two hydrogen atoms covalently bonded to one oxygen atom.",
+                "Water is a polar inorganic compound with unique physical properties due to strong hydrogen bonding.",
+                "Water is amphoteric, meaning that it can exhibit properties of an acid or a base depending on the pH of the solution.",
+                "Water has a high surface tension due to hydrogen bonding.",
+                "Water is essential for various purposes in daily life and chemistry, including drinking, cooking, and industrial applications."
+            ],
+            "relevance_score": 0.647
+        },
+        {
+            "source": "chem.libretexts.org",
+            "title": "15.3: Physical Properties of Water - Chemistry LibreTexts",
+            "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/15%3A_Water/15.03%3A_Physical_Properties_of_Water",
+            "summary": "This article discusses the physical properties of water, including its surface tension, vapor pressure, and density. It mentions that water has a high surface tension due to hydrogen bonding, and that it has a high heat of vaporization.",
+            "key_points": [
+                "Water has a high surface tension due to hydrogen bonding.",
+                "Water has a high heat of vaporization.",
+                "Water has a high vapor pressure.",
+                "Water has a high density.",
+                "Water's high surface tension is due to the hydrogen bonding in water molecules."
+            ],
+            "relevance_score": 0.61
+        },
+        {
+            "source": "chem.libretexts.org",
+            "title": "13.5: The Structure and Properties of Water - Chemistry LibreTexts",
+            "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Physical_Chemistry_for_the_Biosciences_(LibreTexts)/13%3A_Intermolecular_Forces/13.05%3A_The_Structure_and_Properties_of_Water",
+            "summary": "This article discusses the structure and properties of water, including its molecular structure, surface tension, and heat of vaporization. It mentions that water has a high surface tension due to hydrogen bonding, and that it has a high heat of vaporization.",
+            "key_points": [
+                "Water has a high surface tension due to hydrogen bonding.",
+                "Water has a high heat of vaporization.",
+                "Water has a high vapor pressure.",
+                "Water has a high density.",
+                "Water's high surface tension is due to the hydrogen bonding in water molecules."
+            ],
+            "relevance_score": 0.597
+        }
+    ],
+    "Analyze the current global water distribution, including freshwater sources, oceans, and ice caps, and their impact on the environment and human societies": [
+        {
+            "source": "education.nationalgeographic.org",
+            "title": "Freshwater Resources",
+            "url": "https://education.nationalgeographic.org/resource/freshwater-resources/",
+            "summary": "Most of the world's fresh water is not easily accessible to humans. Approximately 69% of Earth's fresh water is locked away in the form of ice in glaciers and polar ice caps, and another 30% is under the surface in the form of groundwater. Only about 1% of Earth's fresh water is readily available for human use.",
+            "key_points": [
+                "69% of Earth's fresh water is locked away in glaciers and polar ice caps",
+                "30% of Earth's fresh water is under the surface in the form of groundwater",
+                "Only 1% of Earth's fresh water is readily available for human use",
+                "Approximately one-fifth of the world's population lives in water-scarce areas"
+            ],
+            "relevance_score": 0.999
+        },
+        {
+            "source": "www.amnh.org",
+            "title": "[PDF] Where is Earth's Water?",
+            "url": "https://www.amnh.org/content/download/154153/2561707/file/grace%3A-passage-1%3A-student-version.pdf",
+            "summary": "Most of Earth's fresh water is locked in ice. Only a little over 3% of Earth's water is fresh. Most of that fresh water (68.7%) is frozen in glaciers and ice caps.",
+            "key_points": [
+                "Only 3.5% of all the water on Earth is fresh water",
+                "Most of Earth's fresh water is locked in ice",
+                "68.7% of Earth's fresh water is frozen in glaciers and ice caps",
+                "Two ice sheets, the Antarctica Ice Sheet and the Greenland Ice Sheet, contain more than 99% of the ice on Earth's surface"
+            ],
+            "relevance_score": 0.999
+        },
+        {
+            "source": "education.nationalgeographic.org",
+            "title": "How Climate Change Impacts Water Access",
+            "url": "https://education.nationalgeographic.org/resource/how-climate-change-impacts-water-access/",
+            "summary": "Climate change accelerates ice melt, raising sea levels and threatening freshwater supplies. Rising sea levels can contaminate underground freshwater-bearing rocks, called aquifers.",
+            "key_points": [
+                "Climate change accelerates ice melt, raising sea levels",
+                "Rising sea levels can contaminate underground freshwater-bearing rocks",
+                "Desalination is a last-resort, energy-intensive, costly process for places where there are persistent droughts and freshwater is lacking",
+                "Climate change impacts the water cycle by influencing when, where, and how much precipitation falls"
+            ],
+            "relevance_score": 0.996
+        },
+        {
+            "source": "www.epa.gov",
+            "title": "How We Use Water",
+            "url": "https://www.epa.gov/watersense/how-we-use-water",
+            "summary": "The Earth might seem like it has abundant water, but in fact less than 1 percent is available for human use. The rest is either salt water found in oceans, fresh water frozen in the polar ice caps, or too inaccessible for practical usage.",
+            "key_points": [
+                "Less than 1% of Earth's water is available for human use",
+                "The rest of Earth's water is either salt water or too inaccessible for practical usage",
+                "Population and demand on freshwater resources are increasing, but supply will always remain constant"
+            ],
+            "relevance_score": 0.987
+        },
+        {
+            "source": "www.unwater.org",
+            "title": "Water and Climate Change",
+            "url": "https://www.unwater.org/water-facts/water-and-climate-change",
+            "summary": "Water and climate change are inextricably linked. Extreme weather events are making water more scarce, more unpredictable, more polluted or all three.",
+            "key_points": [
+                "Water and climate change are inextricably linked",
+                "Extreme weather events are making water more scarce, more unpredictable, more polluted or all three",
+                "Flooding and rising sea levels can contaminate land and water resources with saltwater or faecal matter"
+            ],
+            "relevance_score": 0.976
+        },
+        {
+            "source": "oceanservice.noaa.gov",
+            "title": "Where is all of the Earth's water?",
+            "url": "https://oceanservice.noaa.gov/facts/wherewater.html",
+            "summary": "The ocean holds about 97 percent of the Earth's water; the remaining three percent is found in glaciers and ice, below the ground, in rivers and lakes.",
+            "key_points": [
+                "The ocean holds about 97 percent of the Earth's water",
+                "The remaining three percent of Earth's water is found in glaciers and ice, below the ground, in rivers and lakes",
+                "There are over 332,519,000 cubic miles of water on the planet"
+            ],
+            "relevance_score": 0.964
+        }
+    ],
+    "Examine the historical context of water usage and management, including ancient civilizations' water systems, historical water-related disasters, and the evolution of water treatment technologies": [
+        {
+            "source": "waterworldusa.com",
+            "title": "The Evolution of Water Treatment Technology",
+            "url": "https://waterworldusa.com/evolution-of-water-treatment-technology/",
+            "summary": "The evolution of water treatment technology began with ancient methods such as boiling, sand filtration, and clay filtration. Ancient civilizations used basic water purification techniques like boiling water over a fire to kill harmful germs, letting water sit so dirt sank to the bottom, and pouring water through layers of sand, gravel, or cloth to remove dirt.",
+            "key_points": [
+                "Ancient civilizations used basic water purification techniques like boiling, sand filtration, and clay filtration.",
+                "The first written records about clean water come from ancient India and Greece, more than 2,000 years ago.",
+                "In ancient Rome, engineers built large Roman aqueducts that brought water from far away into cities.",
+                "Slow sand filters were used to remove impurities from water before it reached city homes, helping reduce many waterborne diseases."
+            ],
+            "relevance_score": 0.714
+        },
+        {
+            "source": "www.frontiersin.org",
+            "title": "Water Reuse: From Ancient to Modern Times and the Future",
+            "url": "https://www.frontiersin.org/journals/environmental-science/articles/10.3389/fenvs.2018.00026/full",
+            "summary": "Ancient civilizations developed advanced sewerage systems to dispose of wastewater to rivers, the sea, or agricultural land for irrigation and fertilization purposes. The Minoans developed sophisticated water and sewer systems, including a central sewer that was regularly flushed by rain.",
+            "key_points": [
+                "Minoans developed advanced sewerage systems to dispose of wastewater to rivers, the sea, or agricultural land.",
+                "The Minoans developed sophisticated water and sewer systems, including a central sewer that was regularly flushed by rain.",
+                "Ancient Greeks were among the first to use wastewater in agriculture.",
+                "In Greece, during the Classical period, wastewater originating from public toilets and residences, along with stormwater, were removed through combined sewer and drainage systems."
+            ],
+            "relevance_score": 0.611
+        },
+        {
+            "source": "archive.epa.gov",
+            "title": "The History of Drinking Water Treatment",
+            "url": "https://archive.epa.gov/water/archive/web/pdf/2001_11_15_consumer_hist.pdf",
+            "summary": "Ancient civilizations established themselves around water sources, but an understanding of drinking water quality was not well known or documented. Methods to improve the taste and odor of drinking water were recorded as early as 4000 B.C.",
+            "key_points": [
+                "Ancient civilizations established themselves around water sources.",
+                "Methods to improve the taste and odor of drinking water were recorded as early as 4000 B.C.",
+                "Ancient Sanskrit and Greek writings recommended water treatment methods such as filtering through charcoal, exposing to sunlight, boiling, and straining.",
+                "Water treatment originally focused on improving the aesthetic qualities of drinking water."
+            ],
+            "relevance_score": 0.601
+        },
+        {
+            "source": "en.wikipedia.org",
+            "title": "History of water supply and sanitation",
+            "url": "https://en.wikipedia.org/wiki/History_of_water_supply_and_sanitation",
+            "summary": "The Minoan civilization built underground clay pipes for sanitation and water supply, and the Ancient Greeks used an indoor plumbing system for pressurized showers. Before modern sewers were invented, cesspools that collected human waste were the most widely used sanitation system.",
+            "key_points": [
+                "The Minoan civilization built underground clay pipes for sanitation and water supply.",
+                "The Ancient Greeks used an indoor plumbing system for pressurized showers.",
+                "Before modern sewers were invented, cesspools that collected human waste were the most widely used sanitation system.",
+                "In ancient Mesopotamia, vertical shafts carried waste away into cesspools."
+            ],
+            "relevance_score": 0.6
+        },
+        {
+            "source": "www.frontiersin.org",
+            "title": "Evolution of water technology from a structural perspective",
+            "url": "https://www.frontiersin.org/journals/environmental-science/articles/10.3389/fenvs.2024.1447120/full",
+            "summary": "Continual innovations in water technologies have contributed to a significant expansion of civilization, helping humankind cope with varying natural and societal challenges. Emerging in about 8,000 - 10,000 BC, water technologies had initial aims to divert water from rivers or lakes to riparian land.",
+            "key_points": [
+                "Continual innovations in water technologies have contributed to a significant expansion of civilization.",
+                "Emerging in about 8,000 - 10,000 BC, water technologies had initial aims to divert water from rivers or lakes to riparian land.",
+                "Over time, more complex engineering and management systems (e.g., canals and aqueducts) were developed to convey water over longer distances.",
+                "Then, multiple technology systems that include non-consumptive use activities (for example, the use of water as a source of power and the use of water for recreation and transportation) were developed."
+            ],
+            "relevance_score": 0.592
+        },
+        {
+            "source": "eal.isas.illinois.edu",
+            "title": "Ancient Water Management",
+            "url": "https://eal.isas.illinois.edu/projects/ancient-water-management/",
+            "summary": "Ancient earthen dams, irrigation canals, and changes to hydrological regimes in the past are often best analyzed using geoarchaeological approaches. Learning how communities solved water management problems in the past provides clear and relevant examples to the water challenges communities face today.",
+            "key_points": [
+                "Ancient earthen dams, irrigation canals, and changes to hydrological regimes in the past are often best analyzed using geoarchaeological approaches.",
+                "Learning how communities solved water management problems in the past provides clear and relevant examples to the water challenges communities face today.",
+                "Some of these networks are still in use, making this one of the oldest continually used water management systems in the world.",
+                "The system was founded well before Indigenous towns and cities emerged within these networks."
+            ],
+            "relevance_score": 0.567
+        }
+    ],
+    "Investigate the major challenges facing global water security, including water scarcity, pollution, climate change, and their impacts on human health, economy, and ecosystems": [
+        {
+            "source": "earth.org",
+            "title": "Why Global Water Security Matters in 2024",
+            "url": "https://earth.org/global-water-crisis-why-the-world-urgently-needs-water-wise-solutions/",
+            "summary": "Global water security is an urgent issue worldwide due to water scarcity, pollution, and climate change. By 2030, water scarcity could displace over 700 million people, causing economic losses and health crises.",
+            "key_points": [
+                "25 African countries are expected to suffer from increased water scarcity and water stress by 2025.",
+                "Only 22-34% of populations in at least eight sub-Saharan countries have access to safe water.",
+                "Water scarcity could displace over 700 million people by 2030, causing economic losses and health crises.",
+                "Water shortages hamper economic growth and worsen poverty, with the World Bank estimating that by 2050, water scarcity could cost some regions 6% of GDP."
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "climatecheck.com",
+            "title": "Water Stress, Drought and Climate Change",
+            "url": "https://climatecheck.com/risks/drought/water-stress-drought-and-climate-change",
+            "summary": "Water stress has severe consequences on human health, economy, and ecosystems. It leads to dehydration, hunger, economic stress, sanitation issues, and disease.",
+            "key_points": [
+                "Water stress often causes people to rely on contaminated water, exposing them to preventable health risks like cholera, diarrhea, dysentery, typhus, and hepatitis A.",
+                "Increasingly frequent and severe flooding has contaminated water sources and destroyed sanitation facilities.",
+                "Rising sea levels put coastline water services in danger, exacerbating water stress.",
+                "Water stress can lead to decreased economic development, competition over resources, and forced migration and conflict."
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "pmc.ncbi.nlm.nih.gov",
+            "title": "Challenges and Solutions for Global Water Scarcity",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10300917/",
+            "summary": "Global water scarcity has severe consequences on the environment, economy, and society. It leads to water-related disasters, reduced economic impact, and increased poverty.",
+            "key_points": [
+                "Water scarcity can lead to failed crops and livestock death.",
+                "It impacts the whole economy, causing trade disruptions and prioritizing water over other basic needs.",
+                "Water scarcity can lead to increased risk of water-related disasters, reduced economic impact, and increased poverty.",
+                "It can lead to decreased economic development, competition over resources, and forced migration and conflict."
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "ccc.bc.edu",
+            "title": "Understanding Water Scarcity and Its Global Significance",
+            "url": "https://ccc.bc.edu/content/bc-ccc/news/blogs/understanding-water-scarcity.html",
+            "summary": "Water scarcity is a growing global challenge, with profound humanitarian, environmental, and economic consequences. It affects ecosystems, communities, and global markets.",
+            "key_points": [
+                "Water scarcity is a present and escalating crisis, reshaping ecosystems, communities, and global markets.",
+                "It requires integrated, cross-sector strategies that link environmental protection, technological innovation, and policy reform.",
+                "Solving global water challenges would require approximately $55 billion, just one-fifth of the economic value currently at risk.",
+                "Strategic investments in water efficiency, ecosystem protection, and infrastructure modernization offer high returns."
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "www.worldwildlife.org",
+            "title": "Water Scarcity: Causes, Impacts, and Solutions",
+            "url": "https://www.worldwildlife.org/our-work/freshwater/water-scarcity/",
+            "summary": "Water scarcity is a growing global challenge, with severe consequences on ecosystems and human populations. It affects agriculture, energy generation, cities, and ecosystems.",
+            "key_points": [
+                "More than half the world's wetlands have disappeared due to water scarcity.",
+                "Agriculture consumes more water than any other source and wastes much of that through inefficiencies.",
+                "Climate change is altering patterns of weather and water around the world, causing shortages and droughts in some areas and floods in others.",
+                "By 2025, two-thirds of the world's population may face water shortages."
+            ],
+            "relevance_score": 0.999
+        },
+        {
+            "source": "sustainability.stanford.edu",
+            "title": "The effects of climate change on water shortages",
+            "url": "https://sustainability.stanford.edu/news/effects-climate-change-water-shortages",
+            "summary": "Climate change has severe consequences on water shortages, affecting human health, ecosystems, and the economy.",
+            "key_points": [
+                "Water scarcity can lead to increased concentration of harmful pollutants in rivers and streams.",
+                "Overtaxed aquifers may become more vulnerable to contamination.",
+                "Drought can elevate risk of wildfires and dust storms that may lead to irritation of lungs and airways.",
+                "When people can't get enough water for sanitation and handwashing, respiratory and gastrointestinal illnesses tend to spread more easily."
+            ],
+            "relevance_score": 0.999
+        }
+    ],
+    "Explore future water management strategies, including innovative technologies, sustainable practices, and policy frameworks for ensuring global water security and addressing the United Nations' Sustainable Development Goals (SDGs) related to water": [
+        {
+            "source": "link.springer.com",
+            "title": "Smart and sustainable water management: policy, technology, and ...",
+            "url": "https://link.springer.com/article/10.1007/s44173-025-00022-8",
+            "summary": "Implementing sustainable water management requires advanced tools, efficient wastewater treatment, demand-side management, and climate-resilient infrastructure. Robust political commitment, participatory governance, and intersectoral collaboration are essential for achieving the 2030 objective. Sustainable water management is central to several UN SDGs, including SDG 6, SDG 2, SDG 7, SDG 8, SDG 13, and SDGs 14 & 15.",
+            "key_points": [
+                "Advanced WFP assessment tools integrated with life cycle analysis (LCA) and GIS-based hydrological models",
+                "Sector-specific benchmarks for operational and virtual water use",
+                "Efficient wastewater treatment technologies, including nature-based solutions and decentralized systems",
+                "Demand-side management through behavioral interventions and water-saving technologies",
+                "Climate-resilient infrastructure, such as managed aquifer recharge, check dams, and smart irrigation systems"
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "link.springer.com",
+            "title": "Sustainable development goal 6: Global Water Security",
+            "url": "https://link.springer.com/article/10.1007/s42398-022-00246-5",
+            "summary": "SDG 6 aims to ensure availability and sustainable management of water and sanitation for all by 2030. The goal has two targets: one focuses on increasing water efficiency, and the other emphasizes trans-boundary cooperation. Coordinated policy and regulatory frameworks are crucial for achieving the targeted rate.",
+            "key_points": [
+                "SDG 6 aims to ensure availability and sustainable management of water and sanitation for all by 2030",
+                "Two targets: increasing water efficiency and trans-boundary cooperation",
+                "Coordinated policy and regulatory frameworks are crucial for achieving the targeted rate",
+                "Regions with urgent escalation of water scarcity include South and Central America, the Caribbean, Oceania, South Asia, Central Asia, Central Africa, and West Africa"
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "pmc.ncbi.nlm.nih.gov",
+            "title": "Water and the UN sustainable development goals - PMC",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10208314/",
+            "summary": "Understanding the interactions between water and other SDGs can lead to new ways of assessing the value of water and inspire new technological and community-based solutions to water issues. A revised valuation of water can help delivery bodies and funders prioritize water policies and projects to accelerate progress towards achieving the SDGs.",
+            "key_points": [
+                "Many SDGs depend heavily on water, including SDG 2, SDG 3, SDG 7, SDG 9, SDG 11, and SDG 12",
+                "Two SDGs (14 and 15) depend absolutely on the planet's hydrological cycles",
+                "Avoiding water shortages requires integrating knowledge with policy approaches that include ways of delivering on the SDG ambitions"
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "www.unwater.org",
+            "title": "[PDF] United Nations System-wide Strategy for Water and Sanitation",
+            "url": "https://www.unwater.org/sites/default/files/2024-07/un_system-wide_strategy_for_water_and_sanitation_july2024_vs8.pdf",
+            "summary": "The United Nations System-wide Strategy for Water and Sanitation aims to improve policy coherence, accelerate progress, and strengthen accountability for water and sanitation. The strategy includes five SDG 6 global accelerators: financing, data and information, capacity development, innovation, and governance.",
+            "key_points": [
+                "Five SDG 6 global accelerators: financing, data and information, capacity development, innovation, and governance",
+                "The strategy aims to improve policy coherence and accelerate progress on water and sanitation",
+                "Strengthened accountability for progress on water and sanitation through joint review and learning"
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "capconeng.com",
+            "title": "The Future of Water Management: Sustainability, Innovation, and ...",
+            "url": "https://capconeng.com/the-future-of-water-management-sustainability-innovation-and-smart-solutions/",
+            "summary": "The future of water management requires a sustainable approach, innovation, and smart solutions. Maximizing water efficiency through rainwater harvesting is essential for urban water management.",
+            "key_points": [
+                "Maximizing water efficiency through rainwater harvesting is essential for urban water management",
+                "A sustainable approach to urban water management is required",
+                "Innovation and smart solutions are necessary for the future of water management"
+            ],
+            "relevance_score": 1.0
+        },
+        {
+            "source": "sdgs.unep.org",
+            "title": "SDG 6 | Sustainable developments Goals - UNEP",
+            "url": "http://sdgs.unep.org/article/sdg-6",
+            "summary": "Water planning at national and local levels yields numerous benefits, including innovation, user-friendly projects, and greater consumer satisfaction. Vulnerable groups should participate in decisions related to water management programmes and investments.",
+            "key_points": [
+                "Water planning at national and local levels yields numerous benefits",
+                "Vulnerable groups should participate in decisions related to water management programmes and investments",
+                "Innovative and user-friendly projects can improve consumer satisfaction"
+            ],
+            "relevance_score": 0.999
+        }
+    ]
+}

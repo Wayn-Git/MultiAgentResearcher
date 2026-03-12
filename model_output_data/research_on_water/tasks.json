@@ -1,0 +1,32 @@
+[
+    {
+        "description": "Identify the chemical and physical properties of water, including its molecular structure, density, and solubility",
+        "priority": 9,
+        "type": "foundational knowledge",
+        "search_angle": "Technical details of water composition"
+    },
+    {
+        "description": "Analyze the current global water distribution, including freshwater sources, oceans, and ice caps, and their impact on the environment and human societies",
+        "priority": 8,
+        "type": "core analytical depth",
+        "search_angle": "Current state of water resources"
+    },
+    {
+        "description": "Examine the historical context of water usage and management, including ancient civilizations' water systems, historical water-related disasters, and the evolution of water treatment technologies",
+        "priority": 7,
+        "type": "historical context",
+        "search_angle": "Historical development of water management"
+    },
+    {
+        "description": "Investigate the major challenges facing global water security, including water scarcity, pollution, climate change, and their impacts on human health, economy, and ecosystems",
+        "priority": 8,
+        "type": "challenge analysis",
+        "search_angle": "Current water-related challenges and threats"
+    },
+    {
+        "description": "Explore future water management strategies, including innovative technologies, sustainable practices, and policy frameworks for ensuring global water security and addressing the United Nations' Sustainable Development Goals (SDGs) related to water",
+        "priority": 9,
+        "type": "future outlook",
+        "search_angle": "Future water management and sustainability"
+    }
+]
