@@ -2,6 +2,9 @@ import { useState, useRef, useEffect } from 'react'
 import { Activity, Database, FileText, TerminalSquare, Plus, Clock, ChevronRight, ChevronDown, CheckCircle2, Loader2, AlertCircle, Search, BookOpen, Layers, Microscope, GitMerge, Puzzle, ScrollText, XCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+// API URL from environment or default to localhost
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+
 // ─────────────────────────────────────────────────────────────────────────────
 // PIPELINE SIDEBAR STEP
 // ─────────────────────────────────────────────────────────────────────────────
@@ -600,7 +603,7 @@ function MainDashboard() {
   const logsEndRef = useRef(null)
 
   const refreshHistory = () => {
-    fetch('http://localhost:8000/api/history')
+    fetch(`${API_URL}/api/history`)
       .then(r => r.json())
       .then(d => setHistory(d.sessions || []))
       .catch(console.error)
@@ -622,7 +625,7 @@ const handleSubmit = async (e) => {
     setChatInput('')
     
     try {
-      const response = await fetch('http://localhost:8000/api/chat', {
+      const response = await fetch(`${API_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -654,7 +657,7 @@ const handleSubmit = async (e) => {
     setQuery('')
 
     try {
-      const response = await fetch('http://localhost:8000/api/research/stream', {
+      const response = await fetch(`${API_URL}/api/research/stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
         body: JSON.stringify({ query: submittedQuery }),
@@ -694,12 +697,12 @@ const handleSubmit = async (e) => {
                 setIsProcessing(false)
                 setCurrentStep(null)
                 refreshHistory()
-                fetch(`http://localhost:8000/api/history/${event.data.folder}`)
+                fetch(`${API_URL}/api/history/${event.data.folder}`)
                   .then(r => r.json())
                   .then(fd => {
                     setDocumentVault(fd)
                     if (fd.final_report) {
-                      fetch(`http://localhost:8000/api/history/${event.data.folder}/report.md`)
+                      fetch(`${API_URL}/api/history/${event.data.folder}/report.md`)
                         .then(r => r.json())
                         .then(md => setDocumentVault(prev => ({ ...prev, 'report.md': md.markdown })))
                     }
@@ -732,7 +735,7 @@ const handleSubmit = async (e) => {
     setLogs([])
     setChatHistory([])  // Clear chat history when loading a new session
 
-    fetch(`http://localhost:8000/api/history/${session.id}`)
+    fetch(`${API_URL}/api/history/${session.id}`)
       .then(r => r.json())
       .then(fd => {
         setDocumentVault(fd)
@@ -759,7 +762,7 @@ const handleSubmit = async (e) => {
         rebuilt.push({ type: 'sys', content: 'Session Archived.' })
         setLogs(rebuilt)
 
-        fetch(`http://localhost:8000/api/history/${session.id}/report.md`)
+        fetch(`${API_URL}/api/history/${session.id}/report.md`)
           .then(r => r.json())
           .then(md => setDocumentVault(prev => ({ ...prev, 'report.md': md.markdown })))
           .catch(console.error)
