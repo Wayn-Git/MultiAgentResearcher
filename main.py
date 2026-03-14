@@ -31,6 +31,12 @@ class ResearchRequest(BaseModel):
     query: str
 
 
+class ChatRequest(BaseModel):
+    message: str
+    folder_id: str
+    history: list = []
+
+
 def prettify_folder_name(folder: str) -> str:
     return folder.replace("_", " ").title()
 
@@ -63,11 +69,13 @@ def load_folder_data(folder_path: str) -> dict:
 
 # ─── Sync research endpoint ───────────────────────────────────────────────────
 
+
 @app.post("/api/research")
 async def start_research(request: ResearchRequest):
     """Run the full research pipeline synchronously and return all data."""
     try:
         from run_pipeline import run_research
+
         run_research(request.query)
 
         folder_name = clean_folder_name(request.query)
@@ -75,7 +83,9 @@ async def start_research(request: ResearchRequest):
 
         report_path = os.path.join(folder_path, "final_report.json")
         if not os.path.exists(report_path):
-            raise HTTPException(status_code=500, detail="Pipeline failed to generate results.")
+            raise HTTPException(
+                status_code=500, detail="Pipeline failed to generate results."
+            )
 
         return load_folder_data(folder_path)
 
@@ -85,6 +95,7 @@ async def start_research(request: ResearchRequest):
 
 
 # ─── History endpoints ────────────────────────────────────────────────────────
+
 
 @app.get("/api/history")
 async def list_history():
@@ -96,13 +107,19 @@ async def list_history():
         folder_path = os.path.join(BASE_PATH, folder)
         if not os.path.isdir(folder_path):
             continue
-        sessions.append({
-            "id": folder,
-            "title": prettify_folder_name(folder),
-            "has_report": os.path.exists(os.path.join(folder_path, "final_report.json")),
-            "has_refined": os.path.exists(os.path.join(folder_path, "refined_synthesis_results.json")),
-            "has_data": os.path.exists(os.path.join(folder_path, "tasks.json")),
-        })
+        sessions.append(
+            {
+                "id": folder,
+                "title": prettify_folder_name(folder),
+                "has_report": os.path.exists(
+                    os.path.join(folder_path, "final_report.json")
+                ),
+                "has_refined": os.path.exists(
+                    os.path.join(folder_path, "refined_synthesis_results.json")
+                ),
+                "has_data": os.path.exists(os.path.join(folder_path, "tasks.json")),
+            }
+        )
 
     return {"sessions": sessions}
 
@@ -122,6 +139,7 @@ async def get_history_session(folder: str):
 
 
 # ─── Streaming research endpoint ──────────────────────────────────────────────
+
 
 @app.post("/api/research/stream")
 async def stream_research(request: ResearchRequest):
@@ -158,10 +176,14 @@ async def stream_research(request: ResearchRequest):
             await asyncio.sleep(0)
 
             tasks_path = await run_sync(
-                lambda: generate_tasks(query, research_context="Starting fresh research")
+                lambda: generate_tasks(
+                    query, research_context="Starting fresh research"
+                )
             )
             if not tasks_path or not os.path.exists(tasks_path):
-                yield send_event("task", "failed", {"message": "Task generation failed."})
+                yield send_event(
+                    "task", "failed", {"message": "Task generation failed."}
+                )
                 return
 
             with open(tasks_path, "r", encoding="utf-8") as f:
@@ -174,7 +196,9 @@ async def stream_research(request: ResearchRequest):
 
             retrieval_path = await run_sync(lambda: retrieve(tasks_path))
             if not retrieval_path or not os.path.exists(retrieval_path):
-                yield send_event("retrieval", "failed", {"message": "Retrieval failed."})
+                yield send_event(
+                    "retrieval", "failed", {"message": "Retrieval failed."}
+                )
                 return
 
             with open(retrieval_path, "r", encoding="utf-8") as f:
@@ -187,7 +211,9 @@ async def stream_research(request: ResearchRequest):
 
             synthesis_path = await run_sync(lambda: synthesize(retrieval_path))
             if not synthesis_path or not os.path.exists(synthesis_path):
-                yield send_event("synthesis", "failed", {"message": "Synthesis failed."})
+                yield send_event(
+                    "synthesis", "failed", {"message": "Synthesis failed."}
+                )
                 return
 
             with open(synthesis_path, "r", encoding="utf-8") as f:
@@ -203,7 +229,11 @@ async def stream_research(request: ResearchRequest):
                 # Non-fatal: fall back to raw synthesis
                 print("[api] Critic step failed, falling back to raw synthesis.")
                 refined_path = synthesis_path
-                yield send_event("critic", "failed", {"message": "Critic failed, using raw synthesis."})
+                yield send_event(
+                    "critic",
+                    "failed",
+                    {"message": "Critic failed, using raw synthesis."},
+                )
             else:
                 with open(refined_path, "r", encoding="utf-8") as f:
                     refined_data = json.load(f)
@@ -214,10 +244,14 @@ async def stream_research(request: ResearchRequest):
                     with open(critique_log_path, "r", encoding="utf-8") as f:
                         critique_log = json.load(f)
 
-                yield send_event("critic", "done", {
-                    "refined_synthesis": refined_data,
-                    "critique_log": critique_log,
-                })
+                yield send_event(
+                    "critic",
+                    "done",
+                    {
+                        "refined_synthesis": refined_data,
+                        "critique_log": critique_log,
+                    },
+                )
 
             # ── Step 5: Cross-Task Synthesis ─────────────────────────────────
             yield send_event("cross_synthesis", "running", None)
@@ -227,7 +261,9 @@ async def stream_research(request: ResearchRequest):
             if not cross_path or not os.path.exists(cross_path):
                 print("[api] Cross-synthesis failed, continuing without it.")
                 cross_path = None
-                yield send_event("cross_synthesis", "failed", {"message": "Cross-synthesis failed."})
+                yield send_event(
+                    "cross_synthesis", "failed", {"message": "Cross-synthesis failed."}
+                )
             else:
                 with open(cross_path, "r", encoding="utf-8") as f:
                     cross_data = json.load(f)
@@ -254,7 +290,9 @@ async def stream_research(request: ResearchRequest):
                 lambda: generate_report(refined_path, gap_path, cross_path)
             )
             if not report_md_path or not os.path.exists(report_md_path):
-                yield send_event("report", "failed", {"message": "Report generation failed."})
+                yield send_event(
+                    "report", "failed", {"message": "Report generation failed."}
+                )
                 return
 
             with open(report_md_path, "r", encoding="utf-8") as f:
@@ -266,16 +304,24 @@ async def stream_research(request: ResearchRequest):
                 with open(report_json_path, "r", encoding="utf-8") as f:
                     report_json = json.load(f)
 
-            yield send_event("report", "done", {
-                "markdown": report_markdown,
-                "json": report_json,
-            })
+            yield send_event(
+                "report",
+                "done",
+                {
+                    "markdown": report_markdown,
+                    "json": report_json,
+                },
+            )
 
             # ── Complete ──────────────────────────────────────────────────────
-            yield send_event("complete", "done", {
-                "folder": folder_name,
-                "title": prettify_folder_name(folder_name),
-            })
+            yield send_event(
+                "complete",
+                "done",
+                {
+                    "folder": folder_name,
+                    "title": prettify_folder_name(folder_name),
+                },
+            )
 
         except Exception as e:
             print(f"[pipeline] Unhandled error: {e}")
@@ -291,7 +337,147 @@ async def stream_research(request: ResearchRequest):
     )
 
 
+# ─── Talking Mode Endpoint ────────────────────────────────────────────────────
+
+
+@app.post("/api/chat")
+async def chat_with_research(request: ChatRequest):
+    """Allow user to chat with LLM about their research."""
+    try:
+        # Load the research data for context
+        folder = re.sub(r"[^a-zA-Z0-9_\-]", "", request.folder_id)
+        folder_path = os.path.join(BASE_PATH, folder)
+
+        if not os.path.isdir(folder_path):
+            raise HTTPException(
+                status_code=404, detail=f"Research session '{folder}' not found."
+            )
+
+        # Load research data
+        data = load_folder_data(folder_path)
+
+        # Also load the markdown report
+        report_md_path = os.path.join(folder_path, "final_report.md")
+        report_markdown = ""
+        if os.path.exists(report_md_path):
+            with open(report_md_path, "r", encoding="utf-8") as f:
+                report_markdown = f.read()
+
+        # Prepare context from research - use more readable format
+        context_parts = []
+
+        # Add the research title/folder
+        context_parts.append(f"Research Session: {prettify_folder_name(folder)}")
+
+        if data.get("tasks"):
+            tasks = data["tasks"]
+            if isinstance(tasks, list) and len(tasks) > 0:
+                context_parts.append("Research Tasks/Topics:")
+                for i, task in enumerate(tasks[:5], 1):  # Limit to first 5 tasks
+                    desc = task.get("description", str(task))
+                    context_parts.append(f"  {i}. {desc[:100]}")
+
+        if data.get("refined_synthesis") or data.get("synthesis"):
+            synthesis = data.get("refined_synthesis") or data.get("synthesis")
+            if isinstance(synthesis, dict):
+                if "synthesized_summary" in synthesis:
+                    context_parts.append("Key Research Findings:")
+                    context_parts.append(
+                        f"  {synthesis['synthesized_summary'][:500]}..."
+                    )
+                elif "summary" in synthesis:
+                    context_parts.append("Key Research Findings:")
+                    context_parts.append(f"  {synthesis['summary'][:500]}...")
+
+        # Use the markdown report if available - it's the most readable
+        if report_markdown:
+            context_parts.append("Full Research Report (summary):")
+            # Extract just the main sections
+            lines = report_markdown.split("\n")
+            intro = []
+            for line in lines:
+                if line.startswith("#"):
+                    if intro or not line.startswith("##"):
+                        break
+                intro.append(line)
+                if len(intro) > 20:
+                    break
+            context_parts.append("\n".join(intro[:20]))
+
+        research_context = (
+            "\n\n".join(context_parts)
+            if context_parts
+            else "No research data available."
+        )
+
+        # Import LLM components (using same setup as synthesis agent)
+        from groq import Groq
+        from dotenv import load_dotenv
+
+        load_dotenv()
+        groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+        CHAT_MODEL = "llama-3.3-70b-versatile"
+
+        # Build conversation history for context
+        messages = [
+            {
+                "role": "system",
+                "content": f"""You are a helpful research assistant who helps users understand their completed research. You have been given access to the user's research data.
+
+RESEARCH CONTEXT:
+{research_context}
+
+IMPORTANT INSTRUCTIONS:
+1. You MUST answer questions based STRICTLY on the provided research data above
+2. If asked about something NOT in the research data, clearly say "I don't have information about that in your research"
+3. Reference specific findings, tasks, or topics from the research when possible
+4. Be conversational but precise
+5. When asked about methodology, explain what methods were used in THIS research
+6. Do not make up information or pretend you have data you don't have
+7. Use the research findings to answer questions helpfully
+
+EXAMPLES:
+- "What was this research about?" → Summarize the main topic and key findings from the research context
+- "What sources were used?" → Reference the retrieved sources section if available
+- "What gaps were identified?" → Reference the gap analysis if available
+- "Write a summary of the research" → Use the synthesized summary from the research context""",
+            }
+        ]
+
+        # Add chat history (limit to last 10 exchanges to prevent context overflow)
+        for msg in request.history[-10:]:
+            messages.append(
+                {"role": msg.get("role", "user"), "content": msg.get("content", "")}
+            )
+
+        # Add current message
+        messages.append({"role": "user", "content": request.message})
+
+        # Get response from LLM
+        completion = groq_client.chat.completions.create(
+            model=CHAT_MODEL,
+            messages=messages,
+            temperature=0.7,
+            max_tokens=1500,
+            stream=False,
+        )
+
+        response_content = completion.choices[0].message.content
+
+        return {
+            "response": response_content,
+            "folder": folder,
+            "used_context": bool(context_parts),
+        }
+
+    except Exception as e:
+        print(f"[chat] Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # ─── Markdown report endpoint ─────────────────────────────────────────────────
+
 
 @app.get("/api/history/{folder}/report.md")
 async def get_report_markdown(folder: str):
@@ -310,4 +496,5 @@ async def get_report_markdown(folder: str):
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

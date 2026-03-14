@@ -587,6 +587,10 @@ function MainDashboard() {
   const [currentStep, setCurrentStep] = useState(null)
   const [history, setHistory] = useState([])
   const [activeSession, setActiveSession] = useState(null)
+  const [chatMode, setChatMode] = useState(false) // false = research mode, true = talk mode
+  const [chatInput, setChatInput] = useState('')
+  const [isChatProcessing, setIsChatProcessing] = useState(false)
+  const [chatHistory, setChatHistory] = useState([])
 
   const initialPipeline = { task: 'WAITING', retrieval: 'WAITING', synthesis: 'WAITING', critic: 'WAITING', cross_synthesis: 'WAITING', gap: 'WAITING', report: 'WAITING' }
   const [pipeline, setPipeline] = useState(initialPipeline)
@@ -605,8 +609,38 @@ function MainDashboard() {
   useEffect(() => { refreshHistory() }, [])
   useEffect(() => { logsEndRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [logs])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+const handleSubmit = async (e) => {
+  e.preventDefault()
+  
+  if (chatMode) {
+    // Handle chat mode
+    if (!chatInput.trim() || isChatProcessing || !activeSession) return
+    
+    setIsChatProcessing(true)
+    const userMessage = chatInput
+    setChatHistory(prev => [...prev, { role: 'user', content: userMessage }])
+    setChatInput('')
+    
+    try {
+      const response = await fetch('http://localhost:8000/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: userMessage,
+          folder_id: activeSession.id,
+          history: chatHistory
+        }),
+      })
+      
+      const data = await response.json()
+      setChatHistory(prev => [...prev, { role: 'assistant', content: data.response }])
+    } catch (err) {
+      setChatHistory(prev => [...prev, { role: 'assistant', content: `[ERROR] Failed to get response: ${err.message}` }])
+    } finally {
+      setIsChatProcessing(false)
+    }
+  } else {
+    // Handle research mode (original logic)
     if (!query.trim() || isProcessing) return
 
     setIsProcessing(true)
@@ -689,12 +723,14 @@ function MainDashboard() {
       setCurrentStep(null)
     }
   }
+}
 
   const loadHistorySession = (session) => {
     setActiveSession(session)
     setActiveDocument(null)
     setPipeline({ task: 'DONE', retrieval: 'DONE', synthesis: 'DONE', critic: 'DONE', cross_synthesis: 'DONE', gap: 'DONE', report: 'DONE' })
     setLogs([])
+    setChatHistory([])  // Clear chat history when loading a new session
 
     fetch(`http://localhost:8000/api/history/${session.id}`)
       .then(r => r.json())
@@ -738,18 +774,18 @@ function MainDashboard() {
       {/* ── LEFT SIDEBAR ── */}
       <aside className="w-72 border-r border-zinc-800 flex flex-col h-full shrink-0 bg-zinc-950/80 backdrop-blur-xl relative z-20">
         <div className="p-5 border-b border-zinc-800 flex flex-col gap-5">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded bg-white text-zinc-950 shadow-[0_0_15px_rgba(255,255,255,0.3)]">
-              <Activity size={20} strokeWidth={2.5} />
-            </div>
-            <h1 className="text-lg font-mono font-bold tracking-[0.2em] text-white mt-1">MAI_OS</h1>
-          </div>
-          <button
-            className="w-full py-2.5 rounded border border-zinc-700 flex justify-center items-center gap-2 hover:bg-white hover:text-zinc-950 transition-all font-mono font-bold tracking-widest text-xs shadow-sm"
-            onClick={() => { setActiveSession(null); setDocumentVault({}); setActiveDocument(null); setPipeline(initialPipeline); setLogs([]) }}
-          >
-            <Plus size={14} /> NEW SESSION
-          </button>
+<div className="flex items-center gap-3">
+  <div className="p-2 rounded bg-white text-zinc-950 shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+    <Activity size={20} strokeWidth={2.5} />
+  </div>
+  <h1 className="text-lg font-mono font-bold tracking-[0.2em] text-white mt-1">MAI_OS</h1>
+</div>
+<button
+  className="w-full py-2.5 rounded border border-zinc-700 flex justify-center items-center gap-2 hover:bg-white hover:text-zinc-950 transition-all font-mono font-bold tracking-widest text-xs shadow-sm mt-4"
+  onClick={() => { setActiveSession(null); setDocumentVault({}); setActiveDocument(null); setPipeline(initialPipeline); setLogs([]); setChatMode(false); setChatHistory([]); setChatInput('') }}
+>
+  <Plus size={14} /> NEW SESSION
+</button>
         </div>
         <div className="p-5 flex-1 overflow-y-auto">
           <h2 className="text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-4 flex items-center gap-2">
@@ -842,10 +878,53 @@ function MainDashboard() {
                 </div>
               ) : (
                 <div className="flex flex-col gap-3 pb-10">
-                  {logs.map((log, i) => (
-                    <ChatMessage key={i} log={log} reportMarkdown={reportMarkdown} />
-                  ))}
-                  {isProcessing && <TypingIndicator currentStep={currentStep} />}
+                  {/* Show chat history when in chat mode */}
+                  {chatMode && activeSession ? (
+                    <>
+                      {chatHistory.length === 0 ? (
+                        <div className="flex-1 flex items-center justify-center p-8">
+                          <div className="flex flex-col items-center gap-6 text-center max-w-md">
+                            <div className="w-16 h-16 rounded-2xl border border-emerald-800 flex items-center justify-center bg-emerald-900/30 shadow-inner">
+                              <Microscope size={28} className="text-emerald-400" />
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <p className="text-emerald-300 font-mono font-bold tracking-[0.2em] text-sm">TALK MODE</p>
+                              <p className="text-zinc-400 text-sm leading-relaxed">Ask questions about your research findings.</p>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        chatHistory.map((msg, i) => (
+                          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                            <div className={`max-w-[75%] px-5 py-3.5 rounded-2xl text-sm font-sans font-medium leading-relaxed shadow-lg
+                              ${msg.role === 'user' 
+                                ? 'bg-emerald-100 text-emerald-900 rounded-tr-sm' 
+                                : 'bg-zinc-800 text-zinc-100 rounded-tl-sm'}`}>
+                              {msg.content}
+                            </div>
+                          </div>
+                        ))
+                      )}
+                      {isChatProcessing && (
+                        <div className="flex items-center gap-4 py-3 pl-2">
+                          <div className="flex gap-1.5 p-2 rounded-full bg-zinc-900 border border-zinc-800">
+                            {[0, 1, 2].map(i => (
+                              <span key={i} className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+                            ))}
+                          </div>
+                          <span className="text-[11px] font-mono font-bold text-emerald-400">Thinking...</span>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    /* Show research logs when in research mode */
+                    <>
+                      {logs.map((log, i) => (
+                        <ChatMessage key={i} log={log} reportMarkdown={reportMarkdown} />
+                      ))}
+                      {isProcessing && <TypingIndicator currentStep={currentStep} />}
+                    </>
+                  )}
                   <div ref={logsEndRef} />
                 </div>
               )}
@@ -853,27 +932,82 @@ function MainDashboard() {
           )}
         </div>
 
-        <div className="p-5 border-t border-zinc-800/80 shrink-0 bg-zinc-950/80 backdrop-blur-xl z-20">
-          <form className="flex rounded-lg border border-zinc-700 bg-zinc-900/50 focus-within:border-cyan-500/50 focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:bg-zinc-900 transition-all shadow-lg max-w-4xl mx-auto overflow-hidden" onSubmit={handleSubmit}>
-            <div className="pl-5 pr-3 flex items-center justify-center">
-              {isProcessing
-                ? <Loader2 size={18} className="animate-spin text-cyan-500" />
-                : <Search size={18} className="text-zinc-500" />}
-            </div>
-            <input type="text"
-              className="flex-1 bg-transparent py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
-              placeholder={activeSession ? 'Start a New Session to continue…' : 'Enter a research topic, query, or objective…'}
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              disabled={isProcessing || activeSession !== null}
-            />
-            <button type="submit"
-              disabled={isProcessing || activeSession !== null || !query.trim()}
-              className="px-8 bg-zinc-100 text-zinc-950 font-mono font-bold tracking-widest text-xs hover:bg-white transition-colors disabled:opacity-30 disabled:bg-zinc-800 disabled:text-zinc-500">
-              EXECUTE
-            </button>
-          </form>
-        </div>
+<div className="p-5 border-t border-zinc-800/80 shrink-0 bg-zinc-950/80 backdrop-blur-xl z-20">
+  <div className="flex items-center gap-3 mb-4">
+    <span className="text-xs font-mono text-zinc-500">Mode:</span>
+    <button
+      className={`px-3 py-1 rounded border border-zinc-700 text-[10px] font-mono font-bold tracking-widest 
+        ${!chatMode ? 'bg-cyan-500/20 text-cyan-400' : 'bg-zinc-900/20 text-zinc-400'}
+        hover:bg-zinc-800/20 transition-colors`}
+      onClick={() => setChatMode(false)}
+    >
+      Research
+    </button>
+    <button
+      className={`px-3 py-1 rounded border border-zinc-700 text-[10px] font-mono font-bold tracking-widest 
+        ${chatMode ? 'bg-emerald-500/20 text-emerald-400' : 'bg-zinc-900/20 text-zinc-400'}
+        hover:bg-zinc-800/20 transition-colors ml-2`}
+      onClick={() => setChatMode(true)}
+    >
+      Talk
+    </button>
+  </div>
+  <form className="flex rounded-lg border border-zinc-700 bg-zinc-900/50 focus-within:border-cyan-500/50 focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:bg-zinc-900 transition-all shadow-lg max-w-4xl mx-auto overflow-hidden" onSubmit={handleSubmit}>
+    <div className="pl-5 pr-3 flex items-center justify-center">
+      {(chatMode && isChatProcessing) || (!chatMode && isProcessing)
+        ? <Loader2 size={18} className="animate-spin text-cyan-500" />
+        : chatMode
+          ? <Microscope size={18} className="text-emerald-400" />
+          : <Search size={18} className="text-zinc-500" />}
+    </div>
+    {chatMode && activeSession ? (
+      <>
+        <input type="text"
+          className="flex-1 bg-transparent py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+          placeholder={`Ask about ${activeSession.title}...`}
+          value={chatInput}
+          onChange={e => setChatInput(e.target.value)}
+          disabled={isChatProcessing || !activeSession}
+        />
+        <button type="submit"
+          disabled={isChatProcessing || !activeSession || !chatInput.trim()}
+          className="px-8 bg-emerald-100 text-emerald-950 font-mono font-bold tracking-widest text-xs hover:bg-emerald-200 transition-colors disabled:opacity-30 disabled:bg-emerald-800 disabled:text-emerald-500">
+          ASK
+        </button>
+      </>
+    ) : chatMode ? (
+      <>
+        <input type="text"
+          className="flex-1 bg-transparent py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+          placeholder="Select a research session from the left to start chatting..."
+          value={chatInput}
+          onChange={e => setChatInput(e.target.value)}
+          disabled={true}
+        />
+        <button type="submit"
+          disabled={true}
+          className="px-8 bg-zinc-800 text-zinc-500 font-mono font-bold tracking-widest text-xs disabled:opacity-30">
+          ASK
+        </button>
+      </>
+    ) : (
+      <>
+        <input type="text"
+          className="flex-1 bg-transparent py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+          placeholder={activeSession ? 'Start a New Session to continue…' : 'Enter a research topic, query, or objective…'}
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          disabled={isProcessing || activeSession !== null}
+        />
+        <button type="submit"
+          disabled={isProcessing || activeSession !== null || !query.trim()}
+          className="px-8 bg-zinc-100 text-zinc-950 font-mono font-bold tracking-widest text-xs hover:bg-white transition-colors disabled:opacity-30 disabled:bg-zinc-800 disabled:text-zinc-500">
+          EXECUTE
+        </button>
+      </>
+    )}
+  </form>
+</div>
       </main>
 
       {/* ── RIGHT SIDEBAR ── */}
