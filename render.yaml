@@ -1,0 +1,14 @@
+# Render.com configuration for MultiAgentResearcher backend
+
+services:
+  - type: web
+    name: multiagent-researcher-backend
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: PORT
+        value: 10000

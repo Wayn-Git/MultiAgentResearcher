@@ -76,12 +76,12 @@ npm run dev
 **Frontend to Vercel:**
 ```bash
 # Push to GitHub, then connect to Vercel
-# Add environment variable: VITE_API_URL=https://your-backend.railway.app
+# Add environment variable: VITE_API_URL=https://your-service.onrender.com
 ```
 
-**Backend to Railway:**
+**Backend to Render:**
 ```bash
-# Push to GitHub, then connect to Railway
+# Push to GitHub, then connect to Render
 # Add environment variable: GROQ_API_KEY=your_groq_api_key
 ```
 
@@ -95,8 +95,7 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
 MultiAgentResearcher/
 ├── main.py                         # FastAPI backend
 ├── requirements.txt                # Python dependencies
-├── railway.json                    # Railway config
-├── Procfile                        # Railway process config
+├── render.yaml                     # Render config
 ├── vercel.json                     # Vercel config
 ├── DEPLOYMENT.md                   # Deployment guide
 ├── .env.example                    # Environment template
@@ -225,7 +224,7 @@ VITE_API_URL=http://localhost:8000
 - [x] Basic research pipeline
 - [x] Web UI with React
 - [x] Talk Mode for research chat
-- [x] Deployment to Vercel + Railway
+- [x] Deployment to Vercel + Render
 - [ ] Export reports to PDF
 - [ ] User authentication
 - [ ] Multi-user support

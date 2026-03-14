@@ -38,3 +38,33 @@
         border: 1px solid var(--color-border);
     }
 }
+
+/* Mobile scrollbar styling */
+@media (max-width: 1024px) {
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #1a1a1a;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #404040;
+        border-radius: 2px;
+    }
+}
+
+/* Ensure touch targets are large enough on mobile */
+@media (max-width: 768px) {
+    button, a, input, select, textarea {
+        min-height: 44px; /* Minimum touch target size */
+    }
+    
+    /* Prevent text selection on interactive elements */
+    .no-select {
+        -webkit-user-select: none;
+        user-select: none;
+    }
+}

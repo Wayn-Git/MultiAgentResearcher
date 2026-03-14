@@ -8,9 +8,9 @@
 |------|---------|
 | `vercel.json` | Vercel frontend configuration |
 | `frontend/vercel.json` | Frontend-specific Vercel config |
-| `railway.json` | Railway backend configuration |
+| `render.yaml` | Render backend configuration |
 | `requirements.txt` | Python dependencies for backend |
-| `Procfile` | Railway process definition |
+
 | `.env.example` | Environment variables template |
 | `frontend/.env.example` | Frontend environment template |
 | `DEPLOYMENT.md` | Detailed deployment guide |
@@ -20,7 +20,7 @@
 
 ## 🚀 Deployment Steps
 
-### Backend (Railway)
+### Backend (Render)
 
 1. **Push code to GitHub**
    ```bash
@@ -29,18 +29,25 @@
    git push origin main
    ```
 
-2. **Connect to Railway**
-   - Go to railway.app
-   - New Project → Deploy from GitHub
+2. **Connect to Render**
+   - Go to render.com
+   - New → Web Service
+   - Connect your GitHub repository
    - Select your repository
 
-3. **Add Environment Variables**
+3. **Configure Service**
+   - Service Type: Web Service
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+   - Plan: Free
+
+4. **Add Environment Variables**
    - GROQ_API_KEY = your_groq_api_key
 
-4. **Deploy**
-   - Railway auto-detects `railway.json`
-   - App deploys automatically
-   - Note your backend URL
+5. **Deploy**
+   - Click "Create Web Service"
+   - Render builds and deploys automatically
+   - Note your backend URL (e.g., `your-service.onrender.com`)
 
 ### Frontend (Vercel)
 
@@ -58,7 +65,7 @@
    - Output Directory: `frontend/dist`
 
 4. **Add Environment Variables**
-   - VITE_API_URL = https://your-backend.railway.app
+   - VITE_API_URL = https://your-service.onrender.com
 
 5. **Deploy**
    - Vercel builds and deploys automatically
@@ -77,8 +84,8 @@
            │ API Requests
            ▼
 ┌─────────────────────────────┐
-│   Railway (Backend)         │
-│   https://your-backend.railway.app
+│   Render (Backend)          │
+│   https://your-service.onrender.com
 └──────────┬──────────────────┘
            │
            │ LLM Requests
@@ -93,15 +100,15 @@
 
 ## 📋 Environment Variables
 
-### Backend (Railway)
+### Backend (Render)
 ```
 GROQ_API_KEY=your_groq_api_key_here
-PORT=8000 (auto-assigned by Railway)
+PORT=10000 (auto-assigned by Render)
 ```
 
 ### Frontend (Vercel)
 ```
-VITE_API_URL=https://your-backend.railway.app
+VITE_API_URL=https://your-service.onrender.com
 ```
 
 ---
@@ -124,10 +131,11 @@ VITE_API_URL=https://your-backend.railway.app
 
 ## 💰 Cost Estimates
 
-### Railway (Backend)
-- Free tier: 500 hours/month
-- Build minutes: 100 hours/month
-- Storage: 1GB
+### Render (Backend)
+- Free tier: 750 hours/month
+- Web services sleep after 15 min inactivity
+- Build minutes: unlimited
+- 512 MB RAM
 
 ### Vercel (Frontend)
 - Free tier: Hobby plan
@@ -143,7 +151,7 @@ VITE_API_URL=https://your-backend.railway.app
 ## ✅ Testing Checklist
 
 ### Backend
-- [ ] Railway deployment succeeds
+- [ ] Render deployment succeeds
 - [ ] Backend URL accessible
 - [ ] `/api/history` returns data
 - [ ] `/api/chat` works with research data
@@ -169,7 +177,7 @@ VITE_API_URL=https://your-backend.railway.app
 1. **Deploy Backend**
    ```bash
    git push origin main
-   Connect to Railway
+   Connect to Render
    ```
 
 2. **Deploy Frontend**
@@ -185,7 +193,7 @@ VITE_API_URL=https://your-backend.railway.app
    - Ask questions about research
 
 4. **Monitor Usage**
-   - Check Railway logs
+   - Check Render logs
    - Check Vercel logs
    - Monitor Groq usage
 
@@ -195,25 +203,25 @@ VITE_API_URL=https://your-backend.railway.app
 
 ### Frontend can't reach backend
 - Check `VITE_API_URL` is correct
-- Verify backend is running on Railway
+- Verify backend is running on Render
 - Check CORS settings in backend
 
 ### LLM not responding
-- Verify `GROQ_API_KEY` is set in Railway
+- Verify `GROQ_API_KEY` is set in Render
 - Check Groq dashboard for API usage
 - Ensure API key has sufficient credits
 
 ### Build failures
 - Check Vercel build logs
 - Verify `package.json` scripts
-- Check Railway build logs
+- Check Render build logs
 
 ---
 
 ## 📞 Support
 
 - **Vercel Docs**: https://vercel.com/docs
-- **Railway Docs**: https://docs.railway.app
+- **Render Docs**: https://docs.render.com
 - **Groq API**: https://console.groq.com/docs
 - **FastAPI Docs**: https://fastapi.tiangolo.com
 
@@ -221,4 +229,4 @@ VITE_API_URL=https://your-backend.railway.app
 
 **Deployment Complete!** 🎉
 
-Your MultiAgentResearcher application is ready for deployment on Vercel (frontend) and Railway (backend).
+Your MultiAgentResearcher application is ready for deployment on Vercel (frontend) and Render (backend).
