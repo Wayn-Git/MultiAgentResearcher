@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback, Component } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AIChatInput } from "./components/ui/ai-chat-input";
-import "./styles/apple-ui.css";
+import { VercelV0Chat } from "./components/ui/v0-ai-chat";
+import { Waves } from "./components/ui/wave-background";
+import "./styles/chat.css";
+import "./index.css";
 
 // ─── MOTION VARIANTS ──────────────────────────────────────────────────────────
 const fadeUp = {
@@ -1051,180 +1053,157 @@ export default function App() {
   };
 
   return (
-    <div className="shell">
-      {/* TOP BAR */}
-      <header className="topbar">
-        <div className="logo">
-          <motion.div className="logo-badge" whileHover={{ scale: 1.1, rotate: 5 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}>M</motion.div>
-          MultiAgent<span>Researcher</span>
-        </div>
-        <div className="top-right">
-          <motion.button className="btn-history" onClick={() => setShowSidebar(true)}
-            whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-            <span>☰</span> Research Log
-          </motion.button>
-          <motion.div className={`status-pill ${loading ? "live" : ""}`}
-            animate={loading ? { scale: [1, 1.02, 1] } : {}}
-            transition={loading ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : {}}>
-            {loading ? "● PIPELINE ACTIVE" : "○ READY"}
-          </motion.div>
-        </div>
-      </header>
-
-      {/* SIDEBAR */}
-      <div className={`sidebar-backdrop ${showSidebar ? "open" : ""}`} onClick={() => setShowSidebar(false)} />
-      <aside className={`sidebar ${showSidebar ? "open" : ""}`}>
-        <div className="sb-head">
-          <div className="sb-header-row">
-            <div className="sb-title">Research Log</div>
-            <motion.button className="btn-close" onClick={() => setShowSidebar(false)}
-              whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}>✕</motion.button>
+    <>
+      <div className="fixed inset-0 z-0 bg-[#030303]">
+        <Waves strokeColor="rgba(255,255,255,0.1)" backgroundColor="#030303" pointerSize={0.5} />
+      </div>
+      <div className="app-shell" style={{ position: "relative", zIndex: 1 }}>
+        {/* TOP BAR */}
+        <header className="topbar">
+          <div className="topbar-logo">
+            <motion.div className="topbar-logo-badge" whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}>M</motion.div>
+            MultiAgent<span className="topbar-logo-text">Researcher</span>
           </div>
-          <motion.button className="btn-new" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-            onClick={() => {
-              setActiveSession(null); setMessages([]); setPipeSteps([]);
-              setShowSidebar(false);
-              setTimeout(() => inputRef.current?.focus(), 300);
-            }}>＋ New Research</motion.button>
-        </div>
-        {sessions.length > 0 && (
-          <>
-            <div className="sb-label">History</div>
-            <div className="session-list">
-              {sessions.map(s => (
-                <motion.div key={s.id} className={`sess ${activeSession === s.id ? "active" : ""}`}
-                  onClick={() => { loadSession(s); setShowSidebar(false); }}
-                  whileHover={{ x: 6 }} transition={{ duration: 0.2 }}>
-                  <div className="sess-dot" style={{ background: s.has_report ? "var(--accent)" : "var(--text-tertiary)" }} />
-                  <div className="sess-title" title={s.title}>{s.title}</div>
-                  {s.has_refined && <span style={{ fontSize: 10, color: "var(--orange)", fontFamily: "var(--mono)" }}>↑</span>}
-                  {s.has_report && <span className="sess-tick">✓</span>}
-                </motion.div>
-              ))}
-            </div>
-          </>
-        )}
-      </aside>
-
-      {/* CHAT AREA */}
-      <main className="chat-area">
-        <AnimatePresence mode="wait">
-          {messages.length === 0 ? (
-            <motion.div className="empty" key="empty"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}>
-              <motion.div className="empty-icon"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ type: "spring", stiffness: 200, damping: 15 }}>🔬</motion.div>
-              <motion.div className="empty-ttl"
-                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}>
-                Research anything deeply
-              </motion.div>
-              <motion.div className="empty-desc"
-                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}>
-                7 specialized AI agents collaborate in real time — fetching sources, synthesizing findings, critiquing quality, finding emergent insights, detecting gaps, and generating a complete report.
-              </motion.div>
-              <motion.div className="suggestions"
-                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}>
-                {SUGGESTIONS.map((s, i) => (
-                  <motion.button key={s} className="sug-pill"
-                    onClick={() => { setQuery(s); inputRef.current?.focus(); }}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 + i * 0.08 }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.97 }}>{s}</motion.button>
-                ))}
-              </motion.div>
+          <div className="topbar-right">
+            <motion.button className="topbar-btn" onClick={() => setShowSidebar(true)}
+              whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <span>☰</span> Research Log
+            </motion.button>
+            <motion.div className={`status-pill ${loading ? "live" : ""}`}
+              animate={loading ? { scale: [1, 1.02, 1] } : {}}
+              transition={loading ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : {}}>
+              {loading ? "● PIPELINE ACTIVE" : "○ READY"}
             </motion.div>
-          ) : (
-            <div className="msgs" key="msgs">
-              <div className="msgs-inner">
-                {messages.map((msg, i) => {
-                  if (msg.type === "user")
-                    return (
-                      <motion.div key={i} className="msg-user"
-                        initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}>
-                        <div className="user-bub">{msg.text}</div>
-                      </motion.div>
-                    );
-                  if (msg.type === "thinking")
-                    return <ErrorBoundary key={i}><ThinkingBubble agent={msg.agent} /></ErrorBoundary>;
-                  if (msg.type === "tasks")
-                    return <ErrorBoundary key={i}><TasksMsg tasks={msg.data} /></ErrorBoundary>;
-                  if (msg.type === "retrieval")
-                    return <ErrorBoundary key={i}><RetrievalMsg retrieval={msg.data} /></ErrorBoundary>;
-                  if (msg.type === "synthesis")
-                    return <ErrorBoundary key={i}><SynthesisMsg synthesis={msg.data} /></ErrorBoundary>;
-                  if (msg.type === "critic")
-                    return <ErrorBoundary key={i}><CriticMsg criticData={msg.data} /></ErrorBoundary>;
-                  if (msg.type === "cross_synthesis")
-                    return <ErrorBoundary key={i}><CrossSynthesisMsg crossData={msg.data} /></ErrorBoundary>;
-                  if (msg.type === "gaps")
-                    return <ErrorBoundary key={i}><GapMsg gaps={msg.data} /></ErrorBoundary>;
-                  if (msg.type === "report")
-                    return <ErrorBoundary key={i}><ReportMsg report={msg.data} markdown={msg.markdown} tasks={msg.tasks} /></ErrorBoundary>;
-                  if (msg.type === "error")
-                    return (
-                      <motion.div key={i} className="msg-agent" {...fadeUp}>
-                        <div className="ag-body"><div className="err-card">⚠ {msg.text}</div></div>
-                      </motion.div>
-                    );
-                  return null;
-                })}
-                <div ref={bottomRef} />
+          </div>
+        </header>
+
+        {/* SIDEBAR */}
+        <div className={`sidebar-backdrop ${showSidebar ? "open" : ""}`} onClick={() => setShowSidebar(false)} />
+        <aside className={`sidebar ${showSidebar ? "open" : ""}`}>
+          <div className="sb-head">
+            <div className="sb-header-row">
+              <div className="sb-title">Research Log</div>
+              <motion.button className="btn-close" onClick={() => setShowSidebar(false)}
+                whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}>✕</motion.button>
+            </div>
+            <motion.button className="btn-new" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                setActiveSession(null); setMessages([]); setPipeSteps([]);
+                setShowSidebar(false);
+                setTimeout(() => inputRef.current?.focus(), 300);
+              }}>＋ New Research</motion.button>
+          </div>
+          {sessions.length > 0 && (
+            <>
+              <div className="sb-label">History</div>
+              <div className="session-list">
+                {sessions.map(s => (
+                  <motion.div key={s.id} className={`sess ${activeSession === s.id ? "active" : ""}`}
+                    onClick={() => { loadSession(s); setShowSidebar(false); }}
+                    whileHover={{ x: 6 }} transition={{ duration: 0.2 }}>
+                    <div className="sess-dot" style={{ background: s.has_report ? "var(--accent)" : "var(--text-tertiary)" }} />
+                    <div className="sess-title" title={s.title}>{s.title}</div>
+                    {s.has_refined && <span style={{ fontSize: 10, color: "var(--orange)", fontFamily: "var(--mono)" }}>↑</span>}
+                    {s.has_report && <span className="sess-tick">✓</span>}
+                  </motion.div>
+                ))}
+              </div>
+            </>
+          )}
+        </aside>
+
+        {/* CHAT AREA */}
+        <main className="chat-area">
+          <AnimatePresence mode="wait">
+            {messages.length === 0 ? (
+              <motion.div className="hero-wrap" key="empty"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}>
+                <VercelV0Chat onSubmit={startResearch} isHero={true} />
+              </motion.div>
+            ) : (
+              <div className="msgs-wrap" key="msgs">
+                <div className="msgs-inner">
+                  {messages.map((msg, i) => {
+                    if (msg.type === "user")
+                      return (
+                        <motion.div key={i} className="msg-user"
+                          initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}>
+                          <div className="user-bub">{msg.text}</div>
+                        </motion.div>
+                      );
+                    if (msg.type === "thinking")
+                      return <ErrorBoundary key={i}><ThinkingBubble agent={msg.agent} /></ErrorBoundary>;
+                    if (msg.type === "tasks")
+                      return <ErrorBoundary key={i}><TasksMsg tasks={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "retrieval")
+                      return <ErrorBoundary key={i}><RetrievalMsg retrieval={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "synthesis")
+                      return <ErrorBoundary key={i}><SynthesisMsg synthesis={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "critic")
+                      return <ErrorBoundary key={i}><CriticMsg criticData={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "cross_synthesis")
+                      return <ErrorBoundary key={i}><CrossSynthesisMsg crossData={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "gaps")
+                      return <ErrorBoundary key={i}><GapMsg gaps={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "report")
+                      return <ErrorBoundary key={i}><ReportMsg report={msg.data} markdown={msg.markdown} tasks={msg.tasks} /></ErrorBoundary>;
+                    if (msg.type === "error")
+                      return (
+                        <motion.div key={i} className="msg-agent" {...fadeUp}>
+                          <div className="ag-body"><div className="err-card">⚠ {msg.text}</div></div>
+                        </motion.div>
+                      );
+                    return null;
+                  })}
+                  <div ref={bottomRef} />
+                </div>
+              </div>
+            )}
+          </AnimatePresence>
+
+          {/* Input */}
+          <div className="input-wrap">
+            <div className="input-inner">
+              <AnimatePresence>
+                {loading && pipeSteps.length > 0 && (
+                  <motion.div className="pipe-live-inline"
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }} transition={{ duration: 0.3 }}>
+                    {PIPELINE_ORDER.map(key => {
+                      const step = pipeSteps.find(s => s.step === key);
+                      const ag = AGENTS[key];
+                      const status = step?.status ?? "pending";
+                      const c = status !== "pending" ? ag.color : "var(--text-quaternary)";
+                      return (
+                        <motion.div key={key} className="pipe-inline-item"
+                          style={{ color: c, opacity: status === "pending" ? 0.35 : 1 }}
+                          animate={{ opacity: status === "pending" ? 0.35 : 1 }}
+                          transition={{ duration: 0.3 }}>
+                          <motion.span
+                            animate={status === "running" ? { rotate: 360 } : {}}
+                            transition={status === "running" ? { duration: 1, repeat: Infinity, ease: "linear" } : {}}>
+                            {status === "running" ? "⟳" : status === "done" ? "✓" : "○"}
+                          </motion.span>
+                          <span>{ag.label}</span>
+                        </motion.div>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <div style={{ pointerEvents: loading ? "none" : "auto", opacity: loading ? 0.5 : 1, width: "100%" }}>
+                {messages.length > 0 && (
+                  <VercelV0Chat onSubmit={startResearch} isHero={false} />
+                )}
               </div>
             </div>
-          )}
-        </AnimatePresence>
-
-        {/* Input */}
-        <div className="input-wrap">
-          <div className="input-inner">
-            <AnimatePresence>
-              {loading && pipeSteps.length > 0 && (
-                <motion.div className="pipe-live-inline"
-                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }} transition={{ duration: 0.3 }}>
-                  {PIPELINE_ORDER.map(key => {
-                    const step = pipeSteps.find(s => s.step === key);
-                    const ag = AGENTS[key];
-                    const status = step?.status ?? "pending";
-                    const c = status !== "pending" ? ag.color : "var(--text-quaternary)";
-                    return (
-                      <motion.div key={key} className="pipe-inline-item"
-                        style={{ color: c, opacity: status === "pending" ? 0.35 : 1 }}
-                        animate={{ opacity: status === "pending" ? 0.35 : 1 }}
-                        transition={{ duration: 0.3 }}>
-                        <motion.span
-                          animate={status === "running" ? { rotate: 360 } : {}}
-                          transition={status === "running" ? { duration: 1, repeat: Infinity, ease: "linear" } : {}}>
-                          {status === "running" ? "⟳" : status === "done" ? "✓" : "○"}
-                        </motion.span>
-                        <span>{ag.label}</span>
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
-              )}
-            </AnimatePresence>
-            <AIChatInput
-              ref={inputRef}
-              value={query}
-              onChange={setQuery}
-              onSubmit={(val) => startResearch(val)}
-              disabled={loading}
-            />
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </>
   );
 }
