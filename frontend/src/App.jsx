@@ -1,6 +1,15 @@
+<<<<<<< HEAD
+import React, { useState, useEffect, useRef, useCallback, Component } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { VercelV0Chat } from "./components/ui/v0-ai-chat";
+import { Waves } from "./components/ui/wave-background";
+import "./styles/chat.css";
+import "./index.css";
+=======
 import { useState, useRef, useEffect } from 'react'
 import { Activity, Database, FileText, TerminalSquare, Plus, Clock, ChevronRight, ChevronDown, CheckCircle2, Loader2, AlertCircle, Search, BookOpen, Layers, Microscope, GitMerge, Puzzle, ScrollText, XCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+>>>>>>> faf9a8812d1f5627deb1fd27eae718c980e60478
 
 // API URL from environment or default to localhost
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
@@ -798,7 +807,167 @@ function MainDashboard() {
   const reportMarkdown = documentVault?.['report.md'] ?? null
 
   return (
+<<<<<<< HEAD
     <div className="flex h-dvh w-full bg-zinc-950 text-zinc-300 font-sans overflow-hidden">
+=======
+<<<<<<< HEAD
+    <>
+      <div className="fixed inset-0 z-0 bg-[#030303]">
+        <Waves strokeColor="rgba(255,255,255,0.1)" backgroundColor="#030303" pointerSize={0.5} />
+      </div>
+      <div className="app-shell" style={{ position: "relative", zIndex: 1 }}>
+        {/* TOP BAR */}
+        <header className="topbar">
+          <div className="topbar-logo">
+            <motion.div className="topbar-logo-badge" whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}>M</motion.div>
+            MultiAgent<span className="topbar-logo-text">Researcher</span>
+          </div>
+          <div className="topbar-right">
+            <motion.button className="topbar-btn" onClick={() => setShowSidebar(true)}
+              whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <span>☰</span> Research Log
+            </motion.button>
+            <motion.div className={`status-pill ${loading ? "live" : ""}`}
+              animate={loading ? { scale: [1, 1.02, 1] } : {}}
+              transition={loading ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : {}}>
+              {loading ? "● PIPELINE ACTIVE" : "○ READY"}
+            </motion.div>
+          </div>
+        </header>
+
+        {/* SIDEBAR */}
+        <div className={`sidebar-backdrop ${showSidebar ? "open" : ""}`} onClick={() => setShowSidebar(false)} />
+        <aside className={`sidebar ${showSidebar ? "open" : ""}`}>
+          <div className="sb-head">
+            <div className="sb-header-row">
+              <div className="sb-title">Research Log</div>
+              <motion.button className="btn-close" onClick={() => setShowSidebar(false)}
+                whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}>✕</motion.button>
+            </div>
+            <motion.button className="btn-new" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                setActiveSession(null); setMessages([]); setPipeSteps([]);
+                setShowSidebar(false);
+                setTimeout(() => inputRef.current?.focus(), 300);
+              }}>＋ New Research</motion.button>
+          </div>
+          {sessions.length > 0 && (
+            <>
+              <div className="sb-label">History</div>
+              <div className="session-list">
+                {sessions.map(s => (
+                  <motion.div key={s.id} className={`sess ${activeSession === s.id ? "active" : ""}`}
+                    onClick={() => { loadSession(s); setShowSidebar(false); }}
+                    whileHover={{ x: 6 }} transition={{ duration: 0.2 }}>
+                    <div className="sess-dot" style={{ background: s.has_report ? "var(--accent)" : "var(--text-tertiary)" }} />
+                    <div className="sess-title" title={s.title}>{s.title}</div>
+                    {s.has_refined && <span style={{ fontSize: 10, color: "var(--orange)", fontFamily: "var(--mono)" }}>↑</span>}
+                    {s.has_report && <span className="sess-tick">✓</span>}
+                  </motion.div>
+                ))}
+              </div>
+            </>
+          )}
+        </aside>
+
+        {/* CHAT AREA */}
+        <main className="chat-area">
+          <AnimatePresence mode="wait">
+            {messages.length === 0 ? (
+              <motion.div className="hero-wrap" key="empty"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}>
+                <VercelV0Chat onSubmit={startResearch} isHero={true} />
+              </motion.div>
+            ) : (
+              <div className="msgs-wrap" key="msgs">
+                <div className="msgs-inner">
+                  {messages.map((msg, i) => {
+                    if (msg.type === "user")
+                      return (
+                        <motion.div key={i} className="msg-user"
+                          initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}>
+                          <div className="user-bub">{msg.text}</div>
+                        </motion.div>
+                      );
+                    if (msg.type === "thinking")
+                      return <ErrorBoundary key={i}><ThinkingBubble agent={msg.agent} /></ErrorBoundary>;
+                    if (msg.type === "tasks")
+                      return <ErrorBoundary key={i}><TasksMsg tasks={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "retrieval")
+                      return <ErrorBoundary key={i}><RetrievalMsg retrieval={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "synthesis")
+                      return <ErrorBoundary key={i}><SynthesisMsg synthesis={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "critic")
+                      return <ErrorBoundary key={i}><CriticMsg criticData={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "cross_synthesis")
+                      return <ErrorBoundary key={i}><CrossSynthesisMsg crossData={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "gaps")
+                      return <ErrorBoundary key={i}><GapMsg gaps={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "report")
+                      return <ErrorBoundary key={i}><ReportMsg report={msg.data} markdown={msg.markdown} tasks={msg.tasks} /></ErrorBoundary>;
+                    if (msg.type === "error")
+                      return (
+                        <motion.div key={i} className="msg-agent" {...fadeUp}>
+                          <div className="ag-body"><div className="err-card">⚠ {msg.text}</div></div>
+                        </motion.div>
+                      );
+                    return null;
+                  })}
+                  <div ref={bottomRef} />
+                </div>
+              </div>
+            )}
+          </AnimatePresence>
+
+          {/* Input */}
+          <div className="input-wrap">
+            <div className="input-inner">
+              <AnimatePresence>
+                {loading && pipeSteps.length > 0 && (
+                  <motion.div className="pipe-live-inline"
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }} transition={{ duration: 0.3 }}>
+                    {PIPELINE_ORDER.map(key => {
+                      const step = pipeSteps.find(s => s.step === key);
+                      const ag = AGENTS[key];
+                      const status = step?.status ?? "pending";
+                      const c = status !== "pending" ? ag.color : "var(--text-quaternary)";
+                      return (
+                        <motion.div key={key} className="pipe-inline-item"
+                          style={{ color: c, opacity: status === "pending" ? 0.35 : 1 }}
+                          animate={{ opacity: status === "pending" ? 0.35 : 1 }}
+                          transition={{ duration: 0.3 }}>
+                          <motion.span
+                            animate={status === "running" ? { rotate: 360 } : {}}
+                            transition={status === "running" ? { duration: 1, repeat: Infinity, ease: "linear" } : {}}>
+                            {status === "running" ? "⟳" : status === "done" ? "✓" : "○"}
+                          </motion.span>
+                          <span>{ag.label}</span>
+                        </motion.div>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <div style={{ pointerEvents: loading ? "none" : "auto", opacity: loading ? 0.5 : 1, width: "100%" }}>
+                {messages.length > 0 && (
+                  <VercelV0Chat onSubmit={startResearch} isHero={false} />
+                )}
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </>
+  );
+}
+=======
+    <div className="flex h-screen w-full bg-zinc-950 text-zinc-300 font-sans overflow-hidden selection:bg-cyan-500/30">
+>>>>>>> 472b34981106a87ac74b73eb5c77306589f75c4b
 
       {/* Mobile Menu Overlay */}
       {showMobileMenu && (
@@ -1200,3 +1369,7 @@ function MainDashboard() {
 }
 
 export default MainDashboard
+<<<<<<< HEAD
+=======
+>>>>>>> faf9a8812d1f5627deb1fd27eae718c980e60478
+>>>>>>> 472b34981106a87ac74b73eb5c77306589f75c4b
