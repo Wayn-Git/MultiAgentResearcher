@@ -1,0 +1,32 @@
+[
+    {
+        "description": "Define the basic principles of quantum mechanics that enable quantum computing, including superposition and entanglement",
+        "priority": 9,
+        "type": "foundational knowledge",
+        "search_angle": "Historical context and technical fundamentals"
+    },
+    {
+        "description": "Explain the difference between classical bits and quantum bits (qubits), including how qubits process information",
+        "priority": 8,
+        "type": "core concept",
+        "search_angle": "Technical details and key components"
+    },
+    {
+        "description": "Identify and describe the types of quantum computers currently being developed, including gate-based, adiabatic, and topological quantum computers",
+        "priority": 7,
+        "type": "current state",
+        "search_angle": "Key players and industry developments"
+    },
+    {
+        "description": "Discuss the potential applications and benefits of quantum computing, including cryptography, optimization problems, and simulation of complex systems",
+        "priority": 6,
+        "type": "supporting context",
+        "search_angle": "Future outlook and practical uses"
+    },
+    {
+        "description": "Describe the challenges and limitations of building and scaling quantum computers, including error correction and noise reduction",
+        "priority": 5,
+        "type": "challenges and limitations",
+        "search_angle": "Technical hurdles and research gaps"
+    }
+]

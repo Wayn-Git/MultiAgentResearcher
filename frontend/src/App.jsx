@@ -1,1058 +1,748 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useRef, useCallback, Component } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { VercelV0Chat } from "./components/ui/v0-ai-chat";
 import { Waves } from "./components/ui/wave-background";
 import "./styles/chat.css";
 import "./index.css";
+=======
+import { useState, useRef, useEffect } from 'react'
+import { Activity, Database, FileText, TerminalSquare, Plus, Clock, ChevronRight, ChevronDown, CheckCircle2, Loader2, AlertCircle, Search, BookOpen, Layers, Microscope, GitMerge, Puzzle, ScrollText, XCircle } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+>>>>>>> faf9a8812d1f5627deb1fd27eae718c980e60478
 
-// ─── MOTION VARIANTS ──────────────────────────────────────────────────────────
-const fadeUp = {
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -8 },
-  transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
-};
-
-const stagger = {
-  animate: { transition: { staggerChildren: 0.06 } },
-};
-
-const cardItem = {
-  initial: { opacity: 0, y: 12 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] } },
-};
-
-const scaleOnHover = {
-  whileHover: { scale: 1.02, transition: { duration: 0.2 } },
-  whileTap: { scale: 0.98 },
-};
-
-const expandCollapse = {
-  initial: { height: 0, opacity: 0 },
-  animate: { height: "auto", opacity: 1, transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] } },
-  exit: { height: 0, opacity: 0, transition: { duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] } },
-};
-
-// ─── ERROR BOUNDARY ───────────────────────────────────────────────────────────
-class ErrorBoundary extends Component {
-  constructor(props) { super(props); this.state = { error: null }; }
-  static getDerivedStateFromError(e) { return { error: e }; }
-  componentDidCatch(e, info) { console.error("[ErrorBoundary]", e, info); }
-  render() {
-    if (this.state.error) {
-      return (
-        <div className="err-card">
-          ⚠ Render error: {String(this.state.error.message || this.state.error)}
-        </div>
-      );
-    }
-    return this.props.children;
-  }
+// ─────────────────────────────────────────────────────────────────────────────
+// PIPELINE SIDEBAR STEP
+// ─────────────────────────────────────────────────────────────────────────────
+function PipelineStep({ step, status }) {
+  const isRunning = status === 'RUNNING'
+  const isDone = status === 'DONE'
+  return (
+    <div className={`relative p-3 mb-2 flex items-center justify-between rounded-md border backdrop-blur-sm transition-all duration-500 overflow-hidden
+      ${isRunning ? 'border-cyan-500/50 bg-cyan-950/20 shadow-[0_0_15px_rgba(6,182,212,0.15)]' 
+      : isDone ? 'border-zinc-700/50 bg-zinc-800/20' 
+      : 'border-zinc-800/30 bg-zinc-900/10'}`}>
+      
+      <h3 className={`font-mono font-bold tracking-[0.2em] text-[10px] z-10 
+        ${isRunning ? 'text-cyan-300' : isDone ? 'text-zinc-300' : 'text-zinc-600'}`}>
+        {step.replace(/_/g, ' ').toUpperCase()}
+      </h3>
+      
+      <div className={`text-[9px] tracking-widest font-mono font-bold z-10 px-2 py-0.5 rounded-full
+        ${isRunning ? 'text-cyan-200 bg-cyan-500/20 animate-pulse' 
+        : isDone ? 'text-zinc-400 bg-zinc-700/30' 
+        : 'text-zinc-600 bg-zinc-800/30'}`}>
+        {status}
+      </div>
+      
+      {isRunning && (
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent -translate-x-full animate-[shimmer_1.5s_infinite]" />
+      )}
+    </div>
+  )
 }
 
-const API_BASE = "http://localhost:8000";
+// ─────────────────────────────────────────────────────────────────────────────
+// STEP METADATA (Refined Palette)
+// ─────────────────────────────────────────────────────────────────────────────
+const STEP_META = {
+  task:            { icon: <Search size={14} />,     color: 'text-cyan-400',    bg: 'bg-cyan-950/20',    border: 'border-cyan-500/30',    label: 'Research Plan' },
+  retrieval:       { icon: <BookOpen size={14} />,   color: 'text-indigo-400',  bg: 'bg-indigo-950/20',  border: 'border-indigo-500/30',  label: 'Source Retrieval' },
+  synthesis:       { icon: <Layers size={14} />,     color: 'text-amber-400',   bg: 'bg-amber-950/20',   border: 'border-amber-500/30',   label: 'Synthesis' },
+  critic:          { icon: <Microscope size={14} />, color: 'text-rose-400',    bg: 'bg-rose-950/20',    border: 'border-rose-500/30',    label: 'Critical Review' },
+  cross_synthesis: { icon: <GitMerge size={14} />,   color: 'text-teal-400',    bg: 'bg-teal-950/20',    border: 'border-teal-500/30',    label: 'Cross Synthesis' },
+  gap:             { icon: <Puzzle size={14} />,     color: 'text-orange-400',  bg: 'bg-orange-950/20',  border: 'border-orange-500/30',  label: 'Gap Analysis' },
+  report:          { icon: <ScrollText size={14} />, color: 'text-emerald-400', bg: 'bg-emerald-950/20', border: 'border-emerald-500/30', label: 'Final Report' },
+}
 
-// ─── AGENT METADATA ───────────────────────────────────────────────────────────
-const AGENTS = {
-  task: { label: "Task Agent", icon: "⬡", color: "#F7B731", desc: "Decomposing query into research tasks" },
-  retrieval: { label: "Retriever", icon: "◈", color: "#8B5CF6", desc: "Fetching web sources via Tavily" },
-  synthesis: { label: "Synthesizer", icon: "◎", color: "#34D399", desc: "Merging findings into unified summaries" },
-  critic: { label: "Critic", icon: "⟳", color: "#FB923C", desc: "Critiquing & refining each synthesis" },
-  cross_synthesis: { label: "Cross-Synthesizer", icon: "⬡", color: "#67E8F9", desc: "Finding emergent cross-task insights" },
-  gap: { label: "Gap Detector", icon: "◑", color: "#F472B6", desc: "Identifying missing coverage & weak areas" },
-  report: { label: "Report Agent", icon: "▣", color: "#FBBF24", desc: "Generating the final research report" },
-  error: { label: "Error", icon: "✕", color: "#F87171", desc: "" },
-};
+// ─────────────────────────────────────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────────────────────────────────────
+function getDomain(url) {
+  try { return new URL(url).hostname.replace(/^www\./, '') } catch { return url }
+}
+function trunc(str, n) {
+  if (!str) return ''
+  const s = String(str)
+  return s.length > n ? s.slice(0, n) + '…' : s
+}
+function Label({ children, color = 'default' }) {
+  const map = { default: 'text-zinc-500', rose: 'text-rose-500/80', teal: 'text-teal-500/80', orange: 'text-orange-500/80', sky: 'text-cyan-500/80' }
+  return <span className={`text-[10px] font-mono tracking-widest uppercase font-bold ${map[color] || map.default}`}>{children}</span>
+}
 
-const PIPELINE_ORDER = ["task", "retrieval", "synthesis", "critic", "cross_synthesis", "gap", "report"];
+// ─────────────────────────────────────────────────────────────────────────────
+// STEP BODY RENDERERS
+// ─────────────────────────────────────────────────────────────────────────────
 
-const pad = (n) => String(n).padStart(2, "0");
-const priorityColor = (p) => {
-  const n = typeof p === "string" ? (p === "high" ? 9 : p === "low" ? 3 : 5) : Number(p);
-  return n >= 8 ? "#FB923C" : n >= 6 ? "#34D399" : n >= 4 ? "#8B5CF6" : "#67E8F9";
-};
-
-// ─── Shared helpers ───────────────────────────────────────────────────────────
-function AgentHeader({ agentKey, subtitle }) {
-  const ag = AGENTS[agentKey] || AGENTS.task;
+function TaskBody({ data }) {
+  const tasks = Array.isArray(data) ? data : []
+  if (!tasks.length) return <p className="text-xs font-mono text-zinc-500">No tasks generated.</p>
   return (
-    <div className="ag-head">
-      <motion.div className="ag-ic" style={{ borderColor: ag.color + "30" }}
-        whileHover={{ scale: 1.1, rotate: 5 }}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }}>
-        <span style={{ color: ag.color }}>{ag.icon}</span>
-      </motion.div>
-      <div>
-        <div className="ag-name" style={{ color: ag.color }}>{ag.label}</div>
-        <div className="ag-sub">{subtitle || ag.desc}</div>
+    <div className="flex flex-col gap-3 font-sans">
+      <p className="text-xs text-zinc-400"><span className="text-cyan-300 font-bold">{tasks.length}</span> research sub-tasks queued for the pipeline.</p>
+      <div className="flex flex-col gap-2">
+        {tasks.map((t, i) => (
+          <div key={i} className="flex gap-3 bg-cyan-950/30 border border-cyan-500/15 p-3 rounded-md">
+            <span className="text-cyan-500/70 text-[10px] font-mono font-bold shrink-0 mt-0.5">#{String(i + 1).padStart(2, '0')}</span>
+            <div className="flex flex-col gap-1 min-w-0">
+              {t.query && <span className="text-zinc-200 text-xs font-semibold">{t.query}</span>}
+              {t.description && <span className="text-zinc-400 text-[11px] leading-relaxed">{trunc(t.description, 160)}</span>}
+              {!t.query && !t.description && <span className="text-zinc-500 font-mono text-[10px]">{trunc(JSON.stringify(t), 160)}</span>}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
-  );
+  )
 }
 
-function SectionH({ icon, text, color }) {
+function RetrievalBody({ data }) {
+  const sources = Array.isArray(data) ? data
+    : data && typeof data === 'object' ? Object.values(data).flat().filter(Boolean)
+    : []
+  if (!sources.length) return <p className="text-xs font-mono text-zinc-500">No sources retrieved.</p>
   return (
-    <div className="section-heading" style={{ color }}>
-      <span>{icon}</span> {text}
+    <div className="flex flex-col gap-3 font-sans">
+      <p className="text-xs text-zinc-400">Fetched <span className="text-indigo-300 font-bold">{sources.length}</span> source{sources.length !== 1 ? 's' : ''} from the web.</p>
+      <div className="grid grid-cols-1 gap-2">
+        {sources.slice(0, 8).map((r, i) => {
+          const url     = r.url || r.source || r.link || null
+          const title   = r.title || r.name || (url ? getDomain(url) : `Source ${i + 1}`)
+          const snippet = r.snippet || r.content || r.summary || r.text || null
+          return (
+            <div key={i} className="flex flex-col gap-1.5 bg-indigo-950/20 border border-indigo-500/15 p-3 rounded-md hover:border-indigo-500/30 transition-colors">
+              <div className="flex items-start gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-indigo-400/80 shrink-0 mt-1.5 shadow-[0_0_5px_rgba(129,140,248,0.5)]" />
+                <span className="text-zinc-200 text-xs font-semibold leading-snug">{trunc(title, 90)}</span>
+              </div>
+              {url && (
+                <a href={url} target="_blank" rel="noreferrer"
+                  className="text-indigo-400/70 text-[10px] font-mono ml-3.5 hover:text-indigo-300 transition-colors truncate block">
+                  {getDomain(url)}
+                </a>
+              )}
+              {snippet && (
+                <p className="text-zinc-400 text-[11px] leading-relaxed ml-3.5 border-l-2 border-indigo-500/20 pl-2.5 mt-1">
+                  {trunc(snippet, 200)}
+                </p>
+              )}
+            </div>
+          )
+        })}
+        {sources.length > 8 && (
+          <p className="text-[10px] font-mono text-zinc-500 text-center py-2 bg-indigo-950/10 rounded-md">+{sources.length - 8} more sources indexed</p>
+        )}
+      </div>
     </div>
-  );
+  )
 }
 
-// ─── THINKING BUBBLE ──────────────────────────────────────────────────────────
-function ThinkingBubble({ agent }) {
-  const ag = AGENTS[agent] || AGENTS.task;
+function SynthesisBody({ data }) {
+  const summary    = data?.synthesized_summary || data?.summary || data?.analysis || null
+  const findings   = data?.key_findings || data?.findings || []
+  const concepts   = data?.core_concepts || data?.key_concepts || data?.concepts || []
+  const themes     = data?.themes || data?.main_themes || []
+  const confidence = data?.confidence_score ?? data?.confidence ?? null
+  const tags = concepts.length ? concepts : themes
+  
   return (
-    <motion.div className="msg-agent" {...fadeUp}>
-      <AgentHeader agentKey={agent} />
-      <div className="ag-body">
-        <div className="thinking">
-          <div className="dots">
-            {[0, 1, 2].map(i => (
-              <motion.div key={i} className="d" style={{ background: ag.color }}
-                animate={{ scale: [0.8, 1.3, 0.8], opacity: [0.3, 1, 0.3] }}
-                transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.15, ease: "easeInOut" }}
-              />
+    <div className="flex flex-col gap-4 font-sans">
+      {summary && (
+        <div className="flex flex-col gap-1.5">
+          <Label>Summary</Label>
+          <p className="text-sm text-zinc-300 leading-relaxed bg-amber-950/10 p-3 rounded-md border border-amber-500/10">{trunc(summary, 500)}</p>
+        </div>
+      )}
+      {findings.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <Label>Key Findings</Label>
+          <div className="flex flex-col gap-1.5">
+            {findings.slice(0, 5).map((f, i) => (
+              <div key={i} className="flex gap-2.5 items-start text-xs text-zinc-300 bg-zinc-900/50 p-2 rounded-md">
+                <span className="text-amber-500 shrink-0 mt-0.5">▸</span>
+                <span className="leading-relaxed">{trunc(typeof f === 'string' ? f : f.finding || JSON.stringify(f), 200)}</span>
+              </div>
             ))}
           </div>
-          <span style={{ fontSize: 12, color: "var(--text-tertiary)", fontFamily: "var(--mono)" }}>
-            {ag.desc}…
-          </span>
         </div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── TASKS ────────────────────────────────────────────────────────────────────
-function TasksMsg({ tasks }) {
-  if (!tasks?.length) return null;
-  return (
-    <motion.div className="msg-agent" {...fadeUp}>
-      <AgentHeader agentKey="task" subtitle={`${tasks.length} research tasks generated`} />
-      <div className="ag-body">
-        <motion.div className="tasks-wrap" variants={stagger} initial="initial" animate="animate">
-          {tasks.map((t, i) => (
-            <motion.div key={i} className="task-c" variants={cardItem}
-              whileHover={{ x: 5, transition: { duration: 0.2 } }}>
-              <div className="t-num">T{pad(i + 1)}</div>
-              <div className="t-desc">{t.description}</div>
-              <div className="t-badge" style={{
-                background: priorityColor(t.priority) + "18",
-                border: `1px solid ${priorityColor(t.priority)}40`,
-                color: priorityColor(t.priority),
-              }}>P{t.priority}</div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── RETRIEVAL ────────────────────────────────────────────────────────────────
-function RetrievalMsg({ retrieval }) {
-  const [open, setOpen] = useState({});
-  if (!retrieval) return null;
-  const entries = Object.entries(retrieval);
-  if (!entries.length) return null;
-  const totalSources = entries.reduce((a, [, s]) => a + (Array.isArray(s) ? s.length : 0), 0);
-
-  return (
-    <motion.div className="msg-agent" {...fadeUp}>
-      <AgentHeader agentKey="retrieval" subtitle={`${totalSources} sources across ${entries.length} tasks`} />
-      <div className="ag-body">
-        <motion.div className="retrieval-wrap" variants={stagger} initial="initial" animate="animate">
-          {entries.map(([task, sources], i) => (
-            <motion.div key={i} className="task-block" variants={cardItem}>
-              <div className={`task-block-head ${open[i] ? "open" : ""}`} onClick={() => setOpen(p => ({ ...p, [i]: !p[i] }))}>
-                <span className="tb-num">T{pad(i + 1)}</span>
-                <span className="tb-title">{task}</span>
-                <span className="tb-count">{Array.isArray(sources) ? sources.length : 0} sources</span>
-                <motion.span className="tb-chev" animate={{ rotate: open[i] ? 90 : 0 }}
-                  transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}>▶</motion.span>
-              </div>
-              <AnimatePresence>
-                {open[i] && Array.isArray(sources) && (
-                  <motion.div {...expandCollapse} style={{ overflow: "hidden" }}>
-                    <div className="sources-list">
-                      {sources.map((src, j) => (
-                        <motion.div key={j} className="source-item"
-                          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                          transition={{ delay: j * 0.05 }}>
-                          <div className="source-title">{src.title || src.source}</div>
-                          {src.title && src.source && <div className="source-org">{src.source}</div>}
-                          {src.summary && <div className="source-summary">{src.summary}</div>}
-                          {src.key_points?.length > 0 && (
-                            <>
-                              <div className="sec-label" style={{ paddingLeft: 0, marginTop: 8 }}>Key Points</div>
-                              <div className="kp-list">
-                                {src.key_points.map((kp, k) => (
-                                  <div key={k} className="kp-item">
-                                    <span className="kp-bullet" style={{ color: "var(--accent)" }}>▸</span>
-                                    <span>{kp}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            </>
-                          )}
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── SYNTHESIS ────────────────────────────────────────────────────────────────
-function SynthesisMsg({ synthesis, isRefined = false }) {
-  const [open, setOpen] = useState({});
-  if (!synthesis) return null;
-
-  const entries = Object.entries(synthesis).map(([task, data]) => {
-    let d = data;
-    if (d?.error === "parse_failed" && d.raw) { try { d = JSON.parse(d.raw); } catch { d = { synthesized_summary: d.raw }; } }
-    return { task, data: d };
-  });
-
-  const agKey = isRefined ? "critic" : "synthesis";
-  const subtitle = isRefined
-    ? `${entries.length} syntheses refined after critique`
-    : `${entries.length} topics synthesized`;
-
-  return (
-    <motion.div className="msg-agent" {...fadeUp}>
-      <AgentHeader agentKey={agKey} subtitle={subtitle} />
-      <div className="ag-body">
-        <motion.div className="synth-wrap" variants={stagger} initial="initial" animate="animate">
-          {entries.map(({ task, data }, i) => (
-            <motion.div key={i} className={`synth-card ${open[i] ? "open" : ""}`} variants={cardItem}>
-              <div className="sc-head" onClick={() => setOpen(p => ({ ...p, [i]: !p[i] }))}>
-                <span className="sc-num">{isRefined ? "R" : "S"}{pad(i + 1)}</span>
-                <span className="sc-task">{task}</span>
-                {isRefined && data?.critique_addressed && <span className="refined-badge">✓ Refined</span>}
-                <motion.span className="sc-chev" animate={{ rotate: open[i] ? 90 : 0 }}
-                  transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}>▶</motion.span>
-              </div>
-              <AnimatePresence>
-                {open[i] && data && (
-                  <motion.div {...expandCollapse} style={{ overflow: "hidden" }}>
-                    <div className="sc-body">
-                      {data.synthesized_summary && (
-                        <div className="sc-section">
-                          <div className="sec-label">Synthesized Summary</div>
-                          <div style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.75 }}>{data.synthesized_summary}</div>
-                          {data.critique_addressed && (
-                            <div style={{ marginTop: 10, fontSize: 12, color: "var(--green)", fontStyle: "italic" }}>
-                              Improved: {data.critique_addressed}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                      {data.confidence_level && (
-                        <div className="sc-section" style={{ paddingTop: 0 }}>
-                          <span style={{
-                            fontSize: 10, fontFamily: "var(--mono)", padding: "3px 10px", borderRadius: 100, fontWeight: 600,
-                            background: data.confidence_level === "high" ? "var(--green-soft)" : data.confidence_level === "medium" ? "var(--orange-soft)" : "var(--red-soft)",
-                            color: data.confidence_level === "high" ? "var(--green)" : data.confidence_level === "medium" ? "var(--orange)" : "var(--red)",
-                            border: "1px solid currentColor",
-                          }}>{data.confidence_level} confidence</span>
-                        </div>
-                      )}
-                      {data.causal_mechanisms?.length > 0 && (
-                        <><hr className="divider" /><div className="sc-section">
-                          <div className="sec-label">Causal Mechanisms</div>
-                          <div className="kp-list">{data.causal_mechanisms.map((m, j) => (
-                            <div key={j} className="kp-item"><span className="kp-bullet" style={{ color: "var(--teal)" }}>⟶</span><span>{m}</span></div>
-                          ))}</div>
-                        </div></>
-                      )}
-                      {data.strongly_supported_points?.length > 0 && (
-                        <><hr className="divider" /><div className="sc-section">
-                          <div className="sec-label">Well-Supported Findings</div>
-                          <div className="kp-list">{data.strongly_supported_points.map((p, j) => (
-                            <div key={j} className="kp-item"><span className="kp-bullet" style={{ color: "var(--green)" }}>✓</span><span>{p}</span></div>
-                          ))}</div>
-                        </div></>
-                      )}
-                      {data.key_statistics_and_data?.length > 0 && (
-                        <><hr className="divider" /><div className="sc-section">
-                          <div className="sec-label">Key Statistics</div>
-                          <div className="kp-list">{data.key_statistics_and_data.map((s, j) => (
-                            <div key={j} className="kp-item"><span className="kp-bullet" style={{ color: "var(--accent)" }}>📊</span><span>{s}</span></div>
-                          ))}</div>
-                        </div></>
-                      )}
-                      {data.conflicting_or_debated_points?.length > 0 && (
-                        <><hr className="divider" /><div className="sc-section">
-                          <div className="sec-label">Conflicting Points</div>
-                          <div className="kp-list">{data.conflicting_or_debated_points.map((c, j) => (
-                            <div key={j} className="kp-item"><span className="kp-bullet" style={{ color: "var(--orange)" }}>⚡</span><span>{c}</span></div>
-                          ))}</div>
-                        </div></>
-                      )}
-                      {data.weak_or_missing_areas?.length > 0 && (
-                        <><hr className="divider" /><div className="sc-section">
-                          <div className="sec-label">Missing Areas</div>
-                          <div className="tags-row">{data.weak_or_missing_areas.map((w, j) => <span key={j} className="tag w">{w}</span>)}</div>
-                        </div></>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── CRITIC ───────────────────────────────────────────────────────────────────
-function CriticMsg({ criticData }) {
-  const [open, setOpen] = useState({});
-  const log = criticData?.critique_log || criticData;
-  const entries = log && typeof log === "object" && !Array.isArray(log)
-    ? Object.entries(log).filter(([, v]) => v && !v.error)
-    : [];
-
-  const scores = entries.map(([, c]) => c?.overall_quality_score).filter(s => typeof s === "number");
-  const avg = scores.length ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : null;
-  const scoreColor = (s) => s >= 8 ? "var(--green)" : s >= 6 ? "var(--orange)" : "var(--red)";
-
-  if (!entries.length) {
-    return (
-      <motion.div className="msg-agent" {...fadeUp}>
-        <AgentHeader agentKey="critic" subtitle="Critique complete — all syntheses refined" />
-        <div className="ag-body">
-          <div style={{ fontSize: 13, color: "var(--text-tertiary)", fontStyle: "italic" }}>
-            Critique log not available for this session.
+      )}
+      {tags.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <Label>{concepts.length ? 'Core Concepts' : 'Themes'}</Label>
+          <div className="flex flex-wrap gap-1.5">
+            {tags.slice(0, 10).map((c, i) => (
+              <span key={i} className="text-[10px] font-mono px-2 py-1 rounded bg-amber-500/10 border border-amber-500/20 text-amber-300">
+                {typeof c === 'string' ? c : c.concept || c.theme || JSON.stringify(c)}
+              </span>
+            ))}
           </div>
         </div>
-      </motion.div>
-    );
-  }
-
-  return (
-    <motion.div className="msg-agent" {...fadeUp}>
-      <AgentHeader agentKey="critic" subtitle={`${entries.length} syntheses critiqued & refined`} />
-      <div className="ag-body">
-        <motion.div className="critic-wrap" variants={stagger} initial="initial" animate="animate">
-          {avg && (
-            <motion.div className="critic-summary-bar" variants={cardItem}>
-              <div>
-                <div className="critic-avg" style={{ color: scoreColor(parseFloat(avg)) }}>{avg}</div>
-                <div className="critic-avg-label">avg quality pre-refinement</div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13, color: "var(--text-tertiary)", lineHeight: 1.5 }}>
-                  All syntheses with quality below 9/10 were refined. The report uses the improved versions.
-                </div>
-              </div>
-            </motion.div>
-          )}
-          {entries.map(([task, critique], i) => {
-            const score = critique?.overall_quality_score;
-            const sc = scoreColor(score);
-            const pct = score ? `${(score / 10) * 100}%` : "0%";
-            return (
-              <motion.div key={i} className={`critic-task-card ${open[i] ? "open" : ""}`} variants={cardItem}>
-                <div className="critic-head" onClick={() => setOpen(p => ({ ...p, [i]: !p[i] }))}>
-                  <span style={{ fontFamily: "var(--mono)", fontSize: 12, color: "var(--orange)", minWidth: 30 }}>C{pad(i + 1)}</span>
-                  <div className="score-bar-wrap">
-                    <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text)", lineHeight: 1.3 }}>{task.slice(0, 80)}{task.length > 80 ? "…" : ""}</div>
-                    <div className="score-bar-track">
-                      <motion.div className="score-bar-fill"
-                        initial={{ width: 0 }}
-                        animate={{ width: pct }}
-                        transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94], delay: i * 0.1 }}
-                        style={{ background: `linear-gradient(90deg, ${sc}80, ${sc})` }} />
-                    </div>
-                  </div>
-                  {score != null && <span style={{ fontFamily: "var(--mono)", fontSize: 16, fontWeight: 800, color: sc, minWidth: 36, textAlign: "right" }}>{score}</span>}
-                  <motion.span className="critic-chev" animate={{ rotate: open[i] ? 90 : 0 }}
-                    transition={{ duration: 0.25 }}>▶</motion.span>
-                </div>
-                <AnimatePresence>
-                  {open[i] && (
-                    <motion.div {...expandCollapse} style={{ overflow: "hidden" }}>
-                      <div className="critic-body">
-                        {critique.overall_assessment && (
-                          <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: 16, padding: "12px 14px", background: "var(--orange-soft)", borderRadius: "var(--r-xs)", border: "1px solid rgba(255,159,10,0.1)" }}>
-                            {critique.overall_assessment}
-                          </div>
-                        )}
-                        {critique.vague_claims?.length > 0 && (
-                          <div style={{ marginBottom: 16 }}>
-                            <div className="sec-label" style={{ color: "var(--orange)" }}>Vague Claims Flagged</div>
-                            {critique.vague_claims.slice(0, 3).map((c, j) => (
-                              <div key={j} className="critique-item">
-                                <div className="critique-dot" style={{ background: "var(--orange)" }} />
-                                <div>
-                                  <div className="critique-problem">"{c.claim}"</div>
-                                  {c.fix && <div className="critique-fix">Fix: {c.fix}</div>}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                        {critique.missing_mechanisms?.length > 0 && (
-                          <div style={{ marginBottom: 16 }}>
-                            <div className="sec-label" style={{ color: "var(--teal)" }}>Missing Mechanisms</div>
-                            {critique.missing_mechanisms.slice(0, 3).map((m, j) => (
-                              <div key={j} className="critique-item">
-                                <div className="critique-dot" style={{ background: "var(--teal)" }} />
-                                <div>
-                                  <div className="critique-problem">{m.what_is_stated}</div>
-                                  <div className="critique-fix">{m.what_is_missing}</div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                        {critique.priority_fixes?.length > 0 && (
-                          <div>
-                            <div className="sec-label" style={{ color: "var(--green)" }}>Priority Fixes Applied</div>
-                            {critique.priority_fixes.map((f, j) => (
-                              <div key={j} className="kp-item" style={{ marginBottom: 6 }}>
-                                <span className="kp-bullet" style={{ color: "var(--green)" }}>→</span>
-                                <span style={{ fontSize: 13, color: "var(--text-secondary)" }}>{f}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── CROSS SYNTHESIS ──────────────────────────────────────────────────────────
-function CrossSynthesisMsg({ crossData }) {
-  if (!crossData || crossData.error) return null;
-  return (
-    <motion.div className="msg-agent" {...fadeUp}>
-      <AgentHeader agentKey="cross_synthesis" subtitle="Emergent insights from cross-task analysis" />
-      <div className="ag-body">
-        <motion.div className="cross-wrap" variants={stagger} initial="initial" animate="animate">
-          {crossData.central_argument && (
-            <motion.div className="central-arg" variants={cardItem}>
-              <div className="central-arg-label">Central Argument</div>
-              <div className="central-arg-text">{crossData.central_argument}</div>
-            </motion.div>
-          )}
-          {crossData.emergent_insights?.length > 0 && (
-            <motion.div className="cross-section" variants={cardItem}>
-              <div className="cross-section-head">
-                <span className="cross-section-label">Emergent Insights</span>
-                <span className="cross-section-count">{crossData.emergent_insights.length} cross-task findings</span>
-              </div>
-              {crossData.emergent_insights.map((ins, i) => (
-                <div key={i} className="cross-insight">
-                  <div className="cross-insight-text">{ins.insight}</div>
-                  {ins.mechanism && <div className="cross-insight-mechanism">↳ {ins.mechanism}</div>}
-                  {ins.implication && <div className="cross-insight-implication">💡 {ins.implication}</div>}
-                  {ins.draws_from?.length > 0 && (
-                    <div className="cross-insight-sources">
-                      {ins.draws_from.map((t, j) => <span key={j} className="cross-source-pill">{t.slice(0, 50)}{t.length > 50 ? "…" : ""}</span>)}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </motion.div>
-          )}
-          {crossData.cross_task_contradictions?.length > 0 && (
-            <motion.div className="cross-section" variants={cardItem}>
-              <div className="cross-section-head">
-                <span className="cross-section-label">Cross-Task Contradictions</span>
-                <span className="cross-section-count">{crossData.cross_task_contradictions.length}</span>
-              </div>
-              {crossData.cross_task_contradictions.map((c, i) => (
-                <div key={i} className="contradiction-item">
-                  <div className="contradiction-vs">
-                    <div className="contra-side contra-a">{c.finding_a}</div>
-                    <div style={{ alignSelf: "center", color: "var(--text-tertiary)", fontSize: 18, flexShrink: 0 }}>⟷</div>
-                    <div className="contra-side contra-b">{c.finding_b}</div>
-                  </div>
-                  {c.resolution && <div className="contra-resolution">Resolution: {c.resolution}</div>}
-                </div>
-              ))}
-            </motion.div>
-          )}
-          {crossData.causal_chains?.length > 0 && (
-            <motion.div className="cross-section" variants={cardItem}>
-              <div className="cross-section-head">
-                <span className="cross-section-label">Causal Chains</span>
-                <span className="cross-section-count">{crossData.causal_chains.length}</span>
-              </div>
-              {crossData.causal_chains.map((ch, i) => (
-                <div key={i} className="causal-chain">
-                  <div className="causal-text">{ch.chain}</div>
-                  {ch.confidence && (
-                    <span style={{ fontSize: 10, fontFamily: "var(--mono)", marginTop: 6, display: "inline-block", padding: "2px 8px", borderRadius: 100, background: "var(--accent-soft)", border: "1px solid rgba(0,122,255,0.15)", color: "var(--accent)" }}>
-                      {ch.confidence} confidence
-                    </span>
-                  )}
-                </div>
-              ))}
-            </motion.div>
-          )}
-          {crossData.strongest_consensus?.length > 0 && (
-            <motion.div className="cross-section" variants={cardItem}>
-              <div className="cross-section-head"><span className="cross-section-label">Strongest Consensus</span></div>
-              {crossData.strongest_consensus.map((c, i) => (
-                <div key={i} className="consensus-item">
-                  <span style={{ color: "var(--green)", flexShrink: 0, fontSize: 14 }}>✓</span>
-                  <span>{c}</span>
-                </div>
-              ))}
-            </motion.div>
-          )}
-          {crossData.what_the_evidence_does_not_establish?.length > 0 && (
-            <motion.div className="cross-section" variants={cardItem}>
-              <div className="cross-section-head">
-                <span className="cross-section-label" style={{ color: "var(--red)" }}>What Evidence Does NOT Show</span>
-              </div>
-              {crossData.what_the_evidence_does_not_establish.map((w, i) => (
-                <div key={i} className="consensus-item">
-                  <span style={{ color: "var(--red)", flexShrink: 0 }}>✕</span>
-                  <span style={{ color: "var(--text-secondary)" }}>{w}</span>
-                </div>
-              ))}
-            </motion.div>
-          )}
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── GAP ANALYSIS ─────────────────────────────────────────────────────────────
-function GapMsg({ gaps }) {
-  if (!gaps) return null;
-  return (
-    <motion.div className="msg-agent" {...fadeUp}>
-      <AgentHeader agentKey="gap" subtitle="Coverage analysis & gaps identified" />
-      <div className="ag-body">
-        <motion.div className="gap-card" variants={stagger} initial="initial" animate="animate">
-          {gaps.global_gaps?.length > 0 && (
-            <motion.div className="gap-section" variants={cardItem}>
-              <div className="gap-title">Global Gaps</div>
-              {gaps.global_gaps.map((g, i) => {
-                const isObj = typeof g === "object" && g !== null;
-                const text = isObj ? g.gap : g;
-                const why = isObj ? g.why_it_matters : null;
-                const score = isObj ? g.importance_score : null;
-                return (
-                  <div key={i} className="sug-item">
-                    {score && <div className="prio-badge" style={{ background: priorityColor(score) + "18", color: priorityColor(score), border: `1px solid ${priorityColor(score)}40` }}>I{score}</div>}
-                    <div>
-                      <div style={{ fontSize: 13, color: "var(--text)", lineHeight: 1.55 }}>{text}</div>
-                      {why && <div style={{ fontSize: 12, color: "var(--text-tertiary)", fontStyle: "italic", marginTop: 4 }}>Why it matters: {why}</div>}
-                    </div>
-                  </div>
-                );
-              })}
-            </motion.div>
-          )}
-          {gaps.cross_task_weaknesses?.length > 0 && (
-            <motion.div className="gap-section" variants={cardItem}>
-              <div className="gap-title">Cross-Task Weaknesses</div>
-              {gaps.cross_task_weaknesses.map((w, i) => (
-                <div key={i} className="gap-item"><div className="gap-dot" style={{ background: "var(--orange)" }} /><span>{w}</span></div>
-              ))}
-            </motion.div>
-          )}
-          {gaps.low_confidence_areas?.length > 0 && (
-            <motion.div className="gap-section" variants={cardItem}>
-              <div className="gap-title">Low-Confidence Areas</div>
-              {gaps.low_confidence_areas.map((a, i) => (
-                <div key={i} className="gap-item"><div className="gap-dot" style={{ background: "var(--teal)" }} /><span>{a}</span></div>
-              ))}
-            </motion.div>
-          )}
-          {gaps.coverage_assessment && (
-            <motion.div className="gap-section" variants={cardItem}>
-              <div className="gap-title">Coverage Assessment
-                {gaps.coverage_assessment.overall_quality_score != null && (
-                  <span style={{ marginLeft: 10, fontFamily: "var(--mono)", fontSize: 11, color: priorityColor(gaps.coverage_assessment.overall_quality_score) }}>
-                    Quality: {gaps.coverage_assessment.overall_quality_score}/10
-                  </span>
-                )}
-              </div>
-              <div className="cov-grid">
-                {["breadth", "depth", "balance"].map(k => gaps.coverage_assessment[k] ? (
-                  <div key={k} className="cov-cell">
-                    <div className="cov-label">{k}</div>
-                    <div className="cov-text">{gaps.coverage_assessment[k]}</div>
-                  </div>
-                ) : null)}
-              </div>
-            </motion.div>
-          )}
-          {gaps.suggested_new_tasks?.length > 0 && (
-            <motion.div className="gap-section" variants={cardItem}>
-              <div className="gap-title">Suggested Follow-Up Tasks</div>
-              {gaps.suggested_new_tasks.map((t, i) => (
-                <div key={i} className="sug-item">
-                  <div className="prio-badge" style={{ background: priorityColor(t.priority) + "20", color: priorityColor(t.priority), border: `1px solid ${priorityColor(t.priority)}40` }}>P{t.priority}</div>
-                  <div>
-                    <div style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>{t.description}</div>
-                    {t.addresses_gap && <div style={{ fontSize: 11, color: "var(--text-tertiary)", marginTop: 3 }}>Addresses: {t.addresses_gap}</div>}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          )}
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── MARKDOWN RENDERER ───────────────────────────────────────────────────────
-function renderInline(text) {
-  const parts = [];
-  const re = /(\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`)/g;
-  let last = 0, m, k = 0;
-  while ((m = re.exec(text)) !== null) {
-    if (m.index > last) parts.push(<span key={k++}>{text.slice(last, m.index)}</span>);
-    if (m[2]) parts.push(<strong key={k++} style={{ color: "var(--text)", fontWeight: 700 }}>{m[2]}</strong>);
-    else if (m[3]) parts.push(<em key={k++} style={{ color: "var(--text-secondary)", fontStyle: "italic" }}>{m[3]}</em>);
-    else if (m[4]) parts.push(<code key={k++} style={{ fontFamily: "var(--mono)", fontSize: "0.9em", background: "var(--surface2)", padding: "1px 6px", borderRadius: 4, color: "var(--accent)" }}>{m[4]}</code>);
-    last = m.index + m[0].length;
-  }
-  if (last < text.length) parts.push(<span key={k++}>{text.slice(last)}</span>);
-  return parts.length ? parts : text;
-}
-
-function MarkdownReport({ markdown }) {
-  if (!markdown) return null;
-  const lines = markdown.split("\n");
-  const elements = [];
-  let i = 0, key = 0;
-  let bulletBuffer = [];
-
-  const flushBullets = () => {
-    if (!bulletBuffer.length) return;
-    elements.push(
-      <ul key={key++} style={{ margin: "0 0 20px 0", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-        {bulletBuffer.map((b, idx) => (
-          <li key={idx} style={{ display: "flex", gap: 12, alignItems: "flex-start", padding: "10px 16px", background: "var(--surface2)", border: "1px solid var(--border)", borderRadius: 8, borderLeft: "3px solid var(--accent)" }}>
-            <span style={{ color: "var(--accent)", flexShrink: 0, marginTop: 2, fontSize: 11 }}>▸</span>
-            <span style={{ fontSize: 14, lineHeight: 1.7, color: "var(--text-secondary)" }}>{renderInline(b)}</span>
-          </li>
-        ))}
-      </ul>
-    );
-    bulletBuffer = [];
-  };
-
-  while (i < lines.length) {
-    const trimmed = lines[i].trim();
-    if (/^# /.test(trimmed)) {
-      flushBullets();
-      elements.push(
-        <div key={key++} style={{ marginBottom: 28, paddingBottom: 16, borderBottom: "1px solid var(--separator)" }}>
-          <h1 style={{ fontSize: 26, fontWeight: 800, color: "var(--text)", letterSpacing: "-0.5px", lineHeight: 1.2, margin: 0 }}>{trimmed.slice(2)}</h1>
-          <div style={{ height: 3, width: 48, background: "var(--accent)", marginTop: 10, borderRadius: 4 }} />
-        </div>
-      );
-      i++; continue;
-    }
-    if (/^## /.test(trimmed)) {
-      flushBullets();
-      const text = trimmed.slice(3);
-      const icons = { "Executive": "◎", "Key Findings": "◆", "Detailed": "◈", "Contradictions": "⟷", "Evidence": "✕", "Confidence": "◑", "Research Gaps": "◑", "Recommended": "▷", "Limitations": "✕", "Assessment": "◈" };
-      const icon = Object.entries(icons).find(([k]) => text.includes(k))?.[1] || "▸";
-      elements.push(
-        <div key={key++} style={{ marginTop: 32, marginBottom: 16 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ fontSize: 16, color: "var(--accent)" }}>{icon}</span>
-            <h2 style={{ fontSize: 18, fontWeight: 700, color: "var(--text)", margin: 0, letterSpacing: "-0.2px" }}>{text}</h2>
+      )}
+      {confidence !== null && (
+        <div className="flex items-center gap-3 mt-1 bg-zinc-900/50 p-2 rounded-md">
+          <Label>Confidence</Label>
+          <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+            <div className="h-full bg-amber-400 transition-all shadow-[0_0_10px_rgba(251,191,36,0.5)]" style={{ width: `${Math.round(Number(confidence) * 100)}%` }} />
           </div>
-          <div style={{ height: 1, background: "linear-gradient(90deg,var(--border-hi),transparent)", marginLeft: 26, marginTop: 8 }} />
+          <span className="text-xs text-amber-400 font-mono font-bold">{Math.round(Number(confidence) * 100)}%</span>
         </div>
-      );
-      i++; continue;
-    }
-    if (/^### /.test(trimmed)) {
-      flushBullets();
-      elements.push(<h3 key={key++} style={{ fontSize: 15, fontWeight: 700, color: "var(--text-secondary)", margin: "20px 0 10px", paddingLeft: 12, borderLeft: "2px solid var(--accent)" }}>{trimmed.slice(4)}</h3>);
-      i++; continue;
-    }
-    if (/^---+$/.test(trimmed)) { flushBullets(); elements.push(<hr key={key++} style={{ border: "none", borderTop: "1px solid var(--separator)", margin: "24px 0" }} />); i++; continue; }
-    if (/^[*\-] /.test(trimmed)) { bulletBuffer.push(trimmed.slice(2)); i++; continue; }
-    if (/^\d+\. /.test(trimmed)) {
-      flushBullets();
-      const text = trimmed.replace(/^\d+\.\s*/, "");
-      const num = trimmed.match(/^(\d+)/)[1];
-      elements.push(
-        <div key={key++} style={{ display: "flex", gap: 12, alignItems: "flex-start", padding: "12px 16px", marginBottom: 8, background: "var(--surface2)", border: "1px solid var(--border)", borderRadius: 8 }}>
-          <span style={{ fontFamily: "var(--mono)", fontSize: 12, fontWeight: 700, color: "var(--accent)", minWidth: 26, height: 26, background: "var(--accent-soft)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 6, flexShrink: 0 }}>{num}</span>
-          <span style={{ fontSize: 14, lineHeight: 1.7, color: "var(--text-secondary)" }}>{renderInline(text)}</span>
-        </div>
-      );
-      i++; continue;
-    }
-    if (!trimmed) { flushBullets(); i++; continue; }
-    flushBullets();
-    elements.push(<p key={key++} style={{ fontSize: 14, lineHeight: 1.8, color: "var(--text-secondary)", margin: "0 0 14px", letterSpacing: "0.01em" }}>{renderInline(trimmed)}</p>);
-    i++;
-  }
-  flushBullets();
-  return <div style={{ padding: "32px 36px", maxWidth: "100%" }}>{elements}</div>;
+      )}
+      {!summary && !findings.length && !tags.length && (
+        <p className="text-xs font-mono text-zinc-500">Synthesis completed.</p>
+      )}
+    </div>
+  )
 }
 
-// ─── REPORT ───────────────────────────────────────────────────────────────────
-function ReportMsg({ report, tasks, markdown }) {
-  const [showRaw, setShowRaw] = useState(false);
-  const mdTitle = markdown?.match(/^# (.+)/m)?.[1] || "Research Report";
+function CriticBody({ data }) {
+  const refined      = data?.refined_synthesis || data?.refined || (data && !data.critique_log ? data : null)
+  const critiqueRaw  = data?.critique_log || data?.critique || []
+  const issues       = Array.isArray(critiqueRaw) ? critiqueRaw : typeof critiqueRaw === 'object' ? Object.values(critiqueRaw).flat() : []
+  const summary  = refined?.synthesized_summary || refined?.summary || refined?.analysis || null
+  const findings = refined?.key_findings || refined?.findings || []
+  const concepts = refined?.core_concepts || refined?.key_concepts || []
 
-  const countSection = (md, heading) => {
-    if (!md) return null;
-    const re = new RegExp(`## ${heading}[\\s\\S]*?(?=## |$)`, "i");
-    const section = md.match(re)?.[0] || "";
-    return (section.match(/^[*\-] .+/gm) || []).length || null;
-  };
-
-  if (markdown && !report?.research_sections) {
-    const keyFindings = countSection(markdown, "Key Findings");
-    const gaps = countSection(markdown, "Research Gaps");
-    const nextSteps = countSection(markdown, "Recommended");
-    const confidenceMatch = markdown.match(/confidence.*?(\d+).*?out of.*?10/i);
-    const confidence = confidenceMatch?.[1];
-
-    return (
-      <motion.div className="msg-agent" {...fadeUp}>
-        <AgentHeader agentKey="report" subtitle="Publication-quality research report" />
-        <div className="ag-body">
-          <motion.div className="report-card" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}>
-            <div className="report-banner">
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
-                <div>
-                  <div style={{ fontSize: 10, fontFamily: "var(--mono)", fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "var(--text-tertiary)", marginBottom: 8 }}>Research Report</div>
-                  <div className="report-title" style={{ margin: 0 }}>{mdTitle}</div>
+  return (
+    <div className="flex flex-col gap-4 font-sans">
+      {issues.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <Label color="rose">Issues Identified & Addressed</Label>
+          <div className="flex flex-col gap-1.5">
+            {issues.slice(0, 5).map((item, i) => {
+              const text = typeof item === 'string' ? item : item.issue || item.critique || item.feedback || item.comment || JSON.stringify(item)
+              return (
+                <div key={i} className="flex gap-2.5 items-start text-xs border border-rose-500/20 bg-rose-950/30 px-3 py-2 rounded-md">
+                  <span className="text-rose-400 shrink-0 mt-0.5 font-bold">!</span>
+                  <span className="text-zinc-300 leading-relaxed">{trunc(text, 200)}</span>
                 </div>
-                <motion.button onClick={() => setShowRaw(s => !s)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-                  style={{ background: "var(--surface2)", border: "1px solid var(--border-hi)", color: "var(--text-secondary)", padding: "6px 14px", borderRadius: 100, fontFamily: "var(--mono)", fontSize: 11, cursor: "pointer", flexShrink: 0 }}>
-                  {showRaw ? "Styled ▣" : "Raw ≡"}
-                </motion.button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+      {summary && (
+        <div className="flex flex-col gap-1.5">
+          <Label color="rose">Refined Summary</Label>
+          <p className="text-sm text-zinc-300 leading-relaxed bg-zinc-900/50 p-3 rounded-md">{trunc(summary, 400)}</p>
+        </div>
+      )}
+      {findings.length > 0 && (
+        <div className="flex flex-col gap-1.5">
+          <Label color="rose">Refined Findings</Label>
+          <div className="flex flex-col gap-1 mt-0.5">
+            {findings.slice(0, 4).map((f, i) => (
+              <div key={i} className="flex gap-2.5 items-start text-xs text-zinc-300">
+                <span className="text-rose-500 shrink-0 mt-0.5">▸</span>
+                <span className="leading-relaxed">{trunc(typeof f === 'string' ? f : f.finding || JSON.stringify(f), 200)}</span>
               </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {concepts.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mt-1">
+          {concepts.slice(0, 8).map((c, i) => (
+            <span key={i} className="text-[10px] font-mono px-2 py-1 rounded bg-rose-500/10 border border-rose-500/20 text-rose-300">
+              {typeof c === 'string' ? c : c.concept || JSON.stringify(c)}
+            </span>
+          ))}
+        </div>
+      )}
+      {!issues.length && !summary && !findings.length && (
+        <p className="text-xs font-mono text-zinc-500">Critical review completed. No major issues identified.</p>
+      )}
+    </div>
+  )
+}
+
+function CrossSynthesisBody({ data }) {
+  const summary    = data?.synthesized_summary || data?.summary || data?.cross_summary || null
+  const agreements = data?.agreements || data?.consistent_findings || []
+  const conflicts  = data?.conflicts || data?.contradictions || data?.discrepancies || []
+  const srcCount   = data?.source_count ?? (Array.isArray(data?.sources) ? data.sources.length : null)
+  
+  return (
+    <div className="flex flex-col gap-4 font-sans">
+      {summary && <p className="text-sm text-zinc-300 leading-relaxed bg-teal-950/20 p-3 rounded-md border border-teal-500/10">{trunc(summary, 400)}</p>}
+      {srcCount !== null && <p className="text-xs text-zinc-400 font-mono">Cross-referenced <span className="text-teal-300 font-bold">{srcCount}</span> sources.</p>}
+      
+      {agreements.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <Label color="teal">Consistent Findings</Label>
+          <div className="flex flex-col gap-1.5">
+            {agreements.slice(0, 4).map((a, i) => (
+              <div key={i} className="flex gap-2.5 items-start text-xs bg-zinc-900/50 p-2 rounded-md">
+                <span className="text-teal-400 shrink-0 mt-0.5"><CheckCircle2 size={12}/></span>
+                <span className="text-zinc-300 leading-relaxed">{trunc(typeof a === 'string' ? a : JSON.stringify(a), 180)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {conflicts.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <Label color="teal">Conflicting Signals</Label>
+          <div className="flex flex-col gap-1.5">
+            {conflicts.slice(0, 3).map((c, i) => (
+              <div key={i} className="flex gap-2.5 items-start text-xs bg-rose-950/10 border border-rose-500/10 p-2 rounded-md">
+                <span className="text-rose-400 shrink-0 mt-0.5"><AlertCircle size={12}/></span>
+                <span className="text-zinc-300 leading-relaxed">{trunc(typeof c === 'string' ? c : JSON.stringify(c), 180)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {!summary && !agreements.length && !conflicts.length && (
+        <p className="text-xs font-mono text-zinc-500">Cross-synthesis completed.</p>
+      )}
+    </div>
+  )
+}
+
+function GapBody({ data }) {
+  const globalGaps = data?.global_gaps || []
+  const queries    = data?.followup_queries || data?.sub_queries || data?.follow_up_queries || []
+  const rawText    = typeof data?.raw === 'string' ? data.raw : null
+  
+  return (
+    <div className="flex flex-col gap-4 font-sans">
+      {globalGaps.length > 0 ? (
+        <div className="flex flex-col gap-2">
+          <Label color="orange">Knowledge Gaps Found</Label>
+          <div className="flex flex-col gap-1.5">
+            {globalGaps.slice(0, 6).map((g, i) => (
+              <div key={i} className="flex gap-2.5 items-start text-xs bg-zinc-900/50 p-2 rounded-md">
+                <span className="text-orange-500 shrink-0 mt-0.5">◌</span>
+                <span className="text-zinc-300 leading-relaxed">{trunc(typeof g === 'string' ? g : JSON.stringify(g), 180)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <p className="text-xs font-mono text-zinc-500">No critical knowledge gaps identified.</p>
+      )}
+      {queries.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <Label color="orange">Follow-up Queries Queued</Label>
+          <div className="flex flex-col gap-1.5">
+            {queries.slice(0, 5).map((q, i) => (
+              <div key={i} className="flex gap-2.5 items-center text-[11px] bg-orange-950/20 border border-orange-500/20 px-3 py-2 rounded-md font-mono">
+                <Search size={10} className="text-orange-400 shrink-0" />
+                <span className="text-orange-200/90 truncate">{trunc(typeof q === 'string' ? q : q.query || JSON.stringify(q), 140)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {rawText && !globalGaps.length && (
+        <p className="text-xs text-zinc-400 leading-relaxed border-l-2 border-orange-500/40 pl-3 py-1">{trunc(rawText, 300)}</p>
+      )}
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// COLLAPSIBLE STEP CARD
+// ─────────────────────────────────────────────────────────────────────────────
+function StepCard({ step, data, failed }) {
+  const [isOpen, setIsOpen] = useState(false)
+  const meta = STEP_META[step] || { icon: <Activity size={14} />, color: 'text-zinc-400', bg: 'bg-zinc-900', border: 'border-zinc-700', label: step }
+
+  const bodyMap = {
+    task:            <TaskBody data={data} />,
+    retrieval:       <RetrievalBody data={data} />,
+    synthesis:       <SynthesisBody data={data} />,
+    critic:          <CriticBody data={data} />,
+    cross_synthesis: <CrossSynthesisBody data={data} />,
+    gap:             <GapBody data={data} />,
+  }
+
+  return (
+    <div className={`rounded-lg border shadow-sm overflow-hidden backdrop-blur-sm transition-all
+      ${failed ? 'border-red-500/40 bg-red-950/20' : meta.border + ' ' + meta.bg}`}>
+      <button
+        onClick={() => setIsOpen(v => !v)}
+        className={`w-full flex items-center gap-3 px-4 py-3.5 transition-colors hover:bg-white/5 text-left 
+          ${isOpen ? 'border-b ' + (failed ? 'border-red-500/20 bg-black/20' : meta.border + ' bg-black/20') : ''}`}
+      >
+        <span className={`p-1.5 rounded-md bg-white/5 border border-white/5 ${failed ? 'text-red-400' : meta.color}`}>
+          {failed ? <XCircle size={14} /> : meta.icon}
+        </span>
+        <span className={`text-xs font-mono font-bold tracking-widest uppercase ${failed ? 'text-red-400' : meta.color}`}>{meta.label}</span>
+        
+        <span className={`ml-auto flex items-center gap-1.5 text-[10px] font-mono tracking-widest px-2 py-1 rounded-full bg-white/5 
+          ${failed ? 'text-red-400' : meta.color} opacity-80`}>
+          {failed ? <><XCircle size={10} /> FAILED</> : <><CheckCircle2 size={10} /> DONE</>}
+          <span className="ml-1 opacity-60">{isOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />}</span>
+        </span>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className="overflow-hidden bg-black/20"
+          >
+            <div className="px-5 py-4">
+              {failed
+                ? <p className="text-xs font-mono text-red-400">{typeof data?.message === 'string' ? data.message : `${meta.label} failed — pipeline continued with fallback.`}</p>
+                : (bodyMap[step] ?? <p className="text-xs font-mono text-zinc-500">{meta.label} completed.</p>)
+              }
             </div>
-            {(keyFindings || gaps || nextSteps || confidence) && (
-              <div className="stats-row">
-                {[
-                  { v: tasks?.length, l: "Tasks", c: "var(--accent)" },
-                  { v: keyFindings, l: "Key Findings", c: "var(--green)" },
-                  { v: gaps, l: "Gaps", c: "var(--pink)" },
-                  { v: nextSteps, l: "Next Steps", c: "var(--green)" },
-                  { v: confidence ? `${confidence}/10` : null, l: "Confidence", c: "var(--orange)" },
-                ].filter(s => s.v != null).map(({ v, l, c }) => (
-                  <motion.div key={l} className="stat-box" whileHover={{ y: -2 }}>
-                    <div style={{ fontSize: 22, fontWeight: 800, fontFamily: "var(--mono)", color: c }}>{v}</div>
-                    <div className="stat-lab">{l}</div>
-                  </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INLINE MARKDOWN RENDERER
+// ─────────────────────────────────────────────────────────────────────────────
+function renderInline(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-zinc-100 font-semibold">$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em class="text-zinc-300 italic">$1</em>')
+    .replace(/`(.+?)`/g, '<code class="text-[11px] bg-emerald-950/50 border border-emerald-500/20 px-1.5 py-0.5 rounded-md font-mono text-emerald-300">$1</code>')
+}
+
+function MdLine({ line }) {
+  if (/^### (.+)/.test(line)) return (
+    <h3 className="text-sm font-bold text-zinc-100 mt-6 mb-2 tracking-wide"
+      dangerouslySetInnerHTML={{ __html: renderInline(line.slice(4)) }} />
+  )
+  if (/^## (.+)/.test(line)) return (
+    <h2 className="text-base font-bold text-emerald-400 mt-8 mb-3 tracking-wide border-b border-emerald-500/20 pb-2"
+      dangerouslySetInnerHTML={{ __html: renderInline(line.slice(3)) }} />
+  )
+  if (/^# (.+)/.test(line)) return (
+    <h1 className="text-xl font-bold text-white mt-8 mb-4 tracking-wider"
+      dangerouslySetInnerHTML={{ __html: renderInline(line.slice(2)) }} />
+  )
+  if (/^---+$/.test(line.trim())) return <hr className="border-zinc-800 my-6" />
+  if (/^\s*[-*] (.+)/.test(line)) return (
+    <div className="flex gap-3 items-start text-sm text-zinc-300 leading-relaxed ml-2 my-1.5">
+      <span className="text-emerald-500 mt-1.5 shrink-0 text-[8px]">◆</span>
+      <span dangerouslySetInnerHTML={{ __html: renderInline(line.replace(/^\s*[-*] /, '')) }} />
+    </div>
+  )
+  if (/^\d+\. (.+)/.test(line)) {
+    const m = line.match(/^(\d+)\. (.+)/)
+    return (
+      <div className="flex gap-3 items-start text-sm text-zinc-300 leading-relaxed ml-2 my-1.5">
+        <span className="text-emerald-400 font-mono text-xs mt-0.5 shrink-0 min-w-[1.5rem]">{m[1]}.</span>
+        <span dangerouslySetInnerHTML={{ __html: renderInline(m[2]) }} />
+      </div>
+    )
+  }
+  if (/^> (.+)/.test(line)) return (
+    <blockquote className="border-l-4 border-emerald-500/40 bg-emerald-950/10 pl-4 py-2 my-3 rounded-r-md text-sm text-zinc-400 italic"
+      dangerouslySetInnerHTML={{ __html: renderInline(line.slice(2)) }} />
+  )
+  if (line.trim() === '') return <div className="h-2" />
+  return (
+    <p className="text-sm text-zinc-300 leading-relaxed my-1.5 font-sans"
+      dangerouslySetInnerHTML={{ __html: renderInline(line) }} />
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FINAL REPORT CARD
+// ─────────────────────────────────────────────────────────────────────────────
+function ReportCard({ data, markdown }) {
+  const md       = data?.markdown || markdown || null
+  const lines    = typeof md === 'string' ? md.split('\n') : []
+  const title    = data?.title || data?.json?.title || null
+  const sections = data?.sections || data?.json?.sections || []
+  const wordCount = data?.word_count || data?.json?.word_count || null
+
+  return (
+    <div className="rounded-xl border border-emerald-500/40 bg-zinc-950/80 shadow-[0_0_30px_rgba(16,185,129,0.05)] overflow-hidden backdrop-blur-md relative">
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-50" />
+      
+      {/* Header */}
+      <div className="flex items-center gap-4 px-6 py-5 border-b border-emerald-500/20 bg-gradient-to-r from-emerald-950/40 to-transparent">
+        <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+          <ScrollText size={18} className="text-emerald-400" />
+        </div>
+        <div className="flex flex-col gap-1">
+          <span className="text-[10px] font-mono font-bold tracking-[0.25em] uppercase text-emerald-500/80">Final Research Report</span>
+          {title && <span className="text-zinc-100 text-base font-semibold leading-snug font-sans">{title}</span>}
+        </div>
+        <div className="ml-auto flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-mono tracking-widest text-emerald-400">
+          <CheckCircle2 size={12} />
+          <span>COMPLETE</span>
+          {wordCount && <span className="opacity-60 ml-2 border-l border-emerald-500/30 pl-2">~{Number(wordCount).toLocaleString()} WORDS</span>}
+        </div>
+      </div>
+
+      {/* Content */}
+      {lines.length > 0 ? (
+        <div className="px-8 py-6 flex flex-col gap-1 font-sans">
+          {lines.map((line, i) => <MdLine key={i} line={line} />)}
+        </div>
+      ) : (
+        <div className="px-8 py-6 flex flex-col gap-4 font-sans">
+          <p className="text-sm text-zinc-300 leading-relaxed">
+            Report assembled and saved to the <span className="text-emerald-400 font-semibold px-1 py-0.5 bg-emerald-500/10 rounded">Document Vault</span>.
+          </p>
+          {sections.length > 0 && (
+            <div className="flex flex-col gap-2 mt-2">
+              <Label color="emerald">Report Sections Generated</Label>
+              <div className="flex flex-col gap-1.5 mt-1 bg-black/20 p-4 rounded-lg border border-white/5">
+                {sections.map((s, i) => (
+                  <div key={i} className="flex gap-3 items-center text-xs text-zinc-400">
+                    <span className="text-emerald-500 font-mono text-xs w-5 font-bold">{String(i + 1).padStart(2, '0')}.</span>
+                    <span className="font-medium">{typeof s === 'string' ? s : s.title || s.heading || JSON.stringify(s)}</span>
+                  </div>
                 ))}
               </div>
-            )}
-            {showRaw ? (
-              <pre style={{ padding: "28px 36px", fontSize: 13, fontFamily: "var(--mono)", lineHeight: 1.7, color: "var(--text-secondary)", whiteSpace: "pre-wrap", overflowX: "auto" }}>{markdown}</pre>
-            ) : (
-              <MarkdownReport markdown={markdown} />
-            )}
-          </motion.div>
-        </div>
-      </motion.div>
-    );
-  }
-
-  if (!report) return null;
-  const normFindings = (arr) => arr ? arr.map(f => typeof f === "string" ? { finding: f } : f) : [];
-
-  return (
-    <motion.div className="msg-agent" {...fadeUp}>
-      <AgentHeader agentKey="report" subtitle="Complete analysis across all research dimensions" />
-      <div className="ag-body">
-        <div className="report-card">
-          <div className="report-banner">
-            <div className="report-title">Research Report</div>
-            {report.executive_summary && <div className="exec-summary">{report.executive_summary}</div>}
+            </div>
+          )}
+          <div className="flex items-center gap-2 mt-4 text-xs font-mono text-zinc-500 bg-zinc-900/50 p-3 rounded-md border border-zinc-800">
+            <Loader2 size={12} className="animate-spin text-emerald-500" />
+            Loading markdown... or access <code className="text-emerald-400 bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-500/20">report.md</code> directly.
           </div>
-          <div className="stats-row">
-            {[
-              { v: tasks?.length, l: "Tasks" }, { v: report.research_sections?.length, l: "Sections" },
-              { v: report.overall_assessment?.strengths?.length, l: "Strengths" }, { v: report.overall_assessment?.limitations?.length, l: "Limits" },
-              { v: report.identified_gaps?.length, l: "Gaps" }, { v: report.recommended_next_steps?.length, l: "Next Steps" },
-            ].map(({ v, l }) => (
-              <div key={l} className="stat-box"><div className="stat-val">{v ?? "—"}</div><div className="stat-lab">{l}</div></div>
-            ))}
-          </div>
-          {report.research_sections?.map((sec, i) => {
-            const findings = normFindings(sec.key_findings);
-            return (
-              <div key={i} className="research-block">
-                <div className="rb-header">
-                  <span className="rb-num">R{pad(i + 1)}</span>
-                  <div style={{ flex: 1 }}>
-                    <div className="rb-task">{sec.task}</div>
-                    {sec.confidence && (
-                      <span style={{
-                        fontSize: 10, fontFamily: "var(--mono)", padding: "2px 9px", borderRadius: 100, display: "inline-block", marginTop: 5,
-                        background: sec.confidence === "high" ? "var(--green-soft)" : "var(--orange-soft)",
-                        color: sec.confidence === "high" ? "var(--green)" : "var(--orange)",
-                        border: "1px solid currentColor"
-                      }}>{sec.confidence} confidence</span>
-                    )}
-                  </div>
-                </div>
-                {sec.summary && <div className="rb-summary">{sec.summary}</div>}
-                {findings.length > 0 && (
-                  <div className="rb-findings">
-                    {findings.map((f, j) => {
-                      const pc = priorityColor(f.priority ?? 5);
-                      return (
-                        <motion.div key={j} className="finding-card" style={{ borderLeftColor: pc }}
-                          whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
-                          <div className="finding-text">{f.finding || String(f)}</div>
-                          {f.evidence && <div className="finding-support">📌 {f.evidence}</div>}
-                          {f.implication && (
-                            <div style={{ fontSize: 12, color: "var(--text-secondary)", marginTop: 6, borderTop: "1px solid var(--separator)", paddingTop: 6 }}>💡 {f.implication}</div>
-                          )}
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-          {report.overall_assessment && (
-            <div className="assess-section">
-              <SectionH icon="◈" text="Overall Assessment" color="var(--accent)" />
-              {report.overall_assessment.key_themes?.length > 0 && (
-                <div style={{ marginBottom: 16 }}>
-                  <div className="sec-label">Key Themes</div>
-                  <div className="tags-row">{report.overall_assessment.key_themes.map((t, i) => <span key={i} className="tag blue">{t}</span>)}</div>
-                </div>
-              )}
-              <div className="assess-grid">
-                <div className="assess-col">
-                  <div className="assess-heading" style={{ color: "var(--green)" }}>✓ Strengths</div>
-                  {report.overall_assessment.strengths?.map((s, i) => (
-                    <div key={i} className="assess-item"><span className="assess-bullet" style={{ color: "var(--green)" }}>●</span><span>{s}</span></div>
-                  ))}
-                </div>
-                <div className="assess-col">
-                  <div className="assess-heading" style={{ color: "var(--red)" }}>✕ Limitations</div>
-                  {report.overall_assessment.limitations?.map((l, i) => (
-                    <div key={i} className="assess-item"><span className="assess-bullet" style={{ color: "var(--red)" }}>●</span><span>{l}</span></div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-          {report.identified_gaps?.length > 0 && (
-            <div className="gaps-section">
-              <SectionH icon="◑" text="Research Gaps" color="var(--pink)" />
-              {report.identified_gaps.map((g, i) => {
-                const isObj = typeof g === "object" && g !== null;
-                const pc = isObj && g.priority ? priorityColor(g.priority) : "var(--pink)";
-                return (
-                  <div key={i} className="gap-entry" style={{ borderLeftColor: pc + "60" }}>
-                    {isObj?.priority && <div className="prio-badge" style={{ background: pc + "18", color: pc, border: `1px solid ${pc}40` }}>P{g.priority}</div>}
-                    <div>
-                      <div style={{ fontSize: 14, fontWeight: 500, color: "var(--text)" }}>{isObj ? (g.description || g.gap) : g}</div>
-                      {isObj && g.why_it_matters && <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: 4, fontStyle: "italic" }}>{g.why_it_matters}</div>}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-          {report.recommended_next_steps?.length > 0 && (
-            <div className="ns-section">
-              <SectionH icon="▷" text="Recommended Next Steps" color="var(--green)" />
-              {report.recommended_next_steps.map((step, i) => {
-                const isObj = typeof step === "object" && step !== null;
-                const prio = isObj ? step.priority : i + 1;
-                const pc = priorityColor(prio);
-                return (
-                  <motion.div key={i} className="ns-entry" style={{ borderLeftColor: pc }}
-                    whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
-                    <div className="prio-badge" style={{ background: pc + "18", color: pc, border: `1px solid ${pc}40` }}>#{prio}</div>
-                    <div>
-                      <div className="ns-text">{isObj ? step.description : step}</div>
-                      {isObj?.rationale && <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: 6 }}>🎯 {step.rationale}</div>}
-                      {isObj?.expected_insight && <div style={{ fontSize: 12, color: "var(--accent)", marginTop: 4 }}>🔓 {step.expected_insight}</div>}
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          )}
         </div>
-      </div>
-    </motion.div>
-  );
+      )}
+    </div>
+  )
 }
 
-// ─── SUGGESTIONS ─────────────────────────────────────────────────────────────
-const SUGGESTIONS = [
-  "Quantum computing breakthroughs 2024",
-  "Impact of AI on job markets",
-  "CRISPR gene editing applications",
-  "Climate change mitigation strategies",
-];
+// ─────────────────────────────────────────────────────────────────────────────
+// CHAT MESSAGE
+// ─────────────────────────────────────────────────────────────────────────────
+function ChatMessage({ log, reportMarkdown }) {
+  if (log.type === 'user') {
+    return (
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
+        className="flex justify-end mt-4 mb-2">
+        <div className="max-w-[75%] bg-zinc-100 text-zinc-900 px-5 py-3.5 rounded-2xl rounded-tr-sm text-sm font-sans font-medium leading-relaxed shadow-lg">
+          {log.content}
+        </div>
+      </motion.div>
+    )
+  }
 
-// ─── APP ──────────────────────────────────────────────────────────────────────
-export default function App() {
-  const [sessions, setSessions] = useState([]);
-  const [activeSession, setActiveSession] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [pipeSteps, setPipeSteps] = useState([]);
-  const [showSidebar, setShowSidebar] = useState(false);
-  const bottomRef = useRef(null);
-  const inputRef = useRef(null);
+  if (log.step === 'report') {
+    const md = log.data?.markdown || reportMarkdown || null
+    return (
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="my-4">
+        <ReportCard data={log.data} markdown={md} />
+      </motion.div>
+    )
+  }
 
-  useEffect(() => {
-    fetch(`${API_BASE}/api/history`)
+  if (log.step) {
+    return (
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+        <StepCard step={log.step} data={log.data} failed={log.failed || false} />
+      </motion.div>
+    )
+  }
+
+  const isArchived = log.content === 'Session Archived.'
+  const isError    = log.content?.startsWith('[ERROR]')
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}
+      className={`flex items-center gap-3 py-1 ${isArchived ? 'justify-center my-4' : ''}`}>
+      {isError ? <AlertCircle size={14} className="text-red-400 shrink-0" />
+        : isArchived ? <span className="w-8 h-px bg-zinc-700" />
+        : <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 shrink-0" />}
+      <span className={`text-xs font-mono leading-relaxed
+        ${isError ? 'text-red-400 bg-red-950/30 px-3 py-1.5 rounded border border-red-500/20' 
+        : isArchived ? 'text-zinc-500 tracking-[0.2em] text-[10px] uppercase font-bold' 
+        : 'text-zinc-500'}`}>
+        {log.content}
+      </span>
+      {isArchived && <span className="w-8 h-px bg-zinc-700" />}
+    </motion.div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TYPING INDICATOR
+// ─────────────────────────────────────────────────────────────────────────────
+function TypingIndicator({ currentStep }) {
+  const meta = currentStep ? STEP_META[currentStep] : null
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-4 py-3 pl-2">
+      <div className="flex gap-1.5 p-2 rounded-full bg-zinc-900 border border-zinc-800">
+        {[0, 1, 2].map(i => (
+          <motion.span key={i} className={`w-1.5 h-1.5 rounded-full block ${meta ? meta.color.replace('text-', 'bg-') : 'bg-zinc-500'}`}
+            animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
+            transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }} />
+        ))}
+      </div>
+      {meta && (
+        <span className={`text-[11px] font-mono font-bold tracking-[0.2em] ${meta.color} opacity-80 uppercase flex items-center gap-2`}>
+          {meta.icon} {meta.label} <span className="text-zinc-500">PROCESSING...</span>
+        </span>
+      )}
+    </motion.div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MAIN DASHBOARD
+// ─────────────────────────────────────────────────────────────────────────────
+function MainDashboard() {
+  const [query, setQuery] = useState('')
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [currentStep, setCurrentStep] = useState(null)
+  const [history, setHistory] = useState([])
+  const [activeSession, setActiveSession] = useState(null)
+
+  const initialPipeline = { task: 'WAITING', retrieval: 'WAITING', synthesis: 'WAITING', critic: 'WAITING', cross_synthesis: 'WAITING', gap: 'WAITING', report: 'WAITING' }
+  const [pipeline, setPipeline] = useState(initialPipeline)
+  const [logs, setLogs] = useState([])
+  const [activeDocument, setActiveDocument] = useState(null)
+  const [documentVault, setDocumentVault] = useState({})
+  const logsEndRef = useRef(null)
+
+  const refreshHistory = () => {
+    fetch('http://localhost:8000/api/history')
       .then(r => r.json())
-      .then(d => { if (d.sessions) setSessions(d.sessions.filter(s => s.has_data)); })
-      .catch(() => { });
-  }, []);
+      .then(d => setHistory(d.sessions || []))
+      .catch(console.error)
+  }
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  useEffect(() => { refreshHistory() }, [])
+  useEffect(() => { logsEndRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [logs])
 
-  const loadSession = useCallback(async (session) => {
-    setActiveSession(session.id);
-    setMessages([]);
-    setPipeSteps([]);
-    setLoading(true);
-    try {
-      const res = await fetch(`${API_BASE}/api/history/${session.id}`);
-      const data = await res.json();
-      if (res.ok) {
-        const msgs = [{ type: "user", text: session.title }];
-        if (data.tasks?.length) msgs.push({ type: "tasks", data: data.tasks });
-        if (data.retrieval) msgs.push({ type: "retrieval", data: data.retrieval });
-        if (data.synthesis) msgs.push({ type: "synthesis", data: data.synthesis });
-        if (data.critique) msgs.push({ type: "critic", data: { critique_log: data.critique, refined_synthesis: data.refined_synthesis } });
-        if (data.cross_synthesis) msgs.push({ type: "cross_synthesis", data: data.cross_synthesis });
-        if (data.gaps) msgs.push({ type: "gaps", data: data.gaps });
-        if (data.report) msgs.push({ type: "report", data: data.report?.json || data.report, markdown: data.report?.report_markdown, tasks: data.tasks });
-        setMessages(msgs);
-      } else {
-        setMessages([{ type: "error", text: data.detail || "Failed to load session." }]);
-      }
-    } catch {
-      setMessages([{ type: "error", text: "Could not connect to backend." }]);
-    } finally { setLoading(false); }
-  }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!query.trim() || isProcessing) return
 
-  const startResearch = useCallback(async (directQuery) => {
-    const q = (directQuery || query).trim();
-    if (!q || loading) return;
-    setQuery("");
-    setActiveSession(null);
-    setLoading(true);
-    setPipeSteps([]);
-    setMessages([{ type: "user", text: q }]);
+    setIsProcessing(true)
+    setCurrentStep('task')
+    setLogs([{ type: 'user', content: query }])
+    setActiveSession(null)
+    setActiveDocument(null)
+    setDocumentVault({})
+    setPipeline(initialPipeline)
+    const submittedQuery = query
+    setQuery('')
 
     try {
-      const response = await fetch(`${API_BASE}/api/research/stream`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: q }),
-      });
+      const response = await fetch('http://localhost:8000/api/research/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
+        body: JSON.stringify({ query: submittedQuery }),
+      })
 
-      if (!response.ok) {
-        const err = await response.json();
-        setMessages(prev => [...prev, { type: "error", text: err.detail || "Research failed." }]);
-        return;
-      }
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buf = "";
+      const reader = response.body.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ''
 
       while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        buf += decoder.decode(value, { stream: true });
-        const lines = buf.split("\n");
-        buf = lines.pop();
+        const { done, value } = await reader.read()
+        if (done) break
+        buffer += decoder.decode(value, { stream: true })
+        const lines = buffer.split('\n')
+        buffer = lines.pop()
 
         for (const line of lines) {
-          if (!line.startsWith("data: ")) continue;
+          if (!line.startsWith('data: ')) continue
           try {
-            const { step, status, data } = JSON.parse(line.slice(6));
+            const event = JSON.parse(line.slice(6))
 
-            setPipeSteps(prev => {
-              const idx = prev.findIndex(s => s.step === step);
-              if (idx >= 0) { const u = [...prev]; u[idx] = { step, status }; return u; }
-              return [...prev, { step, status }];
-            });
-
-            if (status === "running") {
-              setMessages(prev => [...prev, { type: "thinking", agent: step, thinking: step }]);
-            } else if (status === "done") {
-              setMessages(prev => {
-                const cleaned = prev.filter(m => m.thinking !== step);
-                if (step === "task") return [...cleaned, { type: "tasks", data }];
-                if (step === "retrieval") return [...cleaned, { type: "retrieval", data }];
-                if (step === "synthesis") return [...cleaned, { type: "synthesis", data }];
-                if (step === "critic") return [...cleaned, { type: "critic", data }];
-                if (step === "cross_synthesis") return [...cleaned, { type: "cross_synthesis", data }];
-                if (step === "gap") return [...cleaned, { type: "gaps", data }];
-                if (step === "report") {
-                  const tm = cleaned.find(m => m.type === "tasks");
-                  return [...cleaned, { type: "report", data: data?.json, markdown: data?.markdown, tasks: tm?.data }];
-                }
-                if (step === "complete" && data) {
-                  setActiveSession(data.folder);
-                  fetch(`${API_BASE}/api/history`).then(r => r.json()).then(d => {
-                    if (d.sessions) setSessions(d.sessions.filter(s => s.has_data));
-                  }).catch(() => { });
-                }
-                return cleaned;
-              });
-            } else if (status === "failed") {
-              setMessages(prev => [
-                ...prev.filter(m => m.thinking !== step),
-                { type: "error", text: data?.message || `${step} failed.` },
-              ]);
+            if (event.status === 'running') {
+              setCurrentStep(event.step)
+              setPipeline(prev => {
+                const updated = { ...prev }
+                const keys = Object.keys(updated)
+                const idx = keys.indexOf(event.step)
+                if (idx > 0) updated[keys[idx - 1]] = 'DONE'
+                updated[event.step] = 'RUNNING'
+                return updated
+              })
             }
-          } catch { /* skip malformed */ }
+
+            if (event.status === 'done') {
+              if (event.step === 'complete') {
+                setPipeline(prev => ({ ...prev, report: 'DONE' }))
+                setIsProcessing(false)
+                setCurrentStep(null)
+                refreshHistory()
+                fetch(`http://localhost:8000/api/history/${event.data.folder}`)
+                  .then(r => r.json())
+                  .then(fd => {
+                    setDocumentVault(fd)
+                    if (fd.final_report) {
+                      fetch(`http://localhost:8000/api/history/${event.data.folder}/report.md`)
+                        .then(r => r.json())
+                        .then(md => setDocumentVault(prev => ({ ...prev, 'report.md': md.markdown })))
+                    }
+                  }).catch(console.error)
+                setLogs(prev => [...prev, { type: 'sys', content: 'Session Archived.' }])
+              } else {
+                setLogs(prev => [...prev, { type: 'sys', step: event.step, data: event.data, failed: false }])
+              }
+            }
+
+            if (event.status === 'failed') {
+              setLogs(prev => [...prev, { type: 'sys', step: event.step, data: event.data, failed: true }])
+            }
+
+          } catch (err) { console.error('SSE parse error:', err) }
         }
       }
-    } catch {
-      setMessages(prev => [...prev, { type: "error", text: "Could not reach backend. Make sure FastAPI is running on port 8000." }]);
-    } finally { setLoading(false); }
-  }, [query, loading]);
+    } catch (err) {
+      setLogs(prev => [...prev, { type: 'sys', content: `[ERROR] ${err.message}` }])
+      setIsProcessing(false)
+      setCurrentStep(null)
+    }
+  }
 
-  const handleKey = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); startResearch(); }
-  };
+  const loadHistorySession = (session) => {
+    setActiveSession(session)
+    setActiveDocument(null)
+    setPipeline({ task: 'DONE', retrieval: 'DONE', synthesis: 'DONE', critic: 'DONE', cross_synthesis: 'DONE', gap: 'DONE', report: 'DONE' })
+    setLogs([])
+
+    fetch(`http://localhost:8000/api/history/${session.id}`)
+      .then(r => r.json())
+      .then(fd => {
+        setDocumentVault(fd)
+        const rebuilt = [{ type: 'user', content: fd.title || session.title }]
+
+        if (fd.tasks)     rebuilt.push({ type: 'sys', step: 'task',            data: fd.tasks,      failed: false })
+        if (fd.retrieval) rebuilt.push({ type: 'sys', step: 'retrieval',       data: fd.retrieval,  failed: false })
+        if (fd.synthesis) rebuilt.push({ type: 'sys', step: 'synthesis',       data: fd.synthesis,  failed: false })
+
+        if (fd.critique || fd.refined_synthesis) {
+          rebuilt.push({ type: 'sys', step: 'critic', failed: false, data: {
+            critique_log:      fd.critique          || [],
+            refined_synthesis: fd.refined_synthesis || fd.synthesis || {},
+          }})
+        }
+
+        if (fd.cross_synthesis) rebuilt.push({ type: 'sys', step: 'cross_synthesis', data: fd.cross_synthesis, failed: false })
+        if (fd.gaps)            rebuilt.push({ type: 'sys', step: 'gap',             data: fd.gaps,           failed: false })
+
+        if (fd.report || fd.final_report) {
+          rebuilt.push({ type: 'sys', step: 'report', data: fd.report || fd.final_report, failed: false })
+        }
+
+        rebuilt.push({ type: 'sys', content: 'Session Archived.' })
+        setLogs(rebuilt)
+
+        fetch(`http://localhost:8000/api/history/${session.id}/report.md`)
+          .then(r => r.json())
+          .then(md => setDocumentVault(prev => ({ ...prev, 'report.md': md.markdown })))
+          .catch(console.error)
+      }).catch(console.error)
+  }
+
+  const reportMarkdown = documentVault?.['report.md'] ?? null
 
   return (
+<<<<<<< HEAD
     <>
       <div className="fixed inset-0 z-0 bg-[#030303]">
         <Waves strokeColor="rgba(255,255,255,0.1)" backgroundColor="#030303" pointerSize={0.5} />
@@ -1207,3 +897,206 @@ export default function App() {
     </>
   );
 }
+=======
+    <div className="flex h-screen w-full bg-zinc-950 text-zinc-300 font-sans overflow-hidden selection:bg-cyan-500/30">
+
+      {/* ── LEFT SIDEBAR ── */}
+      <aside className="w-72 border-r border-zinc-800 flex flex-col h-full shrink-0 bg-zinc-950/80 backdrop-blur-xl relative z-20">
+        <div className="p-5 border-b border-zinc-800 flex flex-col gap-5">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded bg-white text-zinc-950 shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+              <Activity size={20} strokeWidth={2.5} />
+            </div>
+            <h1 className="text-lg font-mono font-bold tracking-[0.2em] text-white mt-1">MAI_OS</h1>
+          </div>
+          <button
+            className="w-full py-2.5 rounded border border-zinc-700 flex justify-center items-center gap-2 hover:bg-white hover:text-zinc-950 transition-all font-mono font-bold tracking-widest text-xs shadow-sm"
+            onClick={() => { setActiveSession(null); setDocumentVault({}); setActiveDocument(null); setPipeline(initialPipeline); setLogs([]) }}
+          >
+            <Plus size={14} /> NEW SESSION
+          </button>
+        </div>
+        <div className="p-5 flex-1 overflow-y-auto">
+          <h2 className="text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-4 flex items-center gap-2">
+            <Clock size={12} /> PAST THREADS
+          </h2>
+          <div className="flex flex-col gap-2">
+            {history.length === 0
+              ? <p className="text-xs text-zinc-600 italic">No sessions yet.</p>
+              : history.map(session => (
+                <button key={session.id} onClick={() => loadHistorySession(session)}
+                  className={`text-left px-3 py-2.5 rounded-md border text-[11px] font-mono transition-all flex justify-between items-center group
+                    ${activeSession?.id === session.id
+                      ? 'border-cyan-500/50 bg-cyan-950/30 text-cyan-50'
+                      : 'border-transparent text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200'}`}>
+                  <span className="truncate pr-2">{session.title}</span>
+                  <ChevronRight size={12} className={`shrink-0 transition-opacity ${activeSession?.id === session.id ? 'opacity-100 text-cyan-400' : 'opacity-0 group-hover:opacity-50'}`} />
+                </button>
+              ))
+            }
+          </div>
+        </div>
+      </aside>
+
+      {/* ── CENTER ── */}
+      <main className="flex-1 flex flex-col border-r border-zinc-800 relative overflow-hidden bg-zinc-950">
+        {/* Tech Grid Background */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03]" 
+             style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/50 to-zinc-950 pointer-events-none" />
+
+        <header className="h-14 border-b border-zinc-800/80 flex items-center px-6 shrink-0 relative z-10 bg-zinc-950/60 backdrop-blur-md">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+            <span className="text-[11px] font-mono tracking-[0.15em] font-bold text-zinc-400">
+              {activeSession ? activeSession.title.toUpperCase() : 'SYSTEM_TERMINAL'}
+            </span>
+          </div>
+        </header>
+
+        <div className="flex-1 overflow-y-auto relative z-10 p-2 sm:p-4">
+          {activeDocument ? (
+            <div className="h-full max-w-5xl mx-auto flex flex-col">
+              <div className="border border-zinc-800 rounded-xl bg-zinc-950/90 shadow-2xl flex-1 flex flex-col overflow-hidden backdrop-blur-sm">
+                <div className="flex justify-between items-center px-5 py-3.5 border-b border-zinc-800 text-[10px] font-mono tracking-widest text-zinc-400 shrink-0 bg-zinc-900/50">
+                  <span className="flex items-center gap-2">
+                    <FileText size={12} className="text-zinc-500" />
+                    {activeDocument.name.toUpperCase()}
+                  </span>
+                  <button className="hover:text-white hover:bg-zinc-800 px-2 py-1 rounded transition-colors flex items-center gap-1" onClick={() => setActiveDocument(null)}>
+                    CLOSE <XCircle size={12}/>
+                  </button>
+                </div>
+                <div className="flex-1 overflow-y-auto p-6 md:p-8">
+                  {activeDocument.name.endsWith('.md') ? (
+                    <div className="flex flex-col gap-1 max-w-4xl mx-auto">
+                      {typeof activeDocument.content === 'string'
+                        ? activeDocument.content.split('\n').map((line, i) => <MdLine key={i} line={line} />)
+                        : <p className="text-zinc-500 text-sm">Invalid format.</p>}
+                    </div>
+                  ) : (
+                    <pre className="text-emerald-400/80 font-mono text-[11px] whitespace-pre-wrap break-words leading-relaxed max-w-4xl mx-auto">
+                      {typeof activeDocument.content === 'object'
+                        ? JSON.stringify(activeDocument.content, null, 2)
+                        : String(activeDocument.content || 'Empty.')}
+                    </pre>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col min-h-full max-w-4xl mx-auto w-full">
+              {logs.length === 0 && !isProcessing ? (
+                <div className="flex-1 flex items-center justify-center p-8">
+                  <div className="flex flex-col items-center gap-6 text-center max-w-md">
+                    <div className="w-16 h-16 rounded-2xl border border-zinc-800 flex items-center justify-center bg-zinc-900/50 shadow-inner">
+                      <TerminalSquare size={28} className="text-zinc-500" />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-white font-mono font-bold tracking-[0.2em] text-sm">SYSTEM READY</p>
+                      <p className="text-zinc-500 text-sm leading-relaxed">Enter a research objective to deploy the multi-agent synthesis pipeline.</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-[10px] font-mono text-zinc-600 tracking-widest text-left w-full p-4 rounded-lg border border-zinc-800/50 bg-zinc-950/50">
+                      {Object.values(STEP_META).map(m => (
+                        <span key={m.label} className={`flex items-center gap-2 ${m.color} opacity-50`}>
+                          {m.icon} {m.label.toUpperCase()}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-3 pb-10">
+                  {logs.map((log, i) => (
+                    <ChatMessage key={i} log={log} reportMarkdown={reportMarkdown} />
+                  ))}
+                  {isProcessing && <TypingIndicator currentStep={currentStep} />}
+                  <div ref={logsEndRef} />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="p-5 border-t border-zinc-800/80 shrink-0 bg-zinc-950/80 backdrop-blur-xl z-20">
+          <form className="flex rounded-lg border border-zinc-700 bg-zinc-900/50 focus-within:border-cyan-500/50 focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:bg-zinc-900 transition-all shadow-lg max-w-4xl mx-auto overflow-hidden" onSubmit={handleSubmit}>
+            <div className="pl-5 pr-3 flex items-center justify-center">
+              {isProcessing
+                ? <Loader2 size={18} className="animate-spin text-cyan-500" />
+                : <Search size={18} className="text-zinc-500" />}
+            </div>
+            <input type="text"
+              className="flex-1 bg-transparent py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+              placeholder={activeSession ? 'Start a New Session to continue…' : 'Enter a research topic, query, or objective…'}
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              disabled={isProcessing || activeSession !== null}
+            />
+            <button type="submit"
+              disabled={isProcessing || activeSession !== null || !query.trim()}
+              className="px-8 bg-zinc-100 text-zinc-950 font-mono font-bold tracking-widest text-xs hover:bg-white transition-colors disabled:opacity-30 disabled:bg-zinc-800 disabled:text-zinc-500">
+              EXECUTE
+            </button>
+          </form>
+        </div>
+      </main>
+
+      {/* ── RIGHT SIDEBAR ── */}
+      <aside className="w-80 flex flex-col h-full shrink-0 bg-zinc-950/80 backdrop-blur-xl relative z-20">
+        <div className="p-5 border-b border-zinc-800 text-[10px] font-mono font-bold flex items-center gap-2 tracking-[0.2em] text-zinc-500">
+          <Database size={12} /> SYSTEM_CONTEXT
+        </div>
+        <div className="p-5 flex-1 overflow-y-auto flex flex-col gap-8">
+          
+          {/* Pipeline Widget */}
+          <div className="bg-zinc-900/30 p-4 rounded-xl border border-zinc-800/50">
+            <h2 className="text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-4 flex justify-between items-center">
+              PIPELINE STATUS
+              {isProcessing && <span className="text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded text-[9px] animate-pulse">LIVE</span>}
+            </h2>
+            <div className="flex flex-col gap-1.5">
+              {Object.entries(pipeline).map(([key, val]) => (
+                <PipelineStep key={key} step={key} status={val} />
+              ))}
+            </div>
+          </div>
+
+          {/* Vault Widget */}
+          <div>
+            <h2 className="text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-4 px-1">DOCUMENT VAULT</h2>
+            <div className="flex flex-col gap-2 font-mono text-[11px]">
+              {Object.keys(documentVault).length > 0 ? (
+                Object.entries(documentVault).map(([key, data]) => {
+                  if (!data || ['folder','title','has_report','has_refined','has_data','id'].includes(key)) return null
+                  const displayKey = key === 'final_report' ? 'final_report.json' : key
+                  const isMd = displayKey.endsWith('.md') || displayKey.endsWith('.json')
+                  return (
+                    <button key={key}
+                      onClick={() => setActiveDocument({ name: displayKey, content: data })}
+                      className={`p-3 rounded-md border flex items-center gap-3 transition-all w-full text-left group
+                        ${activeDocument?.name === displayKey
+                          ? 'border-emerald-500/50 bg-emerald-950/30 text-emerald-100 shadow-[0_0_10px_rgba(16,185,129,0.1)]'
+                          : 'border-zinc-800 bg-zinc-900/30 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200 hover:bg-zinc-800/50'}`}>
+                      <div className={`p-1.5 rounded ${activeDocument?.name === displayKey ? 'bg-emerald-500/20 text-emerald-400' : 'bg-zinc-800 text-zinc-500 group-hover:text-zinc-300'}`}>
+                        {isMd ? <FileText size={12} /> : <Database size={12} />}
+                      </div>
+                      <span className="truncate">{displayKey}</span>
+                    </button>
+                  )
+                })
+              ) : (
+                <div className="p-6 rounded-lg border border-dashed border-zinc-800 text-zinc-600 text-center text-xs flex flex-col items-center gap-2">
+                  <Database size={16} className="opacity-50" />
+                  No files indexed
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  )
+}
+
+export default MainDashboard
+>>>>>>> faf9a8812d1f5627deb1fd27eae718c980e60478
