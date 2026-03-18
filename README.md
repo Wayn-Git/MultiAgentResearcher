@@ -1,8 +1,15 @@
 # 🔍 MultiAgentResearcher
 
-A multi-agent AI pipeline that autonomously researches any topic by decomposing it into tasks, retrieving web sources, synthesizing findings, identifying knowledge gaps, and generating a structured final report.
+A multi-agent AI pipeline that autonomously researches any topic by decomposing it into tasks, retrieving web sources, synthesizing findings, identifying knowledge gaps, and generating a structured final report — with an interactive **Talk Mode** to chat about your research.
 
 ---
+
+## 🆕 New Features
+
+- **Talk Mode**: Chat with an LLM about your completed research findings
+- **Web Interface**: Modern React UI with Vite + Tailwind CSS
+- **7-Step Research Pipeline**: Full autonomous research workflow
+- **Research History**: Browse and reload past sessions
 
 ## 🧠 How It Works
 
@@ -18,46 +25,104 @@ User Query
        │
        ▼
 ┌──────────────────┐
-│ Retriever Agent  │  → Searches the web (via Tavily) for each task
+│ Retriever Agent  │  → Searches the web for each task
 └──────┬───────────┘
        │
        ▼
 ┌──────────────────┐
-│ Synthesis Agent  │  → Combines sources into unified findings per task
+│ Synthesis Agent  │  → Combines sources into unified findings
 └──────┬───────────┘
        │
        ▼
 ┌──────────────────┐
-│   Gap Agent      │  → Identifies missing coverage and weak areas
+│   Gap Agent      │  → Identifies missing coverage
 └──────┬───────────┘
        │
        ▼
 ┌──────────────────┐
-│  Report Agent    │  → Produces a structured final research report
+│  Report Agent    │  → Produces structured final report
+└──────────────────┘
+       │
+       ▼
+┌──────────────────┐
+│   Talk Mode      │  → Chat about your research findings
 └──────────────────┘
 ```
 
 ---
 
-## 🗂️ Project Structure
+## 🚀 Quick Start
+
+### Local Development
+
+**Backend (FastAPI):**
+```bash
+pip install -r requirements.txt
+export GROQ_API_KEY=your_groq_api_key
+python main.py
+# Server: http://localhost:8000
+```
+
+**Frontend (React):**
+```bash
+cd frontend
+npm install
+npm run dev
+# Server: http://localhost:5173
+```
+
+### Deployment
+
+**Frontend to Vercel:**
+```bash
+# Push to GitHub, then connect to Vercel
+# Add environment variable: VITE_API_URL=https://your-service.onrender.com
+```
+
+**Backend to Render:**
+```bash
+# Push to GitHub, then connect to Render
+# Add environment variable: GROQ_API_KEY=your_groq_api_key
+```
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
+
+---
+
+## 🏗️ Project Structure
 
 ```
 MultiAgentResearcher/
-├── complete_pipe.py                    # Full end-to-end pipeline (WIP)
-├── requirements.txt
-├── model_output_data/                  # All agent outputs, organized by query
-│   └── research_on_iphones/
-│       ├── tasks.json                  # Generated research tasks
-│       ├── retrieval_results.json      # Web search results per task
-│       ├── synthesis_results.json      # Synthesized findings per task
-│       ├── gap_results.json            # Identified gaps and coverage assessment
-│       └── final_report.json           # Final structured research report
-└── notebooks/
-    ├── Task_Agent/task_agent.ipynb
-    ├── Retriever_Agent/retriever_agent.ipynb
-    ├── Synthesis_Agent/synthesis_agent.ipynb
-    ├── gap_agent/gap_agent.ipynb
-    └── report_agent/report_agent.ipynb
+├── main.py                         # FastAPI backend
+├── requirements.txt                # Python dependencies
+├── render.yaml                     # Render config
+├── vercel.json                     # Vercel config
+├── DEPLOYMENT.md                   # Deployment guide
+├── .env.example                    # Environment template
+│
+├── frontend/                       # React + Vite frontend
+│   ├── src/
+│   │   └── App.jsx                # Main React component
+│   ├── package.json
+│   └── vercel.json
+│
+├── agents/                         # AI agents
+│   ├── task_agent.py
+│   ├── retrieval_agent.py
+│   ├── synthesis_agent.py
+│   ├── critic_agent.py
+│   ├── cross_synthesis_agent.py
+│   ├── gap_agent.py
+│   └── report_agent.py
+│
+├── model_output_data/              # Research results
+│   └── [research_session]/
+│       ├── tasks.json
+│       ├── retrieval_results.json
+│       ├── synthesis_results.json
+│       ├── refined_synthesis_results.json
+│       ├── gap_results.json
+│       └── final_report.md
 ```
 
 ---
@@ -66,96 +131,113 @@ MultiAgentResearcher/
 
 | Agent | Model | Role |
 |---|---|---|
-| **Task Agent** | `llama-3.1-8b-instant` | Decomposes the user query into 3–5 prioritized research tasks |
-| **Retriever Agent** | `llama-3.1-8b-instant` + Tavily | Fetches and structures web results for each task |
-| **Synthesis Agent** | `llama-3.1-8b-instant` | Merges source findings into coherent, deduplicated summaries |
-| **Gap Agent** | `llama-3.1-8b-instant` | Detects weaknesses and missing dimensions across all tasks |
-| **Report Agent** | `llama-3.1-8b-instant` | Produces a final executive report with findings, gaps, and next steps |
+| **Task Agent** | `llama-3.3-70b-versatile` | Decomposes user query into prioritized tasks |
+| **Retriever Agent** | `llama-3.3-70b-versatile` | Fetches and structures web results |
+| **Synthesis Agent** | `llama-3.3-70b-versatile` | Merges sources into coherent findings |
+| **Critic Agent** | `llama-3.3-70b-versatile` | Identifies issues and refines synthesis |
+| **Gap Agent** | `llama-3.3-70b-versatile` | Detects weaknesses and missing areas |
+| **Report Agent** | `llama-3.3-70b-versatile` | Produces final structured report |
 
 ---
 
-## 📦 Installation
+## 🔧 API Endpoints
 
-```bash
-git clone https://github.com/your-username/MultiAgentResearcher.git
-cd MultiAgentResearcher
-pip install -r requirements.txt
-```
+### Research Pipeline
+- `POST /api/research` - Run research pipeline (sync)
+- `POST /api/research/stream` - Stream pipeline steps (SSE)
 
-### Required API Keys
+### Research History
+- `GET /api/history` - List all research sessions
+- `GET /api/history/{folder}` - Get session details
+- `GET /api/history/{folder}/report.md` - Get markdown report
 
-Create a `.env` file in the root directory:
-
-```env
-GROQ_API_KEY=your_groq_api_key
-TAVILY_SEARCH_API=your_tavily_api_key
-```
-
-- **Groq** – used to run the LLM agents: [console.groq.com](https://console.groq.com)
-- **Tavily** – used for web search retrieval: [tavily.com](https://tavily.com)
-
----
-
-## 🚀 Usage
-
-> **Note:** The full pipeline (`complete_pipe.py`) is currently a work in progress. Each agent can be run independently via its notebook.
-
-### Run Individual Agents
-
-Open and execute the notebooks in order:
-
-```
-notebooks/Task_Agent/task_agent.ipynb
-notebooks/Retriever_Agent/retriever_agent.ipynb
-notebooks/Synthesis_Agent/synthesis_agent.ipynb
-notebooks/gap_agent/gap_agent.ipynb
-notebooks/report_agent/report_agent.ipynb
-```
-
-Each agent automatically detects the **most recently created** folder in `model_output_data/` and reads/writes from there.
-
----
-
-## 📄 Example Output
-
-**Query:** `"research on iphones"`
-
-**Generated Tasks:**
-- History of iPhone development (2007–present)
-- Key features and technologies (Touch ID, Face ID, camera)
-- Market trends and sales data
-- Impact on mobile software development
-- Environmental and social implications
-
-**Final Report Excerpt:**
-> *"This research project investigated the environmental and social implications of iPhone production and usage, highlighting challenges such as greenhouse gas emissions, e-waste, and supply chain sustainability concerns. Labor practices and human rights issues are underrepresented in current research..."*
-
-**Identified Gaps:**
-- Labor practices and human rights in iPhone supply chains
-- Effects of iPhone ownership on low-income communities
-- Political and economic impacts across countries and regions
+### Talk Mode
+- `POST /api/chat` - Chat about completed research
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **[Groq](https://groq.com)** – Fast LLM inference (`llama-3.1-8b-instant`)
-- **[Tavily](https://tavily.com)** – AI-powered web search API
-- **Python** – Core pipeline logic
-- **JSON** – Structured inter-agent communication
+### Backend
+- **FastAPI** - Web framework
+- **Uvicorn** - ASGI server
+- **Groq** - LLM inference
+- **Python 3.10+**
+
+### Frontend
+- **React 19** - UI framework
+- **Vite** - Build tool
+- **Tailwind CSS** - Styling
+- **Framer Motion** - Animations
+- **Lucide React** - Icons
+
+---
+
+## 📦 Required API Keys
+
+Create a `.env` file:
+
+```env
+# Backend
+GROQ_API_KEY=your_groq_api_key
+
+# Frontend
+VITE_API_URL=http://localhost:8000
+```
+
+- **Groq**: https://console.groq.com
+
+---
+
+## 🚀 Usage
+
+### Research Mode
+1. Enter a research topic in the search bar
+2. Click "EXECUTE"
+3. Watch the 7-step pipeline run
+4. View results in the UI
+
+### Talk Mode
+1. Complete a research session (or select one from the sidebar)
+2. Click "TALK" in the mode toggle
+3. Select a research session from the sidebar
+4. Ask questions about your research findings
+
+---
+
+## 📄 Example Output
+
+**Query:** `"What is the impact of AI on job markets?"`
+
+**Final Report Excerpt:**
+> *"AI is projected to replace approximately 85 million jobs by 2025 while creating 97 million new roles... The impact varies significantly across sectors, with manufacturing and customer service most affected..."*
+
+**Talk Mode Example:**
+> **User:** "What are the main findings?"
+>
+> **AI:** *"The main findings include: 1) AI will create more jobs than it eliminates, 2) Skills transformation is critical, 3) Healthcare and creative industries show highest growth..."*
 
 ---
 
 ## 🔮 Roadmap
 
-- [ ] Complete `complete_pipe.py` end-to-end pipeline
-- [ ] Add a Streamlit or Gradio UI
-- [ ] Support additional LLM providers (OpenAI, Anthropic)
-- [ ] Add iterative research loops (agent re-runs gap tasks)
-- [ ] Export reports to PDF / Markdown
+- [x] Basic research pipeline
+- [x] Web UI with React
+- [x] Talk Mode for research chat
+- [x] Deployment to Vercel + Render
+- [ ] Export reports to PDF
+- [ ] User authentication
+- [ ] Multi-user support
+- [ ] Advanced visualization
 
 ---
 
 ## 📝 License
 
 MIT License – feel free to use, modify, and build on this project.
+
+## 📚 Documentation
+
+- **Deployment Guide**: [DEPLOYMENT.md](DEPLOYMENT.md)
+- **Backend API**: http://localhost:8000/docs
+- **Frontend**: http://localhost:5173

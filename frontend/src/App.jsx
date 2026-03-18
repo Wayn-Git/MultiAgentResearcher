@@ -11,6 +11,9 @@ import { Activity, Database, FileText, TerminalSquare, Plus, Clock, ChevronRight
 import { motion, AnimatePresence } from 'framer-motion'
 >>>>>>> faf9a8812d1f5627deb1fd27eae718c980e60478
 
+// API URL from environment or default to localhost
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+
 // ─────────────────────────────────────────────────────────────────────────────
 // PIPELINE SIDEBAR STEP
 // ─────────────────────────────────────────────────────────────────────────────
@@ -596,6 +599,12 @@ function MainDashboard() {
   const [currentStep, setCurrentStep] = useState(null)
   const [history, setHistory] = useState([])
   const [activeSession, setActiveSession] = useState(null)
+  const [chatMode, setChatMode] = useState(false) // false = research mode, true = talk mode
+  const [chatInput, setChatInput] = useState('')
+  const [isChatProcessing, setIsChatProcessing] = useState(false)
+  const [chatHistory, setChatHistory] = useState([])
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const [showRightPanel, setShowRightPanel] = useState(false)
 
   const initialPipeline = { task: 'WAITING', retrieval: 'WAITING', synthesis: 'WAITING', critic: 'WAITING', cross_synthesis: 'WAITING', gap: 'WAITING', report: 'WAITING' }
   const [pipeline, setPipeline] = useState(initialPipeline)
@@ -605,7 +614,7 @@ function MainDashboard() {
   const logsEndRef = useRef(null)
 
   const refreshHistory = () => {
-    fetch('http://localhost:8000/api/history')
+    fetch(`${API_URL}/api/history`)
       .then(r => r.json())
       .then(d => setHistory(d.sessions || []))
       .catch(console.error)
@@ -614,8 +623,38 @@ function MainDashboard() {
   useEffect(() => { refreshHistory() }, [])
   useEffect(() => { logsEndRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [logs])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+const handleSubmit = async (e) => {
+  e.preventDefault()
+  
+  if (chatMode) {
+    // Handle chat mode
+    if (!chatInput.trim() || isChatProcessing || !activeSession) return
+    
+    setIsChatProcessing(true)
+    const userMessage = chatInput
+    setChatHistory(prev => [...prev, { role: 'user', content: userMessage }])
+    setChatInput('')
+    
+    try {
+      const response = await fetch(`${API_URL}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: userMessage,
+          folder_id: activeSession.id,
+          history: chatHistory
+        }),
+      })
+      
+      const data = await response.json()
+      setChatHistory(prev => [...prev, { role: 'assistant', content: data.response }])
+    } catch (err) {
+      setChatHistory(prev => [...prev, { role: 'assistant', content: `[ERROR] Failed to get response: ${err.message}` }])
+    } finally {
+      setIsChatProcessing(false)
+    }
+  } else {
+    // Handle research mode (original logic)
     if (!query.trim() || isProcessing) return
 
     setIsProcessing(true)
@@ -629,7 +668,7 @@ function MainDashboard() {
     setQuery('')
 
     try {
-      const response = await fetch('http://localhost:8000/api/research/stream', {
+      const response = await fetch(`${API_URL}/api/research/stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
         body: JSON.stringify({ query: submittedQuery }),
@@ -669,12 +708,12 @@ function MainDashboard() {
                 setIsProcessing(false)
                 setCurrentStep(null)
                 refreshHistory()
-                fetch(`http://localhost:8000/api/history/${event.data.folder}`)
+                fetch(`${API_URL}/api/history/${event.data.folder}`)
                   .then(r => r.json())
                   .then(fd => {
                     setDocumentVault(fd)
                     if (fd.final_report) {
-                      fetch(`http://localhost:8000/api/history/${event.data.folder}/report.md`)
+                      fetch(`${API_URL}/api/history/${event.data.folder}/report.md`)
                         .then(r => r.json())
                         .then(md => setDocumentVault(prev => ({ ...prev, 'report.md': md.markdown })))
                     }
@@ -698,14 +737,16 @@ function MainDashboard() {
       setCurrentStep(null)
     }
   }
+}
 
   const loadHistorySession = (session) => {
     setActiveSession(session)
     setActiveDocument(null)
     setPipeline({ task: 'DONE', retrieval: 'DONE', synthesis: 'DONE', critic: 'DONE', cross_synthesis: 'DONE', gap: 'DONE', report: 'DONE' })
     setLogs([])
+    setChatHistory([])  // Clear chat history when loading a new session
 
-    fetch(`http://localhost:8000/api/history/${session.id}`)
+    fetch(`${API_URL}/api/history/${session.id}`)
       .then(r => r.json())
       .then(fd => {
         setDocumentVault(fd)
@@ -732,7 +773,7 @@ function MainDashboard() {
         rebuilt.push({ type: 'sys', content: 'Session Archived.' })
         setLogs(rebuilt)
 
-        fetch(`http://localhost:8000/api/history/${session.id}/report.md`)
+        fetch(`${API_URL}/api/history/${session.id}/report.md`)
           .then(r => r.json())
           .then(md => setDocumentVault(prev => ({ ...prev, 'report.md': md.markdown })))
           .catch(console.error)
@@ -900,23 +941,77 @@ function MainDashboard() {
 =======
     <div className="flex h-screen w-full bg-zinc-950 text-zinc-300 font-sans overflow-hidden selection:bg-cyan-500/30">
 
+      {/* Mobile Menu Overlay */}
+      {showMobileMenu && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setShowMobileMenu(false)}
+        />
+      )}
+
       {/* ── LEFT SIDEBAR ── */}
-      <aside className="w-72 border-r border-zinc-800 flex flex-col h-full shrink-0 bg-zinc-950/80 backdrop-blur-xl relative z-20">
-        <div className="p-5 border-b border-zinc-800 flex flex-col gap-5">
+      <aside className={`
+        fixed lg:relative inset-y-0 left-0 z-50 lg:z-20
+        w-72 border-r border-zinc-800 flex flex-col h-full shrink-0 
+        bg-zinc-950/95 backdrop-blur-xl
+        transform transition-transform duration-300 ease-in-out
+        ${showMobileMenu ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
+<div className="p-3 lg:p-5 border-b border-zinc-800 flex flex-col gap-3 lg:gap-5">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded bg-white text-zinc-950 shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+            <div className="p-2 rounded bg-white text-zinc-950 shadow-[0_0_15px_rgba(255,255,255,0.3)] shrink-0">
               <Activity size={20} strokeWidth={2.5} />
             </div>
-            <h1 className="text-lg font-mono font-bold tracking-[0.2em] text-white mt-1">MAI_OS</h1>
+            <h1 className="text-sm lg:text-lg font-mono font-bold tracking-[0.2em] text-white mt-1 truncate">MAI_OS</h1>
+            {/* Close button for mobile */}
+            <button 
+              className="lg:hidden ml-auto p-2 hover:bg-zinc-800 rounded-lg transition-colors"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              <span className="text-zinc-400">✕</span>
+            </button>
           </div>
           <button
-            className="w-full py-2.5 rounded border border-zinc-700 flex justify-center items-center gap-2 hover:bg-white hover:text-zinc-950 transition-all font-mono font-bold tracking-widest text-xs shadow-sm"
-            onClick={() => { setActiveSession(null); setDocumentVault({}); setActiveDocument(null); setPipeline(initialPipeline); setLogs([]) }}
+            className="w-full py-2 lg:py-2.5 rounded border border-zinc-700 flex justify-center items-center gap-2 hover:bg-white hover:text-zinc-950 transition-all font-mono font-bold tracking-widest text-xs shadow-sm"
+            onClick={() => { 
+              setActiveSession(null); 
+              setActiveDocument(null); 
+              setPipeline(initialPipeline); 
+              setLogs([]); 
+              setChatMode(false); 
+              setChatHistory([]); 
+              setChatInput('');
+              setShowMobileMenu(false);
+            }}
           >
             <Plus size={14} /> NEW SESSION
           </button>
         </div>
-        <div className="p-5 flex-1 overflow-y-auto">
+        <div className="p-3 lg:p-5 flex-1 overflow-y-auto">
+          <h2 className="text-[9px] lg:text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-3 lg:mb-4 flex items-center gap-2">
+            <Clock size={12} className="shrink-0" /> 
+            <span className="hidden sm:inline">PAST THREADS</span>
+          </h2>
+          <div className="flex flex-col gap-2">
+            {history.length === 0
+              ? <p className="text-xs text-zinc-600 italic">No sessions yet.</p>
+              : history.map(session => (
+                <button key={session.id} onClick={() => {
+                  loadHistorySession(session);
+                  setShowMobileMenu(false);
+                }}
+                  className={`text-left px-3 py-2 lg:py-2.5 rounded-md border text-[10px] lg:text-[11px] font-mono transition-all flex justify-between items-center group
+                    ${activeSession?.id === session.id
+                      ? 'border-cyan-500/50 bg-cyan-950/30 text-cyan-50'
+                      : 'border-transparent text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200'}`}>
+                  <span className="truncate pr-2">{session.title}</span>
+                  <ChevronRight size={12} className={`shrink-0 transition-opacity ${activeSession?.id === session.id ? 'opacity-100 text-cyan-400' : 'opacity-0 group-hover:opacity-50'}`} />
+                </button>
+              ))
+            }
+          </div>
+        </div>
+        <div className="p-3 lg:p-5 flex-1 overflow-y-auto">
           <h2 className="text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-4 flex items-center gap-2">
             <Clock size={12} /> PAST THREADS
           </h2>
@@ -945,16 +1040,32 @@ function MainDashboard() {
              style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/50 to-zinc-950 pointer-events-none" />
 
-        <header className="h-14 border-b border-zinc-800/80 flex items-center px-6 shrink-0 relative z-10 bg-zinc-950/60 backdrop-blur-md">
+        <header className="h-14 border-b border-zinc-800/80 flex items-center justify-between px-3 lg:px-6 shrink-0 relative z-10 bg-zinc-950/60 backdrop-blur-md">
           <div className="flex items-center gap-2">
+            {/* Mobile menu toggle */}
+            <button 
+              className="lg:hidden p-2 hover:bg-zinc-800 rounded-lg transition-colors"
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+            >
+              <span className="block w-5 h-0.5 bg-zinc-400 mb-1.5"></span>
+              <span className="block w-5 h-0.5 bg-zinc-400 mb-1.5"></span>
+              <span className="block w-5 h-0.5 bg-zinc-400"></span>
+            </button>
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
-            <span className="text-[11px] font-mono tracking-[0.15em] font-bold text-zinc-400">
+            <span className="hidden sm:inline text-[11px] font-mono tracking-[0.15em] font-bold text-zinc-400">
               {activeSession ? activeSession.title.toUpperCase() : 'SYSTEM_TERMINAL'}
             </span>
           </div>
+          {/* Mobile right panel toggle */}
+          <button 
+            className="lg:hidden p-2 hover:bg-zinc-800 rounded-lg transition-colors"
+            onClick={() => setShowRightPanel(!showRightPanel)}
+          >
+            <Database size={18} className="text-zinc-400" />
+          </button>
         </header>
 
-        <div className="flex-1 overflow-y-auto relative z-10 p-2 sm:p-4">
+        <div className="flex-1 overflow-y-auto relative z-10 p-2 sm:p-3 lg:p-4">
           {activeDocument ? (
             <div className="h-full max-w-5xl mx-auto flex flex-col">
               <div className="border border-zinc-800 rounded-xl bg-zinc-950/90 shadow-2xl flex-1 flex flex-col overflow-hidden backdrop-blur-sm">
@@ -993,12 +1104,12 @@ function MainDashboard() {
                       <TerminalSquare size={28} className="text-zinc-500" />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <p className="text-white font-mono font-bold tracking-[0.2em] text-sm">SYSTEM READY</p>
-                      <p className="text-zinc-500 text-sm leading-relaxed">Enter a research objective to deploy the multi-agent synthesis pipeline.</p>
+                      <p className="text-white font-mono font-bold tracking-[0.2em] text-xs lg:text-sm">SYSTEM READY</p>
+                      <p className="text-zinc-500 text-xs lg:text-sm leading-relaxed">Enter a research objective to deploy the multi-agent synthesis pipeline.</p>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 text-[10px] font-mono text-zinc-600 tracking-widest text-left w-full p-4 rounded-lg border border-zinc-800/50 bg-zinc-950/50">
+                    <div className="grid grid-cols-2 gap-1.5 lg:gap-2 text-[9px] lg:text-[10px] font-mono text-zinc-600 tracking-widest text-left w-full p-3 lg:p-4 rounded-lg border border-zinc-800/50 bg-zinc-950/50">
                       {Object.values(STEP_META).map(m => (
-                        <span key={m.label} className={`flex items-center gap-2 ${m.color} opacity-50`}>
+                        <span key={m.label} className={`flex items-center gap-1 lg:gap-2 ${m.color} opacity-50`}>
                           {m.icon} {m.label.toUpperCase()}
                         </span>
                       ))}
@@ -1007,10 +1118,53 @@ function MainDashboard() {
                 </div>
               ) : (
                 <div className="flex flex-col gap-3 pb-10">
-                  {logs.map((log, i) => (
-                    <ChatMessage key={i} log={log} reportMarkdown={reportMarkdown} />
-                  ))}
-                  {isProcessing && <TypingIndicator currentStep={currentStep} />}
+                  {/* Show chat history when in chat mode */}
+                  {chatMode && activeSession ? (
+                    <>
+                      {chatHistory.length === 0 ? (
+                        <div className="flex-1 flex items-center justify-center p-4 lg:p-8">
+                          <div className="flex flex-col items-center gap-4 lg:gap-6 text-center max-w-md">
+                            <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-2xl border border-emerald-800 flex items-center justify-center bg-emerald-900/30 shadow-inner">
+                              <Microscope size={22} className="text-emerald-400 lg:text-emerald-400" />
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <p className="text-emerald-300 font-mono font-bold tracking-[0.2em] text-xs lg:text-sm">TALK MODE</p>
+                              <p className="text-zinc-400 text-xs lg:text-sm leading-relaxed">Ask questions about your research findings.</p>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        chatHistory.map((msg, i) => (
+                          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                            <div className={`max-w-[85%] lg:max-w-[75%] px-4 py-3 lg:px-5 lg:py-3.5 rounded-2xl text-xs lg:text-sm font-sans font-medium leading-relaxed shadow-lg
+                              ${msg.role === 'user' 
+                                ? 'bg-emerald-100 text-emerald-900 rounded-tr-sm' 
+                                : 'bg-zinc-800 text-zinc-100 rounded-tl-sm'}`}>
+                              {msg.content}
+                            </div>
+                          </div>
+                        ))
+                      )}
+                      {isChatProcessing && (
+                        <div className="flex items-center gap-3 lg:gap-4 py-2 lg:py-3 pl-2">
+                          <div className="flex gap-1.5 p-1.5 lg:p-2 rounded-full bg-zinc-900 border border-zinc-800">
+                            {[0, 1, 2].map(i => (
+                              <span key={i} className="w-1 lg:w-1.5 h-1 lg:h-1.5 rounded-full bg-emerald-500 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+                            ))}
+                          </div>
+                          <span className="text-[10px] lg:text-[11px] font-mono font-bold text-emerald-400">Thinking...</span>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    /* Show research logs when in research mode */
+                    <>
+                      {logs.map((log, i) => (
+                        <ChatMessage key={i} log={log} reportMarkdown={reportMarkdown} />
+                      ))}
+                      {isProcessing && <TypingIndicator currentStep={currentStep} />}
+                    </>
+                  )}
                   <div ref={logsEndRef} />
                 </div>
               )}
@@ -1018,41 +1172,111 @@ function MainDashboard() {
           )}
         </div>
 
-        <div className="p-5 border-t border-zinc-800/80 shrink-0 bg-zinc-950/80 backdrop-blur-xl z-20">
-          <form className="flex rounded-lg border border-zinc-700 bg-zinc-900/50 focus-within:border-cyan-500/50 focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:bg-zinc-900 transition-all shadow-lg max-w-4xl mx-auto overflow-hidden" onSubmit={handleSubmit}>
-            <div className="pl-5 pr-3 flex items-center justify-center">
-              {isProcessing
-                ? <Loader2 size={18} className="animate-spin text-cyan-500" />
-                : <Search size={18} className="text-zinc-500" />}
-            </div>
-            <input type="text"
-              className="flex-1 bg-transparent py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
-              placeholder={activeSession ? 'Start a New Session to continue…' : 'Enter a research topic, query, or objective…'}
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              disabled={isProcessing || activeSession !== null}
-            />
-            <button type="submit"
-              disabled={isProcessing || activeSession !== null || !query.trim()}
-              className="px-8 bg-zinc-100 text-zinc-950 font-mono font-bold tracking-widest text-xs hover:bg-white transition-colors disabled:opacity-30 disabled:bg-zinc-800 disabled:text-zinc-500">
-              EXECUTE
-            </button>
-          </form>
-        </div>
+<div className="p-3 lg:p-5 border-t border-zinc-800/80 shrink-0 bg-zinc-950/80 backdrop-blur-xl z-20">
+  <div className="flex flex-wrap items-center gap-2 mb-3 lg:mb-4">
+    <span className="text-xs font-mono text-zinc-500">Mode:</span>
+    <button
+      className={`px-2 lg:px-3 py-1 rounded border border-zinc-700 text-[9px] lg:text-[10px] font-mono font-bold tracking-widest 
+        ${!chatMode ? 'bg-cyan-500/20 text-cyan-400' : 'bg-zinc-900/20 text-zinc-400'}
+        hover:bg-zinc-800/20 transition-colors`}
+      onClick={() => setChatMode(false)}
+    >
+      Research
+    </button>
+    <button
+      className={`px-2 lg:px-3 py-1 rounded border border-zinc-700 text-[9px] lg:text-[10px] font-mono font-bold tracking-widest 
+        ${chatMode ? 'bg-emerald-500/20 text-emerald-400' : 'bg-zinc-900/20 text-zinc-400'}
+        hover:bg-zinc-800/20 transition-colors`}
+      onClick={() => setChatMode(true)}
+    >
+      Talk
+    </button>
+  </div>
+  <form className="flex rounded-lg border border-zinc-700 bg-zinc-900/50 focus-within:border-cyan-500/50 focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:bg-zinc-900 transition-all shadow-lg max-w-4xl mx-auto overflow-hidden" onSubmit={handleSubmit}>
+    <div className="pl-3 lg:pl-5 pr-2 lg:pr-3 flex items-center justify-center">
+      {(chatMode && isChatProcessing) || (!chatMode && isProcessing)
+        ? <Loader2 size={16} className="animate-spin text-cyan-500" />
+        : chatMode
+          ? <Microscope size={16} className="text-emerald-400" />
+          : <Search size={16} className="text-zinc-500" />}
+    </div>
+    {chatMode && activeSession ? (
+      <>
+        <input type="text"
+          className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+          placeholder={`Ask about ${activeSession.title}...`}
+          value={chatInput}
+          onChange={e => setChatInput(e.target.value)}
+          disabled={isChatProcessing || !activeSession}
+        />
+        <button type="submit"
+          disabled={isChatProcessing || !activeSession || !chatInput.trim()}
+          className="px-4 lg:px-8 bg-emerald-100 text-emerald-950 font-mono font-bold tracking-widest text-xs hover:bg-emerald-200 transition-colors disabled:opacity-30 disabled:bg-emerald-800 disabled:text-emerald-500">
+          ASK
+        </button>
+      </>
+    ) : chatMode ? (
+      <>
+        <input type="text"
+          className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+          placeholder="Select a session from sidebar..."
+          value={chatInput}
+          onChange={e => setChatInput(e.target.value)}
+          disabled={true}
+        />
+        <button type="submit"
+          disabled={true}
+          className="px-4 lg:px-8 bg-zinc-800 text-zinc-500 font-mono font-bold tracking-widest text-xs disabled:opacity-30">
+          ASK
+        </button>
+      </>
+    ) : (
+      <>
+        <input type="text"
+          className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+          placeholder={activeSession ? 'Start New Session…' : 'Enter research topic...'}
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          disabled={isProcessing || activeSession !== null}
+        />
+        <button type="submit"
+          disabled={isProcessing || activeSession !== null || !query.trim()}
+          className="px-4 lg:px-8 bg-zinc-100 text-zinc-950 font-mono font-bold tracking-widest text-xs hover:bg-white transition-colors disabled:opacity-30 disabled:bg-zinc-800 disabled:text-zinc-500">
+          EXECUTE
+        </button>
+      </>
+    )}
+  </form>
+</div>
       </main>
 
       {/* ── RIGHT SIDEBAR ── */}
-      <aside className="w-80 flex flex-col h-full shrink-0 bg-zinc-950/80 backdrop-blur-xl relative z-20">
-        <div className="p-5 border-b border-zinc-800 text-[10px] font-mono font-bold flex items-center gap-2 tracking-[0.2em] text-zinc-500">
-          <Database size={12} /> SYSTEM_CONTEXT
+      <aside className={`
+        fixed lg:relative inset-y-0 right-0 z-50 lg:z-20
+        w-80 border-l border-zinc-800 flex flex-col h-full shrink-0 
+        bg-zinc-950/95 backdrop-blur-xl
+        transform transition-transform duration-300 ease-in-out
+        ${showRightPanel ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
+      `}>
+        <div className="p-3 lg:p-5 border-b border-zinc-800 flex items-center justify-between">
+          <div className="text-[9px] lg:text-[10px] font-mono font-bold flex items-center gap-2 tracking-[0.2em] text-zinc-500">
+            <Database size={12} /> SYSTEM_CONTEXT
+          </div>
+          {/* Close button for mobile */}
+          <button 
+            className="lg:hidden p-2 hover:bg-zinc-800 rounded-lg transition-colors"
+            onClick={() => setShowRightPanel(false)}
+          >
+            <span className="text-zinc-400">✕</span>
+          </button>
         </div>
-        <div className="p-5 flex-1 overflow-y-auto flex flex-col gap-8">
+        <div className="p-3 lg:p-5 flex-1 overflow-y-auto flex flex-col gap-6 lg:gap-8">
           
           {/* Pipeline Widget */}
-          <div className="bg-zinc-900/30 p-4 rounded-xl border border-zinc-800/50">
-            <h2 className="text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-4 flex justify-between items-center">
+          <div className="bg-zinc-900/30 p-3 lg:p-4 rounded-xl border border-zinc-800/50">
+            <h2 className="text-[9px] lg:text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-3 lg:mb-4 flex justify-between items-center">
               PIPELINE STATUS
-              {isProcessing && <span className="text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded text-[9px] animate-pulse">LIVE</span>}
+              {isProcessing && <span className="text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded text-[8px] lg:text-[9px] animate-pulse">LIVE</span>}
             </h2>
             <div className="flex flex-col gap-1.5">
               {Object.entries(pipeline).map(([key, val]) => (
@@ -1063,7 +1287,7 @@ function MainDashboard() {
 
           {/* Vault Widget */}
           <div>
-            <h2 className="text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-4 px-1">DOCUMENT VAULT</h2>
+            <h2 className="text-[9px] lg:text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-3 lg:mb-4 px-1">DOCUMENT VAULT</h2>
             <div className="flex flex-col gap-2 font-mono text-[11px]">
               {Object.keys(documentVault).length > 0 ? (
                 Object.entries(documentVault).map(([key, data]) => {
@@ -1072,21 +1296,24 @@ function MainDashboard() {
                   const isMd = displayKey.endsWith('.md') || displayKey.endsWith('.json')
                   return (
                     <button key={key}
-                      onClick={() => setActiveDocument({ name: displayKey, content: data })}
-                      className={`p-3 rounded-md border flex items-center gap-3 transition-all w-full text-left group
+                      onClick={() => {
+                        setActiveDocument({ name: displayKey, content: data });
+                        setShowRightPanel(false);
+                      }}
+                      className={`p-2 lg:p-3 rounded-md border flex items-center gap-2 lg:gap-3 transition-all w-full text-left group
                         ${activeDocument?.name === displayKey
                           ? 'border-emerald-500/50 bg-emerald-950/30 text-emerald-100 shadow-[0_0_10px_rgba(16,185,129,0.1)]'
                           : 'border-zinc-800 bg-zinc-900/30 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200 hover:bg-zinc-800/50'}`}>
-                      <div className={`p-1.5 rounded ${activeDocument?.name === displayKey ? 'bg-emerald-500/20 text-emerald-400' : 'bg-zinc-800 text-zinc-500 group-hover:text-zinc-300'}`}>
-                        {isMd ? <FileText size={12} /> : <Database size={12} />}
+                      <div className={`p-1 rounded ${activeDocument?.name === displayKey ? 'bg-emerald-500/20 text-emerald-400' : 'bg-zinc-800 text-zinc-500 group-hover:text-zinc-300'}`}>
+                        {isMd ? <FileText size={10} /> : <Database size={10} />}
                       </div>
-                      <span className="truncate">{displayKey}</span>
+                      <span className="truncate text-[10px] lg:text-xs">{displayKey}</span>
                     </button>
                   )
                 })
               ) : (
-                <div className="p-6 rounded-lg border border-dashed border-zinc-800 text-zinc-600 text-center text-xs flex flex-col items-center gap-2">
-                  <Database size={16} className="opacity-50" />
+                <div className="p-4 lg:p-6 rounded-lg border border-dashed border-zinc-800 text-zinc-600 text-center text-[10px] lg:text-xs flex flex-col items-center gap-2">
+                  <Database size={14} className="opacity-50" />
                   No files indexed
                 </div>
               )}
