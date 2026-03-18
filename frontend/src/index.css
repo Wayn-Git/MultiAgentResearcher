@@ -39,6 +39,22 @@
     }
 }
 
+/* Cursor blink animation */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.animate-blink {
+    animation: blink 1s step-end infinite;
+}
+
+/* Grid movement animation for splash */
+@keyframes gridMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(40px, 40px); }
+}
+
 /* Mobile scrollbar styling */
 @media (max-width: 1024px) {
     ::-webkit-scrollbar {
@@ -54,17 +70,23 @@
         background: #404040;
         border-radius: 2px;
     }
+    
+    /* Smooth scrolling for mobile */
+    * {
+        -webkit-overflow-scrolling: touch;
+    }
 }
 
-/* Ensure touch targets are large enough on mobile */
-@media (max-width: 768px) {
-    button, a, input, select, textarea {
-        min-height: 44px; /* Minimum touch target size */
-    }
-    
-    /* Prevent text selection on interactive elements */
-    .no-select {
-        -webkit-user-select: none;
-        user-select: none;
+/* Prevent iOS bounce scroll on the app container */
+#root {
+    height: 100dvh;
+    overflow: hidden;
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: env(safe-area-inset-bottom)) {
+    body {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
     }
 }
