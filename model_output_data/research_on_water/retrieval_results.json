@@ -1,388 +1,356 @@
 {
-    "Identify the chemical and physical properties of water, including its molecular structure, density, and solubility": [
+    "Identify and list the top 5 countries with the largest freshwater reserves, including the percentage of the world's total freshwater they hold": [
         {
-            "source": "pubs.acs.org",
-            "title": "How Water's Properties Are Encoded in Its Molecular Structure and ...",
-            "url": "https://pubs.acs.org/doi/10.1021/acs.chemrev.7b00259",
-            "summary": "This article discusses the unique properties of water, including its high surface tension, melting point, and boiling point, which are due to its molecular structure and hydrogen bonding. It also mentions that water has density anomalies, such as ice floating on liquid water, and that its pT equilibrium phase boundary between the solid and liquid is negative.",
+            "source": "www.visualcapitalist.com",
+            "title": "Charted: Share of Freshwater Resources by Country",
+            "url": "https://www.visualcapitalist.com/charted-share-of-freshwater-resources-by-country/",
+            "summary": "This article presents a chart showing the top 15 countries with the largest freshwater reserves, including Brazil, Russia, Canada, the United States, and China. The chart also includes the percentage of the world's total freshwater held by each country.",
             "key_points": [
-                "Water is more cohesive than materials made of molecules of equivalent size and shape.",
-                "Water molecules associate with each other relatively tightly, resulting in high values of surface tension, melting point, and boiling point.",
-                "Water has density anomalies, such as ice floating on liquid water.",
-                "The slope of water's pT equilibrium phase boundary between the solid and liquid is negative.",
-                "Water has relatively high values of surface tension, melting point, and boiling point due to hydrogen bonding."
+                "Brazil holds 13.2% of the world's total freshwater",
+                "Russia holds 10.1% of the world's total freshwater",
+                "Canada holds 6.7% of the world's total freshwater",
+                "The United States holds 6.6% of the world's total freshwater",
+                "China holds 6.6% of the world's total freshwater"
             ],
-            "relevance_score": 0.659
+            "relevance_score": 0.999
         },
         {
-            "source": "www.vedantu.com",
-            "title": "Water: Structure, Properties & Uses in Chemistry",
-            "url": "https://www.vedantu.com/chemistry/water",
-            "summary": "This article discusses the structure, properties, and uses of water in chemistry. It mentions that water is a polar inorganic compound with the chemical formula H2O, and that it has unique physical properties due to strong hydrogen bonding.",
+            "source": "www.fao.org",
+            "title": "4. WORLD WATER RESOURCES BY COUNTRY",
+            "url": "https://www.fao.org/4/y4473e/y4473e08.htm",
+            "summary": "This article discusses the distribution of water resources around the world, including the top 5 countries with the largest freshwater reserves. It also provides information on the total water resources in the world and the distribution of water resources by continent.",
             "key_points": [
-                "Water has the chemical formula H2O, consisting of two hydrogen atoms covalently bonded to one oxygen atom.",
-                "Water is a polar inorganic compound with unique physical properties due to strong hydrogen bonding.",
-                "Water can be purified using methods such as distillation, filtration, and disinfection.",
-                "Ice floats on water because its density is lower than that of liquid water.",
-                "Water is essential for various purposes in daily life and chemistry, including drinking, cooking, and industrial applications."
+                "America has the largest share of the world's total freshwater resources with 45%",
+                "Asia has 28% of the world's total freshwater resources",
+                "Europe has 15.5% of the world's total freshwater resources",
+                "Africa has 9% of the world's total freshwater resources"
             ],
-            "relevance_score": 0.734
+            "relevance_score": 0.998
         },
         {
             "source": "en.wikipedia.org",
-            "title": "Properties of water - Wikipedia",
-            "url": "https://en.wikipedia.org/wiki/Properties_of_water",
-            "summary": "This article discusses the properties of water, including its chemical and physical properties. It mentions that water is a polar inorganic compound with the chemical formula H2O, and that it has unique physical properties due to strong hydrogen bonding.",
+            "title": "List of countries by total renewable water resources",
+            "url": "https://en.wikipedia.org/wiki/List_of_countries_by_total_renewable_water_resources",
+            "summary": "This article presents a list of countries by total renewable water resources, including the top 20 countries with the largest freshwater reserves.",
             "key_points": [
-                "Water has the chemical formula H2O, consisting of two hydrogen atoms covalently bonded to one oxygen atom.",
-                "Water is a polar inorganic compound with unique physical properties due to strong hydrogen bonding.",
-                "Water is amphoteric, meaning that it can exhibit properties of an acid or a base depending on the pH of the solution.",
-                "Water has a high surface tension due to hydrogen bonding.",
-                "Water is essential for various purposes in daily life and chemistry, including drinking, cooking, and industrial applications."
+                "Brazil holds 5,661 billion cubic meters of freshwater",
+                "Russia holds 4,312 billion cubic meters of freshwater",
+                "Canada holds 2,850 billion cubic meters of freshwater",
+                "The United States holds 2,818 billion cubic meters of freshwater",
+                "China holds 2,813 billion cubic meters of freshwater"
             ],
-            "relevance_score": 0.647
+            "relevance_score": 0.998
         },
         {
-            "source": "chem.libretexts.org",
-            "title": "15.3: Physical Properties of Water - Chemistry LibreTexts",
-            "url": "https://chem.libretexts.org/Bookshelves/Introductory_Chemistry/Introductory_Chemistry_(CK-12)/15%3A_Water/15.03%3A_Physical_Properties_of_Water",
-            "summary": "This article discusses the physical properties of water, including its surface tension, vapor pressure, and density. It mentions that water has a high surface tension due to hydrogen bonding, and that it has a high heat of vaporization.",
+            "source": "finance.yahoo.com",
+            "title": "20 Countries with the Most Freshwater Resources",
+            "url": "https://finance.yahoo.com/news/20-countries-most-freshwater-resources-174315744.html",
+            "summary": "This article presents a list of the 20 countries with the most freshwater resources, including Brazil, Russia, Canada, the United States, and China.",
             "key_points": [
-                "Water has a high surface tension due to hydrogen bonding.",
-                "Water has a high heat of vaporization.",
-                "Water has a high vapor pressure.",
-                "Water has a high density.",
-                "Water's high surface tension is due to the hydrogen bonding in water molecules."
+                "Brazil holds 1.6 trillion cubic meters of renewable internal freshwater",
+                "Russia holds 430 billion cubic meters of renewable internal freshwater",
+                "Canada holds 580 billion cubic meters of renewable internal freshwater",
+                "The United States holds 442.4 billion cubic meters of renewable internal freshwater",
+                "China holds 2 trillion cubic meters of renewable internal freshwater"
             ],
-            "relevance_score": 0.61
+            "relevance_score": 0.997
         },
         {
-            "source": "chem.libretexts.org",
-            "title": "13.5: The Structure and Properties of Water - Chemistry LibreTexts",
-            "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Physical_Chemistry_for_the_Biosciences_(LibreTexts)/13%3A_Intermolecular_Forces/13.05%3A_The_Structure_and_Properties_of_Water",
-            "summary": "This article discusses the structure and properties of water, including its molecular structure, surface tension, and heat of vaporization. It mentions that water has a high surface tension due to hydrogen bonding, and that it has a high heat of vaporization.",
+            "source": "www.voronoiapp.com",
+            "title": "Countries With the Most Freshwater Resources",
+            "url": "https://www.voronoiapp.com/natural-resources/Countries-With-the-Most-Freshwater-Resources--4359",
+            "summary": "This article presents a list of the top 5 countries with the most freshwater resources, including Brazil, Russia, Canada, the United States, and China.",
             "key_points": [
-                "Water has a high surface tension due to hydrogen bonding.",
-                "Water has a high heat of vaporization.",
-                "Water has a high vapor pressure.",
-                "Water has a high density.",
-                "Water's high surface tension is due to the hydrogen bonding in water molecules."
+                "The top 5 countries account for 35% of the planet's total renewable freshwater resources",
+                "These countries are also some of the world's largest economies, highlighting the historic connection between water access and economic activity"
             ],
-            "relevance_score": 0.597
+            "relevance_score": 0.991
         }
     ],
-    "Analyze the current global water distribution, including freshwater sources, oceans, and ice caps, and their impact on the environment and human societies": [
+    "Analyze the current global water consumption trends, including the average daily per capita water usage in urban and rural areas": [
         {
-            "source": "education.nationalgeographic.org",
-            "title": "Freshwater Resources",
-            "url": "https://education.nationalgeographic.org/resource/freshwater-resources/",
-            "summary": "Most of the world's fresh water is not easily accessible to humans. Approximately 69% of Earth's fresh water is locked away in the form of ice in glaciers and polar ice caps, and another 30% is under the surface in the form of groundwater. Only about 1% of Earth's fresh water is readily available for human use.",
+            "source": "www.worldometers.info",
+            "title": "Water Use Statistics - Worldometer",
+            "url": "https://www.worldometers.info/water/",
+            "summary": "Worldometer reports on global water consumption trends, including the breakdown of water usage by sector and country. The site notes that agriculture accounts for 70% of all water consumption, while industry and domestic use account for 20% and 10%, respectively. The site also reports that freshwater withdrawals have tripled over the last 50 years, with a significant increase in demand due to population growth and changes in lifestyles.",
             "key_points": [
-                "69% of Earth's fresh water is locked away in glaciers and polar ice caps",
-                "30% of Earth's fresh water is under the surface in the form of groundwater",
-                "Only 1% of Earth's fresh water is readily available for human use",
-                "Approximately one-fifth of the world's population lives in water-scarce areas"
+                "Agriculture accounts for 70% of all water consumption globally.",
+                "Industry and domestic use account for 20% and 10% of water consumption, respectively.",
+                "Freshwater withdrawals have tripled over the last 50 years.",
+                "Population growth and changes in lifestyles are driving increased water demand.",
+                "Industrialized nations use more water than developing countries."
             ],
-            "relevance_score": 0.999
+            "relevance_score": 0.998
         },
         {
-            "source": "www.amnh.org",
-            "title": "[PDF] Where is Earth's Water?",
-            "url": "https://www.amnh.org/content/download/154153/2561707/file/grace%3A-passage-1%3A-student-version.pdf",
-            "summary": "Most of Earth's fresh water is locked in ice. Only a little over 3% of Earth's water is fresh. Most of that fresh water (68.7%) is frozen in glaciers and ice caps.",
+            "source": "irrigreen.com",
+            "title": "Water Consumption Statistics - Irrigreen",
+            "url": "https://irrigreen.com/pages/water-consumption-statistics?srsltid=AfmBOooMEZenn9iTSV0Zd1-K2XZkFbzx7bn6WfvNIU1M0pNxjLmx8AZH",
+            "summary": "Irrigreen reports on global water consumption trends, including the breakdown of water usage by sector and country. The site notes that the agricultural sector is the primary user of groundwater resources, accounting for 72% of all abstractions. The site also reports that global freshwater consumption reaches 4.3 trillion cubic meters per year, with a significant increase in demand due to population growth and changes in lifestyles.",
             "key_points": [
-                "Only 3.5% of all the water on Earth is fresh water",
-                "Most of Earth's fresh water is locked in ice",
-                "68.7% of Earth's fresh water is frozen in glaciers and ice caps",
-                "Two ice sheets, the Antarctica Ice Sheet and the Greenland Ice Sheet, contain more than 99% of the ice on Earth's surface"
+                "The agricultural sector is the primary user of groundwater resources, accounting for 72% of all abstractions.",
+                "Global freshwater consumption reaches 4.3 trillion cubic meters per year.",
+                "Population growth and changes in lifestyles are driving increased water demand.",
+                "Urban water demand is expected to surge dramatically, with an estimated 80% increase expected by 2050.",
+                "Industrialized countries use more water than developing countries."
             ],
-            "relevance_score": 0.999
+            "relevance_score": 0.998
         },
         {
-            "source": "education.nationalgeographic.org",
-            "title": "How Climate Change Impacts Water Access",
-            "url": "https://education.nationalgeographic.org/resource/how-climate-change-impacts-water-access/",
-            "summary": "Climate change accelerates ice melt, raising sea levels and threatening freshwater supplies. Rising sea levels can contaminate underground freshwater-bearing rocks, called aquifers.",
+            "source": "watercalculator.org",
+            "title": "Water Footprint Comparisons by Country",
+            "url": "https://watercalculator.org/footprint/water-footprints-by-country/",
+            "summary": "Watercalculator reports on global water usage trends, including the breakdown of water usage by country. The site notes that global water usage is driven by industrial and agricultural water use, with the amount depending on the volume of freshwater used to produce consumer goods. The site also reports that the global average water usage is 1,002 liters per capita per day.",
             "key_points": [
-                "Climate change accelerates ice melt, raising sea levels",
-                "Rising sea levels can contaminate underground freshwater-bearing rocks",
-                "Desalination is a last-resort, energy-intensive, costly process for places where there are persistent droughts and freshwater is lacking",
-                "Climate change impacts the water cycle by influencing when, where, and how much precipitation falls"
+                "Global water usage is driven by industrial and agricultural water use.",
+                "The global average water usage is 1,002 liters per capita per day.",
+                "Industrialized countries use more water than developing countries.",
+                "The amount of water used depends on the volume of freshwater used to produce consumer goods."
             ],
-            "relevance_score": 0.996
+            "relevance_score": 0.997
         },
         {
-            "source": "www.epa.gov",
-            "title": "How We Use Water",
-            "url": "https://www.epa.gov/watersense/how-we-use-water",
-            "summary": "The Earth might seem like it has abundant water, but in fact less than 1 percent is available for human use. The rest is either salt water found in oceans, fresh water frozen in the polar ice caps, or too inaccessible for practical usage.",
+            "source": "www.statista.com",
+            "title": "Urban & rural drinking water coverage worldwide - Statista",
+            "url": "https://www.statista.com/statistics/278660/drinking-water-coverage-in-urban-and-rural-regions-worldwide/?srsltid=AfmBOooJiiW7OkvowtyLBkwYQ_COHLt84gYbODWoVeerF2mUBDl47oTy",
+            "summary": "Statista reports on global drinking water coverage trends, including the breakdown of drinking water coverage by region and water source. The site notes that the global population without basic drinking water services decreased from 1.2 billion to 703 million between 2000 and 2022.",
             "key_points": [
-                "Less than 1% of Earth's water is available for human use",
-                "The rest of Earth's water is either salt water or too inaccessible for practical usage",
-                "Population and demand on freshwater resources are increasing, but supply will always remain constant"
+                "The global population without basic drinking water services decreased from 1.2 billion to 703 million between 2000 and 2022.",
+                "Drinking water coverage varies significantly by region and water source.",
+                "Urban drinking water coverage is higher than rural drinking water coverage."
             ],
-            "relevance_score": 0.987
+            "relevance_score": 0.995
         },
         {
-            "source": "www.unwater.org",
-            "title": "Water and Climate Change",
-            "url": "https://www.unwater.org/water-facts/water-and-climate-change",
-            "summary": "Water and climate change are inextricably linked. Extreme weather events are making water more scarce, more unpredictable, more polluted or all three.",
+            "source": "ourworldindata.org",
+            "title": "Water Use and Stress - Our World in Data",
+            "url": "https://ourworldindata.org/water-use-stress",
+            "summary": "Our World in Data reports on global water use trends, including the breakdown of freshwater use by country and sector. The site notes that global freshwater use has increased approximately six-fold since 1900, with a significant increase in demand due to population growth and economic shift towards more resource-intensive consumption patterns.",
             "key_points": [
-                "Water and climate change are inextricably linked",
-                "Extreme weather events are making water more scarce, more unpredictable, more polluted or all three",
-                "Flooding and rising sea levels can contaminate land and water resources with saltwater or faecal matter"
+                "Global freshwater use has increased approximately six-fold since 1900.",
+                "Population growth and economic shift towards more resource-intensive consumption patterns are driving increased water demand.",
+                "India, China, and the United States are the three countries with the largest freshwater withdrawals."
+            ],
+            "relevance_score": 0.984
+        },
+        {
+            "source": "archive.cdc.gov",
+            "title": "Water Use Around the World - CDC Archive",
+            "url": "https://archive.cdc.gov/www_cdc_gov/globalhealth/infographics/food-water/water_use.htm",
+            "summary": "The CDC Archive reports on global water use trends, including the breakdown of water use by country. The site notes that the U.S. uses a large amount of water each day compared to other countries.",
+            "key_points": [
+                "The U.S. uses a large amount of water each day compared to other countries.",
+                "Water use varies significantly by country."
+            ],
+            "relevance_score": 0.935
+        }
+    ],
+    "Research and document the 3 most significant water-related diseases affecting human populations worldwide, including their causes, symptoms, and prevention methods": [
+        {
+            "source": "waterforgood.org",
+            "title": "Seven Common Waterborne Diseases (and How to Prevent Them)",
+            "url": "https://waterforgood.org/7-most-common-waterborne-diseases-and-how-to-prevent-them/",
+            "summary": "The article discusses the seven most common waterborne diseases, including typhoid fever, cholera, and diarrhea. It highlights the importance of safe water, proper sanitation, and hygiene practices in preventing these diseases.",
+            "key_points": [
+                "Typhoid fever is a waterborne illness that affects up to 20 million people worldwide each year.",
+                "Cholera is a waterborne illness that can be prevented by washing hands often, eating cooked food, and drinking safe water.",
+                "Diarrhea is the second leading cause of death for children under the age of five, causing more childhood deaths than malaria, AIDS, and measles combined."
+            ],
+            "relevance_score": 0.997
+        },
+        {
+            "source": "www.who.int",
+            "title": "Introduction to water- related infectious diseases",
+            "url": "https://www.who.int/docs/librariesprovider2/default-document-library/module_1.1_introduction-wrid_ds_220831.pdf",
+            "summary": "The article provides an introduction to water-related infectious diseases, including waterborne, water-washed, and water-based diseases. It highlights the importance of proper hygiene and sanitation practices in preventing these diseases.",
+            "key_points": [
+                "Waterborne diseases are caused by the ingestion of pathogens in contaminated water.",
+                "Water-washed diseases are caused by poor hygiene and lack of access to safe water.",
+                "Water-based diseases are caused by exposure to pathogens through skin contact with contaminated water."
+            ],
+            "relevance_score": 0.997
+        },
+        {
+            "source": "nmtracking.doh.nm.gov",
+            "title": "Water Related Diseases - NM-Tracking",
+            "url": "https://nmtracking.doh.nm.gov/environment/water/WaterRelatedDisease.html",
+            "summary": "The article discusses water-related diseases, including waterborne pathogens and gastrointestinal problems. It highlights the importance of proper hygiene and sanitation practices in preventing these diseases.",
+            "key_points": [
+                "Waterborne pathogens can cause gastrointestinal problems, including diarrhea, vomiting, and stomach cramps.",
+                "Children, the elderly, and immune-compromised people are more susceptible to waterborne pathogens.",
+                "Proper handwashing and hygiene practices can prevent the spread of waterborne diseases."
+            ],
+            "relevance_score": 0.993
+        },
+        {
+            "source": "pmc.ncbi.nlm.nih.gov",
+            "title": "Narrative Review of Primary Preventive Interventions against Water ...",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8656607/",
+            "summary": "The article discusses primary preventive interventions against waterborne diseases, including handwashing, water treatment, and sanitation practices. It highlights the importance of proper hygiene and sanitation practices in preventing these diseases.",
+            "key_points": [
+                "Waterborne diseases account for an estimated 3.6% of the total disability-adjusted life year global burden of disease.",
+                "Diarrheal disease is the second leading cause of death in children under five years old.",
+                "Proper handwashing and hygiene practices can prevent the spread of waterborne diseases."
+            ],
+            "relevance_score": 0.991
+        },
+        {
+            "source": "www.who.int",
+            "title": "Drinking-water",
+            "url": "https://www.who.int/news-room/fact-sheets/detail/drinking-water",
+            "summary": "The article discusses the importance of safe drinking water, including the risks of microbiologically contaminated drinking water and the importance of proper hygiene and sanitation practices.",
+            "key_points": [
+                "Microbiologically contaminated drinking water can transmit diseases such as diarrhea, cholera, dysentery, typhoid, and polio.",
+                "Approximately 505,000 diarrheal deaths occur each year due to unsafe drinking water.",
+                "Proper handwashing and hygiene practices can prevent the spread of waterborne diseases."
+            ],
+            "relevance_score": 0.986
+        },
+        {
+            "source": "www.cdc.gov",
+            "title": "Waterborne Disease in the United States",
+            "url": "https://www.cdc.gov/healthy-water-data/waterborne-disease-in-us/index.html",
+            "summary": "The article discusses waterborne disease in the United States, including the shift in the types of diseases and routes of exposure that are most common over the last several decades.",
+            "key_points": [
+                "Germs in drinking water caused most waterborne diseases in the first part of the 20th century.",
+                "Effective and consistent drinking water treatment, disinfection, and sanitation measures have made these diseases rare.",
+                "Waterborne diseases are still a significant public health concern in the United States."
             ],
             "relevance_score": 0.976
-        },
-        {
-            "source": "oceanservice.noaa.gov",
-            "title": "Where is all of the Earth's water?",
-            "url": "https://oceanservice.noaa.gov/facts/wherewater.html",
-            "summary": "The ocean holds about 97 percent of the Earth's water; the remaining three percent is found in glaciers and ice, below the ground, in rivers and lakes.",
-            "key_points": [
-                "The ocean holds about 97 percent of the Earth's water",
-                "The remaining three percent of Earth's water is found in glaciers and ice, below the ground, in rivers and lakes",
-                "There are over 332,519,000 cubic miles of water on the planet"
-            ],
-            "relevance_score": 0.964
         }
     ],
-    "Examine the historical context of water usage and management, including ancient civilizations' water systems, historical water-related disasters, and the evolution of water treatment technologies": [
+    "Investigate and compare the energy requirements for different water treatment technologies, including reverse osmosis, distillation, and ultraviolet (UV) treatment": [
         {
-            "source": "waterworldusa.com",
-            "title": "The Evolution of Water Treatment Technology",
-            "url": "https://waterworldusa.com/evolution-of-water-treatment-technology/",
-            "summary": "The evolution of water treatment technology began with ancient methods such as boiling, sand filtration, and clay filtration. Ancient civilizations used basic water purification techniques like boiling water over a fire to kill harmful germs, letting water sit so dirt sank to the bottom, and pouring water through layers of sand, gravel, or cloth to remove dirt.",
+            "source": "nuaquasystems.com",
+            "title": "Reverse Osmosis vs. Distillation: Choosing the Right Method",
+            "url": "https://nuaquasystems.com/blogs/news/reverse-osmosis-vs-distillation-choosing-the-right-method?srsltid=AfmBOoohDpPvViDPNUtlgpE21b-1g-jIxQPdh4Fce_oO5IyiSRd6b633",
+            "summary": "Reverse osmosis generally requires less energy compared to distillation, but produces wastewater. Distillation consumes more energy but generates no wastewater. Reverse osmosis is highly effective in removing a wide range of contaminants, including heavy metals, pesticides, chlorine, and even bacteria and viruses.",
             "key_points": [
-                "Ancient civilizations used basic water purification techniques like boiling, sand filtration, and clay filtration.",
-                "The first written records about clean water come from ancient India and Greece, more than 2,000 years ago.",
-                "In ancient Rome, engineers built large Roman aqueducts that brought water from far away into cities.",
-                "Slow sand filters were used to remove impurities from water before it reached city homes, helping reduce many waterborne diseases."
+                "Reverse osmosis requires less energy compared to distillation.",
+                "Reverse osmosis produces wastewater, typically 2-4 gallons per gallon of filtered water.",
+                "Distillation consumes more energy but generates no wastewater.",
+                "Reverse osmosis is highly effective in removing a wide range of contaminants."
             ],
-            "relevance_score": 0.714
+            "relevance_score": 0.786
         },
         {
-            "source": "www.frontiersin.org",
-            "title": "Water Reuse: From Ancient to Modern Times and the Future",
-            "url": "https://www.frontiersin.org/journals/environmental-science/articles/10.3389/fenvs.2018.00026/full",
-            "summary": "Ancient civilizations developed advanced sewerage systems to dispose of wastewater to rivers, the sea, or agricultural land for irrigation and fertilization purposes. The Minoans developed sophisticated water and sewer systems, including a central sewer that was regularly flushed by rain.",
+            "source": "wjarr.com",
+            "title": "[PDF] Analysis of energy efficiency in water treatment plants",
+            "url": "https://wjarr.com/sites/default/files/fulltext_pdf/WJARR-2025-0893.pdf",
+            "summary": "The energy-intensive nature of advanced treatment processes like reverse osmosis (RO) and ultraviolet (UV) disinfection is highlighted. Emerging trends and future directions for improving energy efficiency include the integration of renewable energy sources and the adoption of advanced monitoring systems.",
             "key_points": [
-                "Minoans developed advanced sewerage systems to dispose of wastewater to rivers, the sea, or agricultural land.",
-                "The Minoans developed sophisticated water and sewer systems, including a central sewer that was regularly flushed by rain.",
-                "Ancient Greeks were among the first to use wastewater in agriculture.",
-                "In Greece, during the Classical period, wastewater originating from public toilets and residences, along with stormwater, were removed through combined sewer and drainage systems."
+                "Reverse osmosis and ultraviolet disinfection are energy-intensive processes.",
+                "Advanced treatment technologies require significant amounts of energy to operate.",
+                "The water sector contributes 5% of global greenhouse gas emissions, with energy use being a major factor.",
+                "Renewable energy sources and advanced monitoring systems can improve energy efficiency."
             ],
-            "relevance_score": 0.611
+            "relevance_score": 0.746
         },
         {
-            "source": "archive.epa.gov",
-            "title": "The History of Drinking Water Treatment",
-            "url": "https://archive.epa.gov/water/archive/web/pdf/2001_11_15_consumer_hist.pdf",
-            "summary": "Ancient civilizations established themselves around water sources, but an understanding of drinking water quality was not well known or documented. Methods to improve the taste and odor of drinking water were recorded as early as 4000 B.C.",
+            "source": "uswatersystems.com",
+            "title": "Distilled Water vs Reverse Osmosis: What's Best for Your Home?",
+            "url": "https://uswatersystems.com/blogs/blog/distilled-water-vs-reverse-osmosis-whats-best-for-your-home?srsltid=AfmBOoq6bX-IOwfqMX2CXkYZ_LkFUuFpUc_v1aVNDSRsJhFoSygbIio-",
+            "summary": "Reverse osmosis filters water by pushing it through a semi-permeable membrane using household water pressure, removing dissolved solids and impurities efficiently. Distillation effectively removes minerals, heavy metals, and pathogens, but its ability to eliminate volatile organic compounds (VOCs) is limited.",
             "key_points": [
-                "Ancient civilizations established themselves around water sources.",
-                "Methods to improve the taste and odor of drinking water were recorded as early as 4000 B.C.",
-                "Ancient Sanskrit and Greek writings recommended water treatment methods such as filtering through charcoal, exposing to sunlight, boiling, and straining.",
-                "Water treatment originally focused on improving the aesthetic qualities of drinking water."
+                "Reverse osmosis filters water using a semi-permeable membrane.",
+                "Distillation effectively removes minerals, heavy metals, and pathogens.",
+                "Reverse osmosis produces wastewater, typically 2-4 gallons per gallon of filtered water.",
+                "Distillation consumes significant energy due to boiling."
             ],
-            "relevance_score": 0.601
+            "relevance_score": 0.629
         },
         {
-            "source": "en.wikipedia.org",
-            "title": "History of water supply and sanitation",
-            "url": "https://en.wikipedia.org/wiki/History_of_water_supply_and_sanitation",
-            "summary": "The Minoan civilization built underground clay pipes for sanitation and water supply, and the Ancient Greeks used an indoor plumbing system for pressurized showers. Before modern sewers were invented, cesspools that collected human waste were the most widely used sanitation system.",
+            "source": "hawaiiancoolwater.com",
+            "title": "Reverse Osmosis Filtration vs. Ultraviolet Purification - Hawaiian ...",
+            "url": "https://hawaiiancoolwater.com/reverse-osmosis-filtration-vs-uv-purification/",
+            "summary": "UV purification works by using ultraviolet light energy to disrupt and deactivate organic molecules in water. RO filtration uses a semi-permeable membrane to remove particles from water.",
             "key_points": [
-                "The Minoan civilization built underground clay pipes for sanitation and water supply.",
-                "The Ancient Greeks used an indoor plumbing system for pressurized showers.",
-                "Before modern sewers were invented, cesspools that collected human waste were the most widely used sanitation system.",
-                "In ancient Mesopotamia, vertical shafts carried waste away into cesspools."
+                "UV purification uses ultraviolet light energy to disrupt and deactivate organic molecules.",
+                "RO filtration uses a semi-permeable membrane to remove particles from water.",
+                "UV purification can kill up to 99.9% of bacteria, viruses, and other living microorganisms.",
+                "RO filtration can remove up to 99% of dissolved solids."
             ],
-            "relevance_score": 0.6
-        },
-        {
-            "source": "www.frontiersin.org",
-            "title": "Evolution of water technology from a structural perspective",
-            "url": "https://www.frontiersin.org/journals/environmental-science/articles/10.3389/fenvs.2024.1447120/full",
-            "summary": "Continual innovations in water technologies have contributed to a significant expansion of civilization, helping humankind cope with varying natural and societal challenges. Emerging in about 8,000 - 10,000 BC, water technologies had initial aims to divert water from rivers or lakes to riparian land.",
-            "key_points": [
-                "Continual innovations in water technologies have contributed to a significant expansion of civilization.",
-                "Emerging in about 8,000 - 10,000 BC, water technologies had initial aims to divert water from rivers or lakes to riparian land.",
-                "Over time, more complex engineering and management systems (e.g., canals and aqueducts) were developed to convey water over longer distances.",
-                "Then, multiple technology systems that include non-consumptive use activities (for example, the use of water as a source of power and the use of water for recreation and transportation) were developed."
-            ],
-            "relevance_score": 0.592
-        },
-        {
-            "source": "eal.isas.illinois.edu",
-            "title": "Ancient Water Management",
-            "url": "https://eal.isas.illinois.edu/projects/ancient-water-management/",
-            "summary": "Ancient earthen dams, irrigation canals, and changes to hydrological regimes in the past are often best analyzed using geoarchaeological approaches. Learning how communities solved water management problems in the past provides clear and relevant examples to the water challenges communities face today.",
-            "key_points": [
-                "Ancient earthen dams, irrigation canals, and changes to hydrological regimes in the past are often best analyzed using geoarchaeological approaches.",
-                "Learning how communities solved water management problems in the past provides clear and relevant examples to the water challenges communities face today.",
-                "Some of these networks are still in use, making this one of the oldest continually used water management systems in the world.",
-                "The system was founded well before Indigenous towns and cities emerged within these networks."
-            ],
-            "relevance_score": 0.567
+            "relevance_score": 0.595
         }
     ],
-    "Investigate the major challenges facing global water security, including water scarcity, pollution, climate change, and their impacts on human health, economy, and ecosystems": [
+    "Examine the projected impacts of climate change on global water resources by 2050, including changes in precipitation patterns, sea-level rise, and increased frequency of extreme weather events": [
         {
-            "source": "earth.org",
-            "title": "Why Global Water Security Matters in 2024",
-            "url": "https://earth.org/global-water-crisis-why-the-world-urgently-needs-water-wise-solutions/",
-            "summary": "Global water security is an urgent issue worldwide due to water scarcity, pollution, and climate change. By 2030, water scarcity could displace over 700 million people, causing economic losses and health crises.",
+            "source": "www.ipcc.ch",
+            "title": "Chapter 4: Water | Climate Change 2022: Impacts, Adaptation and ...",
+            "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-4/",
+            "summary": "The global water cycle has been modified due to climate change, with hundreds of millions of people experiencing hydrological conditions that were previously unfamiliar. Precipitation patterns have shifted worldwide, with some regions receiving more annual or seasonal precipitation and others less. Water demand is projected to increase by 20-30% by 2050, depending on socioeconomic scenarios.",
             "key_points": [
-                "25 African countries are expected to suffer from increased water scarcity and water stress by 2025.",
-                "Only 22-34% of populations in at least eight sub-Saharan countries have access to safe water.",
-                "Water scarcity could displace over 700 million people by 2030, causing economic losses and health crises.",
-                "Water shortages hamper economic growth and worsen poverty, with the World Bank estimating that by 2050, water scarcity could cost some regions 6% of GDP."
+                "Precipitation patterns have shifted worldwide, with some regions receiving more annual or seasonal precipitation and others less.",
+                "Water demand is projected to increase by 20-30% by 2050, depending on socioeconomic scenarios.",
+                "The projected increase in precipitation intensity will increase rain-generated local flooding.",
+                "Direct flood damages are projected to increase by four to five times at 4\u00b0C compared to 1.5\u00b0C."
             ],
             "relevance_score": 1.0
         },
         {
-            "source": "climatecheck.com",
-            "title": "Water Stress, Drought and Climate Change",
-            "url": "https://climatecheck.com/risks/drought/water-stress-drought-and-climate-change",
-            "summary": "Water stress has severe consequences on human health, economy, and ecosystems. It leads to dehydration, hunger, economic stress, sanitation issues, and disease.",
+            "source": "19january2017snapshot.epa.gov",
+            "title": "Climate Impacts on Water Resources - US EPA",
+            "url": "https://19january2017snapshot.epa.gov/climate-impacts/climate-impacts-water-resources_.html",
+            "summary": "Rising sea levels and changes in precipitation threaten the quality of water supply in coastal and island regions. Saltwater intrusion can increase the salinity of surface water and groundwater, affecting freshwater availability. Changes in precipitation patterns have already been observed, with the amount of rain falling during very heavy precipitation events increasing by more than 30% in some regions.",
             "key_points": [
-                "Water stress often causes people to rely on contaminated water, exposing them to preventable health risks like cholera, diarrhea, dysentery, typhus, and hepatitis A.",
-                "Increasingly frequent and severe flooding has contaminated water sources and destroyed sanitation facilities.",
-                "Rising sea levels put coastline water services in danger, exacerbating water stress.",
-                "Water stress can lead to decreased economic development, competition over resources, and forced migration and conflict."
+                "Rising sea levels and changes in precipitation threaten the quality of water supply in coastal and island regions.",
+                "Saltwater intrusion can increase the salinity of surface water and groundwater, affecting freshwater availability.",
+                "Changes in precipitation patterns have already been observed, with the amount of rain falling during very heavy precipitation events increasing by more than 30% in some regions.",
+                "Warming winter temperatures cause more precipitation to fall as rain rather than snow, altering the timing of streamflow in rivers."
             ],
             "relevance_score": 1.0
         },
         {
-            "source": "pmc.ncbi.nlm.nih.gov",
-            "title": "Challenges and Solutions for Global Water Scarcity",
-            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10300917/",
-            "summary": "Global water scarcity has severe consequences on the environment, economy, and society. It leads to water-related disasters, reduced economic impact, and increased poverty.",
+            "source": "climateresilience.ca.gov",
+            "title": "Summary of Projected Climate Change Impacts on California",
+            "url": "https://climateresilience.ca.gov/overview/impacts.html",
+            "summary": "Climate change is already impacting California, with rising temperatures causing more frequent and severe extreme weather events, including heat waves, droughts, wildfires, and storms. Droughts will grow more frequent, prolonged, and intense, affecting water availability and demand.",
             "key_points": [
-                "Water scarcity can lead to failed crops and livestock death.",
-                "It impacts the whole economy, causing trade disruptions and prioritizing water over other basic needs.",
-                "Water scarcity can lead to increased risk of water-related disasters, reduced economic impact, and increased poverty.",
-                "It can lead to decreased economic development, competition over resources, and forced migration and conflict."
+                "Climate change is already impacting California, with rising temperatures causing more frequent and severe extreme weather events.",
+                "Droughts will grow more frequent, prolonged, and intense, affecting water availability and demand.",
+                "Snowpack in California's mountains will decline by more than a third by 2050 and more than half by 2100, reducing surface and groundwater supply.",
+                "Flooding will increase due to more intense storms and higher flood flows, overwhelming stormwater and wastewater systems."
             ],
-            "relevance_score": 1.0
+            "relevance_score": 0.998
         },
         {
-            "source": "ccc.bc.edu",
-            "title": "Understanding Water Scarcity and Its Global Significance",
-            "url": "https://ccc.bc.edu/content/bc-ccc/news/blogs/understanding-water-scarcity.html",
-            "summary": "Water scarcity is a growing global challenge, with profound humanitarian, environmental, and economic consequences. It affects ecosystems, communities, and global markets.",
+            "source": "wmo.int",
+            "title": "Extreme heat, cold, precipitation and fires mark the start of 2026",
+            "url": "https://wmo.int/media/news/extreme-heat-cold-precipitation-and-fires-mark-start-of-2026",
+            "summary": "Extreme weather events, including heavy precipitation, strong winds, and high waves, have caused travel disruption and flooding in many countries. The intensity of heavy downpours has increased by 40% since preindustrial times, with some areas receiving over a year's rain in just days.",
             "key_points": [
-                "Water scarcity is a present and escalating crisis, reshaping ecosystems, communities, and global markets.",
-                "It requires integrated, cross-sector strategies that link environmental protection, technological innovation, and policy reform.",
-                "Solving global water challenges would require approximately $55 billion, just one-fifth of the economic value currently at risk.",
-                "Strategic investments in water efficiency, ecosystem protection, and infrastructure modernization offer high returns."
+                "Extreme weather events, including heavy precipitation, strong winds, and high waves, have caused travel disruption and flooding in many countries.",
+                "The intensity of heavy downpours has increased by 40% since preindustrial times.",
+                "Some areas have received over a year's rain in just days, leading to flooding and disruption.",
+                "Climate change has amplified the intensity and frequency of extreme weather events."
             ],
-            "relevance_score": 1.0
+            "relevance_score": 0.994
         },
         {
-            "source": "www.worldwildlife.org",
-            "title": "Water Scarcity: Causes, Impacts, and Solutions",
-            "url": "https://www.worldwildlife.org/our-work/freshwater/water-scarcity/",
-            "summary": "Water scarcity is a growing global challenge, with severe consequences on ecosystems and human populations. It affects agriculture, energy generation, cities, and ecosystems.",
+            "source": "environmentamerica.org",
+            "title": "Global Warming and Extreme Weather: The Science, the Forecast ...",
+            "url": "https://environmentamerica.org/center/resources/global-warming-and-extreme-weather-the-science-the-forecast-and-the-impacts-on-america/",
+            "summary": "Global warming may drive changes in the frequency, timing, location, or severity of extreme weather events, including hurricanes, sea level rise, and coastal storms. The number of moderate coastal flooding events would increase from zero to 136 if New York City experienced a 20-inch rise in sea level.",
             "key_points": [
-                "More than half the world's wetlands have disappeared due to water scarcity.",
-                "Agriculture consumes more water than any other source and wastes much of that through inefficiencies.",
-                "Climate change is altering patterns of weather and water around the world, causing shortages and droughts in some areas and floods in others.",
-                "By 2025, two-thirds of the world's population may face water shortages."
+                "Global warming may drive changes in the frequency, timing, location, or severity of extreme weather events.",
+                "The number of moderate coastal flooding events would increase from zero to 136 if New York City experienced a 20-inch rise in sea level.",
+                "Sea level rise and coastal storms pose significant threats to coastal communities and ecosystems.",
+                "Extreme weather events lead to billions of dollars in economic damage and loss of life each year."
             ],
-            "relevance_score": 0.999
+            "relevance_score": 0.993
         },
         {
-            "source": "sustainability.stanford.edu",
-            "title": "The effects of climate change on water shortages",
-            "url": "https://sustainability.stanford.edu/news/effects-climate-change-water-shortages",
-            "summary": "Climate change has severe consequences on water shortages, affecting human health, ecosystems, and the economy.",
+            "source": "www.germanwatch.org",
+            "title": "[PDF] Climate Risk Index 2026 - Germanwatch e.V.",
+            "url": "https://www.germanwatch.org/sites/default/files/2025-11/CRI%2026%20full%20report.pdf",
+            "summary": "Climate change has amplified the intensity and frequency of extreme weather events, including hurricanes, droughts, and floods. The country of Grenada is particularly vulnerable to hydrometeorological extremes, with seven extreme weather events recorded between 1995 and 2024.",
             "key_points": [
-                "Water scarcity can lead to increased concentration of harmful pollutants in rivers and streams.",
-                "Overtaxed aquifers may become more vulnerable to contamination.",
-                "Drought can elevate risk of wildfires and dust storms that may lead to irritation of lungs and airways.",
-                "When people can't get enough water for sanitation and handwashing, respiratory and gastrointestinal illnesses tend to spread more easily."
+                "Climate change has amplified the intensity and frequency of extreme weather events.",
+                "The country of Grenada is particularly vulnerable to hydrometeorological extremes.",
+                "Seven extreme weather events were recorded in Grenada between 1995 and 2024.",
+                "Climate change poses significant risks to human life, property, and ecosystems."
             ],
-            "relevance_score": 0.999
-        }
-    ],
-    "Explore future water management strategies, including innovative technologies, sustainable practices, and policy frameworks for ensuring global water security and addressing the United Nations' Sustainable Development Goals (SDGs) related to water": [
-        {
-            "source": "link.springer.com",
-            "title": "Smart and sustainable water management: policy, technology, and ...",
-            "url": "https://link.springer.com/article/10.1007/s44173-025-00022-8",
-            "summary": "Implementing sustainable water management requires advanced tools, efficient wastewater treatment, demand-side management, and climate-resilient infrastructure. Robust political commitment, participatory governance, and intersectoral collaboration are essential for achieving the 2030 objective. Sustainable water management is central to several UN SDGs, including SDG 6, SDG 2, SDG 7, SDG 8, SDG 13, and SDGs 14 & 15.",
-            "key_points": [
-                "Advanced WFP assessment tools integrated with life cycle analysis (LCA) and GIS-based hydrological models",
-                "Sector-specific benchmarks for operational and virtual water use",
-                "Efficient wastewater treatment technologies, including nature-based solutions and decentralized systems",
-                "Demand-side management through behavioral interventions and water-saving technologies",
-                "Climate-resilient infrastructure, such as managed aquifer recharge, check dams, and smart irrigation systems"
-            ],
-            "relevance_score": 1.0
-        },
-        {
-            "source": "link.springer.com",
-            "title": "Sustainable development goal 6: Global Water Security",
-            "url": "https://link.springer.com/article/10.1007/s42398-022-00246-5",
-            "summary": "SDG 6 aims to ensure availability and sustainable management of water and sanitation for all by 2030. The goal has two targets: one focuses on increasing water efficiency, and the other emphasizes trans-boundary cooperation. Coordinated policy and regulatory frameworks are crucial for achieving the targeted rate.",
-            "key_points": [
-                "SDG 6 aims to ensure availability and sustainable management of water and sanitation for all by 2030",
-                "Two targets: increasing water efficiency and trans-boundary cooperation",
-                "Coordinated policy and regulatory frameworks are crucial for achieving the targeted rate",
-                "Regions with urgent escalation of water scarcity include South and Central America, the Caribbean, Oceania, South Asia, Central Asia, Central Africa, and West Africa"
-            ],
-            "relevance_score": 1.0
-        },
-        {
-            "source": "pmc.ncbi.nlm.nih.gov",
-            "title": "Water and the UN sustainable development goals - PMC",
-            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10208314/",
-            "summary": "Understanding the interactions between water and other SDGs can lead to new ways of assessing the value of water and inspire new technological and community-based solutions to water issues. A revised valuation of water can help delivery bodies and funders prioritize water policies and projects to accelerate progress towards achieving the SDGs.",
-            "key_points": [
-                "Many SDGs depend heavily on water, including SDG 2, SDG 3, SDG 7, SDG 9, SDG 11, and SDG 12",
-                "Two SDGs (14 and 15) depend absolutely on the planet's hydrological cycles",
-                "Avoiding water shortages requires integrating knowledge with policy approaches that include ways of delivering on the SDG ambitions"
-            ],
-            "relevance_score": 1.0
-        },
-        {
-            "source": "www.unwater.org",
-            "title": "[PDF] United Nations System-wide Strategy for Water and Sanitation",
-            "url": "https://www.unwater.org/sites/default/files/2024-07/un_system-wide_strategy_for_water_and_sanitation_july2024_vs8.pdf",
-            "summary": "The United Nations System-wide Strategy for Water and Sanitation aims to improve policy coherence, accelerate progress, and strengthen accountability for water and sanitation. The strategy includes five SDG 6 global accelerators: financing, data and information, capacity development, innovation, and governance.",
-            "key_points": [
-                "Five SDG 6 global accelerators: financing, data and information, capacity development, innovation, and governance",
-                "The strategy aims to improve policy coherence and accelerate progress on water and sanitation",
-                "Strengthened accountability for progress on water and sanitation through joint review and learning"
-            ],
-            "relevance_score": 1.0
-        },
-        {
-            "source": "capconeng.com",
-            "title": "The Future of Water Management: Sustainability, Innovation, and ...",
-            "url": "https://capconeng.com/the-future-of-water-management-sustainability-innovation-and-smart-solutions/",
-            "summary": "The future of water management requires a sustainable approach, innovation, and smart solutions. Maximizing water efficiency through rainwater harvesting is essential for urban water management.",
-            "key_points": [
-                "Maximizing water efficiency through rainwater harvesting is essential for urban water management",
-                "A sustainable approach to urban water management is required",
-                "Innovation and smart solutions are necessary for the future of water management"
-            ],
-            "relevance_score": 1.0
-        },
-        {
-            "source": "sdgs.unep.org",
-            "title": "SDG 6 | Sustainable developments Goals - UNEP",
-            "url": "http://sdgs.unep.org/article/sdg-6",
-            "summary": "Water planning at national and local levels yields numerous benefits, including innovation, user-friendly projects, and greater consumer satisfaction. Vulnerable groups should participate in decisions related to water management programmes and investments.",
-            "key_points": [
-                "Water planning at national and local levels yields numerous benefits",
-                "Vulnerable groups should participate in decisions related to water management programmes and investments",
-                "Innovative and user-friendly projects can improve consumer satisfaction"
-            ],
-            "relevance_score": 0.999
+            "relevance_score": 0.989
         }
     ]
 }

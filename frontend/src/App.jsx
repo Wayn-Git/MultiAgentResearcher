@@ -653,14 +653,18 @@ function MainDashboard() {
       setChatInput('')
       
       try {
+        const payload = {
+          message: userMessage,
+          folder_id: activeSession.id,
+          history: chatHistory
+        }
+        if (activeSession.isDemo) {
+          payload.session_data = activeSession
+        }
         const response = await fetch(`${API_URL}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            message: userMessage,
-            folder_id: activeSession.id,
-            history: chatHistory
-          }),
+          body: JSON.stringify(payload),
         })
         
         const data = await response.json()
@@ -727,7 +731,7 @@ function MainDashboard() {
                     const finalLogs = [...prev, { type: 'sys', content: 'Session Archived.' }]
                     try {
                       const newSession = {
-                        id: `session_${Date.now()}`,
+                        id: event.data.folder,
                         title: submittedQuery,
                         isDemo: false,
                         logs: finalLogs,

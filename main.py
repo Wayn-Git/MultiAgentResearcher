@@ -35,6 +35,7 @@ class ChatRequest(BaseModel):
     message: str
     folder_id: str
     history: list = []
+    session_data: dict = None
 
 
 def prettify_folder_name(folder: str) -> str:
@@ -344,65 +345,80 @@ async def stream_research(request: ResearchRequest):
 async def chat_with_research(request: ChatRequest):
     """Allow user to chat with LLM about their research."""
     try:
-        # Load the research data for context
-        folder = re.sub(r"[^a-zA-Z0-9_\-]", "", request.folder_id)
-        folder_path = os.path.join(BASE_PATH, folder)
-
-        if not os.path.isdir(folder_path):
-            raise HTTPException(
-                status_code=404, detail=f"Research session '{folder}' not found."
-            )
-
-        # Load research data
-        data = load_folder_data(folder_path)
-
-        # Also load the markdown report
-        report_md_path = os.path.join(folder_path, "final_report.md")
-        report_markdown = ""
-        if os.path.exists(report_md_path):
-            with open(report_md_path, "r", encoding="utf-8") as f:
-                report_markdown = f.read()
-
-        # Prepare context from research - use more readable format
         context_parts = []
-
-        # Add the research title/folder
-        context_parts.append(f"Research Session: {prettify_folder_name(folder)}")
-
-        if data.get("tasks"):
-            tasks = data["tasks"]
-            if isinstance(tasks, list) and len(tasks) > 0:
-                context_parts.append("Research Tasks/Topics:")
-                for i, task in enumerate(tasks[:5], 1):  # Limit to first 5 tasks
-                    desc = task.get("description", str(task))
-                    context_parts.append(f"  {i}. {desc[:100]}")
-
-        if data.get("refined_synthesis") or data.get("synthesis"):
-            synthesis = data.get("refined_synthesis") or data.get("synthesis")
-            if isinstance(synthesis, dict):
-                if "synthesized_summary" in synthesis:
+        
+        if request.session_data:
+            # It's a demo session shipped from the frontend
+            title = request.session_data.get("title", request.folder_id)
+            context_parts.append(f"Research Session: {title}")
+            for log in request.session_data.get("logs", []):
+                if log.get("type") == "sys" and log.get("step") == "report":
+                    md = log.get("data", {}).get("markdown", "")
+                    if md:
+                        context_parts.append("Full Research Report (summary):")
+                        lines = md.split("\n")
+                        intro = []
+                        for line in lines:
+                            if line.startswith("#"):
+                                if intro or not line.startswith("##"):
+                                    break
+                            intro.append(line)
+                            if len(intro) > 20:
+                                break
+                        context_parts.append("\n".join(intro[:20]))
+                elif log.get("type") == "sys" and log.get("step") == "synthesis":
                     context_parts.append("Key Research Findings:")
-                    context_parts.append(
-                        f"  {synthesis['synthesized_summary'][:500]}..."
-                    )
-                elif "summary" in synthesis:
-                    context_parts.append("Key Research Findings:")
-                    context_parts.append(f"  {synthesis['summary'][:500]}...")
+                    context_parts.append(str(log.get("data", {}))[:500] + "...")
+        else:
+            # Load the research data for context from disk
+            folder = re.sub(r"[^a-zA-Z0-9_\-]", "", request.folder_id)
+            folder_path = os.path.join(BASE_PATH, folder)
 
-        # Use the markdown report if available - it's the most readable
-        if report_markdown:
-            context_parts.append("Full Research Report (summary):")
-            # Extract just the main sections
-            lines = report_markdown.split("\n")
-            intro = []
-            for line in lines:
-                if line.startswith("#"):
-                    if intro or not line.startswith("##"):
+            if not os.path.isdir(folder_path):
+                raise HTTPException(
+                    status_code=404, detail=f"Research session '{folder}' not found."
+                )
+
+            data = load_folder_data(folder_path)
+
+            report_md_path = os.path.join(folder_path, "final_report.md")
+            report_markdown = ""
+            if os.path.exists(report_md_path):
+                with open(report_md_path, "r", encoding="utf-8") as f:
+                    report_markdown = f.read()
+
+            context_parts.append(f"Research Session: {prettify_folder_name(folder)}")
+
+            if data.get("tasks"):
+                tasks = data["tasks"]
+                if isinstance(tasks, list) and len(tasks) > 0:
+                    context_parts.append("Research Tasks/Topics:")
+                    for i, task in enumerate(tasks[:5], 1):
+                        desc = task.get("description", str(task))
+                        context_parts.append(f"  {i}. {desc[:100]}")
+
+            if data.get("refined_synthesis") or data.get("synthesis"):
+                synthesis = data.get("refined_synthesis") or data.get("synthesis")
+                if isinstance(synthesis, dict):
+                    if "synthesized_summary" in synthesis:
+                        context_parts.append("Key Research Findings:")
+                        context_parts.append(f"  {synthesis['synthesized_summary'][:500]}...")
+                    elif "summary" in synthesis:
+                        context_parts.append("Key Research Findings:")
+                        context_parts.append(f"  {synthesis['summary'][:500]}...")
+
+            if report_markdown:
+                context_parts.append("Full Research Report (summary):")
+                lines = report_markdown.split("\n")
+                intro = []
+                for line in lines:
+                    if line.startswith("#"):
+                        if intro or not line.startswith("##"):
+                            break
+                    intro.append(line)
+                    if len(intro) > 20:
                         break
-                intro.append(line)
-                if len(intro) > 20:
-                    break
-            context_parts.append("\n".join(intro[:20]))
+                context_parts.append("\n".join(intro[:20]))
 
         research_context = (
             "\n\n".join(context_parts)
@@ -467,7 +483,7 @@ EXAMPLES:
 
         return {
             "response": response_content,
-            "folder": folder,
+            "folder": request.folder_id,
             "used_context": bool(context_parts),
         }
 
