@@ -1,32 +1,32 @@
 [
     {
-        "description": "Identify the chemical and physical properties of water, including its molecular structure, density, and solubility",
+        "description": "Identify and list the top 5 countries with the largest freshwater reserves, including the percentage of the world's total freshwater they hold",
         "priority": 9,
-        "type": "foundational knowledge",
-        "search_angle": "Technical details of water composition"
+        "type": "geographical analysis",
+        "search_angle": "Global freshwater distribution"
     },
     {
-        "description": "Analyze the current global water distribution, including freshwater sources, oceans, and ice caps, and their impact on the environment and human societies",
+        "description": "Analyze the current global water consumption trends, including the average daily per capita water usage in urban and rural areas",
         "priority": 8,
-        "type": "core analytical depth",
-        "search_angle": "Current state of water resources"
+        "type": "consumption patterns",
+        "search_angle": "Human water usage"
     },
     {
-        "description": "Examine the historical context of water usage and management, including ancient civilizations' water systems, historical water-related disasters, and the evolution of water treatment technologies",
+        "description": "Research and document the 3 most significant water-related diseases affecting human populations worldwide, including their causes, symptoms, and prevention methods",
+        "priority": 8,
+        "type": "health impacts",
+        "search_angle": "Waterborne diseases"
+    },
+    {
+        "description": "Investigate and compare the energy requirements for different water treatment technologies, including reverse osmosis, distillation, and ultraviolet (UV) treatment",
         "priority": 7,
-        "type": "historical context",
-        "search_angle": "Historical development of water management"
+        "type": "technical analysis",
+        "search_angle": "Water purification methods"
     },
     {
-        "description": "Investigate the major challenges facing global water security, including water scarcity, pollution, climate change, and their impacts on human health, economy, and ecosystems",
-        "priority": 8,
-        "type": "challenge analysis",
-        "search_angle": "Current water-related challenges and threats"
-    },
-    {
-        "description": "Explore future water management strategies, including innovative technologies, sustainable practices, and policy frameworks for ensuring global water security and addressing the United Nations' Sustainable Development Goals (SDGs) related to water",
+        "description": "Examine the projected impacts of climate change on global water resources by 2050, including changes in precipitation patterns, sea-level rise, and increased frequency of extreme weather events",
         "priority": 9,
         "type": "future outlook",
-        "search_angle": "Future water management and sustainability"
+        "search_angle": "Climate change and water resources"
     }
 ]

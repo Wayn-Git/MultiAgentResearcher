@@ -1,15 +1,7 @@
-<<<<<<< HEAD
-import React, { useState, useEffect, useRef, useCallback, Component } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { VercelV0Chat } from "./components/ui/v0-ai-chat";
-import { Waves } from "./components/ui/wave-background";
-import "./styles/chat.css";
-import "./index.css";
-=======
 import { useState, useRef, useEffect } from 'react'
 import { Activity, Database, FileText, TerminalSquare, Plus, Clock, ChevronRight, ChevronDown, CheckCircle2, Loader2, AlertCircle, Search, BookOpen, Layers, Microscope, GitMerge, Puzzle, ScrollText, XCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
->>>>>>> faf9a8812d1f5627deb1fd27eae718c980e60478
+import { DEMO_SESSIONS } from './demoSessions'
 
 // API URL from environment or default to localhost
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
@@ -630,14 +622,14 @@ function MainDashboard() {
   const [documentVault, setDocumentVault] = useState({})
   const logsEndRef = useRef(null)
 
-  const refreshHistory = () => {
-    fetch(`${API_URL}/api/history`)
-      .then(r => r.json())
-      .then(d => setHistory(d.sessions || []))
-      .catch(console.error)
+  const loadFromLocalStorage = () => {
+    try {
+      const stored = JSON.parse(localStorage.getItem('mai_sessions') || '[]')
+      setHistory([...DEMO_SESSIONS, ...stored])
+    } catch { setHistory([...DEMO_SESSIONS]) }
   }
 
-  useEffect(() => { refreshHistory() }, [])
+  useEffect(() => { loadFromLocalStorage() }, [])
   useEffect(() => { logsEndRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [logs])
   
   useEffect(() => {
@@ -731,18 +723,23 @@ function MainDashboard() {
                   setPipeline(prev => ({ ...prev, report: 'DONE' }))
                   setIsProcessing(false)
                   setCurrentStep(null)
-                  refreshHistory()
-                  fetch(`${API_URL}/api/history/${event.data.folder}`)
-                    .then(r => r.json())
-                    .then(fd => {
-                      setDocumentVault(fd)
-                      if (fd.final_report) {
-                        fetch(`${API_URL}/api/history/${event.data.folder}/report.md`)
-                          .then(r => r.json())
-                          .then(md => setDocumentVault(prev => ({ ...prev, 'report.md': md.markdown })))
+                  setLogs(prev => {
+                    const finalLogs = [...prev, { type: 'sys', content: 'Session Archived.' }]
+                    try {
+                      const newSession = {
+                        id: `session_${Date.now()}`,
+                        title: submittedQuery,
+                        isDemo: false,
+                        logs: finalLogs,
+                        savedAt: new Date().toISOString(),
                       }
-                    }).catch(console.error)
-                  setLogs(prev => [...prev, { type: 'sys', content: 'Session Archived.' }])
+                      const existing = JSON.parse(localStorage.getItem('mai_sessions') || '[]')
+                      const updated = [newSession, ...existing].slice(0, 50)
+                      localStorage.setItem('mai_sessions', JSON.stringify(updated))
+                      setHistory([...DEMO_SESSIONS, ...updated])
+                    } catch (e) { console.error('localStorage save error:', e) }
+                    return finalLogs
+                  })
                 } else {
                   setLogs(prev => [...prev, { type: 'sys', step: event.step, data: event.data, failed: false }])
                 }
@@ -767,207 +764,17 @@ function MainDashboard() {
     setActiveSession(session)
     setActiveDocument(null)
     setPipeline({ task: 'DONE', retrieval: 'DONE', synthesis: 'DONE', critic: 'DONE', cross_synthesis: 'DONE', gap: 'DONE', report: 'DONE' })
-    setLogs([])
     setChatHistory([])
-
-    fetch(`${API_URL}/api/history/${session.id}`)
-      .then(r => r.json())
-      .then(fd => {
-        setDocumentVault(fd)
-        const rebuilt = [{ type: 'user', content: fd.title || session.title }]
-
-        if (fd.tasks)     rebuilt.push({ type: 'sys', step: 'task',            data: fd.tasks,      failed: false })
-        if (fd.retrieval) rebuilt.push({ type: 'sys', step: 'retrieval',       data: fd.retrieval,  failed: false })
-        if (fd.synthesis) rebuilt.push({ type: 'sys', step: 'synthesis',       data: fd.synthesis,  failed: false })
-
-        if (fd.critique || fd.refined_synthesis) {
-          rebuilt.push({ type: 'sys', step: 'critic', failed: false, data: {
-            critique_log:      fd.critique          || [],
-            refined_synthesis: fd.refined_synthesis || fd.synthesis || {},
-          }})
-        }
-
-        if (fd.cross_synthesis) rebuilt.push({ type: 'sys', step: 'cross_synthesis', data: fd.cross_synthesis, failed: false })
-        if (fd.gaps)            rebuilt.push({ type: 'sys', step: 'gap',             data: fd.gaps,           failed: false })
-
-        if (fd.report || fd.final_report) {
-          rebuilt.push({ type: 'sys', step: 'report', data: fd.report || fd.final_report, failed: false })
-        }
-
-        rebuilt.push({ type: 'sys', content: 'Session Archived.' })
-        setLogs(rebuilt)
-
-        fetch(`${API_URL}/api/history/${session.id}/report.md`)
-          .then(r => r.json())
-          .then(md => setDocumentVault(prev => ({ ...prev, 'report.md': md.markdown })))
-          .catch(console.error)
-      }).catch(console.error)
+    setChatMode(false)
+    setChatInput('')
+    setDocumentVault({})
+    setLogs(session.logs || [])
   }
 
   const reportMarkdown = documentVault?.['report.md'] ?? null
 
   return (
-<<<<<<< HEAD
-    <div className="flex h-dvh w-full bg-zinc-950 text-zinc-300 font-sans overflow-hidden">
-=======
-<<<<<<< HEAD
-    <>
-      <div className="fixed inset-0 z-0 bg-[#030303]">
-        <Waves strokeColor="rgba(255,255,255,0.1)" backgroundColor="#030303" pointerSize={0.5} />
-      </div>
-      <div className="app-shell" style={{ position: "relative", zIndex: 1 }}>
-        {/* TOP BAR */}
-        <header className="topbar">
-          <div className="topbar-logo">
-            <motion.div className="topbar-logo-badge" whileHover={{ scale: 1.1, rotate: 5 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}>M</motion.div>
-            MultiAgent<span className="topbar-logo-text">Researcher</span>
-          </div>
-          <div className="topbar-right">
-            <motion.button className="topbar-btn" onClick={() => setShowSidebar(true)}
-              whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-              <span>☰</span> Research Log
-            </motion.button>
-            <motion.div className={`status-pill ${loading ? "live" : ""}`}
-              animate={loading ? { scale: [1, 1.02, 1] } : {}}
-              transition={loading ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : {}}>
-              {loading ? "● PIPELINE ACTIVE" : "○ READY"}
-            </motion.div>
-          </div>
-        </header>
-
-        {/* SIDEBAR */}
-        <div className={`sidebar-backdrop ${showSidebar ? "open" : ""}`} onClick={() => setShowSidebar(false)} />
-        <aside className={`sidebar ${showSidebar ? "open" : ""}`}>
-          <div className="sb-head">
-            <div className="sb-header-row">
-              <div className="sb-title">Research Log</div>
-              <motion.button className="btn-close" onClick={() => setShowSidebar(false)}
-                whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}>✕</motion.button>
-            </div>
-            <motion.button className="btn-new" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-              onClick={() => {
-                setActiveSession(null); setMessages([]); setPipeSteps([]);
-                setShowSidebar(false);
-                setTimeout(() => inputRef.current?.focus(), 300);
-              }}>＋ New Research</motion.button>
-          </div>
-          {sessions.length > 0 && (
-            <>
-              <div className="sb-label">History</div>
-              <div className="session-list">
-                {sessions.map(s => (
-                  <motion.div key={s.id} className={`sess ${activeSession === s.id ? "active" : ""}`}
-                    onClick={() => { loadSession(s); setShowSidebar(false); }}
-                    whileHover={{ x: 6 }} transition={{ duration: 0.2 }}>
-                    <div className="sess-dot" style={{ background: s.has_report ? "var(--accent)" : "var(--text-tertiary)" }} />
-                    <div className="sess-title" title={s.title}>{s.title}</div>
-                    {s.has_refined && <span style={{ fontSize: 10, color: "var(--orange)", fontFamily: "var(--mono)" }}>↑</span>}
-                    {s.has_report && <span className="sess-tick">✓</span>}
-                  </motion.div>
-                ))}
-              </div>
-            </>
-          )}
-        </aside>
-
-        {/* CHAT AREA */}
-        <main className="chat-area">
-          <AnimatePresence mode="wait">
-            {messages.length === 0 ? (
-              <motion.div className="hero-wrap" key="empty"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}>
-                <VercelV0Chat onSubmit={startResearch} isHero={true} />
-              </motion.div>
-            ) : (
-              <div className="msgs-wrap" key="msgs">
-                <div className="msgs-inner">
-                  {messages.map((msg, i) => {
-                    if (msg.type === "user")
-                      return (
-                        <motion.div key={i} className="msg-user"
-                          initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}>
-                          <div className="user-bub">{msg.text}</div>
-                        </motion.div>
-                      );
-                    if (msg.type === "thinking")
-                      return <ErrorBoundary key={i}><ThinkingBubble agent={msg.agent} /></ErrorBoundary>;
-                    if (msg.type === "tasks")
-                      return <ErrorBoundary key={i}><TasksMsg tasks={msg.data} /></ErrorBoundary>;
-                    if (msg.type === "retrieval")
-                      return <ErrorBoundary key={i}><RetrievalMsg retrieval={msg.data} /></ErrorBoundary>;
-                    if (msg.type === "synthesis")
-                      return <ErrorBoundary key={i}><SynthesisMsg synthesis={msg.data} /></ErrorBoundary>;
-                    if (msg.type === "critic")
-                      return <ErrorBoundary key={i}><CriticMsg criticData={msg.data} /></ErrorBoundary>;
-                    if (msg.type === "cross_synthesis")
-                      return <ErrorBoundary key={i}><CrossSynthesisMsg crossData={msg.data} /></ErrorBoundary>;
-                    if (msg.type === "gaps")
-                      return <ErrorBoundary key={i}><GapMsg gaps={msg.data} /></ErrorBoundary>;
-                    if (msg.type === "report")
-                      return <ErrorBoundary key={i}><ReportMsg report={msg.data} markdown={msg.markdown} tasks={msg.tasks} /></ErrorBoundary>;
-                    if (msg.type === "error")
-                      return (
-                        <motion.div key={i} className="msg-agent" {...fadeUp}>
-                          <div className="ag-body"><div className="err-card">⚠ {msg.text}</div></div>
-                        </motion.div>
-                      );
-                    return null;
-                  })}
-                  <div ref={bottomRef} />
-                </div>
-              </div>
-            )}
-          </AnimatePresence>
-
-          {/* Input */}
-          <div className="input-wrap">
-            <div className="input-inner">
-              <AnimatePresence>
-                {loading && pipeSteps.length > 0 && (
-                  <motion.div className="pipe-live-inline"
-                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }} transition={{ duration: 0.3 }}>
-                    {PIPELINE_ORDER.map(key => {
-                      const step = pipeSteps.find(s => s.step === key);
-                      const ag = AGENTS[key];
-                      const status = step?.status ?? "pending";
-                      const c = status !== "pending" ? ag.color : "var(--text-quaternary)";
-                      return (
-                        <motion.div key={key} className="pipe-inline-item"
-                          style={{ color: c, opacity: status === "pending" ? 0.35 : 1 }}
-                          animate={{ opacity: status === "pending" ? 0.35 : 1 }}
-                          transition={{ duration: 0.3 }}>
-                          <motion.span
-                            animate={status === "running" ? { rotate: 360 } : {}}
-                            transition={status === "running" ? { duration: 1, repeat: Infinity, ease: "linear" } : {}}>
-                            {status === "running" ? "⟳" : status === "done" ? "✓" : "○"}
-                          </motion.span>
-                          <span>{ag.label}</span>
-                        </motion.div>
-                      );
-                    })}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <div style={{ pointerEvents: loading ? "none" : "auto", opacity: loading ? 0.5 : 1, width: "100%" }}>
-                {messages.length > 0 && (
-                  <VercelV0Chat onSubmit={startResearch} isHero={false} />
-                )}
-              </div>
-            </div>
-          </div>
-        </main>
-      </div>
-    </>
-  );
-}
-=======
     <div className="flex h-screen w-full bg-zinc-950 text-zinc-300 font-sans overflow-hidden selection:bg-cyan-500/30">
->>>>>>> 472b34981106a87ac74b73eb5c77306589f75c4b
 
       {/* Mobile Menu Overlay */}
       {showMobileMenu && (
@@ -1040,9 +847,14 @@ function MainDashboard() {
                   }}
                     className={`text-left px-3 py-3 lg:py-2.5 rounded-md border text-[10px] lg:text-[11px] font-mono transition-all flex justify-between items-center group
                       ${activeSession?.id === session.id
-                        ? 'border-cyan-500/50 bg-cyan-950/30 text-cyan-50'
+                        ? session.isDemo
+                          ? 'border-teal-500/50 bg-teal-950/30 text-teal-50'
+                          : 'border-cyan-500/50 bg-cyan-950/30 text-cyan-50'
                         : 'border-transparent text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200'}`}>
-                    <span className="truncate pr-2">{session.title}</span>
+                    <span className="truncate pr-2 flex-1">{session.title}</span>
+                    {session.isDemo && (
+                      <span className="shrink-0 text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-teal-500/15 text-teal-400 border border-teal-500/20 mr-1">DEMO</span>
+                    )}
                     <ChevronRight size={12} className={`shrink-0 transition-opacity ${activeSession?.id === session.id ? 'opacity-100 text-cyan-400' : 'opacity-0 group-hover:opacity-50'}`} />
                   </button>
                 ))
@@ -1369,7 +1181,3 @@ function MainDashboard() {
 }
 
 export default MainDashboard
-<<<<<<< HEAD
-=======
->>>>>>> faf9a8812d1f5627deb1fd27eae718c980e60478
->>>>>>> 472b34981106a87ac74b73eb5c77306589f75c4b
