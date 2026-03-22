@@ -1,6 +1,15 @@
+<<<<<<< HEAD
+import React, { useState, useEffect, useRef, useCallback, Component } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { VercelV0Chat } from "./components/ui/v0-ai-chat";
+import { Waves } from "./components/ui/wave-background";
+import "./styles/chat.css";
+import "./index.css";
+=======
 import { useState, useRef, useEffect } from 'react'
 import { Activity, Database, FileText, TerminalSquare, Plus, Clock, ChevronRight, ChevronDown, CheckCircle2, Loader2, AlertCircle, Search, BookOpen, Layers, Microscope, GitMerge, Puzzle, ScrollText, XCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+>>>>>>> faf9a8812d1f5627deb1fd27eae718c980e60478
 
 // API URL from environment or default to localhost
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
@@ -12,7 +21,7 @@ function PipelineStep({ step, status }) {
   const isRunning = status === 'RUNNING'
   const isDone = status === 'DONE'
   return (
-    <div className={`relative p-3 mb-2 flex items-center justify-between rounded-md border backdrop-blur-sm transition-all duration-500 overflow-hidden
+    <div className={`relative p-3 mb-2 min-h-[48px] flex items-center justify-between rounded-md border backdrop-blur-sm transition-all duration-500 overflow-hidden
       ${isRunning ? 'border-cyan-500/50 bg-cyan-950/20 shadow-[0_0_15px_rgba(6,182,212,0.15)]' 
       : isDone ? 'border-zinc-700/50 bg-zinc-800/20' 
       : 'border-zinc-800/30 bg-zinc-900/10'}`}>
@@ -44,7 +53,7 @@ const STEP_META = {
   retrieval:       { icon: <BookOpen size={14} />,   color: 'text-indigo-400',  bg: 'bg-indigo-950/20',  border: 'border-indigo-500/30',  label: 'Source Retrieval' },
   synthesis:       { icon: <Layers size={14} />,     color: 'text-amber-400',   bg: 'bg-amber-950/20',   border: 'border-amber-500/30',   label: 'Synthesis' },
   critic:          { icon: <Microscope size={14} />, color: 'text-rose-400',    bg: 'bg-rose-950/20',    border: 'border-rose-500/30',    label: 'Critical Review' },
-  cross_synthesis: { icon: <GitMerge size={14} />,   color: 'text-teal-400',    bg: 'bg-teal-950/20',    border: 'border-teal-500/30',    label: 'Cross Synthesis' },
+  cross_synthesis: { icon: <GitMerge size={14} />,   color: 'text-teal-400',    bg: 'bg-teal-950/20',    border: 'border-teal-500/30',   label: 'Cross Synthesis' },
   gap:             { icon: <Puzzle size={14} />,     color: 'text-orange-400',  bg: 'bg-orange-950/20',  border: 'border-orange-500/30',  label: 'Gap Analysis' },
   report:          { icon: <ScrollText size={14} />, color: 'text-emerald-400', bg: 'bg-emerald-950/20', border: 'border-emerald-500/30', label: 'Final Report' },
 }
@@ -513,8 +522,11 @@ function ReportCard({ data, markdown }) {
 function ChatMessage({ log, reportMarkdown }) {
   if (log.type === 'user') {
     return (
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
-        className="flex justify-end mt-4 mb-2">
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }} 
+        animate={{ opacity: 1, y: 0 }}
+        className="flex justify-end mt-4 mb-2"
+      >
         <div className="max-w-[75%] bg-zinc-100 text-zinc-900 px-5 py-3.5 rounded-2xl rounded-tr-sm text-sm font-sans font-medium leading-relaxed shadow-lg">
           {log.content}
         </div>
@@ -525,7 +537,11 @@ function ChatMessage({ log, reportMarkdown }) {
   if (log.step === 'report') {
     const md = log.data?.markdown || reportMarkdown || null
     return (
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="my-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }} 
+        animate={{ opacity: 1, y: 0 }}
+        className="my-4"
+      >
         <ReportCard data={log.data} markdown={md} />
       </motion.div>
     )
@@ -533,7 +549,10 @@ function ChatMessage({ log, reportMarkdown }) {
 
   if (log.step) {
     return (
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }} 
+        animate={{ opacity: 1, y: 0 }}
+      >
         <StepCard step={log.step} data={log.data} failed={log.failed || false} />
       </motion.div>
     )
@@ -542,8 +561,11 @@ function ChatMessage({ log, reportMarkdown }) {
   const isArchived = log.content === 'Session Archived.'
   const isError    = log.content?.startsWith('[ERROR]')
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}
-      className={`flex items-center gap-3 py-1 ${isArchived ? 'justify-center my-4' : ''}`}>
+    <motion.div 
+      initial={{ opacity: 0 }} 
+      animate={{ opacity: 1 }}
+      className={`flex items-center gap-3 py-1 ${isArchived ? 'justify-center my-4' : ''}`}
+    >
       {isError ? <AlertCircle size={14} className="text-red-400 shrink-0" />
         : isArchived ? <span className="w-8 h-px bg-zinc-700" />
         : <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 shrink-0" />}
@@ -564,7 +586,11 @@ function ChatMessage({ log, reportMarkdown }) {
 function TypingIndicator({ currentStep }) {
   const meta = currentStep ? STEP_META[currentStep] : null
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-4 py-3 pl-2">
+    <motion.div 
+      initial={{ opacity: 0 }} 
+      animate={{ opacity: 1 }}
+      className="flex items-center gap-4 py-3 pl-2"
+    >
       <div className="flex gap-1.5 p-2 rounded-full bg-zinc-900 border border-zinc-800">
         {[0, 1, 2].map(i => (
           <motion.span key={i} className={`w-1.5 h-1.5 rounded-full block ${meta ? meta.color.replace('text-', 'bg-') : 'bg-zinc-500'}`}
@@ -590,7 +616,7 @@ function MainDashboard() {
   const [currentStep, setCurrentStep] = useState(null)
   const [history, setHistory] = useState([])
   const [activeSession, setActiveSession] = useState(null)
-  const [chatMode, setChatMode] = useState(false) // false = research mode, true = talk mode
+  const [chatMode, setChatMode] = useState(false)
   const [chatInput, setChatInput] = useState('')
   const [isChatProcessing, setIsChatProcessing] = useState(false)
   const [chatHistory, setChatHistory] = useState([])
@@ -613,129 +639,136 @@ function MainDashboard() {
 
   useEffect(() => { refreshHistory() }, [])
   useEffect(() => { logsEndRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [logs])
-
-const handleSubmit = async (e) => {
-  e.preventDefault()
   
-  if (chatMode) {
-    // Handle chat mode
-    if (!chatInput.trim() || isChatProcessing || !activeSession) return
-    
-    setIsChatProcessing(true)
-    const userMessage = chatInput
-    setChatHistory(prev => [...prev, { role: 'user', content: userMessage }])
-    setChatInput('')
-    
-    try {
-      const response = await fetch(`${API_URL}/api/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: userMessage,
-          folder_id: activeSession.id,
-          history: chatHistory
-        }),
-      })
-      
-      const data = await response.json()
-      setChatHistory(prev => [...prev, { role: 'assistant', content: data.response }])
-    } catch (err) {
-      setChatHistory(prev => [...prev, { role: 'assistant', content: `[ERROR] Failed to get response: ${err.message}` }])
-    } finally {
-      setIsChatProcessing(false)
+  useEffect(() => {
+    if (showMobileMenu || showRightPanel) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
     }
-  } else {
-    // Handle research mode (original logic)
-    if (!query.trim() || isProcessing) return
+    return () => { document.body.style.overflow = '' }
+  }, [showMobileMenu, showRightPanel])
 
-    setIsProcessing(true)
-    setCurrentStep('task')
-    setLogs([{ type: 'user', content: query }])
-    setActiveSession(null)
-    setActiveDocument(null)
-    setDocumentVault({})
-    setPipeline(initialPipeline)
-    const submittedQuery = query
-    setQuery('')
-
-    try {
-      const response = await fetch(`${API_URL}/api/research/stream`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
-        body: JSON.stringify({ query: submittedQuery }),
-      })
-
-      const reader = response.body.getReader()
-      const decoder = new TextDecoder()
-      let buffer = ''
-
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        buffer += decoder.decode(value, { stream: true })
-        const lines = buffer.split('\n')
-        buffer = lines.pop()
-
-        for (const line of lines) {
-          if (!line.startsWith('data: ')) continue
-          try {
-            const event = JSON.parse(line.slice(6))
-
-            if (event.status === 'running') {
-              setCurrentStep(event.step)
-              setPipeline(prev => {
-                const updated = { ...prev }
-                const keys = Object.keys(updated)
-                const idx = keys.indexOf(event.step)
-                if (idx > 0) updated[keys[idx - 1]] = 'DONE'
-                updated[event.step] = 'RUNNING'
-                return updated
-              })
-            }
-
-            if (event.status === 'done') {
-              if (event.step === 'complete') {
-                setPipeline(prev => ({ ...prev, report: 'DONE' }))
-                setIsProcessing(false)
-                setCurrentStep(null)
-                refreshHistory()
-                fetch(`${API_URL}/api/history/${event.data.folder}`)
-                  .then(r => r.json())
-                  .then(fd => {
-                    setDocumentVault(fd)
-                    if (fd.final_report) {
-                      fetch(`${API_URL}/api/history/${event.data.folder}/report.md`)
-                        .then(r => r.json())
-                        .then(md => setDocumentVault(prev => ({ ...prev, 'report.md': md.markdown })))
-                    }
-                  }).catch(console.error)
-                setLogs(prev => [...prev, { type: 'sys', content: 'Session Archived.' }])
-              } else {
-                setLogs(prev => [...prev, { type: 'sys', step: event.step, data: event.data, failed: false }])
-              }
-            }
-
-            if (event.status === 'failed') {
-              setLogs(prev => [...prev, { type: 'sys', step: event.step, data: event.data, failed: true }])
-            }
-
-          } catch (err) { console.error('SSE parse error:', err) }
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    
+    if (chatMode) {
+      if (!chatInput.trim() || isChatProcessing || !activeSession) return
+      
+      setIsChatProcessing(true)
+      const userMessage = chatInput
+      setChatHistory(prev => [...prev, { role: 'user', content: userMessage }])
+      setChatInput('')
+      
+      try {
+        const response = await fetch(`${API_URL}/api/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: userMessage,
+            folder_id: activeSession.id,
+            history: chatHistory
+          }),
+        })
+        
+        const data = await response.json()
+        setChatHistory(prev => [...prev, { role: 'assistant', content: data.response }])
+      } catch (err) {
+        setChatHistory(prev => [...prev, { role: 'assistant', content: `[ERROR] Failed to get response: ${err.message}` }])
+      } finally {
+        setIsChatProcessing(false)
       }
-    } catch (err) {
-      setLogs(prev => [...prev, { type: 'sys', content: `[ERROR] ${err.message}` }])
-      setIsProcessing(false)
-      setCurrentStep(null)
+    } else {
+      if (!query.trim() || isProcessing) return
+
+      setIsProcessing(true)
+      setCurrentStep('task')
+      setLogs([{ type: 'user', content: query }])
+      setActiveSession(null)
+      setActiveDocument(null)
+      setDocumentVault({})
+      setPipeline(initialPipeline)
+      const submittedQuery = query
+      setQuery('')
+
+      try {
+        const response = await fetch(`${API_URL}/api/research/stream`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
+          body: JSON.stringify({ query: submittedQuery }),
+        })
+
+        const reader = response.body.getReader()
+        const decoder = new TextDecoder()
+        let buffer = ''
+
+        while (true) {
+          const { done, value } = await reader.read()
+          if (done) break
+          buffer += decoder.decode(value, { stream: true })
+          const lines = buffer.split('\n')
+          buffer = lines.pop()
+
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue
+            try {
+              const event = JSON.parse(line.slice(6))
+
+              if (event.status === 'running') {
+                setCurrentStep(event.step)
+                setPipeline(prev => {
+                  const updated = { ...prev }
+                  const keys = Object.keys(updated)
+                  const idx = keys.indexOf(event.step)
+                  if (idx > 0) updated[keys[idx - 1]] = 'DONE'
+                  updated[event.step] = 'RUNNING'
+                  return updated
+                })
+              }
+
+              if (event.status === 'done') {
+                if (event.step === 'complete') {
+                  setPipeline(prev => ({ ...prev, report: 'DONE' }))
+                  setIsProcessing(false)
+                  setCurrentStep(null)
+                  refreshHistory()
+                  fetch(`${API_URL}/api/history/${event.data.folder}`)
+                    .then(r => r.json())
+                    .then(fd => {
+                      setDocumentVault(fd)
+                      if (fd.final_report) {
+                        fetch(`${API_URL}/api/history/${event.data.folder}/report.md`)
+                          .then(r => r.json())
+                          .then(md => setDocumentVault(prev => ({ ...prev, 'report.md': md.markdown })))
+                      }
+                    }).catch(console.error)
+                  setLogs(prev => [...prev, { type: 'sys', content: 'Session Archived.' }])
+                } else {
+                  setLogs(prev => [...prev, { type: 'sys', step: event.step, data: event.data, failed: false }])
+                }
+              }
+
+              if (event.status === 'failed') {
+                setLogs(prev => [...prev, { type: 'sys', step: event.step, data: event.data, failed: true }])
+              }
+
+            } catch (err) { console.error('SSE parse error:', err) }
+          }
+        }
+      } catch (err) {
+        setLogs(prev => [...prev, { type: 'sys', content: `[ERROR] ${err.message}` }])
+        setIsProcessing(false)
+        setCurrentStep(null)
+      }
     }
   }
-}
 
   const loadHistorySession = (session) => {
     setActiveSession(session)
     setActiveDocument(null)
     setPipeline({ task: 'DONE', retrieval: 'DONE', synthesis: 'DONE', critic: 'DONE', cross_synthesis: 'DONE', gap: 'DONE', report: 'DONE' })
     setLogs([])
-    setChatHistory([])  // Clear chat history when loading a new session
+    setChatHistory([])
 
     fetch(`${API_URL}/api/history/${session.id}`)
       .then(r => r.json())
@@ -774,390 +807,569 @@ const handleSubmit = async (e) => {
   const reportMarkdown = documentVault?.['report.md'] ?? null
 
   return (
+<<<<<<< HEAD
+    <div className="flex h-dvh w-full bg-zinc-950 text-zinc-300 font-sans overflow-hidden">
+=======
+<<<<<<< HEAD
+    <>
+      <div className="fixed inset-0 z-0 bg-[#030303]">
+        <Waves strokeColor="rgba(255,255,255,0.1)" backgroundColor="#030303" pointerSize={0.5} />
+      </div>
+      <div className="app-shell" style={{ position: "relative", zIndex: 1 }}>
+        {/* TOP BAR */}
+        <header className="topbar">
+          <div className="topbar-logo">
+            <motion.div className="topbar-logo-badge" whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}>M</motion.div>
+            MultiAgent<span className="topbar-logo-text">Researcher</span>
+          </div>
+          <div className="topbar-right">
+            <motion.button className="topbar-btn" onClick={() => setShowSidebar(true)}
+              whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <span>☰</span> Research Log
+            </motion.button>
+            <motion.div className={`status-pill ${loading ? "live" : ""}`}
+              animate={loading ? { scale: [1, 1.02, 1] } : {}}
+              transition={loading ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : {}}>
+              {loading ? "● PIPELINE ACTIVE" : "○ READY"}
+            </motion.div>
+          </div>
+        </header>
+
+        {/* SIDEBAR */}
+        <div className={`sidebar-backdrop ${showSidebar ? "open" : ""}`} onClick={() => setShowSidebar(false)} />
+        <aside className={`sidebar ${showSidebar ? "open" : ""}`}>
+          <div className="sb-head">
+            <div className="sb-header-row">
+              <div className="sb-title">Research Log</div>
+              <motion.button className="btn-close" onClick={() => setShowSidebar(false)}
+                whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}>✕</motion.button>
+            </div>
+            <motion.button className="btn-new" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                setActiveSession(null); setMessages([]); setPipeSteps([]);
+                setShowSidebar(false);
+                setTimeout(() => inputRef.current?.focus(), 300);
+              }}>＋ New Research</motion.button>
+          </div>
+          {sessions.length > 0 && (
+            <>
+              <div className="sb-label">History</div>
+              <div className="session-list">
+                {sessions.map(s => (
+                  <motion.div key={s.id} className={`sess ${activeSession === s.id ? "active" : ""}`}
+                    onClick={() => { loadSession(s); setShowSidebar(false); }}
+                    whileHover={{ x: 6 }} transition={{ duration: 0.2 }}>
+                    <div className="sess-dot" style={{ background: s.has_report ? "var(--accent)" : "var(--text-tertiary)" }} />
+                    <div className="sess-title" title={s.title}>{s.title}</div>
+                    {s.has_refined && <span style={{ fontSize: 10, color: "var(--orange)", fontFamily: "var(--mono)" }}>↑</span>}
+                    {s.has_report && <span className="sess-tick">✓</span>}
+                  </motion.div>
+                ))}
+              </div>
+            </>
+          )}
+        </aside>
+
+        {/* CHAT AREA */}
+        <main className="chat-area">
+          <AnimatePresence mode="wait">
+            {messages.length === 0 ? (
+              <motion.div className="hero-wrap" key="empty"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}>
+                <VercelV0Chat onSubmit={startResearch} isHero={true} />
+              </motion.div>
+            ) : (
+              <div className="msgs-wrap" key="msgs">
+                <div className="msgs-inner">
+                  {messages.map((msg, i) => {
+                    if (msg.type === "user")
+                      return (
+                        <motion.div key={i} className="msg-user"
+                          initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}>
+                          <div className="user-bub">{msg.text}</div>
+                        </motion.div>
+                      );
+                    if (msg.type === "thinking")
+                      return <ErrorBoundary key={i}><ThinkingBubble agent={msg.agent} /></ErrorBoundary>;
+                    if (msg.type === "tasks")
+                      return <ErrorBoundary key={i}><TasksMsg tasks={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "retrieval")
+                      return <ErrorBoundary key={i}><RetrievalMsg retrieval={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "synthesis")
+                      return <ErrorBoundary key={i}><SynthesisMsg synthesis={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "critic")
+                      return <ErrorBoundary key={i}><CriticMsg criticData={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "cross_synthesis")
+                      return <ErrorBoundary key={i}><CrossSynthesisMsg crossData={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "gaps")
+                      return <ErrorBoundary key={i}><GapMsg gaps={msg.data} /></ErrorBoundary>;
+                    if (msg.type === "report")
+                      return <ErrorBoundary key={i}><ReportMsg report={msg.data} markdown={msg.markdown} tasks={msg.tasks} /></ErrorBoundary>;
+                    if (msg.type === "error")
+                      return (
+                        <motion.div key={i} className="msg-agent" {...fadeUp}>
+                          <div className="ag-body"><div className="err-card">⚠ {msg.text}</div></div>
+                        </motion.div>
+                      );
+                    return null;
+                  })}
+                  <div ref={bottomRef} />
+                </div>
+              </div>
+            )}
+          </AnimatePresence>
+
+          {/* Input */}
+          <div className="input-wrap">
+            <div className="input-inner">
+              <AnimatePresence>
+                {loading && pipeSteps.length > 0 && (
+                  <motion.div className="pipe-live-inline"
+                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }} transition={{ duration: 0.3 }}>
+                    {PIPELINE_ORDER.map(key => {
+                      const step = pipeSteps.find(s => s.step === key);
+                      const ag = AGENTS[key];
+                      const status = step?.status ?? "pending";
+                      const c = status !== "pending" ? ag.color : "var(--text-quaternary)";
+                      return (
+                        <motion.div key={key} className="pipe-inline-item"
+                          style={{ color: c, opacity: status === "pending" ? 0.35 : 1 }}
+                          animate={{ opacity: status === "pending" ? 0.35 : 1 }}
+                          transition={{ duration: 0.3 }}>
+                          <motion.span
+                            animate={status === "running" ? { rotate: 360 } : {}}
+                            transition={status === "running" ? { duration: 1, repeat: Infinity, ease: "linear" } : {}}>
+                            {status === "running" ? "⟳" : status === "done" ? "✓" : "○"}
+                          </motion.span>
+                          <span>{ag.label}</span>
+                        </motion.div>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <div style={{ pointerEvents: loading ? "none" : "auto", opacity: loading ? 0.5 : 1, width: "100%" }}>
+                {messages.length > 0 && (
+                  <VercelV0Chat onSubmit={startResearch} isHero={false} />
+                )}
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </>
+  );
+}
+=======
     <div className="flex h-screen w-full bg-zinc-950 text-zinc-300 font-sans overflow-hidden selection:bg-cyan-500/30">
+>>>>>>> 472b34981106a87ac74b73eb5c77306589f75c4b
 
       {/* Mobile Menu Overlay */}
       {showMobileMenu && (
         <div 
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/60 z-40 lg:hidden"
           onClick={() => setShowMobileMenu(false)}
         />
       )}
 
-      {/* ── LEFT SIDEBAR ── */}
-      <aside className={`
-        fixed lg:relative inset-y-0 left-0 z-50 lg:z-20
-        w-72 border-r border-zinc-800 flex flex-col h-full shrink-0 
-        bg-zinc-950/95 backdrop-blur-xl
-        transform transition-transform duration-300 ease-in-out
-        ${showMobileMenu ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `}>
-<div className="p-3 lg:p-5 border-b border-zinc-800 flex flex-col gap-3 lg:gap-5">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded bg-white text-zinc-950 shadow-[0_0_15px_rgba(255,255,255,0.3)] shrink-0">
-              <Activity size={20} strokeWidth={2.5} />
-            </div>
-            <h1 className="text-sm lg:text-lg font-mono font-bold tracking-[0.2em] text-white mt-1 truncate">MAI_OS</h1>
-            {/* Close button for mobile */}
-            <button 
-              className="lg:hidden ml-auto p-2 hover:bg-zinc-800 rounded-lg transition-colors"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              <span className="text-zinc-400">✕</span>
-            </button>
-          </div>
-          <button
-            className="w-full py-2 lg:py-2.5 rounded border border-zinc-700 flex justify-center items-center gap-2 hover:bg-white hover:text-zinc-950 transition-all font-mono font-bold tracking-widest text-xs shadow-sm"
-            onClick={() => { 
-              setActiveSession(null); 
-              setActiveDocument(null); 
-              setPipeline(initialPipeline); 
-              setLogs([]); 
-              setChatMode(false); 
-              setChatHistory([]); 
-              setChatInput('');
-              setShowMobileMenu(false);
-            }}
-          >
-            <Plus size={14} /> NEW SESSION
-          </button>
-        </div>
-        <div className="p-3 lg:p-5 flex-1 overflow-y-auto">
-          <h2 className="text-[9px] lg:text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-3 lg:mb-4 flex items-center gap-2">
-            <Clock size={12} className="shrink-0" /> 
-            <span className="hidden sm:inline">PAST THREADS</span>
-          </h2>
-          <div className="flex flex-col gap-2">
-            {history.length === 0
-              ? <p className="text-xs text-zinc-600 italic">No sessions yet.</p>
-              : history.map(session => (
-                <button key={session.id} onClick={() => {
-                  loadHistorySession(session);
-                  setShowMobileMenu(false);
-                }}
-                  className={`text-left px-3 py-2 lg:py-2.5 rounded-md border text-[10px] lg:text-[11px] font-mono transition-all flex justify-between items-center group
-                    ${activeSession?.id === session.id
-                      ? 'border-cyan-500/50 bg-cyan-950/30 text-cyan-50'
-                      : 'border-transparent text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200'}`}>
-                  <span className="truncate pr-2">{session.title}</span>
-                  <ChevronRight size={12} className={`shrink-0 transition-opacity ${activeSession?.id === session.id ? 'opacity-100 text-cyan-400' : 'opacity-0 group-hover:opacity-50'}`} />
-                </button>
-              ))
-            }
-          </div>
-        </div>
-        <div className="p-3 lg:p-5 flex-1 overflow-y-auto">
-          <h2 className="text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-4 flex items-center gap-2">
-            <Clock size={12} /> PAST THREADS
-          </h2>
-          <div className="flex flex-col gap-2">
-            {history.length === 0
-              ? <p className="text-xs text-zinc-600 italic">No sessions yet.</p>
-              : history.map(session => (
-                <button key={session.id} onClick={() => loadHistorySession(session)}
-                  className={`text-left px-3 py-2.5 rounded-md border text-[11px] font-mono transition-all flex justify-between items-center group
-                    ${activeSession?.id === session.id
-                      ? 'border-cyan-500/50 bg-cyan-950/30 text-cyan-50'
-                      : 'border-transparent text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200'}`}>
-                  <span className="truncate pr-2">{session.title}</span>
-                  <ChevronRight size={12} className={`shrink-0 transition-opacity ${activeSession?.id === session.id ? 'opacity-100 text-cyan-400' : 'opacity-0 group-hover:opacity-50'}`} />
-                </button>
-              ))
-            }
-          </div>
-        </div>
-      </aside>
+      {/* Mobile Right Panel Overlay */}
+      {showRightPanel && (
+        <div 
+          className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+          onClick={() => setShowRightPanel(false)}
+        />
+      )}
 
-      {/* ── CENTER ── */}
-      <main className="flex-1 flex flex-col border-r border-zinc-800 relative overflow-hidden bg-zinc-950">
-        {/* Tech Grid Background */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03]" 
-             style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/50 to-zinc-950 pointer-events-none" />
-
-        <header className="h-14 border-b border-zinc-800/80 flex items-center justify-between px-3 lg:px-6 shrink-0 relative z-10 bg-zinc-950/60 backdrop-blur-md">
-          <div className="flex items-center gap-2">
-            {/* Mobile menu toggle */}
-            <button 
-              className="lg:hidden p-2 hover:bg-zinc-800 rounded-lg transition-colors"
-              onClick={() => setShowMobileMenu(!showMobileMenu)}
-            >
-              <span className="block w-5 h-0.5 bg-zinc-400 mb-1.5"></span>
-              <span className="block w-5 h-0.5 bg-zinc-400 mb-1.5"></span>
-              <span className="block w-5 h-0.5 bg-zinc-400"></span>
-            </button>
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
-            <span className="hidden sm:inline text-[11px] font-mono tracking-[0.15em] font-bold text-zinc-400">
-              {activeSession ? activeSession.title.toUpperCase() : 'SYSTEM_TERMINAL'}
-            </span>
-          </div>
-          {/* Mobile right panel toggle */}
-          <button 
-            className="lg:hidden p-2 hover:bg-zinc-800 rounded-lg transition-colors"
-            onClick={() => setShowRightPanel(!showRightPanel)}
-          >
-            <Database size={18} className="text-zinc-400" />
-          </button>
-        </header>
-
-        <div className="flex-1 overflow-y-auto relative z-10 p-2 sm:p-3 lg:p-4">
-          {activeDocument ? (
-            <div className="h-full max-w-5xl mx-auto flex flex-col">
-              <div className="border border-zinc-800 rounded-xl bg-zinc-950/90 shadow-2xl flex-1 flex flex-col overflow-hidden backdrop-blur-sm">
-                <div className="flex justify-between items-center px-5 py-3.5 border-b border-zinc-800 text-[10px] font-mono tracking-widest text-zinc-400 shrink-0 bg-zinc-900/50">
-                  <span className="flex items-center gap-2">
-                    <FileText size={12} className="text-zinc-500" />
-                    {activeDocument.name.toUpperCase()}
-                  </span>
-                  <button className="hover:text-white hover:bg-zinc-800 px-2 py-1 rounded transition-colors flex items-center gap-1" onClick={() => setActiveDocument(null)}>
-                    CLOSE <XCircle size={12}/>
-                  </button>
+        {/* ── LEFT SIDEBAR ── */}
+        <aside className={`
+          fixed lg:relative inset-y-0 left-0 z-50 lg:z-20
+          w-72 sm:w-80 border-r border-zinc-800 flex flex-col h-full shrink-0 
+          bg-zinc-950/98 backdrop-blur-xl
+          transition-transform duration-300 ease-in-out
+          ${showMobileMenu ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        `}>
+          <div className="p-3 lg:p-5 border-b border-zinc-800 flex flex-col gap-3 lg:gap-5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded bg-white text-zinc-950 shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                  <Activity size={20} strokeWidth={2.5} />
                 </div>
-                <div className="flex-1 overflow-y-auto p-6 md:p-8">
-                  {activeDocument.name.endsWith('.md') ? (
-                    <div className="flex flex-col gap-1 max-w-4xl mx-auto">
-                      {typeof activeDocument.content === 'string'
-                        ? activeDocument.content.split('\n').map((line, i) => <MdLine key={i} line={line} />)
-                        : <p className="text-zinc-500 text-sm">Invalid format.</p>}
-                    </div>
-                  ) : (
-                    <pre className="text-emerald-400/80 font-mono text-[11px] whitespace-pre-wrap break-words leading-relaxed max-w-4xl mx-auto">
-                      {typeof activeDocument.content === 'object'
-                        ? JSON.stringify(activeDocument.content, null, 2)
-                        : String(activeDocument.content || 'Empty.')}
-                    </pre>
-                  )}
-                </div>
+                <h1 className="text-sm lg:text-lg font-mono font-bold tracking-[0.2em] text-white">AXON</h1>
               </div>
+              <button 
+                className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-zinc-800 rounded-lg transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+                aria-label="Close menu"
+              >
+                <span className="text-zinc-400 text-lg">✕</span>
+              </button>
             </div>
-          ) : (
-            <div className="flex flex-col min-h-full max-w-4xl mx-auto w-full">
-              {logs.length === 0 && !isProcessing ? (
-                <div className="flex-1 flex items-center justify-center p-8">
-                  <div className="flex flex-col items-center gap-6 text-center max-w-md">
-                    <div className="w-16 h-16 rounded-2xl border border-zinc-800 flex items-center justify-center bg-zinc-900/50 shadow-inner">
-                      <TerminalSquare size={28} className="text-zinc-500" />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <p className="text-white font-mono font-bold tracking-[0.2em] text-xs lg:text-sm">SYSTEM READY</p>
-                      <p className="text-zinc-500 text-xs lg:text-sm leading-relaxed">Enter a research objective to deploy the multi-agent synthesis pipeline.</p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-1.5 lg:gap-2 text-[9px] lg:text-[10px] font-mono text-zinc-600 tracking-widest text-left w-full p-3 lg:p-4 rounded-lg border border-zinc-800/50 bg-zinc-950/50">
-                      {Object.values(STEP_META).map(m => (
-                        <span key={m.label} className={`flex items-center gap-1 lg:gap-2 ${m.color} opacity-50`}>
-                          {m.icon} {m.label.toUpperCase()}
-                        </span>
-                      ))}
-                    </div>
+            <button
+              className="w-full py-2.5 lg:py-2.5 rounded border border-zinc-700 flex justify-center items-center gap-2 hover:bg-white hover:text-zinc-950 transition-all font-mono font-bold tracking-widest text-xs"
+              onClick={() => { 
+                setActiveSession(null); 
+                setActiveDocument(null); 
+                setPipeline(initialPipeline); 
+                setLogs([]); 
+                setChatMode(false); 
+                setChatHistory([]); 
+                setChatInput('');
+                setShowMobileMenu(false);
+              }}
+            >
+              <Plus size={14} /> NEW SESSION
+            </button>
+          </div>
+          <div className="p-3 lg:p-5 flex-1 overflow-y-auto">
+            <h2 className="text-[9px] lg:text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-3 lg:mb-4 flex items-center gap-2">
+              <Clock size={12} className="shrink-0" /> 
+              <span className="hidden sm:inline">PAST THREADS</span>
+            </h2>
+            <div className="flex flex-col gap-2">
+              {history.length === 0
+                ? <p className="text-xs text-zinc-600 italic">No sessions yet.</p>
+                : history.map(session => (
+                  <button key={session.id} onClick={() => {
+                    loadHistorySession(session);
+                    setShowMobileMenu(false);
+                  }}
+                    className={`text-left px-3 py-3 lg:py-2.5 rounded-md border text-[10px] lg:text-[11px] font-mono transition-all flex justify-between items-center group
+                      ${activeSession?.id === session.id
+                        ? 'border-cyan-500/50 bg-cyan-950/30 text-cyan-50'
+                        : 'border-transparent text-zinc-400 hover:bg-zinc-900 hover:text-zinc-200'}`}>
+                    <span className="truncate pr-2">{session.title}</span>
+                    <ChevronRight size={12} className={`shrink-0 transition-opacity ${activeSession?.id === session.id ? 'opacity-100 text-cyan-400' : 'opacity-0 group-hover:opacity-50'}`} />
+                  </button>
+                ))
+              }
+            </div>
+          </div>
+        </aside>
+
+        {/* ── CENTER ── */}
+        <main className={`flex-1 flex flex-col border-r border-zinc-800 relative overflow-hidden bg-zinc-950 ${(showMobileMenu || showRightPanel) ? 'lg:flex-1' : ''}`}>
+          {/* Tech Grid Background */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.03]" 
+               style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/50 to-zinc-950 pointer-events-none" />
+
+          <header className="h-14 border-b border-zinc-800/80 flex items-center justify-between px-3 lg:px-6 shrink-0 relative z-10 bg-zinc-950/60 backdrop-blur-md">
+            <div className="flex items-center gap-2">
+              <button 
+                className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-zinc-800 rounded-lg transition-colors -ml-2"
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
+                aria-label="Toggle menu"
+              >
+                <span className="flex flex-col gap-1">
+                  <span className="block w-5 h-0.5 bg-zinc-400"></span>
+                  <span className="block w-5 h-0.5 bg-zinc-400"></span>
+                  <span className="block w-5 h-0.5 bg-zinc-400"></span>
+                </span>
+              </button>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+              <span className="hidden sm:inline text-[11px] font-mono tracking-[0.15em] font-bold text-zinc-400">
+                {activeSession ? activeSession.title.toUpperCase() : 'SYSTEM_TERMINAL'}
+              </span>
+            </div>
+            <button 
+              className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-zinc-800 rounded-lg transition-colors -mr-2"
+              onClick={() => setShowRightPanel(!showRightPanel)}
+              aria-label="Toggle document vault"
+            >
+              <Database size={20} className="text-zinc-400" />
+            </button>
+          </header>
+
+          <div className="flex-1 overflow-y-auto relative z-10 p-2 sm:p-3 lg:p-4">
+            {activeDocument ? (
+              <div className="h-full max-w-5xl mx-auto flex flex-col">
+                <div className="border border-zinc-800 rounded-xl bg-zinc-950/90 shadow-2xl flex-1 flex flex-col overflow-hidden backdrop-blur-sm">
+                  <div className="flex justify-between items-center px-5 py-3.5 border-b border-zinc-800 text-[10px] font-mono tracking-widest text-zinc-400 shrink-0 bg-zinc-900/50">
+                    <span className="flex items-center gap-2">
+                      <FileText size={12} className="text-zinc-500" />
+                      {activeDocument.name.toUpperCase()}
+                    </span>
+                    <button className="hover:text-white hover:bg-zinc-800 px-2 py-1 rounded transition-colors flex items-center gap-1" onClick={() => setActiveDocument(null)}>
+                      CLOSE <XCircle size={12}/>
+                    </button>
+                  </div>
+                  <div className="flex-1 overflow-y-auto p-6 md:p-8">
+                    {activeDocument.name.endsWith('.md') ? (
+                      <div className="flex flex-col gap-1 max-w-4xl mx-auto">
+                        {typeof activeDocument.content === 'string'
+                          ? activeDocument.content.split('\n').map((line, i) => <MdLine key={i} line={line} />)
+                          : <p className="text-zinc-500 text-sm">Invalid format.</p>}
+                      </div>
+                    ) : (
+                      <pre className="text-emerald-400/80 font-mono text-[11px] whitespace-pre-wrap break-words leading-relaxed max-w-4xl mx-auto">
+                        {typeof activeDocument.content === 'object'
+                          ? JSON.stringify(activeDocument.content, null, 2)
+                          : String(activeDocument.content || 'Empty.')}
+                      </pre>
+                    )}
                   </div>
                 </div>
-              ) : (
-                <div className="flex flex-col gap-3 pb-10">
-                  {/* Show chat history when in chat mode */}
-                  {chatMode && activeSession ? (
-                    <>
-                      {chatHistory.length === 0 ? (
-                        <div className="flex-1 flex items-center justify-center p-4 lg:p-8">
-                          <div className="flex flex-col items-center gap-4 lg:gap-6 text-center max-w-md">
-                            <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-2xl border border-emerald-800 flex items-center justify-center bg-emerald-900/30 shadow-inner">
-                              <Microscope size={22} className="text-emerald-400 lg:text-emerald-400" />
-                            </div>
-                            <div className="flex flex-col gap-2">
-                              <p className="text-emerald-300 font-mono font-bold tracking-[0.2em] text-xs lg:text-sm">TALK MODE</p>
-                              <p className="text-zinc-400 text-xs lg:text-sm leading-relaxed">Ask questions about your research findings.</p>
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        chatHistory.map((msg, i) => (
-                          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                            <div className={`max-w-[85%] lg:max-w-[75%] px-4 py-3 lg:px-5 lg:py-3.5 rounded-2xl text-xs lg:text-sm font-sans font-medium leading-relaxed shadow-lg
-                              ${msg.role === 'user' 
-                                ? 'bg-emerald-100 text-emerald-900 rounded-tr-sm' 
-                                : 'bg-zinc-800 text-zinc-100 rounded-tl-sm'}`}>
-                              {msg.content}
-                            </div>
-                          </div>
-                        ))
-                      )}
-                      {isChatProcessing && (
-                        <div className="flex items-center gap-3 lg:gap-4 py-2 lg:py-3 pl-2">
-                          <div className="flex gap-1.5 p-1.5 lg:p-2 rounded-full bg-zinc-900 border border-zinc-800">
-                            {[0, 1, 2].map(i => (
-                              <span key={i} className="w-1 lg:w-1.5 h-1 lg:h-1.5 rounded-full bg-emerald-500 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
-                            ))}
-                          </div>
-                          <span className="text-[10px] lg:text-[11px] font-mono font-bold text-emerald-400">Thinking...</span>
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    /* Show research logs when in research mode */
-                    <>
-                      {logs.map((log, i) => (
-                        <ChatMessage key={i} log={log} reportMarkdown={reportMarkdown} />
-                      ))}
-                      {isProcessing && <TypingIndicator currentStep={currentStep} />}
-                    </>
-                  )}
-                  <div ref={logsEndRef} />
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-<div className="p-3 lg:p-5 border-t border-zinc-800/80 shrink-0 bg-zinc-950/80 backdrop-blur-xl z-20">
-  <div className="flex flex-wrap items-center gap-2 mb-3 lg:mb-4">
-    <span className="text-xs font-mono text-zinc-500">Mode:</span>
-    <button
-      className={`px-2 lg:px-3 py-1 rounded border border-zinc-700 text-[9px] lg:text-[10px] font-mono font-bold tracking-widest 
-        ${!chatMode ? 'bg-cyan-500/20 text-cyan-400' : 'bg-zinc-900/20 text-zinc-400'}
-        hover:bg-zinc-800/20 transition-colors`}
-      onClick={() => setChatMode(false)}
-    >
-      Research
-    </button>
-    <button
-      className={`px-2 lg:px-3 py-1 rounded border border-zinc-700 text-[9px] lg:text-[10px] font-mono font-bold tracking-widest 
-        ${chatMode ? 'bg-emerald-500/20 text-emerald-400' : 'bg-zinc-900/20 text-zinc-400'}
-        hover:bg-zinc-800/20 transition-colors`}
-      onClick={() => setChatMode(true)}
-    >
-      Talk
-    </button>
-  </div>
-  <form className="flex rounded-lg border border-zinc-700 bg-zinc-900/50 focus-within:border-cyan-500/50 focus-within:ring-4 focus-within:ring-cyan-500/10 focus-within:bg-zinc-900 transition-all shadow-lg max-w-4xl mx-auto overflow-hidden" onSubmit={handleSubmit}>
-    <div className="pl-3 lg:pl-5 pr-2 lg:pr-3 flex items-center justify-center">
-      {(chatMode && isChatProcessing) || (!chatMode && isProcessing)
-        ? <Loader2 size={16} className="animate-spin text-cyan-500" />
-        : chatMode
-          ? <Microscope size={16} className="text-emerald-400" />
-          : <Search size={16} className="text-zinc-500" />}
-    </div>
-    {chatMode && activeSession ? (
-      <>
-        <input type="text"
-          className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
-          placeholder={`Ask about ${activeSession.title}...`}
-          value={chatInput}
-          onChange={e => setChatInput(e.target.value)}
-          disabled={isChatProcessing || !activeSession}
-        />
-        <button type="submit"
-          disabled={isChatProcessing || !activeSession || !chatInput.trim()}
-          className="px-4 lg:px-8 bg-emerald-100 text-emerald-950 font-mono font-bold tracking-widest text-xs hover:bg-emerald-200 transition-colors disabled:opacity-30 disabled:bg-emerald-800 disabled:text-emerald-500">
-          ASK
-        </button>
-      </>
-    ) : chatMode ? (
-      <>
-        <input type="text"
-          className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
-          placeholder="Select a session from sidebar..."
-          value={chatInput}
-          onChange={e => setChatInput(e.target.value)}
-          disabled={true}
-        />
-        <button type="submit"
-          disabled={true}
-          className="px-4 lg:px-8 bg-zinc-800 text-zinc-500 font-mono font-bold tracking-widest text-xs disabled:opacity-30">
-          ASK
-        </button>
-      </>
-    ) : (
-      <>
-        <input type="text"
-          className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
-          placeholder={activeSession ? 'Start New Session…' : 'Enter research topic...'}
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          disabled={isProcessing || activeSession !== null}
-        />
-        <button type="submit"
-          disabled={isProcessing || activeSession !== null || !query.trim()}
-          className="px-4 lg:px-8 bg-zinc-100 text-zinc-950 font-mono font-bold tracking-widest text-xs hover:bg-white transition-colors disabled:opacity-30 disabled:bg-zinc-800 disabled:text-zinc-500">
-          EXECUTE
-        </button>
-      </>
-    )}
-  </form>
-</div>
-      </main>
-
-      {/* ── RIGHT SIDEBAR ── */}
-      <aside className={`
-        fixed lg:relative inset-y-0 right-0 z-50 lg:z-20
-        w-80 border-l border-zinc-800 flex flex-col h-full shrink-0 
-        bg-zinc-950/95 backdrop-blur-xl
-        transform transition-transform duration-300 ease-in-out
-        ${showRightPanel ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
-      `}>
-        <div className="p-3 lg:p-5 border-b border-zinc-800 flex items-center justify-between">
-          <div className="text-[9px] lg:text-[10px] font-mono font-bold flex items-center gap-2 tracking-[0.2em] text-zinc-500">
-            <Database size={12} /> SYSTEM_CONTEXT
-          </div>
-          {/* Close button for mobile */}
-          <button 
-            className="lg:hidden p-2 hover:bg-zinc-800 rounded-lg transition-colors"
-            onClick={() => setShowRightPanel(false)}
-          >
-            <span className="text-zinc-400">✕</span>
-          </button>
-        </div>
-        <div className="p-3 lg:p-5 flex-1 overflow-y-auto flex flex-col gap-6 lg:gap-8">
-          
-          {/* Pipeline Widget */}
-          <div className="bg-zinc-900/30 p-3 lg:p-4 rounded-xl border border-zinc-800/50">
-            <h2 className="text-[9px] lg:text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-3 lg:mb-4 flex justify-between items-center">
-              PIPELINE STATUS
-              {isProcessing && <span className="text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded text-[8px] lg:text-[9px] animate-pulse">LIVE</span>}
-            </h2>
-            <div className="flex flex-col gap-1.5">
-              {Object.entries(pipeline).map(([key, val]) => (
-                <PipelineStep key={key} step={key} status={val} />
-              ))}
-            </div>
-          </div>
-
-          {/* Vault Widget */}
-          <div>
-            <h2 className="text-[9px] lg:text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-3 lg:mb-4 px-1">DOCUMENT VAULT</h2>
-            <div className="flex flex-col gap-2 font-mono text-[11px]">
-              {Object.keys(documentVault).length > 0 ? (
-                Object.entries(documentVault).map(([key, data]) => {
-                  if (!data || ['folder','title','has_report','has_refined','has_data','id'].includes(key)) return null
-                  const displayKey = key === 'final_report' ? 'final_report.json' : key
-                  const isMd = displayKey.endsWith('.md') || displayKey.endsWith('.json')
-                  return (
-                    <button key={key}
-                      onClick={() => {
-                        setActiveDocument({ name: displayKey, content: data });
-                        setShowRightPanel(false);
-                      }}
-                      className={`p-2 lg:p-3 rounded-md border flex items-center gap-2 lg:gap-3 transition-all w-full text-left group
-                        ${activeDocument?.name === displayKey
-                          ? 'border-emerald-500/50 bg-emerald-950/30 text-emerald-100 shadow-[0_0_10px_rgba(16,185,129,0.1)]'
-                          : 'border-zinc-800 bg-zinc-900/30 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200 hover:bg-zinc-800/50'}`}>
-                      <div className={`p-1 rounded ${activeDocument?.name === displayKey ? 'bg-emerald-500/20 text-emerald-400' : 'bg-zinc-800 text-zinc-500 group-hover:text-zinc-300'}`}>
-                        {isMd ? <FileText size={10} /> : <Database size={10} />}
+              </div>
+            ) : (
+              <div className="flex flex-col min-h-full max-w-4xl mx-auto w-full">
+                {logs.length === 0 && !isProcessing ? (
+                  <div className="flex-1 flex items-center justify-center p-8">
+                    <div className="flex flex-col items-center gap-6 text-center max-w-md">
+                      <div className="w-16 h-16 rounded-2xl border border-zinc-800 flex items-center justify-center bg-zinc-900/50 shadow-inner">
+                        <TerminalSquare size={28} className="text-zinc-500" />
                       </div>
-                      <span className="truncate text-[10px] lg:text-xs">{displayKey}</span>
-                    </button>
-                  )
-                })
-              ) : (
-                <div className="p-4 lg:p-6 rounded-lg border border-dashed border-zinc-800 text-zinc-600 text-center text-[10px] lg:text-xs flex flex-col items-center gap-2">
-                  <Database size={14} className="opacity-50" />
-                  No files indexed
+                      <div className="flex flex-col gap-2">
+                        <p className="text-white font-mono font-bold tracking-[0.2em] text-xs lg:text-sm">SYSTEM READY</p>
+                        <p className="text-zinc-500 text-xs lg:text-sm leading-relaxed">Enter a research objective to deploy the multi-agent synthesis pipeline.</p>
+                      </div>
+                      <div className="grid grid-cols-2 gap-1.5 lg:gap-2 text-[9px] lg:text-[10px] font-mono text-zinc-600 tracking-widest text-left w-full p-3 lg:p-4 rounded-lg border border-zinc-800/50 bg-zinc-950/50">
+                        {Object.values(STEP_META).map(m => (
+                          <span key={m.label} className={`flex items-center gap-1 lg:gap-2 ${m.color} opacity-50`}>
+                            {m.icon} {m.label.toUpperCase()}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-3 pb-10">
+                    {chatMode && activeSession ? (
+                      <>
+                        {chatHistory.length === 0 ? (
+                          <div className="flex-1 flex items-center justify-center p-4 lg:p-8">
+                            <div className="flex flex-col items-center gap-4 lg:gap-6 text-center max-w-md">
+                              <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-2xl border border-emerald-800 flex items-center justify-center bg-emerald-900/30 shadow-inner">
+                                <Microscope size={22} className="text-emerald-400" />
+                              </div>
+                              <div className="flex flex-col gap-2">
+                                <p className="text-emerald-300 font-mono font-bold tracking-[0.2em] text-xs lg:text-sm">TALK MODE</p>
+                                <p className="text-zinc-400 text-xs lg:text-sm leading-relaxed">Ask questions about your research findings.</p>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          chatHistory.map((msg, i) => (
+                            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                              <div className={`max-w-[85%] lg:max-w-[75%] px-4 py-3 lg:px-5 lg:py-3.5 rounded-2xl text-xs lg:text-sm font-sans font-medium leading-relaxed shadow-lg
+                                ${msg.role === 'user' 
+                                  ? 'bg-emerald-100 text-emerald-900 rounded-tr-sm' 
+                                  : 'bg-zinc-800 text-zinc-100 rounded-tl-sm'}`}>
+                                {msg.content}
+                              </div>
+                            </div>
+                          ))
+                        )}
+                        {isChatProcessing && (
+                          <div className="flex items-center gap-3 lg:gap-4 py-2 lg:py-3 pl-2">
+                            <div className="flex gap-1.5 p-1.5 lg:p-2 rounded-full bg-zinc-900 border border-zinc-800">
+                              {[0, 1, 2].map(i => (
+                                <span key={i} className="w-1 lg:w-1.5 h-1 lg:h-1.5 rounded-full bg-emerald-500 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+                              ))}
+                            </div>
+                            <span className="text-[10px] lg:text-[11px] font-mono font-bold text-emerald-400">Thinking...</span>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {logs.map((log, i) => (
+                          <ChatMessage key={i} log={log} reportMarkdown={reportMarkdown} />
+                        ))}
+                        {isProcessing && <TypingIndicator currentStep={currentStep} />}
+                      </>
+                    )}
+                    <div ref={logsEndRef} />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Bottom Input Area */}
+          <div className="p-3 lg:p-5 border-t border-zinc-800/80 shrink-0 bg-zinc-950/80 backdrop-blur-xl z-20">
+            {/* Mode Toggle */}
+            <div className="flex items-center gap-3 mb-3 lg:mb-4">
+              <span className="text-xs font-mono text-zinc-500 shrink-0">Mode:</span>
+              <div className="relative flex rounded-lg border border-zinc-700 bg-zinc-900/50 p-1 overflow-hidden min-h-[36px]">
+                <motion.div
+                  className={`absolute top-1 bottom-1 rounded-md shadow-lg ${chatMode ? 'bg-emerald-500/30 border border-emerald-500/50' : 'bg-cyan-500/30 border border-cyan-500/50'} pointer-events-none`}
+                  layoutId="modeIndicator"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  style={{ width: 'calc(50% - 6px)', left: chatMode ? 'calc(50% + 2px)' : '4px' }}
+                />
+                <button
+                  className={`relative z-10 px-4 py-1.5 rounded-md text-[11px] font-mono font-bold tracking-wider transition-colors min-w-[80px] text-center
+                    ${!chatMode ? 'text-cyan-300' : 'text-zinc-500'}`}
+                  onClick={() => setChatMode(false)}
+                >
+                  Research
+                </button>
+                <button
+                  className={`relative z-10 px-4 py-1.5 rounded-md text-[11px] font-mono font-bold tracking-wider transition-colors min-w-[80px] text-center
+                    ${chatMode ? 'text-emerald-300' : 'text-zinc-500'}`}
+                  onClick={() => setChatMode(true)}
+                >
+                  Talk
+                </button>
+              </div>
+            </div>
+
+            {/* Input Form */}
+            <AnimatePresence mode="wait">
+              <motion.form 
+                key={chatMode ? 'chat-form' : 'research-form'}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className={`flex rounded-lg border shadow-lg max-w-4xl mx-auto overflow-hidden
+                  ${chatMode 
+                    ? 'border-emerald-500/30 bg-zinc-900/50 focus-within:border-emerald-500/50 focus-within:ring-4 focus-within:ring-emerald-500/10' 
+                    : 'border-zinc-700 bg-zinc-900/50 focus-within:border-cyan-500/50 focus-within:ring-4 focus-within:ring-cyan-500/10'}
+                  focus-within:bg-zinc-900 transition-all`} 
+                onSubmit={handleSubmit}
+              >
+                <div className="pl-3 lg:pl-5 pr-2 lg:pr-3 flex items-center justify-center">
+                  {(chatMode && isChatProcessing) || (!chatMode && isProcessing)
+                    ? <Loader2 size={16} className={`animate-spin ${chatMode ? 'text-emerald-500' : 'text-cyan-500'}`} />
+                    : chatMode
+                      ? <Microscope size={16} className="text-emerald-400" />
+                      : <Search size={16} className="text-zinc-500" />}
                 </div>
-              )}
+                {chatMode && activeSession ? (
+                  <>
+                    <input type="text"
+                      className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+                      placeholder={`Ask about ${activeSession.title}...`}
+                      value={chatInput}
+                      onChange={e => setChatInput(e.target.value)}
+                      disabled={isChatProcessing || !activeSession}
+                      autoComplete="off"
+                    />
+                    <button type="submit"
+                      disabled={isChatProcessing || !activeSession || !chatInput.trim()}
+                      className="px-4 sm:px-6 lg:px-8 min-h-[44px] bg-emerald-100 text-emerald-950 font-mono font-bold tracking-widest text-xs hover:bg-emerald-200 transition-colors disabled:opacity-30 disabled:bg-emerald-800 disabled:text-emerald-500">
+                      ASK
+                    </button>
+                  </>
+                ) : chatMode ? (
+                  <>
+                    <input type="text"
+                      className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+                      placeholder="Select a session from sidebar..."
+                      value={chatInput}
+                      onChange={e => setChatInput(e.target.value)}
+                      disabled={true}
+                    />
+                    <button type="submit"
+                      disabled={true}
+                      className="px-4 sm:px-6 lg:px-8 min-h-[44px] bg-zinc-800 text-zinc-500 font-mono font-bold tracking-widest text-xs disabled:opacity-30">
+                      ASK
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <input type="text"
+                      className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+                      placeholder={activeSession ? 'Start New Session…' : 'Enter research topic...'}
+                      value={query}
+                      onChange={e => setQuery(e.target.value)}
+                      disabled={isProcessing || activeSession !== null}
+                    />
+                    <button type="submit"
+                      disabled={isProcessing || activeSession !== null || !query.trim()}
+                      className="px-4 sm:px-6 lg:px-8 min-h-[44px] bg-zinc-100 text-zinc-950 font-mono font-bold tracking-widest text-xs hover:bg-white transition-colors disabled:opacity-30 disabled:bg-zinc-800 disabled:text-zinc-500">
+                      EXECUTE
+                    </button>
+                  </>
+                )}
+              </motion.form>
+            </AnimatePresence>
+          </div>
+        </main>
+
+        {/* ── RIGHT SIDEBAR ── */}
+        <aside className={`
+          fixed lg:relative inset-y-0 right-0 z-50 lg:z-20
+          w-80 sm:w-96 border-l border-zinc-800 flex flex-col h-full shrink-0 
+          bg-zinc-950/98 backdrop-blur-xl
+          transition-transform duration-300 ease-in-out
+          ${showRightPanel ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
+        `}>
+          <div className="p-3 lg:p-5 border-b border-zinc-800 flex items-center justify-between">
+            <div className="text-[9px] lg:text-[10px] font-mono font-bold flex items-center gap-2 tracking-[0.2em] text-zinc-500">
+              <Database size={12} /> SYSTEM_CONTEXT
+            </div>
+            <button 
+              className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-zinc-800 rounded-lg transition-colors"
+              onClick={() => setShowRightPanel(false)}
+              aria-label="Close document vault"
+            >
+              <span className="text-zinc-400 text-lg">✕</span>
+            </button>
+          </div>
+          <div className="p-3 lg:p-5 flex-1 overflow-y-auto flex flex-col gap-6 lg:gap-8">
+            
+            {/* Pipeline Widget */}
+            <div className="bg-zinc-900/30 p-3 lg:p-4 rounded-xl border border-zinc-800/50">
+              <h2 className="text-[9px] lg:text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-3 lg:mb-4 flex justify-between items-center">
+                PIPELINE STATUS
+                {isProcessing && <span className="text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded text-[8px] lg:text-[9px] animate-pulse">LIVE</span>}
+              </h2>
+              <div className="flex flex-col gap-1.5">
+                {Object.entries(pipeline).map(([key, val]) => (
+                  <PipelineStep key={key} step={key} status={val} />
+                ))}
+              </div>
+            </div>
+
+            {/* Vault Widget */}
+            <div>
+              <h2 className="text-[9px] lg:text-[10px] font-mono tracking-[0.3em] font-bold text-zinc-500 mb-3 lg:mb-4 px-1">DOCUMENT VAULT</h2>
+              <div className="flex flex-col gap-2 font-mono text-[11px]">
+                {Object.keys(documentVault).length > 0 ? (
+                  Object.entries(documentVault).map(([key, data]) => {
+                    if (!data || ['folder','title','has_report','has_refined','has_data','id'].includes(key)) return null
+                    const displayKey = key === 'final_report' ? 'final_report.json' : key
+                    const isMd = displayKey.endsWith('.md') || displayKey.endsWith('.json')
+                    return (
+                      <button key={key}
+                        onClick={() => {
+                          setActiveDocument({ name: displayKey, content: data });
+                          setShowRightPanel(false);
+                        }}
+                        className={`p-3 lg:p-3 rounded-md border flex items-center gap-2 lg:gap-3 transition-all w-full text-left group min-h-[48px]
+                          ${activeDocument?.name === displayKey
+                            ? 'border-emerald-500/50 bg-emerald-950/30 text-emerald-100 shadow-[0_0_10px_rgba(16,185,129,0.1)]'
+                            : 'border-zinc-800 bg-zinc-900/30 text-zinc-400 hover:border-zinc-600 hover:text-zinc-200 hover:bg-zinc-800/50'}`}>
+                        <div className={`p-1 rounded ${activeDocument?.name === displayKey ? 'bg-emerald-500/20 text-emerald-400' : 'bg-zinc-800 text-zinc-500 group-hover:text-zinc-300'}`}>
+                          {isMd ? <FileText size={10} /> : <Database size={10} />}
+                        </div>
+                        <span className="truncate text-[10px] lg:text-xs">{displayKey}</span>
+                      </button>
+                    )
+                  })
+                ) : (
+                  <div className="p-4 lg:p-6 rounded-lg border border-dashed border-zinc-800 text-zinc-600 text-center text-[10px] lg:text-xs flex flex-col items-center gap-2">
+                    <Database size={14} className="opacity-50" />
+                    No files indexed
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </aside>
-    </div>
+        </aside>
+      </div>
   )
 }
 
 export default MainDashboard
+<<<<<<< HEAD
+=======
+>>>>>>> faf9a8812d1f5627deb1fd27eae718c980e60478
+>>>>>>> 472b34981106a87ac74b73eb5c77306589f75c4b
