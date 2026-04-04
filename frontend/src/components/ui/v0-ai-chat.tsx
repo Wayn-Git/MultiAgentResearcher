@@ -76,16 +76,16 @@ export function VercelV0Chat({
 
     return (
         <div className={cn(
-            "flex flex-col items-center w-full mx-auto p-4",
-            isHero ? "max-w-4xl space-y-8" : "max-w-[900px] space-y-0"
+            "flex flex-col items-center w-full mx-auto p-2 sm:p-4",
+            isHero ? "max-w-4xl space-y-4 sm:space-y-8" : "max-w-[900px] space-y-0"
         )}>
             {isHero && (
-                <h1 className="text-4xl font-bold text-white text-center tracking-tight">
+                <h1 className="text-2xl sm:text-4xl font-bold text-white text-center tracking-tight px-2">
                     What can I help you ship?
                 </h1>
             )}
 
-            <div className="w-full">
+            <div className="w-full px-2 sm:px-0">
                 <div className="relative bg-neutral-900 rounded-xl border border-zinc-700"
                     style={{ boxShadow: "0 0 0 1px rgba(255,255,255,0.06), 0 8px 40px rgba(0,0,0,0.6)" }}
                 >
@@ -97,7 +97,7 @@ export function VercelV0Chat({
                             onKeyDown={handleKeyDown}
                             placeholder="Ask v0 a question..."
                             className={cn(
-                                "w-full px-4 py-3 resize-none bg-transparent",
+                                "w-full px-3 sm:px-4 py-3 resize-none bg-transparent",
                                 "border-none outline-none",
                                 "text-white text-sm",
                                 "placeholder:text-neutral-500",
@@ -107,26 +107,26 @@ export function VercelV0Chat({
                         />
                     </div>
 
-                    <div className="flex items-center justify-between p-3">
-                        <div className="flex items-center gap-2">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-2 p-2 sm:p-3">
+                        <div className="flex items-center gap-1 sm:gap-2 w-full sm:w-auto">
                             <button type="button"
-                                className="group p-2 hover:bg-neutral-800 rounded-lg transition-colors flex items-center gap-1"
+                                className="group p-2 hover:bg-neutral-800 rounded-lg transition-colors flex items-center gap-1 min-h-[40px]"
                             >
                                 <Paperclip className="w-4 h-4 text-white" />
-                                <span className="text-xs text-zinc-400 hidden group-hover:inline transition-opacity">Attach</span>
+                                <span className="text-xs text-zinc-400 hidden sm:inline transition-opacity">Attach</span>
                             </button>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 sm:gap-2 w-full sm:w-auto justify-end">
                             <button type="button"
-                                className="px-2 py-1 rounded-lg text-sm text-zinc-400 transition-colors border border-dashed border-zinc-600 hover:border-zinc-500 hover:bg-zinc-800 flex items-center gap-1"
+                                className="px-2 py-1 rounded-lg text-sm text-zinc-400 transition-colors border border-dashed border-zinc-600 hover:border-zinc-500 hover:bg-zinc-800 flex items-center gap-1 min-h-[40px] text-xs sm:text-sm"
                             >
                                 <PlusIcon className="w-4 h-4" />
-                                Project
+                                <span className="hidden sm:inline">Project</span>
                             </button>
                             <button type="button"
                                 onClick={handleSubmit}
                                 className={cn(
-                                    "px-1.5 py-1.5 rounded-lg text-sm transition-colors border border-zinc-600 hover:border-zinc-500 hover:bg-zinc-800 flex items-center gap-1",
+                                    "px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-sm transition-colors border border-zinc-600 hover:border-zinc-500 hover:bg-zinc-800 flex items-center gap-1 min-h-[40px]",
                                     value.trim() ? "bg-white text-black border-white" : "text-zinc-400"
                                 )}
                             >
@@ -138,7 +138,7 @@ export function VercelV0Chat({
                 </div>
 
                 {isHero && (
-                    <div className="flex items-center justify-center gap-3 mt-4 flex-wrap">
+                    <div className="flex items-center justify-center gap-2 sm:gap-3 mt-4 flex-wrap px-2">
                         <ActionButton icon={<ImageIcon className="w-4 h-4" />} label="Clone a Screenshot" />
                         <ActionButton icon={<Figma className="w-4 h-4" />} label="Import from Figma" />
                         <ActionButton icon={<FileUp className="w-4 h-4" />} label="Upload a Project" />

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Activity, Database, FileText, TerminalSquare, Plus, Clock, ChevronRight, ChevronDown, CheckCircle2, Loader2, AlertCircle, Search, BookOpen, Layers, Microscope, GitMerge, Puzzle, ScrollText, XCircle } from 'lucide-react'
+import { Activity, Database, FileText, TerminalSquare, Plus, Clock, ChevronRight, ChevronDown, CheckCircle2, Loader2, AlertCircle, Search, BookOpen, Layers, Microscope, GitMerge, Puzzle, ScrollText, XCircle, Send } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { DEMO_SESSIONS } from './demoSessions'
 
@@ -778,7 +778,7 @@ function MainDashboard() {
   const reportMarkdown = documentVault?.['report.md'] ?? null
 
   return (
-    <div className="flex h-screen w-full bg-zinc-950 text-zinc-300 font-sans overflow-hidden selection:bg-cyan-500/30">
+    <div className="flex h-dvh w-full bg-zinc-950 text-zinc-300 font-sans overflow-hidden selection:bg-cyan-500/30">
 
       {/* Mobile Menu Overlay */}
       {showMobileMenu && (
@@ -1007,11 +1007,11 @@ function MainDashboard() {
           </div>
 
           {/* Bottom Input Area */}
-          <div className="p-3 lg:p-5 border-t border-zinc-800/80 shrink-0 bg-zinc-950/80 backdrop-blur-xl z-20">
+          <div className="p-2 sm:p-3 lg:p-4 border-t border-zinc-800/80 shrink-0 bg-zinc-950/80 backdrop-blur-xl z-20 space-y-2">
             {/* Mode Toggle */}
-            <div className="flex items-center gap-3 mb-3 lg:mb-4">
-              <span className="text-xs font-mono text-zinc-500 shrink-0">Mode:</span>
-              <div className="relative flex rounded-lg border border-zinc-700 bg-zinc-900/50 p-1 overflow-hidden min-h-[36px]">
+            <div className="flex items-center gap-2">
+              <span className="text-[9px] sm:text-xs font-mono text-zinc-500 shrink-0 whitespace-nowrap">Mode:</span>
+              <div className="relative flex rounded-lg border border-zinc-700 bg-zinc-900/50 p-0.5 overflow-hidden min-h-[32px] flex-1">
                 <motion.div
                   className={`absolute top-1 bottom-1 rounded-md shadow-lg ${chatMode ? 'bg-emerald-500/30 border border-emerald-500/50' : 'bg-cyan-500/30 border border-cyan-500/50'} pointer-events-none`}
                   layoutId="modeIndicator"
@@ -1019,14 +1019,14 @@ function MainDashboard() {
                   style={{ width: 'calc(50% - 6px)', left: chatMode ? 'calc(50% + 2px)' : '4px' }}
                 />
                 <button
-                  className={`relative z-10 px-4 py-1.5 rounded-md text-[11px] font-mono font-bold tracking-wider transition-colors min-w-[80px] text-center
+                  className={`relative z-10 flex-1 sm:flex-none px-2 sm:px-3 py-1.5 rounded-md text-[8px] sm:text-[9px] font-mono font-bold tracking-wider transition-colors min-h-[32px] flex items-center justify-center
                     ${!chatMode ? 'text-cyan-300' : 'text-zinc-500'}`}
                   onClick={() => setChatMode(false)}
                 >
                   Research
                 </button>
                 <button
-                  className={`relative z-10 px-4 py-1.5 rounded-md text-[11px] font-mono font-bold tracking-wider transition-colors min-w-[80px] text-center
+                  className={`relative z-10 flex-1 sm:flex-none px-2 sm:px-3 py-1.5 rounded-md text-[8px] sm:text-[9px] font-mono font-bold tracking-wider transition-colors min-h-[32px] flex items-center justify-center
                     ${chatMode ? 'text-emerald-300' : 'text-zinc-500'}`}
                   onClick={() => setChatMode(true)}
                 >
@@ -1043,65 +1043,70 @@ function MainDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className={`flex rounded-lg border shadow-lg max-w-4xl mx-auto overflow-hidden
+                className={`flex flex-col rounded-lg border shadow-lg w-full overflow-hidden
                   ${chatMode 
                     ? 'border-emerald-500/30 bg-zinc-900/50 focus-within:border-emerald-500/50 focus-within:ring-4 focus-within:ring-emerald-500/10' 
                     : 'border-zinc-700 bg-zinc-900/50 focus-within:border-cyan-500/50 focus-within:ring-4 focus-within:ring-cyan-500/10'}
                   focus-within:bg-zinc-900 transition-all`} 
                 onSubmit={handleSubmit}
               >
-                <div className="pl-3 lg:pl-5 pr-2 lg:pr-3 flex items-center justify-center">
-                  {(chatMode && isChatProcessing) || (!chatMode && isProcessing)
-                    ? <Loader2 size={16} className={`animate-spin ${chatMode ? 'text-emerald-500' : 'text-cyan-500'}`} />
-                    : chatMode
-                      ? <Microscope size={16} className="text-emerald-400" />
-                      : <Search size={16} className="text-zinc-500" />}
-                </div>
                 {chatMode && activeSession ? (
                   <>
-                    <input type="text"
-                      className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
-                      placeholder={`Ask about ${activeSession.title}...`}
-                      value={chatInput}
-                      onChange={e => setChatInput(e.target.value)}
-                      disabled={isChatProcessing || !activeSession}
-                      autoComplete="off"
-                    />
-                    <button type="submit"
-                      disabled={isChatProcessing || !activeSession || !chatInput.trim()}
-                      className="px-4 sm:px-6 lg:px-8 min-h-[44px] bg-emerald-100 text-emerald-950 font-mono font-bold tracking-widest text-xs hover:bg-emerald-200 transition-colors disabled:opacity-30 disabled:bg-emerald-800 disabled:text-emerald-500">
-                      ASK
-                    </button>
+                    <div className="flex items-center gap-1.5 px-2 sm:px-3 py-2 sm:py-2.5 border-b border-zinc-800/50">
+                      <Microscope size={16} className="text-emerald-400 shrink-0" />
+                      <input type="text"
+                        className="flex-1 bg-transparent outline-none font-sans text-xs sm:text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+                        placeholder={`Ask about ${activeSession.title}...`}
+                        value={chatInput}
+                        onChange={e => setChatInput(e.target.value)}
+                        disabled={isChatProcessing || !activeSession}
+                        autoComplete="off"
+                      />
+                      <button type="submit"
+                        disabled={isChatProcessing || !activeSession || !chatInput.trim()}
+                        className="p-1.5 hover:bg-zinc-800 rounded-lg transition-colors disabled:opacity-30 shrink-0 flex items-center justify-center min-h-[32px] min-w-[32px]">
+                        <Send size={16} className={`${isChatProcessing ? 'text-emerald-500' : 'text-zinc-100'}`} />
+                        <span className="sr-only">Ask</span>
+                      </button>
+                    </div>
                   </>
                 ) : chatMode ? (
                   <>
-                    <input type="text"
-                      className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
-                      placeholder="Select a session from sidebar..."
-                      value={chatInput}
-                      onChange={e => setChatInput(e.target.value)}
-                      disabled={true}
-                    />
-                    <button type="submit"
-                      disabled={true}
-                      className="px-4 sm:px-6 lg:px-8 min-h-[44px] bg-zinc-800 text-zinc-500 font-mono font-bold tracking-widest text-xs disabled:opacity-30">
-                      ASK
-                    </button>
+                    <div className="flex items-center gap-1.5 px-2 sm:px-3 py-2 sm:py-2.5 border-b border-zinc-800/50">
+                      <Microscope size={16} className="text-emerald-400 shrink-0" />
+                      <input type="text"
+                        className="flex-1 bg-transparent outline-none font-sans text-xs sm:text-sm text-zinc-100 placeholder-zinc-600"
+                        placeholder="Select a session from sidebar..."
+                        value={chatInput}
+                        onChange={e => setChatInput(e.target.value)}
+                        disabled={true}
+                      />
+                      <button type="submit"
+                        disabled={true}
+                        className="p-1.5 rounded-lg transition-colors disabled:opacity-30 shrink-0 flex items-center justify-center min-h-[32px] min-w-[32px]">
+                        <Send size={16} className="text-zinc-600" />
+                        <span className="sr-only">Ask</span>
+                      </button>
+                    </div>
                   </>
                 ) : (
                   <>
-                    <input type="text"
-                      className="flex-1 bg-transparent py-3 lg:py-4 px-2 outline-none font-sans text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
-                      placeholder={activeSession ? 'Start New Session…' : 'Enter research topic...'}
-                      value={query}
-                      onChange={e => setQuery(e.target.value)}
-                      disabled={isProcessing || activeSession !== null}
-                    />
-                    <button type="submit"
-                      disabled={isProcessing || activeSession !== null || !query.trim()}
-                      className="px-4 sm:px-6 lg:px-8 min-h-[44px] bg-zinc-100 text-zinc-950 font-mono font-bold tracking-widest text-xs hover:bg-white transition-colors disabled:opacity-30 disabled:bg-zinc-800 disabled:text-zinc-500">
-                      EXECUTE
-                    </button>
+                    <div className="flex items-center gap-1.5 px-2 sm:px-3 py-2 sm:py-2.5 border-b border-zinc-800/50">
+                      <Search size={16} className={`${isProcessing ? 'text-cyan-500 animate-spin' : 'text-zinc-500'} shrink-0`} />
+                      <input type="text"
+                        className="flex-1 bg-transparent outline-none font-sans text-xs sm:text-sm text-zinc-100 placeholder-zinc-600 disabled:opacity-40"
+                        placeholder={activeSession ? 'Start New Session…' : 'Enter research topic...'}
+                        value={query}
+                        onChange={e => setQuery(e.target.value)}
+                        disabled={isProcessing || activeSession !== null}
+                      />
+                      <button type="submit"
+                        disabled={isProcessing || activeSession !== null || !query.trim()}
+                        className="p-1.5 hover:bg-zinc-800 rounded-lg transition-colors disabled:opacity-30 shrink-0 flex items-center justify-center min-h-[32px] min-w-[32px]">
+                        <Send size={16} className={`${isProcessing ? 'text-cyan-500' : 'text-zinc-100'}`} />
+                        <span className="sr-only">Execute</span>
+                      </button>
+                    </div>
                   </>
                 )}
               </motion.form>
