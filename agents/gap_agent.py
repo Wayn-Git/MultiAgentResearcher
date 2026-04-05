@@ -4,7 +4,6 @@ from groq import Groq
 from dotenv import load_dotenv
 from utils.llm_utils import call_with_retry
 from utils.config import GAP_MODEL
-from utils.llm_utils import call_with_retry
 
 load_dotenv()
 
@@ -83,12 +82,26 @@ CRITICAL: Output ONLY valid JSON inside <answer> tags. No trailing commas, no te
     with open(synthesis_results_path, "r", encoding="utf-8") as f:
         synthesized_data = json.load(f)
 
+    # ── Slim down the input to stay within TPM limits ───────────────────────
+    # The Gap Agent only needs high-level summaries and already-found gaps.
+    # It does NOT need every fact/source, which can bloat the request.
+    slimmed_data = {}
+    for task_desc, synthesis in synthesized_data.items():
+        if "error" in synthesis:
+            continue
+        slimmed_data[task_desc] = {
+            "summary": synthesis.get("synthesized_summary", ""),
+            "core_concepts": synthesis.get("core_concepts", []),
+            "per_task_weak_areas": synthesis.get("weak_or_missing_areas", []),
+            "confidence": synthesis.get("confidence_level", "unknown"),
+        }
+
     completion = call_with_retry(
         client=client,
         model=GAP_MODEL,
         messages=[
             {"role": "system", "content": system_prompt},
-            {"role": "user",   "content": json.dumps(synthesized_data, indent=2)}
+            {"role": "user",   "content": json.dumps(slimmed_data, indent=2)}
         ],
         temperature=0.4,
         max_tokens=2048,
