@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 import { Activity, Database, FileText, TerminalSquare, Plus, Clock, ChevronRight, ChevronDown, CheckCircle2, Loader2, AlertCircle, Search, BookOpen, Layers, Microscope, GitMerge, Puzzle, ScrollText, XCircle, Send } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Waves } from './components/ui/wave-background'
 import { DEMO_SESSIONS } from './demoSessions'
+
 
 // API URL from environment or default to localhost
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
@@ -780,6 +782,7 @@ function MainDashboard() {
   return (
     <div className="flex h-dvh w-full bg-zinc-950 text-zinc-300 font-sans overflow-hidden selection:bg-cyan-500/30">
 
+
       {/* Mobile Menu Overlay */}
       {showMobileMenu && (
         <div 
@@ -869,7 +872,16 @@ function MainDashboard() {
 
         {/* ── CENTER ── */}
         <main className={`flex-1 flex flex-col border-r border-zinc-800 relative overflow-hidden bg-zinc-950 ${(showMobileMenu || showRightPanel) ? 'lg:flex-1' : ''}`}>
-          {/* Tech Grid Background */}
+          {/* Subtle Interactive Waves */}
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
+            <Waves 
+              backgroundColor="transparent"
+              strokeColor="rgba(255, 255, 255, 0.1)"
+              pointerSize={0.5}
+            />
+          </div>
+
+          {/* Tech Grid Background (Restored) */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.03]" 
                style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/50 to-zinc-950 pointer-events-none" />
@@ -1019,17 +1031,19 @@ function MainDashboard() {
                   style={{ width: 'calc(50% - 6px)', left: chatMode ? 'calc(50% + 2px)' : '4px' }}
                 />
                 <button
-                  className={`relative z-10 flex-1 sm:flex-none px-2 sm:px-3 py-1.5 rounded-md text-[8px] sm:text-[9px] font-mono font-bold tracking-wider transition-colors min-h-[32px] flex items-center justify-center
+                  className={`relative z-10 flex-1 px-2 sm:px-3 py-1.5 rounded-md text-[8px] sm:text-[9px] font-mono font-bold tracking-wider transition-colors min-h-[32px] flex items-center justify-center gap-1.5
                     ${!chatMode ? 'text-cyan-300' : 'text-zinc-500'}`}
                   onClick={() => setChatMode(false)}
                 >
+                  <Search size={10} className={!chatMode ? 'text-cyan-400' : 'text-zinc-600'} />
                   Research
                 </button>
                 <button
-                  className={`relative z-10 flex-1 sm:flex-none px-2 sm:px-3 py-1.5 rounded-md text-[8px] sm:text-[9px] font-mono font-bold tracking-wider transition-colors min-h-[32px] flex items-center justify-center
+                  className={`relative z-10 flex-1 px-2 sm:px-3 py-1.5 rounded-md text-[8px] sm:text-[9px] font-mono font-bold tracking-wider transition-colors min-h-[32px] flex items-center justify-center gap-1.5
                     ${chatMode ? 'text-emerald-300' : 'text-zinc-500'}`}
                   onClick={() => setChatMode(true)}
                 >
+                  <Microscope size={10} className={chatMode ? 'text-emerald-400' : 'text-zinc-600'} />
                   Talk
                 </button>
               </div>

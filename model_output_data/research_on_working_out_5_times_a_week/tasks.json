@@ -1,0 +1,32 @@
+[
+    {
+        "description": "What are the physiological effects of working out 5 times a week on the human body, including muscle growth and cardiovascular health?",
+        "priority": 9,
+        "type": "research",
+        "search_angle": "Physical health implications"
+    },
+    {
+        "description": "What are the current American College of Sports Medicine (ACSM) guidelines and recommendations for working out 5 times a week, and how do they vary by age and fitness level?",
+        "priority": 8,
+        "type": "research",
+        "search_angle": "Established guidelines and standards"
+    },
+    {
+        "description": "What are the psychological benefits and drawbacks of working out 5 times a week, including effects on mental health, motivation, and burnout?",
+        "priority": 8,
+        "type": "research",
+        "search_angle": "Mental health and motivation"
+    },
+    {
+        "description": "What types of workouts and exercises are most effective for a 5-day per week routine, including considerations for cross-training and periodization?",
+        "priority": 7,
+        "type": "research",
+        "search_angle": "Workout planning and optimization"
+    },
+    {
+        "description": "What are the potential risks and injuries associated with working out 5 times a week, and how can they be mitigated through proper warm-up, cool-down, and recovery techniques?",
+        "priority": 7,
+        "type": "research",
+        "search_angle": "Injury prevention and recovery"
+    }
+]
