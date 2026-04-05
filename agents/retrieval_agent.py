@@ -10,10 +10,10 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 tavily = TavilyClient(api_key=os.getenv("TAVILY_SEARCH_API"))
 
 from utils.llm_utils import call_with_retry
+from utils.config import RETRIEVAL_MODEL
 
-# 8b-instant is fine here — we make many calls (one per task) and the job
-# is extraction, not reasoning. Speed matters more than depth here.
-RETRIEVAL_MODEL = "llama-3.1-8b-instant"
+# 8b-instant is fine here for extraction
+# RETRIEVAL_MODEL = "llama-3.1-8b-instant" # Legacy
 
 
 def fetch_search_results(query):

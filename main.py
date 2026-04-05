@@ -16,6 +16,7 @@ from agents.cross_synthesis_agent import run_cross_synthesis
 from agents.gap_agent import detect_gaps
 from agents.report_agent import generate_report
 from utils.llm_utils import call_with_retry
+from utils.config import CHAT_MODEL
 
 app = FastAPI()
 
@@ -434,7 +435,8 @@ async def chat_with_research(request: ChatRequest):
         load_dotenv()
         groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-        CHAT_MODEL = "llama-3.3-70b-versatile"
+        # Use 8B for general chat
+        # CHAT_MODEL = "llama-3.3-70b-versatile" # Legacy
 
         # Build conversation history for context
         messages = [

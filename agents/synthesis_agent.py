@@ -15,12 +15,14 @@ import json
 from groq import Groq
 from dotenv import load_dotenv
 from utils.llm_utils import call_with_retry
+from utils.config import SYNTHESIS_MODEL
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-SYNTHESIS_MODEL = "llama-3.3-70b-versatile"
+# Keep 70B for deep synthesis
+# SYNTHESIS_MODEL = "llama-3.3-70b-versatile" # Legacy
 
 SYNTHESIS_SYSTEM_PROMPT = """You are a senior research analyst specialising in evidence-based synthesis.
 

@@ -21,14 +21,15 @@ import json
 from groq import Groq
 from dotenv import load_dotenv
 from utils.llm_utils import call_with_retry
+from utils.config import CRITIC_MODEL, REFINE_MODEL
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-# Use the full 70b model — critique quality is everything here
-CRITIC_MODEL = "llama-3.3-70b-versatile"
-REFINE_MODEL = "llama-3.3-70b-versatile"
+# Use 8B for critique, 70B for refinement
+# CRITIC_MODEL = "llama-3.3-70b-versatile" # Legacy
+# REFINE_MODEL = "llama-3.3-70b-versatile" # Legacy
 
 
 CRITIC_SYSTEM_PROMPT = """You are a rigorous intellectual critic and research quality evaluator.

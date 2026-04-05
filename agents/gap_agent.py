@@ -3,12 +3,15 @@ import json
 from groq import Groq
 from dotenv import load_dotenv
 from utils.llm_utils import call_with_retry
+from utils.config import GAP_MODEL
+from utils.llm_utils import call_with_retry
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-GAP_MODEL = "llama-3.3-70b-versatile"
+# Use 8B for gap detection
+# GAP_MODEL = "llama-3.3-70b-versatile" # Legacy
 
 
 def detect_gaps(synthesis_results_path):

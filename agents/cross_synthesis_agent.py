@@ -19,12 +19,14 @@ import json
 from groq import Groq
 from dotenv import load_dotenv
 from utils.llm_utils import call_with_retry
+from utils.config import CROSS_SYNTHESIS_MODEL
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-CROSS_SYNTHESIS_MODEL = "llama-3.3-70b-versatile"
+# Keep 70B for high-level integration
+# CROSS_SYNTHESIS_MODEL = "llama-3.3-70b-versatile" # Legacy
 
 CROSS_SYNTHESIS_PROMPT = """You are a senior research director performing a CROSS-TASK SYNTHESIS.
 

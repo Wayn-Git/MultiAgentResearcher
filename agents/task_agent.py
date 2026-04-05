@@ -4,13 +4,14 @@ import os
 import json
 import re
 from utils.llm_utils import call_with_retry
+from utils.config import TASK_MODEL
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-# Use a capable model for task planning
-TASK_MODEL = "llama-3.3-70b-versatile"
+# Use 8B for initial planning to save 70B TPD
+# TASK_MODEL = "llama-3.3-70b-versatile" # Legacy
 
 
 def generate_tasks(user_input, research_context):

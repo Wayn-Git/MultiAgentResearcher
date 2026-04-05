@@ -16,12 +16,14 @@ import re
 from groq import Groq
 from dotenv import load_dotenv
 from utils.llm_utils import call_with_retry
+from utils.config import REPORT_MODEL
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-REPORT_MODEL = "llama-3.3-70b-versatile"
+# Keep 70B for high-quality reports
+# REPORT_MODEL = "llama-3.3-70b-versatile" # Legacy
 
 REPORT_SYSTEM_PROMPT = """You are a world-class research analyst writing a PUBLICATION-QUALITY research report.
 
