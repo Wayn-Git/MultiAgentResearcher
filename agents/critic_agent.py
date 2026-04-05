@@ -20,6 +20,7 @@ import os
 import json
 from groq import Groq
 from dotenv import load_dotenv
+from utils.llm_utils import call_with_retry
 
 load_dotenv()
 
@@ -147,7 +148,8 @@ def critique_synthesis(task_description: str, synthesis: dict) -> dict:
     """Run a single critique pass on a synthesis dict."""
     user_content = f"Task: {task_description}\n\nSynthesis to critique:\n{json.dumps(synthesis, indent=2)}"
 
-    completion = client.chat.completions.create(
+    completion = call_with_retry(
+        client=client,
         model=CRITIC_MODEL,
         messages=[
             {"role": "system", "content": CRITIC_SYSTEM_PROMPT},
@@ -155,7 +157,6 @@ def critique_synthesis(task_description: str, synthesis: dict) -> dict:
         ],
         temperature=0.3,
         max_tokens=2048,
-        stream=False
     )
 
     reply = completion.choices[0].message.content
@@ -180,7 +181,8 @@ def refine_synthesis(task_description: str, original_synthesis: dict, critique: 
         f"Critique to address:\n{json.dumps(critique, indent=2)}"
     )
 
-    completion = client.chat.completions.create(
+    completion = call_with_retry(
+        client=client,
         model=REFINE_MODEL,
         messages=[
             {"role": "system", "content": REFINE_SYSTEM_PROMPT},
@@ -188,7 +190,6 @@ def refine_synthesis(task_description: str, original_synthesis: dict, critique: 
         ],
         temperature=0.4,
         max_tokens=3000,
-        stream=False
     )
 
     reply = completion.choices[0].message.content

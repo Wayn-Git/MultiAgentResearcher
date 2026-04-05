@@ -15,6 +15,7 @@ from agents.critic_agent import run_critic_refinement
 from agents.cross_synthesis_agent import run_cross_synthesis
 from agents.gap_agent import detect_gaps
 from agents.report_agent import generate_report
+from utils.llm_utils import call_with_retry
 
 app = FastAPI()
 
@@ -461,8 +462,8 @@ EXAMPLES:
             }
         ]
 
-        # Add chat history (limit to last 10 exchanges to prevent context overflow)
-        for msg in request.history[-10:]:
+        # Add chat history (limit to last 5 exchanges to prevent context overflow)
+        for msg in request.history[-5:]:
             messages.append(
                 {"role": msg.get("role", "user"), "content": msg.get("content", "")}
             )
@@ -471,12 +472,12 @@ EXAMPLES:
         messages.append({"role": "user", "content": request.message})
 
         # Get response from LLM
-        completion = groq_client.chat.completions.create(
+        completion = call_with_retry(
+            client=groq_client,
             model=CHAT_MODEL,
             messages=messages,
             temperature=0.7,
             max_tokens=1500,
-            stream=False,
         )
 
         response_content = completion.choices[0].message.content

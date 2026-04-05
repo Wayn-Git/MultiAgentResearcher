@@ -14,6 +14,7 @@ import os
 import json
 from groq import Groq
 from dotenv import load_dotenv
+from utils.llm_utils import call_with_retry
 
 load_dotenv()
 
@@ -118,7 +119,8 @@ def synthesize(retrieval_results_path: str) -> str:
             f"Sources:\n{json.dumps(task_sources, indent=2)}"
         )
 
-        completion = client.chat.completions.create(
+        completion = call_with_retry(
+            client=client,
             model=SYNTHESIS_MODEL,
             messages=[
                 {"role": "system", "content": SYNTHESIS_SYSTEM_PROMPT},
@@ -126,7 +128,6 @@ def synthesize(retrieval_results_path: str) -> str:
             ],
             temperature=0.4,
             max_tokens=2500,
-            stream=False
         )
 
         reply = completion.choices[0].message.content

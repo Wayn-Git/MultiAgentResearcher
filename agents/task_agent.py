@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 import json
 import re
+from utils.llm_utils import call_with_retry
 
 load_dotenv()
 
@@ -27,7 +28,7 @@ def generate_tasks(user_input, research_context):
 You are given a research topic: "{user_input}"
 Research Context: {research_context if research_context else "Starting fresh research"}
 
-Your goal is to decompose this topic into 4-5 highly focused, non-overlapping research tasks that together provide thorough and comprehensive coverage of the topic.
+Your goal is to decompose this topic into 3-4 highly focused, non-overlapping research tasks that together provide thorough and comprehensive coverage of the topic.
 
 REQUIREMENTS FOR EACH TASK:
 1. Be SPECIFIC — avoid vague tasks like "research X". Every task should be answerable with concrete evidence.
@@ -60,11 +61,12 @@ CRITICAL: Return ONLY valid JSON inside <answer> tags. No preamble, no explanati
         {"role": "user",   "content": f"Research topic: {user_input}"}
     ]
 
-    completion = client.chat.completions.create(
+    completion = call_with_retry(
+        client=client,
         model=TASK_MODEL,
         messages=messages,
         temperature=0.3,
-        stream=False
+        max_tokens=1500,
     )
 
     assistant_output = completion.choices[0].message.content

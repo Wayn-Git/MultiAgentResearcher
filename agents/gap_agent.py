@@ -2,6 +2,7 @@ import os
 import json
 from groq import Groq
 from dotenv import load_dotenv
+from utils.llm_utils import call_with_retry
 
 load_dotenv()
 
@@ -79,7 +80,8 @@ CRITICAL: Output ONLY valid JSON inside <answer> tags. No trailing commas, no te
     with open(synthesis_results_path, "r", encoding="utf-8") as f:
         synthesized_data = json.load(f)
 
-    completion = client.chat.completions.create(
+    completion = call_with_retry(
+        client=client,
         model=GAP_MODEL,
         messages=[
             {"role": "system", "content": system_prompt},
@@ -87,7 +89,6 @@ CRITICAL: Output ONLY valid JSON inside <answer> tags. No trailing commas, no te
         ],
         temperature=0.4,
         max_tokens=2048,
-        stream=False
     )
 
     reply = completion.choices[0].message.content

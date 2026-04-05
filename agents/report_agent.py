@@ -15,6 +15,7 @@ import json
 import re
 from groq import Groq
 from dotenv import load_dotenv
+from utils.llm_utils import call_with_retry
 
 load_dotenv()
 
@@ -120,7 +121,8 @@ def generate_report(synthesis_results_path: str, gap_results_path: str, cross_sy
 
     print("[report] Generating final report...")
 
-    completion = client.chat.completions.create(
+    completion = call_with_retry(
+        client=client,
         model=REPORT_MODEL,
         messages=[
             {"role": "system", "content": REPORT_SYSTEM_PROMPT},
@@ -131,7 +133,6 @@ def generate_report(synthesis_results_path: str, gap_results_path: str, cross_sy
         ],
         temperature=0.5,
         max_tokens=5000,
-        stream=False
     )
 
     markdown_report = completion.choices[0].message.content.strip()

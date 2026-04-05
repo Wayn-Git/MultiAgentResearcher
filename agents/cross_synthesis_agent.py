@@ -18,6 +18,7 @@ import os
 import json
 from groq import Groq
 from dotenv import load_dotenv
+from utils.llm_utils import call_with_retry
 
 load_dotenv()
 
@@ -127,7 +128,8 @@ def run_cross_synthesis(synthesis_results_path: str) -> str:
         f"All task syntheses:\n{json.dumps(all_findings, indent=2)}"
     )
 
-    completion = client.chat.completions.create(
+    completion = call_with_retry(
+        client=client,
         model=CROSS_SYNTHESIS_MODEL,
         messages=[
             {"role": "system", "content": CROSS_SYNTHESIS_PROMPT},
@@ -135,7 +137,6 @@ def run_cross_synthesis(synthesis_results_path: str) -> str:
         ],
         temperature=0.45,
         max_tokens=3000,
-        stream=False
     )
 
     reply = completion.choices[0].message.content

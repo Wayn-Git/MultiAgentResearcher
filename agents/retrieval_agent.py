@@ -9,6 +9,8 @@ load_dotenv()
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 tavily = TavilyClient(api_key=os.getenv("TAVILY_SEARCH_API"))
 
+from utils.llm_utils import call_with_retry
+
 # 8b-instant is fine here — we make many calls (one per task) and the job
 # is extraction, not reasoning. Speed matters more than depth here.
 RETRIEVAL_MODEL = "llama-3.1-8b-instant"
@@ -19,7 +21,7 @@ def fetch_search_results(query):
     response = tavily.search(
         query=query,
         search_depth="advanced",
-        max_results=6,          # +1 more source
+        max_results=4,          # reduced from 6
         include_answer=True,    # Tavily's own answer for extra context
     )
 
@@ -29,7 +31,7 @@ def fetch_search_results(query):
             "title":   r.get("title", ""),
             "url":     r.get("url", ""),
             "source":  r.get("url", "").split("/")[2] if r.get("url") else "",
-            "snippet": r.get("content", "")[:2000],   # doubled from 1200
+            "snippet": r.get("content", "")[:1000],   # reduced from 2000
             "score":   round(r.get("score", 0), 3),
         })
 
@@ -94,11 +96,12 @@ CRITICAL: Output ONLY valid JSON inside <answer> tags. No trailing commas. No te
             {"role": "user",   "content": user_content}
         ]
 
-        completion = client.chat.completions.create(
+        completion = call_with_retry(
+            client=client,
             model=RETRIEVAL_MODEL,
             messages=messages,
             temperature=0.1,    # near-deterministic for factual extraction
-            stream=False
+            max_tokens=1500,
         )
 
         reply = completion.choices[0].message.content
