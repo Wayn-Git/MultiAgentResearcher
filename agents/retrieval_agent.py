@@ -1,132 +1,161 @@
-from groq import Groq
-from dotenv import load_dotenv
+"""
+retrieval_agent.py — Web retrieval with rate-limit-safe sequential processing
+
+Fixes over v1:
+  - Per-task delay between API calls (prevents TPM spikes)
+  - Source snippet hard-capped at 600 chars (was 1000)
+  - Max sources per task capped at 3 (was 4) — still enough signal
+  - Token budget pre-check before sending to LLM
+"""
+
 import os
 import json
+import time
+from groq import Groq
 from tavily import TavilyClient
+from dotenv import load_dotenv
+
+from utils.llm_utils import call_with_retry, estimate_tokens, trim_to_token_budget
+from utils.config import RETRIEVAL_MODEL
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 tavily = TavilyClient(api_key=os.getenv("TAVILY_SEARCH_API"))
 
-from utils.llm_utils import call_with_retry
-from utils.config import RETRIEVAL_MODEL
+# Max tokens we're willing to send as user content to the retrieval LLM
+MAX_RETRIEVAL_INPUT_TOKENS = 3000
+SNIPPET_MAX_CHARS = 600
+MAX_RESULTS = 3
+INTER_TASK_DELAY = 3.0  # seconds between tasks (prevents Tavily + Groq burst)
 
-# 8b-instant is fine here for extraction
-# RETRIEVAL_MODEL = "llama-3.1-8b-instant" # Legacy
 
-
-def fetch_search_results(query):
-    """Fetch rich search results from Tavily."""
+def fetch_search_results(query: str):
+    """Fetch and slim search results from Tavily."""
     response = tavily.search(
         query=query,
         search_depth="advanced",
-        max_results=4,          # reduced from 6
-        include_answer=True,    # Tavily's own answer for extra context
+        max_results=MAX_RESULTS,
+        include_answer=True,
     )
 
     structured = []
     for r in response.get("results", []):
+        snippet = r.get("content", "")[:SNIPPET_MAX_CHARS]
         structured.append({
             "title":   r.get("title", ""),
             "url":     r.get("url", ""),
             "source":  r.get("url", "").split("/")[2] if r.get("url") else "",
-            "snippet": r.get("content", "")[:1000],   # reduced from 2000
+            "snippet": snippet,
             "score":   round(r.get("score", 0), 3),
         })
 
-    # Include Tavily's synthesised answer if present
-    tavily_answer = response.get("answer", "")
+    tavily_answer = response.get("answer", "")[:400]  # cap the direct answer too
     return structured, tavily_answer
 
 
-def retrieve(tasks_file_path):
-    with open(tasks_file_path, "r", encoding="utf-8") as f:
-        tasks = json.load(f)
+EXTRACTION_SYSTEM = """You are a precision research extraction agent.
 
-    system_prompt_template = """You are a precision research extraction agent.
+Task: "{task_description}"
 
-Task you are extracting information for:
-"{task_description}"
+Given web search results (title, URL, snippet, score) and an optional direct answer:
+1. Extract ONLY content directly relevant to the task above.
+2. For each source: title, source domain, 2-3 sentence summary, 3-5 specific key points.
+3. Prefer high-score sources. Discard irrelevant ones.
+4. Pull specific numbers, dates, names, statistics — these make findings useful.
+5. If the direct answer adds useful facts, incorporate them.
 
-You are given raw web search results (title, URL, snippet, relevance score) plus an optional direct answer.
-
-Your job:
-1. Extract ONLY information directly relevant to the task above.
-2. For each source, produce a clear TITLE, the SOURCE domain, a 2-4 sentence SUMMARY of what the source says about the task, and 3-6 specific KEY POINTS as bullet facts.
-3. Prefer high-score sources. Discard irrelevant content.
-4. Pull out specific numbers, dates, names, statistics and technical details — these make findings useful.
-5. Do NOT paraphrase vaguely. Specific > general always.
-6. If the Tavily answer adds useful facts, incorporate them into the most relevant source entry or a separate "Direct Answer" entry.
-
-CRITICAL: Output ONLY valid JSON inside <answer> tags. No trailing commas. No text outside tags.
+CRITICAL: Return ONLY valid JSON inside <answer> tags.
 
 <answer>
 [
   {{
     "source": "domain.com",
-    "title": "Full title of the article or page",
+    "title": "Article title",
     "url": "https://...",
-    "summary": "2-4 sentence factual summary of what this source says about the task",
+    "summary": "2-3 sentence factual summary relevant to the task",
     "key_points": [
-      "Specific factual point with numbers/names where available",
-      "Another specific point",
-      "..."
+      "Specific point with numbers/names where available"
     ],
     "relevance_score": 0.95
   }}
 ]
 </answer>"""
 
+
+def retrieve(tasks_file_path: str) -> str:
+    with open(tasks_file_path, "r", encoding="utf-8") as f:
+        tasks = json.load(f)
+
     all_results = {}
 
-    for task in tasks:
+    for i, task in enumerate(tasks):
         task_description = task["description"]
+        print(f"\n[retrieval] Task {i+1}/{len(tasks)}: {task_description[:70]}...")
 
-        search_results, tavily_answer = fetch_search_results(task_description)
+        # --- Web search ---
+        try:
+            search_results, tavily_answer = fetch_search_results(task_description)
+        except Exception as e:
+            print(f"[retrieval] Tavily error: {e}")
+            all_results[task_description] = []
+            time.sleep(INTER_TASK_DELAY)
+            continue
 
-        formatted_prompt = system_prompt_template.format(
-            task_description=task_description
+        # --- Build user content and enforce token budget ---
+        system_prompt = EXTRACTION_SYSTEM.format(task_description=task_description)
+        raw_user_content = (
+            f"Direct answer:\n{tavily_answer}\n\n"
+            f"Search results:\n{json.dumps(search_results, indent=2)}"
         )
 
-        user_content = f"Tavily Direct Answer:\n{tavily_answer}\n\nSearch Results:\n{json.dumps(search_results, indent=2)}"
+        # Trim if needed to stay within budget
+        if estimate_tokens(raw_user_content) > MAX_RETRIEVAL_INPUT_TOKENS:
+            raw_user_content = trim_to_token_budget(raw_user_content, MAX_RETRIEVAL_INPUT_TOKENS)
 
         messages = [
-            {"role": "system", "content": formatted_prompt},
-            {"role": "user",   "content": user_content}
+            {"role": "system", "content": system_prompt},
+            {"role": "user",   "content": raw_user_content},
         ]
 
-        completion = call_with_retry(
-            client=client,
-            model=RETRIEVAL_MODEL,
-            messages=messages,
-            temperature=0.1,    # near-deterministic for factual extraction
-            max_tokens=1500,
-        )
+        # --- LLM extraction ---
+        try:
+            completion = call_with_retry(
+                client=client,
+                model=RETRIEVAL_MODEL,
+                messages=messages,
+                temperature=0.1,
+                max_tokens=1200,
+            )
+            reply = completion.choices[0].message.content
+        except Exception as e:
+            print(f"[retrieval] LLM error for '{task_description[:50]}': {e}")
+            all_results[task_description] = []
+            time.sleep(INTER_TASK_DELAY)
+            continue
 
-        reply = completion.choices[0].message.content
-
+        # --- Parse ---
         start = reply.find("<answer>") + len("<answer>")
         end   = reply.find("</answer>")
 
         if start < len("<answer>") or end == -1:
-            print(f"[retrieval] Missing tags for: {task_description}")
+            print(f"[retrieval] Missing tags, skipping task.")
             all_results[task_description] = []
-            continue
+        else:
+            try:
+                all_results[task_description] = json.loads(reply[start:end].strip())
+            except json.JSONDecodeError as e:
+                print(f"[retrieval] JSON parse failed: {e}")
+                all_results[task_description] = []
 
-        json_text = reply[start:end].strip()
-
-        try:
-            task_results = json.loads(json_text)
-        except json.JSONDecodeError as e:
-            print(f"[retrieval] Parse failed for '{task_description}': {e}")
-            task_results = []
-
-        all_results[task_description] = task_results
+        # Throttle between tasks (Tavily + Groq both have rate limits)
+        if i < len(tasks) - 1:
+            print(f"[retrieval] Pausing {INTER_TASK_DELAY}s before next task...")
+            time.sleep(INTER_TASK_DELAY)
 
     output_path = os.path.join(os.path.dirname(tasks_file_path), "retrieval_results.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(all_results, f, indent=4)
 
-    print("Retrieval saved to:", output_path)
+    print(f"\n[retrieval] Saved to: {output_path}")
     return output_path

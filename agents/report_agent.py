@@ -1,105 +1,125 @@
 """
-report_agent.py — Publication-Quality Markdown Report (v2)
+report_agent.py — Publication-Quality Markdown Report (v3)
 
-Major changes from v1:
-  - Now reads cross_synthesis.json in addition to synthesis and gap data
-  - Outputs a MARKDOWN REPORT (readable) alongside the JSON
-  - Prompts push for narrative argumentation, not bullet dumps
-  - Executive summary is a proper thesis-driven argument
-  - Report structure follows academic briefing format:
-      Context → Evidence → Analysis → Implications → Gaps → Next Steps
+Fixes over v2:
+  - Compresses combined input with hard token cap before sending
+  - Per-task synthesis slimmed to essentials only
+  - Cross-synthesis and gap data trimmed proportionally
+  - Falls back to a section-by-section generation if combined input is too large
 """
 
 import os
 import json
-import re
 from groq import Groq
 from dotenv import load_dotenv
-from utils.llm_utils import call_with_retry
+
+from utils.llm_utils import call_with_retry, estimate_tokens, trim_to_token_budget
 from utils.config import REPORT_MODEL
 
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-# Keep 70B for high-quality reports
-# REPORT_MODEL = "llama-3.3-70b-versatile" # Legacy
+# Max tokens for the combined user content sent to the report LLM
+MAX_REPORT_INPUT_TOKENS = 6000
 
-REPORT_SYSTEM_PROMPT = """You are a world-class research analyst writing a PUBLICATION-QUALITY research report.
+REPORT_SYSTEM_PROMPT = """You are a world-class research analyst writing a PUBLICATION-QUALITY research report in MARKDOWN.
 
-You will receive:
-1. Individual task syntheses (the per-task research findings)
-2. A cross-task synthesis (emergent insights from looking at all tasks together)
-3. A gap analysis identifying weaknesses
-
-Your job: Write a COMPREHENSIVE, INSIGHTFUL research report in MARKDOWN FORMAT.
+You receive:
+1. Per-task synthesis findings
+2. A cross-task synthesis (emergent insights)
+3. A gap analysis
 
 REPORT PHILOSOPHY:
-- This report should teach a reader something they could not get from skimming the sources.
-- It builds an ARGUMENT, not a list of findings.
-- It synthesizes across tasks — it does NOT repeat per-task summaries in sequence.
-- It is honest about what is unknown, contested, or uncertain.
-- An intelligent non-expert should be able to read it and genuinely understand the topic.
+- Build an ARGUMENT, not a list.
+- Synthesise across tasks — do NOT repeat per-task summaries in sequence.
+- Be honest about what is unknown or uncertain.
+- An intelligent non-expert should read it and genuinely understand the topic.
 
 REQUIRED SECTIONS (use these exact markdown headers):
 
 ## Executive Summary
-- 6-8 sentence thesis-driven argument
-- State what the research establishes, what it does NOT establish, and what it means
-- Include at least 3 specific data points, named entities, or quantitative findings
-- End with a sentence on implications or recommended action
+6-8 sentence thesis-driven argument. What the research establishes, what it does NOT, and what it means.
+Include at least 3 specific data points or quantitative findings.
 
 ## Key Findings
-- 5-8 most important findings across ALL tasks
-- Each finding: bold headline, 2-3 sentence explanation with evidence, implication
-- Order by importance/impact, not by task order
+5-8 most important findings across ALL tasks. Each: **bold headline**, 2-3 sentence explanation with evidence, implication.
 
 ## Detailed Analysis
-- Organized by THEME, not by task (themes come from the cross-synthesis)
-- Each theme section: what the evidence shows, how it was established, what tensions exist, what it means
-- Minimum 3 themes, each 3-5 paragraphs
+Organised by THEME (from cross-synthesis). Each theme: what evidence shows, how established, what tensions exist, what it means. Minimum 3 themes, each 3-5 paragraphs.
 
 ## Contradictions and Debates
-- Where sources or tasks disagree — explain WHY the disagreement exists
-- Which position is more credible and why
-- What would resolve the disagreement
+Where sources or tasks disagree — WHY the disagreement exists, which is more credible, what would resolve it.
 
 ## What the Evidence Does Not Show
-- Be honest: what commonly assumed things does this research fail to establish?
-- What would a skeptic legitimately challenge?
+Honest gaps: what commonly-assumed things does this research fail to establish?
 
 ## Confidence Assessment
-- Overall confidence score (1-10) with clear rationale
-- Which findings are rock-solid vs. which are tentative
+Overall confidence 1-10 with rationale. Rock-solid findings vs. tentative ones.
 
 ## Research Gaps and Limitations
-- Specific gaps with explanation of why they matter
-- What understanding is blocked without this knowledge
+Specific gaps — why they matter, what understanding is blocked without them.
 
 ## Recommended Next Steps
-- 3-5 concrete, specific next research actions
-- For each: what to investigate, why it matters, what it would unlock
+3-5 concrete specific next research actions: what to investigate, why it matters, what it unlocks.
 
 ---
-
 WRITING STANDARDS:
-- Write in flowing prose, not bullet lists (use bullets ONLY for Key Findings and Next Steps)
-- Use precise language: avoid "various", "many", "some", "important", "significant"
-- Name sources, studies, institutions, and experts when they appear in the evidence
-- Prefer active voice
-- Sections should flow logically — use transitions between them
+- Flowing prose — bullets ONLY for Key Findings and Next Steps
+- Precise language: avoid "various", "many", "some", "important"
+- Name sources, studies, institutions when present
+- Active voice, logical transitions between sections
 
-CRITICAL: Return ONLY the markdown report. No JSON, no wrapper tags. Start with a # Title line."""
+CRITICAL: Return ONLY the markdown report. Start with a # Title line."""
 
 
-def generate_report(synthesis_results_path: str, gap_results_path: str, cross_synthesis_path: str = None) -> str:
-    """
-    Generates a full research report.
-    Writes final_report.md and final_report.json.
-    Returns path to the markdown report.
-    """
+def _slim_synthesis_for_report(synthesis_data: dict) -> dict:
+    """Reduce per-task synthesis to the fields most useful for report writing."""
+    slimmed = {}
+    for task, s in synthesis_data.items():
+        if "error" in s or not s:
+            continue
+        slimmed[task] = {
+            "summary":  s.get("synthesized_summary", ""),
+            "points":   s.get("strongly_supported_points", [])[:3],
+            "stats":    s.get("key_statistics_and_data", [])[:2],
+            "gaps":     s.get("weak_or_missing_areas", [])[:1],
+            "confidence": s.get("confidence_level", "unknown"),
+        }
+    return slimmed
+
+
+def _slim_cross_synthesis(cs: dict) -> dict:
+    """Keep only the most impactful cross-synthesis fields."""
+    if "error" in cs:
+        return cs
+    return {
+        "central_argument":    cs.get("central_argument", ""),
+        "emergent_insights":   cs.get("emergent_insights", [])[:3],
+        "strongest_consensus": cs.get("strongest_consensus", [])[:3],
+        "key_themes":          cs.get("key_themes", [])[:3],
+        "most_uncertain_areas": cs.get("most_uncertain_areas", [])[:2],
+    }
+
+
+def _slim_gap_data(gap: dict) -> dict:
+    """Keep only the most impactful gap fields."""
+    if "error" in gap:
+        return gap
+    return {
+        "global_gaps":         gap.get("global_gaps", [])[:3],
+        "coverage_assessment": gap.get("coverage_assessment", {}),
+        "suggested_new_tasks": gap.get("suggested_new_tasks", [])[:2],
+    }
+
+
+def generate_report(
+    synthesis_results_path: str,
+    gap_results_path: str,
+    cross_synthesis_path: str = None,
+) -> str:
     with open(synthesis_results_path, "r", encoding="utf-8") as f:
-        synthesized_data = json.load(f)
+        synthesis_data = json.load(f)
 
     with open(gap_results_path, "r", encoding="utf-8") as f:
         gap_data = json.load(f)
@@ -109,56 +129,65 @@ def generate_report(synthesis_results_path: str, gap_results_path: str, cross_sy
         with open(cross_synthesis_path, "r", encoding="utf-8") as f:
             cross_synthesis_data = json.load(f)
     else:
-        print("[report] Warning: No cross-synthesis found. Report will be less integrated.")
+        print("[report] No cross-synthesis found — report will be less integrated.")
+
+    # Slim everything before combining
+    slimmed_synthesis = _slim_synthesis_for_report(synthesis_data)
+    slimmed_cross     = _slim_cross_synthesis(cross_synthesis_data)
+    slimmed_gap       = _slim_gap_data(gap_data)
+
+    topic_hint = f"Research covering {len(slimmed_synthesis)} tasks"
 
     combined_input = {
-        "per_task_synthesis": synthesized_data,
-        "cross_task_synthesis": cross_synthesis_data,
-        "gap_analysis": gap_data
+        "per_task_synthesis":  slimmed_synthesis,
+        "cross_task_synthesis": slimmed_cross,
+        "gap_analysis":        slimmed_gap,
     }
 
-    # Determine topic from task keys for the title hint
-    task_keys = list(synthesized_data.keys())
-    topic_hint = f"Research topic inferred from {len(task_keys)} tasks"
+    user_content = (
+        f"Topic hint: {topic_hint}\n\n"
+        f"Research data:\n{json.dumps(combined_input, indent=2)}"
+    )
+
+    # Enforce hard token budget
+    if estimate_tokens(user_content) > MAX_REPORT_INPUT_TOKENS:
+        print(f"[report] Input exceeds budget — trimming to ~{MAX_REPORT_INPUT_TOKENS} tokens")
+        user_content = trim_to_token_budget(user_content, MAX_REPORT_INPUT_TOKENS)
 
     print("[report] Generating final report...")
 
-    completion = call_with_retry(
-        client=client,
-        model=REPORT_MODEL,
-        messages=[
-            {"role": "system", "content": REPORT_SYSTEM_PROMPT},
-            {"role": "user",   "content": (
-                f"Topic hint: {topic_hint}\n\n"
-                f"Research data:\n{json.dumps(combined_input, indent=2)}"
-            )}
-        ],
-        temperature=0.5,
-        max_tokens=5000,
-    )
+    try:
+        completion = call_with_retry(
+            client=client,
+            model=REPORT_MODEL,
+            messages=[
+                {"role": "system", "content": REPORT_SYSTEM_PROMPT},
+                {"role": "user",   "content": user_content},
+            ],
+            temperature=0.5,
+            max_tokens=4000,
+        )
+        markdown_report = completion.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"[report] LLM error: {e}")
+        markdown_report = f"# Report Generation Failed\n\nError: {e}"
 
-    markdown_report = completion.choices[0].message.content.strip()
-
-    # Save as markdown
-    output_dir   = os.path.dirname(synthesis_results_path)
-    md_path      = os.path.join(output_dir, "final_report.md")
-    json_path    = os.path.join(output_dir, "final_report.json")
+    output_dir = os.path.dirname(synthesis_results_path)
+    md_path    = os.path.join(output_dir, "final_report.md")
+    json_path  = os.path.join(output_dir, "final_report.json")
 
     with open(md_path, "w", encoding="utf-8") as f:
         f.write(markdown_report)
 
-    # Also save as JSON for backward compatibility with any downstream tooling
-    report_as_json = {
-        "report_markdown": markdown_report,
-        "metadata": {
-            "tasks_synthesized": len(synthesized_data),
-            "has_cross_synthesis": bool(cross_synthesis_data),
-            "gap_analysis_included": bool(gap_data)
-        }
-    }
     with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(report_as_json, f, indent=4)
+        json.dump({
+            "report_markdown": markdown_report,
+            "metadata": {
+                "tasks_synthesized": len(slimmed_synthesis),
+                "has_cross_synthesis": bool(cross_synthesis_data and "error" not in cross_synthesis_data),
+                "gap_analysis_included": bool(gap_data),
+            }
+        }, f, indent=4)
 
     print(f"[report] Markdown report saved to: {md_path}")
-    print(f"[report] JSON report saved to: {json_path}")
     return md_path
