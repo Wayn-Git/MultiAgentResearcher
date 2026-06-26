@@ -712,7 +712,7 @@ function MainDashboard() {
     setQuery('')
 
     try {
-      const response = await fetch('http://localhost:8000/api/research/stream', {
+      const response = await fetch(`${API_URL}/api/research/stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
         body: JSON.stringify({ query: searchQuery }),
