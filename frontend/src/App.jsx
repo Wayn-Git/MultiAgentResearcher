@@ -121,7 +121,9 @@ function RetrievalBody({ data }) {
 }
 
 function SynthesisBody({ data }) {
-  const results = data ? Object.values(data) : [];
+  if (!data) return <p className="text-xs font-mono text-[var(--color-ink-muted)]">Synthesis completed.</p>;
+  const isSingle = data.synthesized_summary || data.key_findings || data.summary;
+  const results = isSingle ? [data] : Object.values(data);
   if (!results.length) return <p className="text-xs font-mono text-[var(--color-ink-muted)]">Synthesis completed.</p>;
 
   return (
@@ -132,7 +134,7 @@ function SynthesisBody({ data }) {
         const concepts   = res?.core_concepts || res?.key_concepts || res?.concepts || []
         const themes     = res?.themes || res?.main_themes || []
         const tags       = concepts.length ? concepts : themes
-        const taskName   = res?.task || Object.keys(data)[index] || `Task ${index+1}`
+        const taskName   = isSingle ? 'Global Synthesis' : (res?.task || Object.keys(data)[index] || `Task ${index+1}`);
 
         if (!summary && !findings.length && !tags.length) return null;
 
@@ -178,14 +180,17 @@ function SynthesisBody({ data }) {
 }
 
 function CriticBody({ data }) {
-  const tasks = data ? Object.values(data) : [];
+  if (!data) return <p className="text-xs font-mono text-[var(--color-ink-muted)]">Critical review completed. No major issues identified.</p>;
+  
+  const isSingle = data.critique_log || data.issues || data.refined_synthesis;
+  const tasks = isSingle ? [data] : Object.values(data);
   if (!tasks.length) return <p className="text-xs font-mono text-[var(--color-ink-muted)]">Critical review completed. No major issues identified.</p>;
   
   return (
     <div className="flex flex-col gap-6 font-sans">
       {tasks.map((res, index) => {
         const issues = res?.vague_claims || res?.issues || res?.critique_log || [];
-        const taskName = res?.task || Object.keys(data)[index] || `Task ${index+1}`;
+        const taskName = isSingle ? 'Global Critique' : (res?.task || Object.keys(data)[index] || `Task ${index+1}`);
         const overallAssessment = res?.overall_assessment || null;
         
         if (!issues.length && !overallAssessment) return null;
@@ -511,17 +516,19 @@ function ChatMessage({ log, reportMarkdown }) {
       </motion.div>
     )
   }
-  if (log.type === 'report') {
-    const md = log.data?.markdown || reportMarkdown || null
-    return (
-      <motion.div 
-        initial={{ opacity: 0, y: 10 }} 
-        animate={{ opacity: 1, y: 0 }}
-        className="my-4"
-      >
-        <ReportCard data={log.data} markdown={md} />
-      </motion.div>
-    )
+  if (log.type === 'report' || (log.step === 'report' && (log.data?.markdown || log.data?.report_markdown))) {
+    const md = log.data?.markdown || log.data?.report_markdown || reportMarkdown || null
+    if (md) {
+      return (
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }} 
+          animate={{ opacity: 1, y: 0 }}
+          className="my-4"
+        >
+          <ReportCard data={log.data} markdown={md} />
+        </motion.div>
+      )
+    }
   }
 
   if (log.step) {
