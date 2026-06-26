@@ -1,0 +1,26 @@
+[
+    {
+        "description": "History and Evolution of Python Programming Language",
+        "priority": 9,
+        "type": "research",
+        "search_angle": "python programming language history"
+    },
+    {
+        "description": "Current State of Python Ecosystem, including Popular Libraries and Frameworks",
+        "priority": 8,
+        "type": "research",
+        "search_angle": "python ecosystem libraries frameworks"
+    },
+    {
+        "description": "Key Features and Technical Details of Python Programming Language",
+        "priority": 8,
+        "type": "research",
+        "search_angle": "python programming language features technical details"
+    },
+    {
+        "description": "Challenges and Limitations of Using Python in Real-World Applications",
+        "priority": 7,
+        "type": "research",
+        "search_angle": "python challenges limitations real-world applications"
+    }
+]

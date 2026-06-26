@@ -1,0 +1,148 @@
+{
+    "Identify the core features and functionalities of LangChain, AutoGen, and CrewAI frameworks": [
+        {
+            "source": "www.instinctools.com",
+            "title": "Autogen vs LangChain vs CrewAI | instinctools",
+            "url": "https://www.instinctools.com/blog/autogen-vs-langchain-vs-crewai",
+            "summary": "The article compares and contrasts LangChain, AutoGen, and CrewAI, highlighting their unique features and functionalities.",
+            "key_points": [
+                "AutoGen excels in multi-agent conversational workflows with its mix-and-match ability, combining agents using different LLMs and tools.",
+                "LangChain is a modular LLM orchestration framework with broad integrations out of the box, living up to its 'Swiss army knife' label.",
+                "CrewAI features both canned tools for common use cases and an easy way to define custom ones, plus Python function calls, striking a middle ground between the other two frameworks."
+            ],
+            "relevance_score": 0.806
+        },
+        {
+            "source": "www.youtube.com",
+            "title": "AI Agent Frameworks: LangChain vs AutoGen vs CrewAI | Uplatz",
+            "url": "https://www.youtube.com/watch?v=MCvwDQcfKI0",
+            "summary": "The video provides an overview of LangChain, AutoGen, and CrewAI, discussing their approaches to AI agent development and tool integration.",
+            "key_points": [
+                "LangChain uses a modular LLM orchestration approach, allowing for flexible tool integration and external API orchestration.",
+                "AutoGen focuses on multi-agent conversational workflows, enabling developers to combine agents using different LLMs and tools.",
+                "CrewAI emphasizes role-based multi-agent collaboration, providing a framework for building complex AI systems."
+            ],
+            "relevance_score": 0.747
+        },
+        {
+            "source": "galileo.ai",
+            "title": "Mastering Agents: LangGraph Vs Autogen Vs Crew AI - Galileo AI",
+            "url": "https://galileo.ai/blog/mastering-agents-langgraph-vs-autogen-vs-crew",
+            "summary": "The article discusses the features and functionalities of LangGraph, AutoGen, and Crew AI, highlighting their integration capabilities and tool support.",
+            "key_points": [
+                "LangGraph integrates seamlessly with LangChain, providing access to a wide range of tools and models.",
+                "AutoGen supports various tools, including code executors and function callers, with a modular design for easy integration of new tools.",
+                "Crew AI is built over Langchain, giving users access to all of their tools, and allows users to define and integrate custom tools."
+            ],
+            "relevance_score": 0.727
+        }
+    ],
+    "Analyze the technical architectures and underlying technologies of LangChain, AutoGen, and CrewAI frameworks": [
+        {
+            "source": "atlan.com",
+            "title": "AI Agent Frameworks Compared: LangChain, CrewAI, and More",
+            "url": "https://atlan.com/know/ai-agents-frameworks-compared",
+            "summary": "LangChain, LlamaIndex, CrewAI, and AutoGen are the four most-adopted AI agent frameworks in enterprise environments, each excelling in different areas such as orchestration flexibility, retrieval, role-based multi-agent coordination, and human-in-the-loop workflows.",
+            "key_points": [
+                "LangChain leads on orchestration flexibility and MCP maturity",
+                "LlamaIndex excels in retrieval",
+                "CrewAI specializes in role-based multi-agent coordination",
+                "AutoGen emphasizes human-in-the-loop workflows"
+            ],
+            "relevance_score": 0.72
+        },
+        {
+            "source": "galileo.ai",
+            "title": "AutoGen vs. CrewAI vs. LangGraph vs. OpenAI AI Agents Framework",
+            "url": "https://galileo.ai/blog/autogen-vs-crewai-vs-langgraph-vs-openai-agents-framework",
+            "summary": "The four frameworks dominating serious agent work each take radically different approaches, with AutoGen using structured multi-agent conversations, CrewAI using role-based \"crews\" with shared context, LangGraph compiling every step into a stateful graph, and OpenAI's Agent SDK using a lightweight, tool-centric model.",
+            "key_points": [
+                "AutoGen uses structured multi-agent conversations",
+                "CrewAI uses role-based \"crews\" with shared context",
+                "LangGraph compiles every step into a stateful graph",
+                "OpenAI's Agent SDK uses a lightweight, tool-centric model"
+            ],
+            "relevance_score": 0.71
+        }
+    ],
+    "Compare the performance, scalability, and reliability of LangChain, AutoGen, and CrewAI frameworks in real-world applications": [
+        {
+            "source": "www.instinctools.com",
+            "title": "Autogen vs LangChain vs CrewAI | *instinctools",
+            "url": "https://www.instinctools.com/blog/autogen-vs-langchain-vs-crewai",
+            "summary": "The article compares the performance, scalability, and reliability of LangChain, AutoGen, and CrewAI frameworks in real-world applications. LangChain excels in complex, highly customizable applications with extensive tool integrations, while CrewAI offers speed and scalability for role-based workflows. AutoGen is best for conversational and code-driven agent systems, balancing concurrency and reliability.",
+            "key_points": [
+                "LangChain has over 600+ integrations and can connect to virtually every major LLM, tool, and database via a standardized interface.",
+                "CrewAI takes a hybrid approach to integration, offering ready-made tools and custom logic, branching, and external Python functions.",
+                "AutoGen keeps its integration story lean but capable, mixing model providers and tools cleanly and slotting human input into the loop when you want it.",
+                "LangChain is quick in simple flows, though overhead creeps in as you chain more agents together.",
+                "CrewAI borrows the entire LangChain tool library and adds its own ready-made tools, treating Model Context Protocol support as a first-class feature."
+            ],
+            "relevance_score": 0.898
+        },
+        {
+            "source": "www.dreamsoft4u.com",
+            "title": "LangChain vs CrewAI vs AutoGen: Which Multi-Agent Framework ...",
+            "url": "https://www.dreamsoft4u.com/blog/langchain-vs-crewai-vs-autogen",
+            "summary": "The article compares the performance, scalability, and reliability of LangChain, AutoGen, and CrewAI frameworks in real-world applications. CrewAI does not try to out-integrate LangChain, instead borrowing its tool library and adding its own features. AutoGen keeps its integration story lean but capable, mixing model providers and tools cleanly.",
+            "key_points": [
+                "CrewAI borrows the entire LangChain tool library and adds its own ready-made tools.",
+                "AutoGen keeps its integration story lean but capable, mixing model providers and tools cleanly.",
+                "LangChain is quick in simple flows, though overhead creeps in as you chain more agents together.",
+                "CrewAI treats Model Context Protocol support as a first-class feature."
+            ],
+            "relevance_score": 0.862
+        },
+        {
+            "source": "medium.com",
+            "title": "LangChain vs CrewAI vs Autogen: A Practical Guide to Choosing an ...",
+            "url": "https://medium.com/@data.ai.oliver/langchain-vs-crewai-vs-autogen-a-practical-guide-to-choosing-an-ai-agent-framework-a2d5de59b6c4",
+            "summary": "The article provides a practical overview of how LangChain, CrewAI, and AutoGen compare in terms of their philosophy, strengths, and weaknesses. LangChain is modular, flexible, and deeply customizable, while CrewAI offers speed and scalability for role-based workflows.",
+            "key_points": [
+                "LangChain was one of the first frameworks to popularize tool-using agents and has since become a go-to for experimentation and prototyping.",
+                "LangChain has a large ecosystem (tools, chains, memory types, callbacks) and very flexible tool integration.",
+                "CrewAI offers speed and scalability for role-based workflows.",
+                "AutoGen is best for conversational and code-driven agent systems, balancing concurrency and reliability."
+            ],
+            "relevance_score": 0.838
+        }
+    ],
+    "Examine the community support, documentation, and adoption rates of LangChain, AutoGen, and CrewAI frameworks": [
+        {
+            "source": "www.instinctools.com",
+            "title": "Autogen vs LangChain vs CrewAI | *instinctools",
+            "url": "https://www.instinctools.com/blog/autogen-vs-langchain-vs-crewai",
+            "summary": "The article compares LangChain, AutoGen, and CrewAI frameworks, discussing their community support, documentation, and adoption rates.",
+            "key_points": [
+                "LangChain has high ecosystem gravity, backed up with integrations, community support, and community channels.",
+                "AutoGen benefits from Microsoft's backing, but its GitHub repo is active only within the core Microsoft team.",
+                "CrewAI's community is still nascent, and users may have to comb through the code themselves when issues arise.",
+                "LangChain gets updated daily to weekly, while AutoGen's release cadence is slower, roughly monthly or per milestone."
+            ],
+            "relevance_score": 0.89
+        },
+        {
+            "source": "www.techaheadcorp.com",
+            "title": "12 AI Agent Frameworks Compared: LangGraph, ADK & More",
+            "url": "https://www.techaheadcorp.com/blog/top-agent-frameworks",
+            "summary": "The article compares various AI agent frameworks, including LangChain, AutoGen, and CrewAI, discussing their features and ease of implementation.",
+            "key_points": [
+                "LangChain provides extensive debugging, monitoring, and versioning tools, supporting complex workflows.",
+                "AutoGen includes stateful agent orchestration with logs for lifecycle management.",
+                "LangChain's broad integrations simplify adoption in diverse environments, while AutoGen and CrewAI cater to multi-agent workflows with moderate learning curves."
+            ],
+            "relevance_score": 0.755
+        },
+        {
+            "source": "medium.com",
+            "title": "LangChain vs CrewAI vs Autogen: A Practical Guide to Choosing an ...",
+            "url": "https://medium.com/@data.ai.oliver/langchain-vs-crewai-vs-autogen-a-practical-guide-to-choosing-an-ai-agent-framework-a2d5de59b6c4",
+            "summary": "The article provides a practical overview of LangChain, CrewAI, and AutoGen frameworks, discussing their philosophies and strengths.",
+            "key_points": [
+                "LangChain is modular, flexible, and deeply customizable, with a large ecosystem and active development.",
+                "LangChain was one of the first frameworks to popularize tool-using agents and has since become a go-to for experimentation and prototyping."
+            ],
+            "relevance_score": 0.716
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "description": "Identify key milestones in the evolution of the Python programming language, including its creation, major releases, and notable features.",
+        "priority": 9,
+        "type": "historical context",
+        "search_angle": "Python language history key milestones"
+    },
+    {
+        "description": "Analyze the current state of the Python ecosystem, including popular libraries, frameworks, and tools, as well as their applications and use cases.",
+        "priority": 8,
+        "type": "current state",
+        "search_angle": "Python ecosystem popular libraries frameworks tools applications"
+    },
+    {
+        "description": "Examine the technical details of Python programming, including its syntax, data types, object-oriented programming, and performance characteristics.",
+        "priority": 8,
+        "type": "technical details",
+        "search_angle": "Python programming syntax data types OOP performance"
+    },
+    {
+        "description": "Investigate the challenges and limitations of using Python, including performance bottlenecks, security concerns, and compatibility issues, as well as strategies for overcoming these challenges.",
+        "priority": 7,
+        "type": "challenges and limitations",
+        "search_angle": "Python challenges limitations performance security compatibility"
+    }
+]

@@ -2,18 +2,41 @@
 @plugin "tailwindcss-animate";
 
 @theme {
-    --color-background: #0a0a0a;
-    --color-foreground: #ffffff;
-    --color-muted: #262626;
-    --color-card: #111111;
-    --color-border: #404040;
+    --color-background: #f5f5f7;
+    --color-foreground: #1d1d1f;
+    
+    /* Apple Color System for Light Mode */
+    --color-apple-blue: #0071e3;
+    --color-apple-blue-focus: #4cb3ff;
+    
+    --color-surface-white: #ffffff;
+    --color-surface-tile1: #ffffff;
+    --color-surface-tile2: #f5f5f7;
+    
+    --color-ink: #1d1d1f;
+    --color-ink-muted: #86868b;
+    --color-ink-muted-80: #86868b;
+    --color-ink-muted-48: #d2d2d7;
+    
+    --color-hairline: #d2d2d7;
 
-    --font-mono: 'Space Mono', monospace, 'JetBrains Mono', 'VT323';
-    --font-pixel: 'VT323', monospace;
+    /* Lumina Dark Sidebar Tokens */
+    --color-dark-bg: #111111;
+    --color-dark-surface: #1a1a1a;
+    --color-dark-surface-hover: #2a2a2a;
+    --color-dark-border: #333333;
+    --color-dark-text: #ffffff;
+    --color-dark-text-muted: #a1a1aa;
+    
+    /* Lumina Accents */
+    --color-lumina-green: #34d399;
+    --color-lumina-red: #f87171;
+    --color-lumina-button: #d9f95d; /* The bright green-yellow upgrade button */
+    --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
 
-    --default-font-family: var(--font-mono);
-
-    --background-image-dot-pattern: radial-gradient(circle, #333 1px, transparent 1px);
+    --default-font-family: var(--font-sans);
 }
 
 @layer base {
@@ -25,13 +48,17 @@
     body {
         background-color: var(--color-background);
         color: var(--color-foreground);
-        font-family: var(--font-mono);
+        font-family: var(--font-sans);
         -webkit-font-smoothing: antialiased;
         overflow: hidden;
         height: 100%;
         height: 100dvh;
         margin: 0;
         padding: 0;
+        /* Apple base body size is 17px */
+        font-size: 17px;
+        line-height: 1.47;
+        letter-spacing: -0.022em;
     }
 
     #root {
@@ -43,11 +70,10 @@
 
     /* Mobile keyboard handling - prevent zoom on input focus */
     input, textarea {
-        font-size: 16px;
+        font-size: 17px;
         -webkit-appearance: none;
     }
 
-    /* iOS Safari fix for viewport when keyboard is visible */
     @supports (-webkit-touch-callout: none) {
         body {
             min-height: -webkit-fill-available;
@@ -56,15 +82,60 @@
 }
 
 @layer utilities {
-    .bg-dot-matrix {
-        background-image: var(--background-image-dot-pattern);
-        background-size: 16px 16px;
+    /* Apple Typography Tokens */
+    .apple-hero {
+        font-family: var(--font-display);
+        font-size: 56px;
+        font-weight: 600;
+        line-height: 1.07;
+        letter-spacing: -0.005em;
     }
-
-    .glass-panel {
-        background-color: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(12px);
-        border: 1px solid var(--color-border);
+    .apple-display-lg {
+        font-family: var(--font-display);
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: 0;
+    }
+    .apple-display-md {
+        font-family: var(--font-sans);
+        font-size: 34px;
+        font-weight: 600;
+        line-height: 1.47;
+        letter-spacing: -0.022em;
+    }
+    .apple-lead {
+        font-family: var(--font-display);
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 1.14;
+        letter-spacing: 0.007em;
+    }
+    .apple-tagline {
+        font-family: var(--font-display);
+        font-size: 21px;
+        font-weight: 600;
+        line-height: 1.19;
+        letter-spacing: 0.011em;
+    }
+    .apple-body-strong {
+        font-weight: 600;
+    }
+    .apple-caption {
+        font-size: 14px;
+        line-height: 1.43;
+        letter-spacing: -0.016em;
+    }
+    .apple-caption-strong {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.29;
+        letter-spacing: -0.016em;
+    }
+    .apple-fine-print {
+        font-size: 12px;
+        line-height: 1.0;
+        letter-spacing: -0.01em;
     }
 }
 
@@ -78,41 +149,36 @@
     animation: blink 1s step-end infinite;
 }
 
-/* Grid movement animation for splash */
-@keyframes gridMove {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(40px, 40px); }
+/* macOS Style Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
 }
 
-/* Mobile scrollbar styling */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d2d2d7;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #86868b;
+}
+
 @media (max-width: 1024px) {
-    ::-webkit-scrollbar {
-        width: 4px;
-        height: 4px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: #1a1a1a;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: #404040;
-        border-radius: 2px;
-    }
-    
-    /* Smooth scrolling for mobile */
     * {
         -webkit-overflow-scrolling: touch;
     }
 }
 
-/* Prevent iOS bounce scroll on the app container */
 #root {
     height: 100dvh;
     overflow: hidden;
 }
 
-/* Safe area insets for notched devices */
 @supports (padding: env(safe-area-inset-bottom)) {
     body {
         padding-left: env(safe-area-inset-left);
