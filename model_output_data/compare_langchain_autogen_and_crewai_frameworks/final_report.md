@@ -1,3 +1,0 @@
-# Report Generation Failed
-
-Error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kfs54arte5jssv75z4vwshfx` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 95472, Requested 6057. Please try again in 22m1.056s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
